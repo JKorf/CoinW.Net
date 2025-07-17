@@ -1,0 +1,15 @@
+POST
+/api/v1/private
+true
+{"code": "200",
+ "data": {"list": [{"orderType": "LIMIT",
+    "orderId": 4624385377802383167,
+    "fee": "0E-18",
+    "price": "82429.080000000000000000",
+    "size": "0.001200000000000000",
+    "side": "BUY",
+    "time": 1741772251663,
+    "tradeId": 127204554}]},
+ "msg": "SUCCESS",
+ "success": true,
+ "failed": false}

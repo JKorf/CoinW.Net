@@ -1,0 +1,30 @@
+GET
+/api/v1/public
+false
+{"code": "200",
+ "data": [
+{"currencyBase": "BTC",
+ "maxBuyCount": "9999999.00000000000000000000",
+ "pricePrecision": 2,
+ "minBuyPrice": "0.00100000000000000000",
+ "currencyPair": "BTC_USDT",
+ "minBuyAmount": "5.00000000000000000000",
+ "maxBuyPrice": "99999999.00000000000000000000",
+ "currencyQuote": "USDT",
+ "countPrecision": 4,
+ "minBuyCount": "0.00010000000000000000",
+ "state": 1,
+ "maxBuyAmount": "99999999.00000000000000000000"},
+{"currencyBase": "ETH",
+ "maxBuyCount": "99999999.00000000000000000000",
+ "pricePrecision": 2,
+ "minBuyPrice": "0.00100000000000000000",
+ "currencyPair": "ETH_USDT",
+ "minBuyAmount": "5.00000000000000000000",
+ "maxBuyPrice": "99999999.00000000000000000000",
+ "currencyQuote": "USDT",
+ "countPrecision": 4,
+ "minBuyCount": "0.00010000000000000000",
+ "state": 1,
+ "maxBuyAmount": "99999999.00000000000000000000"}], 
+"msg": "SUCCESS"}

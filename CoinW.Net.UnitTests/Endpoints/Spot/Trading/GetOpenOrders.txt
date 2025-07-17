@@ -1,0 +1,25 @@
+POST
+/api/v1/private
+true
+{"code": "200",
+ "data": [{"orderNumber": 4624541508540145096,
+   "date": 1743669325942,
+   "startingAmount": "8.20",
+   "total": "0.0001",
+   "type": "buy",
+   "prize": "82000.00",
+   "success_count": "0.0000",
+   "success_amount": "0.00",
+   "status": 1},
+  {"orderNumber": 4624586588413897537,
+   "date": 1743669298855,
+   "startingAmount": "8.20",
+   "total": "0.0001",
+   "type": "buy",
+   "prize": "82000.00",
+   "success_count": "0.0000",
+   "success_amount": "0.00",
+   "status": 1}],
+ "msg": "SUCCESS",
+ "success": true,
+ "failed": false}

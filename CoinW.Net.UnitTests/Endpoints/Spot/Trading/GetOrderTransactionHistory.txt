@@ -1,0 +1,18 @@
+POST
+/api/v1/private
+true
+{"code": "200",
+ "data": [{"tradeID": 4624544807079846405,
+   "date": 1743676798747,
+   "amount": "8.20",
+   "total": "0.0001",
+   "fee": "0.00",
+   "type": "buy",
+   "prize": "82000.00",
+   "success_count": "0.0000",
+   "success_amount": "0.00",
+   "status": 4,
+   "out_trade_no": "3-04-2-4*******"}],
+ "msg": "SUCCESS",
+ "success": true,
+ "failed": false}

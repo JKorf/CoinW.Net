@@ -1,0 +1,8 @@
+POST
+/api/v1/private
+true
+{"code": "200",
+ "data": {"orderNumber": 4624603081039753080},
+ "msg": "SUCCESS",
+ "success": true,
+ "failed": false}

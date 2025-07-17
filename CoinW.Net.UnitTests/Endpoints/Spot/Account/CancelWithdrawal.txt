@@ -1,0 +1,34 @@
+POST
+/api/v1/private
+true
+{
+ "code":"200",
+ "data":[
+ {
+ "amount":31659.654543,
+ "chain": "ERC20",
+ "side": 1,
+ "depositNumber":937963,
+ "address":"123",
+ "txid":"",
+ "memo": null,
+ "currency":"HC",
+ "time": 1704858504000,
+ "confirmations":0,
+ "status":3
+ },{
+ "amount":398.8,
+ "chain": "ERC20",
+ "side": 1,
+ "depositNumber":903010,
+ "address":"123",
+ "memo": null,
+ "txid":"",
+ "currency":"HC",
+ "time": 1704858504000,
+ "confirmations":0,
+ "status":3
+ }
+ ],
+ "msg":"SUCCESS"
+ }

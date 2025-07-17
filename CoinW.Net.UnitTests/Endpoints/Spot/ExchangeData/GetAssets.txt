@@ -1,0 +1,23 @@
+GET
+/api/v1/public
+false
+{"code": "200", 
+"data": 
+{"BTC": {"symbolId": "50",
+ "symbol": "BTC",
+ "withDraw": "1",
+ "recharge": "1",
+ "maxQty": "5.000000",
+ "minQty": "0.001000",
+ "txFee": "0.0",
+ "chain": "BTC"}, 
+"ETH": {"symbolId": "16",
+ "symbol": "ETH",
+ "withDraw": "1",
+ "recharge": "1",
+ "maxQty": "60.000000",
+ "minQty": "0.010000",
+ "txFee": "0.0",
+ "chain": "ETH@BSC@Arbitrum@BASE"}
+},
+ "msg": "SUCCESS"}

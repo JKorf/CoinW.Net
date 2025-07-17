@@ -1,0 +1,17 @@
+POST
+/api/v1/private
+true
+{"code": "200",
+ "data": {"tradeID": 4624385377802383167,
+  "currencyPair": "BTC_USDT",
+  "type": "buy",
+  "amount": "0.00",
+  "success_amount": "98.91",
+  "total": "0.0000",
+  "success_total": "0.0012",
+  "fee": "0.00",
+  "date": "2025-03-12 17:37:31",
+  "status": 3},
+ "msg": "SUCCESS",
+ "success": true,
+ "failed": false}

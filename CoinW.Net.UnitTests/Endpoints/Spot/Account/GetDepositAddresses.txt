@@ -1,0 +1,11 @@
+POST
+/api/v1/private
+true
+{"code": "200",
+ "data": [{"chainName": "BTC",
+   "address": "1HCtJq9kWbBG1W24CLQ7SAiDivy6E7xHFj",
+   "memo": null,
+   "minRechargeAmount": "0.00001"}],
+ "msg": "SUCCESS",
+ "success": true,
+ "failed": false}
