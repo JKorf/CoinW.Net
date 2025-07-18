@@ -19,6 +19,11 @@ namespace CoinW.Net.Enums
         /// Filled
         /// </summary>
         [Map("FILLED")]
-        Filled
+        Filled,
+        /// <summary>
+        /// Rejected
+        /// </summary>
+        [Map("REJECTED")]
+        Rejected
     }
 }

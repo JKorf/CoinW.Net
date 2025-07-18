@@ -27,4 +27,5 @@ false
  "minBuyCount": "0.00010000000000000000",
  "state": 1,
  "maxBuyAmount": "99999999.00000000000000000000"}], 
-"msg": "SUCCESS"}
+"msg": "SUCCESS",
+ "success": true}

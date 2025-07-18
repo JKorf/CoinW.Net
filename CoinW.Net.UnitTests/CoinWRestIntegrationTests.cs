@@ -10,7 +10,7 @@ using CoinW.Net.Objects.Options;
 namespace CoinW.Net.UnitTests
 {
     [NonParallelizable]
-    public class CoinWRestIntegrationTests : RestIntergrationTest<CoinWRestClient>
+    public class CoinWRestIntegrationTests : RestIntegrationTest<CoinWRestClient>
     {
         public override bool Run { get; set; } = false;
 

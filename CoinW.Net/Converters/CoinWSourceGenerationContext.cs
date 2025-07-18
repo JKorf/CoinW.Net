@@ -23,6 +23,12 @@ namespace CoinW.Net.Converters
     [JsonSerializable(typeof(CoinWResponse<CoinWOrderDetails>))]
     [JsonSerializable(typeof(CoinWResponse<CoinWOrderTransaction[]>))]
     [JsonSerializable(typeof(CoinWResponse<CoinWUserTradeWrapper>))]
+    [JsonSerializable(typeof(CoinWResponse<CoinWFuturesSymbol[]>))]
+    [JsonSerializable(typeof(CoinWResponse<CoinWFuturesTicker[]>))]
+    [JsonSerializable(typeof(CoinWResponse<CoinWFuturesKline[]>))]
+    [JsonSerializable(typeof(CoinWResponse<CoinWValue>))]
+    [JsonSerializable(typeof(CoinWResponse<CoinWFuturesOrderBook>))]
+    [JsonSerializable(typeof(CoinWResponse<CoinWFuturesTrade[]>))]
     [JsonSerializable(typeof(CoinWResponse))]
 
     [JsonSerializable(typeof(CoinWSocketRequest))]

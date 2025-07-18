@@ -1,0 +1,9 @@
+GET
+/v1/perpum/fundingRate
+false
+{
+"code": 0, 
+"data": 
+  {"value": 2.964e-05}, 
+"msg": ""
+}

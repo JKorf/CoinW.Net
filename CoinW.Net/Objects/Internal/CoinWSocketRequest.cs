@@ -12,7 +12,7 @@ namespace CoinW.Net.Objects.Internal
     {
         [JsonPropertyName("event")]
         public string Event { get; set; } = string.Empty;
-        [JsonPropertyName("params")]
+        [JsonPropertyName("params"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public CoinWSocketRequestParameters Parameters { get; set; } = default!;
     }
 

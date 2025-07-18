@@ -8,6 +8,9 @@ using CryptoExchange.Net.Objects;
 using Microsoft.Extensions.Logging;
 using CoinW.Net.Interfaces.Clients.FuturesApi;
 using CoinW.Net.Objects.Models;
+using CryptoExchange.Net.RateLimiting.Guards;
+using System.Linq;
+using CoinW.Net.Enums;
 
 namespace CoinW.Net.Clients.FuturesApi
 {
@@ -22,16 +25,118 @@ namespace CoinW.Net.Clients.FuturesApi
             _baseClient = baseClient;
         }
 
-        #region Get Server Time
+        #region Get Symbols
 
         /// <inheritdoc />
-        public async Task<WebCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
+        public async Task<WebCallResult<CoinWFuturesSymbol[]>> GetSymbolsAsync(string? symbol = null, CancellationToken ct = default)
         {
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "XXX", CoinWExchange.RateLimiter.CoinW, 1, false);
-            var result = await _baseClient.SendAsync<CoinWModel>(request, null, ct).ConfigureAwait(false);
-            throw new NotImplementedException();
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("name", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpum/instruments", CoinWExchange.RateLimiter.CoinW, 1, false, limitGuard: new SingleLimitGuard(5, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync<CoinWFuturesSymbol[]>(request, parameters, ct).ConfigureAwait(false);
+            return result;
         }
 
         #endregion
+
+        #region Get Ticker
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<CoinWFuturesTicker>> GetTickerAsync(string symbol, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("instrument", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpumPublic/ticker", CoinWExchange.RateLimiter.CoinW, 1, false, limitGuard: new SingleLimitGuard(5, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync<CoinWFuturesTicker[]>(request, parameters, ct).ConfigureAwait(false);
+            return result.As<CoinWFuturesTicker>(result.Data?.First());
+        }
+
+        #endregion
+
+        #region Get Tickers
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<CoinWFuturesTicker[]>> GetTickersAsync(CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpumPublic/tickers", CoinWExchange.RateLimiter.CoinW, 1, false, limitGuard: new SingleLimitGuard(5, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync<CoinWFuturesTicker[]>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Klines
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<CoinWFuturesKline[]>> GetKlinesAsync(string symbol, FuturesKlineInterval interval, int? limit = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("currencyCode", symbol);
+            parameters.AddEnum("granularity", interval);
+            parameters.AddOptional("limit", limit);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpumPublic/klines", CoinWExchange.RateLimiter.CoinW, 1, false, limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync<CoinWFuturesKline[]>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Last Funding Rate
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<CoinWValue>> GetLastFundingRateAsync(string symbol, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("instrument", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpum/fundingRate", CoinWExchange.RateLimiter.CoinW, 1, false);
+            var result = await _baseClient.SendAsync<CoinWValue>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Order Book
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<CoinWFuturesOrderBook>> GetOrderBookAsync(string symbol, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("base", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpumPublic/depth", CoinWExchange.RateLimiter.CoinW, 1, false, limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync<CoinWFuturesOrderBook>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Recent Trades
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<CoinWFuturesTrade[]>> GetRecentTradesAsync(string symbol, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("base", symbol);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpumPublic/trades", CoinWExchange.RateLimiter.CoinW, 1, false, limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync<CoinWFuturesTrade[]>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Margin Requirements
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<CoinWMarginRequirement[]>> GetMarginRequirementsAsync(CancellationToken ct = default)
+        {
+#warning requires a parameter but unknown which parameter
+            var parameters = new ParameterCollection();
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpum/ladders", CoinWExchange.RateLimiter.CoinW, 1, false, limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync<CoinWMarginRequirementWrapper>(request, parameters, ct).ConfigureAwait(false);
+            return result.As<CoinWMarginRequirement[]>(result.Data?.LadderConfig);
+        }
+
+        #endregion
+
     }
 }

@@ -24,9 +24,9 @@ namespace CoinW.Net.UnitTests
                 "/api/v3/order",
                 (uriParams, bodyParams, headers) =>
                 {
-                    return bodyParams["signature"].ToString();
+                    return uriParams["sign"].ToString();
                 },
-                "c8db56825ae71d6d79447849e617115f4a920fa2acdcab2b053c4b2838bd6b71",
+                "AD26D501953EC615636AC668146268B4",
                 new Dictionary<string, object>
                 {
                     { "symbol", "LTCBTC" },

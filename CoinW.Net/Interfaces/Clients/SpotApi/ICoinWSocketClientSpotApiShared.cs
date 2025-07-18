@@ -9,7 +9,13 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
     /// Shared interface for Spot socket API usage
     /// </summary>
     public interface ICoinWSocketClientSpotApiShared :
-        ISharedClient
+        IBalanceSocketClient,
+        IKlineSocketClient,
+        IOrderBookSocketClient,
+        ITickerSocketClient,
+        ITickersSocketClient,
+        ITradeSocketClient,
+        ISpotOrderSocketClient
     {
     }
 }

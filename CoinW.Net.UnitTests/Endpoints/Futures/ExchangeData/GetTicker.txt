@@ -1,0 +1,18 @@
+GET
+/v1/perpumPublic/ticker
+false
+{"code": 0,
+ "data": [{"fair_price": 97320.1,
+   "max_leverage": 125,
+   "total_volume": 0.0,
+   "price_coin": "btc",
+   "contract_id": 1,
+   "base_coin": "btc",
+   "high": 97362.5,
+   "rise_fall_rate": 0.009628,
+   "low": 95371.4,
+   "name": "BTCUSDT",
+   "contract_size": 0.001,
+   "quote_coin": "usdt",
+   "last_price": 97320.1}],
+ "msg": ""}

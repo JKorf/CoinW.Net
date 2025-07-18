@@ -38,7 +38,7 @@ namespace CoinW.Net.Objects.Models
         /// Trade time
         /// </summary>
         [JsonPropertyName("time")]
-        public DateTime Time { get; set; }
+        public DateTime Timestamp { get; set; }
     }
 
 

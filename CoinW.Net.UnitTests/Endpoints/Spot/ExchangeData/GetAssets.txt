@@ -20,4 +20,5 @@ false
  "txFee": "0.0",
  "chain": "ETH@BSC@Arbitrum@BASE"}
 },
- "msg": "SUCCESS"}
+ "msg": "SUCCESS",
+ "success": true}

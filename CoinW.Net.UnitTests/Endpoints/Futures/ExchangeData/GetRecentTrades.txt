@@ -1,0 +1,24 @@
+GET
+/v1/perpumPublic/trades
+false
+
+{"code": 0,
+ "data": [{"createdDate": 1744799567321,
+   "direction": "long",
+   "id": 21320586404543493,
+   "piece": "21",
+   "price": "83902.9",
+   "quantity": "0.021"},
+  {"createdDate": 1744799566969,
+   "direction": "short",
+   "id": 21320586350672903,
+   "piece": "562",
+   "price": "83906.7",
+   "quantity": "0.562"},
+  {"createdDate": 1744799566600,
+   "direction": "long",
+   "id": 21320586307943429,
+   "piece": "30",
+   "price": "83908.5",
+   "quantity": "0.03"}],
+ "msg": ""}

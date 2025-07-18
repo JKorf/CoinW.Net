@@ -1,4 +1,5 @@
 POST
 /api/v1/private
 true
-{"code": "200", "data": {"depositNumber": "23705"}, "msg": "SUCCESS"}
+{"code": "200", "data": {"depositNumber": "23705"}, "msg": "SUCCESS",
+ "success": true}

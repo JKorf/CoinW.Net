@@ -1,3 +1,7 @@
 POST
 /api/v1/private
 true
+ {"code": "200",
+ "msg": "SUCCESS",
+ "success": true,
+ "failed": false}

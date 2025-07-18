@@ -16,7 +16,7 @@ namespace CoinW.Net.UnitTests
             {
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
-            var tester = new SocketSubscriptionValidator<CoinWSocketClient>(client, "Subscriptions/Spot", "XXX", stjCompare: true);
+            var tester = new SocketSubscriptionValidator<CoinWSocketClient>(client, "Subscriptions/Spot", "XXX");
             //await tester.ValidateAsync<CoinWModel>((client, handler) => client.SpotApi.SubscribeToXXXUpdatesAsync(handler), "XXX");
         }
     }

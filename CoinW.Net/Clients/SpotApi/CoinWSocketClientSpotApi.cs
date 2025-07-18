@@ -32,6 +32,7 @@ namespace CoinW.Net.Clients.SpotApi
         private static readonly MessagePath _symbolPath = MessagePath.Get().Property("pairCode");
         private static readonly MessagePath _typePath = MessagePath.Get().Property("type");
         private static readonly MessagePath _channel = MessagePath.Get().Property("channel");
+        private static readonly MessagePath _event = MessagePath.Get().Property("event");
         private static readonly MessagePath _interval = MessagePath.Get().Property("interval");
 
         private ICoinWRestClient _restClient;
@@ -50,6 +51,20 @@ namespace CoinW.Net.Clients.SpotApi
                 opts.Environment = options.Environment;
                 opts.Proxy = options.Proxy;
             });
+
+            RegisterPeriodicQuery(
+                "ping",
+                TimeSpan.FromSeconds(5),
+                x => new CoinWPingQuery(),
+                (connection, result) =>
+                {
+                    if (result.Error?.Message.Equals("Query timeout") == true)
+                    {
+                        // Ping timeout, reconnect
+                        _logger.LogWarning("[Sckt {SocketId}] Ping response timeout, reconnecting", connection.SocketId);
+                        _ = connection.TriggerReconnectAsync();
+                    }
+                });
         }
         #endregion
 
@@ -142,6 +157,10 @@ namespace CoinW.Net.Clients.SpotApi
         /// <inheritdoc />
         public override string? GetListenerIdentifier(IMessageAccessor message)
         {
+            var @event = message.GetValue<string>(_event);
+            if (@event == "pong")
+                return "pong";
+
             var type = message.GetValue<string>(_typePath);
             var symbol = message.GetValue<string>(_symbolPath);
             var channel = message.GetValue<string?>(_channel);

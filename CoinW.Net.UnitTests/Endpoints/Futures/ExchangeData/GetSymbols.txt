@@ -1,0 +1,60 @@
+GET
+/v1/perpum/instruments
+false
+{
+	"code":0,
+	"data":[
+		{
+			"base":"btc",
+			"closeSpread":0.0002,
+			"commissionRate":0.0006,
+			"configBo":{
+				"margins":{
+					"100":0.075,
+					"5":0.00375,
+					"50":0.0375,
+					"20":0.015,
+					"10":0.0075
+				},
+				"simulatedMargins":{
+					"5":0.00375,
+					"20":0.015,
+					"10":0.0075
+				}
+			},
+			"createdDate":1548950400000,
+			"defaultLeverage":20,
+			"defaultStopLossRate":0.99,
+			"defaultStopProfitRate":100,
+			"depthPrecision":"0.1,1,10,50,100",
+			"iconUrl":"https://hkto-prod.oss-accelerate.aliyuncs.com/4dfca512e957e14f05da07751a96061cf4bfd5df438504f65287fa0a8c3cadb6.svg",
+			"id":1,
+			"indexId":1,
+			"leverage":[5,10,20,50,100,125,200],
+			"makerFee":"0.0001",
+			"maxLeverage":200,
+			"maxPosition":20000,
+			"minLeverage":1,
+			"minSize":1,
+			"name":"BTC",
+			"oneLotMargin":1,
+			"oneLotSize":0.001,
+			"oneMaxPosition":15000,
+			"openSpread":0.0003,
+			"partitionIds":"2013,2011",
+			"pricePrecision":1,
+			"quote":"usdt",
+			"selected":0,
+			"settledAt":1752854400000,
+			"settledPeriod":8,
+			"settlementRate":0.0004,
+			"sort":1,
+			"status":"online",
+			"stopCrossPositionRate":0.1,
+			"stopSurplusRate":0.01,
+			"takerFee":"0.0006",
+			"updatedDate":1752040118000
+		}
+	],
+	"msg":""
+}
