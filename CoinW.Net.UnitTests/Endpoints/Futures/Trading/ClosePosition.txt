@@ -1,0 +1,4 @@
+DELETE
+/v1/perpum/positions
+true
+{"code": 0, "data": {"value": 33308750217533160}, "msg": ""}

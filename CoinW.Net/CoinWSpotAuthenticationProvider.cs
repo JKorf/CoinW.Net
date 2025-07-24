@@ -9,9 +9,9 @@ using CryptoExchange.Net.Objects;
 
 namespace CoinW.Net
 {
-    internal class CoinWAuthenticationProvider : AuthenticationProvider
+    internal class CoinWSpotAuthenticationProvider : AuthenticationProvider
     {
-        public CoinWAuthenticationProvider(ApiCredentials credentials) : base(credentials)
+        public CoinWSpotAuthenticationProvider(ApiCredentials credentials) : base(credentials)
         {
         }
 

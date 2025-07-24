@@ -6,9 +6,12 @@ using CryptoExchange.Net.RateLimiting;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using CryptoExchange.Net.SharedApis;
 using System.Text.Json.Serialization;
+using CryptoExchange.Net.SharedApis;
 using CoinW.Net.Converters;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Converters;
+using System.Text.Json;
 
 namespace CoinW.Net
 {
@@ -50,7 +53,7 @@ namespace CoinW.Net
         /// </summary>
         public static ExchangeType Type { get; } = ExchangeType.CEX;
 
-        internal static JsonSerializerContext _serializerContext = new CoinWSourceGenerationContext();
+        internal static JsonSerializerOptions _serializerContext = SerializerOptions.WithConverters(JsonSerializerContextCache.GetOrCreate<CoinWSourceGenerationContext>());
 
         /// <summary>
         /// Format a base and quote asset to an CoinW recognized symbol 
@@ -65,7 +68,10 @@ namespace CoinW.Net
             if (tradingMode == TradingMode.Spot)
                 return $"{baseAsset}_{quoteAsset}";
 
-            return baseAsset;
+            if (quoteAsset.Equals("USDT", StringComparison.InvariantCultureIgnoreCase))
+                return baseAsset;
+
+            return $"{baseAsset}_{quoteAsset}";
         }
 
         /// <summary>

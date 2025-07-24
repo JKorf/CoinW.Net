@@ -8,12 +8,20 @@ using System.Threading.Tasks;
 
 namespace CoinW.Net.Objects.Internal
 {
-    internal record CoinWSocketRequest
+    internal record CoinWSpotSocketRequest
     {
         [JsonPropertyName("event")]
         public string Event { get; set; } = string.Empty;
         [JsonPropertyName("params"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public CoinWSocketRequestParameters Parameters { get; set; } = default!;
+        public CoinWSpotSocketRequestParameters Parameters { get; set; } = default!;
+    }
+
+    internal record CoinWFuturesSocketRequest
+    {
+        [JsonPropertyName("event")]
+        public string Event { get; set; } = string.Empty;
+        [JsonPropertyName("params"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public CoinWFuturesSocketRequestParameters Parameters { get; set; } = default!;
     }
 
     internal record CoinWSocketRequestParameters
@@ -24,7 +32,17 @@ namespace CoinW.Net.Objects.Internal
         public string Type { get; set; } = string.Empty;
         [JsonPropertyName("pairCode"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? PairCode { get; set; } = string.Empty;
+    }
+
+    internal record CoinWSpotSocketRequestParameters : CoinWSocketRequestParameters
+    {
         [JsonPropertyName("interval"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public KlineIntervalStream? Interval { get; set; }
+    }
+
+    internal record CoinWFuturesSocketRequestParameters : CoinWSocketRequestParameters
+    {
+        [JsonPropertyName("interval"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public FuturesKlineIntervalStream? Interval { get; set; }
     }
 }

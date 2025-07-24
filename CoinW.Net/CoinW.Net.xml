@@ -168,7 +168,64 @@
         <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApiExchangeData.GetMarginRequirementsAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApiExchangeData.GetTradeHistoryAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="T:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApiTrading">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApiTrading.PlaceOrderAsync(System.String,CoinW.Net.Enums.PositionSide,CoinW.Net.Enums.FuturesOrderType,System.Decimal,System.Int32,System.Nullable{System.Decimal},System.Nullable{CoinW.Net.Enums.QuantityUnit},System.Nullable{CoinW.Net.Enums.MarginType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{CoinW.Net.Enums.TriggerOrderType},System.Nullable{System.Int32},System.String,System.Nullable{System.Boolean},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApiTrading.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{CoinW.Net.Objects.Models.CoinWFuturesOrderRequest},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApiTrading.ClosePositionAsync(System.Int64,System.Nullable{CoinW.Net.Enums.FuturesOrderType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApiTrading.ClosePositionsByClientOrderIdAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApiTrading.CloseAllPositionsAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApiTrading.ReversePositionAsync(System.Int64,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApiTrading.AdjustMarginAsync(System.Int64,System.Decimal,System.Decimal,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApiTrading.SetTpSlAsync(System.Int64,System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApiTrading.SetTrailingTpSlAsync(System.Int64,System.Decimal,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{CoinW.Net.Enums.QuantityUnit},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApiTrading.EditOrderAsync(System.Int64,System.String,CoinW.Net.Enums.PositionSide,CoinW.Net.Enums.FuturesOrderType,System.Decimal,System.Int32,System.Nullable{System.Decimal},System.Nullable{CoinW.Net.Enums.QuantityUnit},System.Nullable{CoinW.Net.Enums.MarginType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{CoinW.Net.Enums.TriggerOrderType},System.Nullable{System.Int32},System.String,System.Nullable{System.Boolean},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApiTrading.CancelOrderAsync(System.Int64,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApiTrading.CancelOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApiTrading.GetOpenOrdersAsync(System.String,CoinW.Net.Enums.FuturesOrderType,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApiTrading.GetOpenOrderCountAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApiTrading.GetTpSlAsync(System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApiTrading.GetTrailingTpSlAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApiTrading.GetOrderHistory7DaysAsync(System.String,System.Nullable{CoinW.Net.Enums.FuturesOrderType},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApiTrading.GetOrderHistory3MonthsAsync(System.String,System.Nullable{CoinW.Net.Enums.FuturesOrderType},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="T:CoinW.Net.Clients.FuturesApi.CoinWSocketClientFuturesApi">
@@ -190,7 +247,28 @@
         <member name="M:CoinW.Net.Clients.FuturesApi.CoinWSocketClientFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWSocketClientFuturesApi.SubscribeToXXXUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWModel}},System.Threading.CancellationToken)">
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWSocketClientFuturesApi.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWFuturesTickerUpdate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWSocketClientFuturesApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWFuturesOrderBook}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWSocketClientFuturesApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWFuturesTrade[]}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWSocketClientFuturesApi.SubscribeToKlineUpdatesAsync(System.String,CoinW.Net.Enums.FuturesKlineIntervalStream,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWFuturesStreamKline}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWSocketClientFuturesApi.SubscribeToIndexPriceUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWPrice}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWSocketClientFuturesApi.SubscribeToMarkPriceUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWPrice}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWSocketClientFuturesApi.SubscribeToFundingRateUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWFundingRate}},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWSocketClientFuturesApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWFuturesOrder[]}},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:CoinW.Net.Clients.FuturesApi.CoinWSocketClientFuturesApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
@@ -503,6 +581,11 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.NullableBoolean">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.Decimal">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -514,6 +597,31 @@
             </summary>
         </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.DecimalArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.ContractType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.FuturesKlineIntervalStream">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.NullableFuturesKlineIntervalStream">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.FuturesOrderStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.FuturesOrderType">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -533,12 +641,22 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.MarginType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.MovementStatus">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.MovementType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.OpenStatus">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -578,7 +696,32 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.QuantityUnit">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.SymbolStatus">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.TriggerOrderType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.NullableTriggerOrderType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWFuturesSocketRequest">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWFuturesSocketRequestParameters">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -598,6 +741,11 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWResponseCoinWBatchResultArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWResponseCoinWDepositAddressArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -608,12 +756,22 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWResponseCoinWEditResult">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWResponseCoinWFuturesKlineArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWResponseCoinWFuturesOrderBook">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWResponseCoinWFuturesOrderPage">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -633,7 +791,17 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWResponseCoinWHistOrderPage">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWResponseCoinWKlineArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWResponseCoinWMarginRequirementWrapper">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -649,6 +817,11 @@
             </summary>
         </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWResponseCoinWOrderDetails">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWResponseCoinWOrderId">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -669,6 +842,11 @@
             </summary>
         </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWResponseCoinWTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWResponseCoinWTradeHistory">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -708,16 +886,6 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
-        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWSocketRequest">
-            <summary>
-            Defines the source generated JSON serialization contract metadata for a given type.
-            </summary>
-        </member>
-        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWSocketRequestParameters">
-            <summary>
-            Defines the source generated JSON serialization contract metadata for a given type.
-            </summary>
-        </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWSocketResponseCoinWSubscriptionResponse">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -728,12 +896,57 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWSocketResponseCoinWFundingRate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWSocketResponseCoinWFuturesOrderArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWSocketResponseCoinWFuturesOrderBook">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWSocketResponseCoinWFuturesStreamKline">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWSocketResponseCoinWFuturesTickerUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWSocketResponseCoinWFuturesTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWSocketResponseCoinWOrderUpdate">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWSocketResponseCoinWPrice">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWSocketResponseString">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWSpotSocketRequest">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWSpotSocketRequestParameters">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -758,6 +971,16 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWBatchResult">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWBatchResultArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWDepositAddress">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -778,12 +1001,32 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWEditResult">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWFundingRate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWFuturesKline">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWFuturesKlineArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWFuturesOrder">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWFuturesOrderArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -799,6 +1042,26 @@
             </summary>
         </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWFuturesOrderBookEntryArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWFuturesOrderPage">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWFuturesOrderRequest">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWFuturesOrderRequestArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWFuturesStreamKline">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -828,12 +1091,42 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWFuturesTickerUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWFuturesTrade">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWFuturesTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWHistOrder">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWHistOrderArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWHistOrderPage">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWHistoryTrade">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWHistoryTradeArray">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -849,6 +1142,31 @@
             </summary>
         </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWKlineUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWMarginRequirement">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWMarginRequirementArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWMarginRequirementTier">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWMarginRequirementTierArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWMarginRequirementWrapper">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -888,6 +1206,11 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWOrderId">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWOrderResult">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -904,6 +1227,11 @@
             </summary>
         </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWOrderUpdate">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWPrice">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -944,6 +1272,11 @@
             </summary>
         </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWTradeArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.CoinWTradeHistory">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -1003,6 +1336,16 @@
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.DictionaryStringObject">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.DictionaryStringObjectArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.IDictionaryStringObject">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
@@ -1034,6 +1377,11 @@
             </summary>
         </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.NullableInt64">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.Int64Array">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -1113,6 +1461,16 @@
             Spot account
             </summary>
         </member>
+        <member name="T:CoinW.Net.Enums.ContractType">
+            <summary>
+            Contract type
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.ContractType.PerpetualLinear">
+            <summary>
+            Perp linear
+            </summary>
+        </member>
         <member name="T:CoinW.Net.Enums.FuturesKlineInterval">
             <summary>
             Kline interval
@@ -1166,6 +1524,111 @@
         <member name="F:CoinW.Net.Enums.FuturesKlineInterval.OneMonth">
             <summary>
             One month
+            </summary>
+        </member>
+        <member name="T:CoinW.Net.Enums.FuturesKlineIntervalStream">
+            <summary>
+            Kline interval
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.FuturesKlineIntervalStream.OneMinute">
+            <summary>
+            One minute
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.FuturesKlineIntervalStream.ThreeMinutes">
+            <summary>
+            Three minutes
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.FuturesKlineIntervalStream.FiveMinutes">
+            <summary>
+            Five minutes
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.FuturesKlineIntervalStream.FifteenMinutes">
+            <summary>
+            Fifteen minutes
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.FuturesKlineIntervalStream.ThirtyMinutes">
+            <summary>
+            Thirty minutes
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.FuturesKlineIntervalStream.OneHour">
+            <summary>
+            One hour
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.FuturesKlineIntervalStream.FourHours">
+            <summary>
+            Four hours
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.FuturesKlineIntervalStream.OneDay">
+            <summary>
+            One day
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.FuturesKlineIntervalStream.OneWeek">
+            <summary>
+            One week
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.FuturesKlineIntervalStream.OneMonth">
+            <summary>
+            One month
+            </summary>
+        </member>
+        <member name="T:CoinW.Net.Enums.FuturesOrderStatus">
+            <summary>
+            Order status
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.FuturesOrderStatus.Open">
+            <summary>
+            Unfilled
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.FuturesOrderStatus.PartiallyFilled">
+            <summary>
+            Partially filled
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.FuturesOrderStatus.Filled">
+            <summary>
+            Filled
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.FuturesOrderStatus.Canceled">
+            <summary>
+            Canceled
+            </summary>
+        </member>
+        <member name="T:CoinW.Net.Enums.FuturesOrderType">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.FuturesOrderType.Market">
+            <summary>
+            Market
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.FuturesOrderType.Plan">
+            <summary>
+            Plan order (also for limit orders)
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.FuturesOrderType.PlanTrigger">
+            <summary>
+            Planned trigger order
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.FuturesOrderType.TrailingStop">
+            <summary>
+            Trailing stop order
             </summary>
         </member>
         <member name="T:CoinW.Net.Enums.FuturesSymbolStatus">
@@ -1338,6 +1801,21 @@
             One month
             </summary>
         </member>
+        <member name="T:CoinW.Net.Enums.MarginType">
+            <summary>
+            Margin type
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.MarginType.IsolatedMargin">
+            <summary>
+            Isolated margin
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.MarginType.CrossMargin">
+            <summary>
+            Cross margin
+            </summary>
+        </member>
         <member name="T:CoinW.Net.Enums.MovementStatus">
             <summary>
             Movement status
@@ -1366,6 +1844,21 @@
         <member name="F:CoinW.Net.Enums.MovementType.Withdrawal">
             <summary>
             Withdrawal
+            </summary>
+        </member>
+        <member name="T:CoinW.Net.Enums.OpenStatus">
+            <summary>
+            Open status
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.OpenStatus.Open">
+            <summary>
+            Open
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.OpenStatus.Closed">
+            <summary>
+            Closed
             </summary>
         </member>
         <member name="T:CoinW.Net.Enums.OrderEventReason">
@@ -1473,6 +1966,46 @@
             Short
             </summary>
         </member>
+        <member name="T:CoinW.Net.Enums.PriceType">
+            <summary>
+            Price type
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.PriceType.IndexPrice">
+            <summary>
+            Index price
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.PriceType.LastPrice">
+            <summary>
+            Last trade price
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.PriceType.MarkPrice">
+            <summary>
+            Mark price
+            </summary>
+        </member>
+        <member name="T:CoinW.Net.Enums.QuantityUnit">
+            <summary>
+            Type of quantity
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.QuantityUnit.QuoteAsset">
+            <summary>
+            Quantity in quote asset
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.QuantityUnit.Contracts">
+            <summary>
+            Quantity in number of contracts
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.QuantityUnit.BaseAsset">
+            <summary>
+            Quantity in base asset
+            </summary>
+        </member>
         <member name="T:CoinW.Net.Enums.SymbolStatus">
             <summary>
             Symbol status
@@ -1484,6 +2017,86 @@
             </summary>
         </member>
         <member name="F:CoinW.Net.Enums.SymbolStatus.Canceled">
+            <summary>
+            Canceled
+            </summary>
+        </member>
+        <member name="T:CoinW.Net.Enums.TrailingOrderStatus">
+            <summary>
+            Trailing order status
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.TrailingOrderStatus.Open">
+            <summary>
+            Open
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.TrailingOrderStatus.Closed">
+            <summary>
+            Closed
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.TrailingOrderStatus.Canceled">
+            <summary>
+            Canceled
+            </summary>
+        </member>
+        <member name="T:CoinW.Net.Enums.TrailingStatus">
+            <summary>
+            Trailing status
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.TrailingStatus.Waiting">
+            <summary>
+            Limit order
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.TrailingStatus.Processing">
+            <summary>
+            Market order
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.TrailingStatus.Success">
+            <summary>
+            Success
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.TrailingStatus.Failure">
+            <summary>
+            Market order
+            </summary>
+        </member>
+        <member name="T:CoinW.Net.Enums.TriggerOrderType">
+            <summary>
+            Trigger order type
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.TriggerOrderType.Limit">
+            <summary>
+            Limit order
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.TriggerOrderType.Market">
+            <summary>
+            Market order
+            </summary>
+        </member>
+        <member name="T:CoinW.Net.Enums.TriggerStatus">
+            <summary>
+            Trigger status
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.TriggerStatus.NotTriggered">
+            <summary>
+            Not triggered
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.TriggerStatus.Triggered">
+            <summary>
+            Triggered
+            </summary>
+        </member>
+        <member name="F:CoinW.Net.Enums.TriggerStatus.Canceled">
             <summary>
             Canceled
             </summary>
@@ -1610,6 +2223,16 @@
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiExchangeData.GetTradeHistoryAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get trade history
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-historical-public-trades" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETH`</param>
+            <param name="page">Page number</param>
+            <param name="pageSize">Page size</param>
+            <param name="ct">Cancellation token</param>
+        </member>
         <member name="T:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiShared">
             <summary>
             Shared interface for Futures rest API usage
@@ -1620,15 +2243,285 @@
             CoinW Futures trading endpoints, placing and managing orders.
             </summary>
         </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.PlaceOrderAsync(System.String,CoinW.Net.Enums.PositionSide,CoinW.Net.Enums.FuturesOrderType,System.Decimal,System.Int32,System.Nullable{System.Decimal},System.Nullable{CoinW.Net.Enums.QuantityUnit},System.Nullable{CoinW.Net.Enums.MarginType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{CoinW.Net.Enums.TriggerOrderType},System.Nullable{System.Int32},System.String,System.Nullable{System.Boolean},System.Threading.CancellationToken)">
+            <summary>
+            Place a new order. Note that this can not be used to place a direct order to close an open position. Use <see cref="!:Close" />
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/place-an-order" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETH`</param>
+            <param name="side">Position side</param>
+            <param name="orderType">Order type</param>
+            <param name="quantity">Quantity</param>
+            <param name="leverage">Leverage</param>
+            <param name="price">Order price</param>
+            <param name="quantityUnit">Type of quantity. Defaults to contracts</param>
+            <param name="marginType">Margin type. Defaults to isolated margin</param>
+            <param name="stopLossPrice">Stop loss price</param>
+            <param name="takeProfitPrice">Take profit price</param>
+            <param name="triggerPrice">Trigger price</param>
+            <param name="triggerOrderType">Trigger order type</param>
+            <param name="goldenId">Golden Id</param>
+            <param name="clientOrderId">Client order id</param>
+            <param name="useMegaCoupon">Use mega coupon</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{CoinW.Net.Objects.Models.CoinWFuturesOrderRequest},System.Threading.CancellationToken)">
+            <summary>
+            Place multiple orders
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/place-batch-orders" /></para>
+            </summary>
+            <param name="requests">Orders to place</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.ClosePositionAsync(System.Int64,System.Nullable{CoinW.Net.Enums.FuturesOrderType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+            <summary>
+            Close an open position
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/close-a-position" /></para>
+            </summary>
+            <param name="positionId">Position id</param>
+            <param name="orderType">Order type, defaults to market order</param>
+            <param name="quantityToClose">Quantity in contracts to close. Either this or factorToClose should be provided</param>
+            <param name="factorToClose">Factor from 0 to 1 to close. For example 0.5 would close 50% of the position. Either this or quantityToClose should be provided</param>
+            <param name="price">Limit order price</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.ClosePositionsByClientOrderIdAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Close positions by client order ids
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/close-batch-positions" /></para>
+            </summary>
+            <param name="clientOrderIds">Client order ids to cancel</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.CloseAllPositionsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Close all open position for a symbol at market price
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/close-positions-at-market-price" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETH`</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.ReversePositionAsync(System.Int64,System.Threading.CancellationToken)">
+            <summary>
+            Reverse a position by closing the existing position and opening an equal position on the opposite side
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/reverse-a-position" /></para>
+            </summary>
+            <param name="positionId">Id of position to reverse</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.AdjustMarginAsync(System.Int64,System.Decimal,System.Decimal,System.Threading.CancellationToken)">
+            <summary>
+            Adjust margin for an open position
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/adjust-margin" /></para>
+            </summary>
+            <param name="positionId">Position id</param>
+            <param name="addMargin">Margin to add</param>
+            <param name="reduceMargin">Margin to reduce</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.SetTpSlAsync(System.Int64,System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
+            <summary>
+            Set take profit / stop loss for an order or position
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/set-stop-loss-take-profit" /></para>
+            </summary>
+            <param name="orderOrPositionId">Order id for an open order or position id for an open position</param>
+            <param name="symbol">The symbol, for example `ETH`</param>
+            <param name="takeProfitPrice">Take profit price</param>
+            <param name="takeProfitOrderPrice">Take profit order price</param>
+            <param name="takeProfitRate">Take profit rate</param>
+            <param name="stopLossPrice">Stop loss price</param>
+            <param name="stopLossOrderPrice">Stop loss order price</param>
+            <param name="stopLossRate">Stop loss rate</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.SetTrailingTpSlAsync(System.Int64,System.Decimal,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{CoinW.Net.Enums.QuantityUnit},System.Threading.CancellationToken)">
+            <summary>
+            Set trailing take profit / stop loss for a position
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/set-trailing-stop-loss-take-profit" /></para>
+            </summary>
+            <param name="positionId">Position id</param>
+            <param name="callbackRate">Callback rate, with a valid range from 0 to 1. For example: 0.5 represents a 50% callback rate</param>
+            <param name="triggerPrice">Trigger price</param>
+            <param name="quantity">Quantity</param>
+            <param name="quantityType">Quantity type, defaults to contracts</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.EditOrderAsync(System.Int64,System.String,CoinW.Net.Enums.PositionSide,CoinW.Net.Enums.FuturesOrderType,System.Decimal,System.Int32,System.Nullable{System.Decimal},System.Nullable{CoinW.Net.Enums.QuantityUnit},System.Nullable{CoinW.Net.Enums.MarginType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{CoinW.Net.Enums.TriggerOrderType},System.Nullable{System.Int32},System.String,System.Nullable{System.Boolean},System.Threading.CancellationToken)">
+            <summary>
+            Edit an open order
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/modify-an-order" /></para>
+            </summary>
+            <param name="orderId">Id of the order to edit</param>
+            <param name="symbol">The symbol, for example `ETH`</param>
+            <param name="side">Position side</param>
+            <param name="orderType">Order type</param>
+            <param name="quantity">Quantity</param>
+            <param name="leverage">Leverage</param>
+            <param name="price">Order price</param>
+            <param name="quantityUnit">Type of quantity. Defaults to contracts</param>
+            <param name="marginType">Margin type. Defaults to isolated margin</param>
+            <param name="stopLossPrice">Stop loss price</param>
+            <param name="takeProfitPrice">Take profit price</param>
+            <param name="triggerPrice">Trigger price</param>
+            <param name="triggerOrderType">Trigger order type</param>
+            <param name="goldenId">Golden Id</param>
+            <param name="clientOrderId">Client order id</param>
+            <param name="useMegaCoupon">Use mega coupon</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.CancelOrderAsync(System.Int64,System.Threading.CancellationToken)">
+            <summary>
+            Cancel an open order
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/cancel-an-order" /></para>
+            </summary>
+            <param name="orderId">Order id</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.CancelOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Threading.CancellationToken)">
+            <summary>
+            Cancel multiple orders by order id
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/cancel-batch-orders" /></para>
+            </summary>
+            <param name="orderIds">Order ids to cancel, max 20</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.GetOpenOrdersAsync(System.String,CoinW.Net.Enums.FuturesOrderType,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get open orders for a symbol
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-current-orders" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETH`</param>
+            <param name="orderType">Order type</param>
+            <param name="page">Page number</param>
+            <param name="pageSize">Page size</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.GetOpenOrderCountAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get the total number of open orders
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-pending-order-count" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.GetTpSlAsync(System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get take profit / stop loss info
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-stop-loss-take-profit-information" /></para>
+            </summary>
+            <param name="orderId">Order id</param>
+            <param name="positionId">Position id</param>
+            <param name="planOrderId">Plan order id</param>
+            <param name="symbol">The symbol, for example `ETH`</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.GetTrailingTpSlAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get trailing take profit / stop loss info
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-trailing-stop-loss-take-profit-information" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.GetOrderHistory7DaysAsync(System.String,System.Nullable{CoinW.Net.Enums.FuturesOrderType},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get order history of the last 7 days. Does not return fully canceled orders
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-historical-orders-7days" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETH`</param>
+            <param name="orderType">Order type filed</param>
+            <param name="page">Page number</param>
+            <param name="pageSize">Page size</param>
+            <param name="ct">Cancellation token</param>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.GetOrderHistory3MonthsAsync(System.String,System.Nullable{CoinW.Net.Enums.FuturesOrderType},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Get order history of the last 3 months. Does not return fully canceled orders
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-historical-orders-7days" /></para>
+            </summary>
+            <param name="symbol">The symbol, for example `ETH`</param>
+            <param name="orderType">Order type filed</param>
+            <param name="page">Page number</param>
+            <param name="pageSize">Page size</param>
+            <param name="ct">Cancellation token</param>
+        </member>
         <member name="T:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWSocketClientFuturesApi">
             <summary>
             CoinW Futures streams
             </summary>
         </member>
-        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWSocketClientFuturesApi.SubscribeToXXXUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWModel}},System.Threading.CancellationToken)">
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWSocketClientFuturesApi.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWFuturesTickerUpdate}},System.Threading.CancellationToken)">
             <summary>
-            
-            <para><a href="XXX" /></para>
+            Subscribe to ticker updates
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-24h-trade-summary" /></para>
+            </summary>
+            <param name="symbol">The futures symbol, for example `ETH`</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWSocketClientFuturesApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWFuturesOrderBook}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to order book updates
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-order-book" /></para>
+            </summary>
+            <param name="symbol">The futures symbol, for example `ETH`</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWSocketClientFuturesApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWFuturesTrade[]}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to trade updates
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-trade-data" /></para>
+            </summary>
+            <param name="symbol">The futures symbol, for example `ETH`</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWSocketClientFuturesApi.SubscribeToKlineUpdatesAsync(System.String,CoinW.Net.Enums.FuturesKlineIntervalStream,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWFuturesStreamKline}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to kline updates
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-k-line-utc+0" /></para>
+            </summary>
+            <param name="symbol">The futures symbol, for example `ETH`</param>
+            <param name="interval">Kline interval</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWSocketClientFuturesApi.SubscribeToIndexPriceUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWPrice}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to index price updates
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-index-price" /></para>
+            </summary>
+            <param name="symbol">The futures symbol, for example `ETH`</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWSocketClientFuturesApi.SubscribeToMarkPriceUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWPrice}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to mark price updates
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-mark-price" /></para>
+            </summary>
+            <param name="symbol">The futures symbol, for example `ETH`</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWSocketClientFuturesApi.SubscribeToFundingRateUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWFundingRate}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to funding rate updates
+            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-funding-fee-rate" /></para>
+            </summary>
+            <param name="symbol">The futures symbol, for example `ETH`</param>
+            <param name="onMessage">The event handler for the received data</param>
+            <param name="ct">Cancellation token for closing this subscription</param>
+            <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWSocketClientFuturesApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWFuturesOrder[]}},System.Threading.CancellationToken)">
+            <summary>
+            Subscribe to user order updates
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -2213,6 +3106,26 @@
             In hold
             </summary>
         </member>
+        <member name="T:CoinW.Net.Objects.Models.CoinWBatchResult">
+            <summary>
+            Batch order result
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWBatchResult.Code">
+            <summary>
+            Result code
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWBatchResult.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWBatchResult.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
         <member name="T:CoinW.Net.Objects.Models.CoinWDepositAddress">
             <summary>
             Deposit address info
@@ -2298,6 +3211,41 @@
             Status
             </summary>
         </member>
+        <member name="T:CoinW.Net.Objects.Models.CoinWEditResult">
+            <summary>
+            Edit result
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWEditResult.EditId">
+            <summary>
+            New order id
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWEditResult.OriginalId">
+            <summary>
+            Previous order id
+            </summary>
+        </member>
+        <member name="T:CoinW.Net.Objects.Models.CoinWFundingRate">
+            <summary>
+            Funding rate
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFundingRate.FundingRate">
+            <summary>
+            Funding rate
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFundingRate.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFundingRate.Symbol">
+            <summary>
+            Symbol name
+            </summary>
+        </member>
         <member name="T:CoinW.Net.Objects.Models.CoinWFuturesKline">
             <summary>
             Kline info
@@ -2333,6 +3281,181 @@
             Volume
             </summary>
         </member>
+        <member name="T:CoinW.Net.Objects.Models.CoinWFuturesOrderPage">
+            <summary>
+            Order page
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrderPage.NextId">
+            <summary>
+            Next id
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrderPage.PrevId">
+            <summary>
+            Prev id
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrderPage.Rows">
+            <summary>
+            Rows
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrderPage.Total">
+            <summary>
+            Total number of results
+            </summary>
+        </member>
+        <member name="T:CoinW.Net.Objects.Models.CoinWFuturesOrder">
+            <summary>
+            Order info
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.BaseQuantity">
+            <summary>
+            Quantity in base asset
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.ContractType">
+            <summary>
+            Contract type
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.CreateTime">
+            <summary>
+            Create time
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.QuantityRemaining">
+            <summary>
+            Quantity open in contracts
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.PositionSide">
+            <summary>
+            Position side
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.Fee">
+            <summary>
+            Fee
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.FrozenFee">
+            <summary>
+            Frozen fee
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.IndexPrice">
+            <summary>
+            Index price
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.Symbol">
+            <summary>
+            Symbol name
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.Leverage">
+            <summary>
+            Leverage
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.LiquidateBy">
+            <summary>
+            Liquidate by
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.MakerFee">
+            <summary>
+            Maker fee
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.Margin">
+            <summary>
+            Margin
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.OrderPrice">
+            <summary>
+            Order price
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.OrderStatus">
+            <summary>
+            Order status
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.OriginalOrderType">
+            <summary>
+            Original type
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.OrderType">
+            <summary>
+            Pos type
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.PositionMargin">
+            <summary>
+            Position margin
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.MarginType">
+            <summary>
+            Margin type
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.ProcessStatus">
+            <summary>
+            Process status
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.OrderQuantity">
+            <summary>
+            Order quantity in unit specified by QuantityUnit
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.QuantityUnit">
+            <summary>
+            Quantity unit
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.Source">
+            <summary>
+            Source
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.OpenStatus">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.TakerFee">
+            <summary>
+            Taker fee
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.Quantity">
+            <summary>
+            Total order quantity
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.UpdateTime">
+            <summary>
+            Update time
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.UserId">
+            <summary>
+            User id
+            </summary>
+        </member>
         <member name="T:CoinW.Net.Objects.Models.CoinWFuturesOrderBook">
             <summary>
             Order book
@@ -2366,6 +3489,121 @@
         <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrderBookEntry.Price">
             <summary>
             Price
+            </summary>
+        </member>
+        <member name="T:CoinW.Net.Objects.Models.CoinWFuturesOrderRequest">
+            <summary>
+            Order request
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrderRequest.Symbol">
+            <summary>
+            Symbol name
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrderRequest.Side">
+            <summary>
+            Position side
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrderRequest.Leverage">
+            <summary>
+            Leverage
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrderRequest.QuantityUnit">
+            <summary>
+            Quantity unit
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrderRequest.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrderRequest.MarginType">
+            <summary>
+            Margin type
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrderRequest.OrderType">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrderRequest.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrderRequest.StopLossPrice">
+            <summary>
+            Stop loss price
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrderRequest.TakeProfitPrice">
+            <summary>
+            Take profit price
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrderRequest.TriggerPrice">
+            <summary>
+            Trigger price
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrderRequest.TriggerOrderType">
+            <summary>
+            Trigger order type
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrderRequest.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrderRequest.GoldenId">
+            <summary>
+            Golden Id
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrderRequest.UseMegaCoupon">
+            <summary>
+            Use mega coupon
+            </summary>
+        </member>
+        <member name="T:CoinW.Net.Objects.Models.CoinWFuturesStreamKline">
+            <summary>
+            Kline info
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesStreamKline.OpenTime">
+            <summary>
+            Open time
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesStreamKline.OpenPrice">
+            <summary>
+            Open price
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesStreamKline.HighPrice">
+            <summary>
+            High price
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesStreamKline.LowPrice">
+            <summary>
+            Low price
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesStreamKline.ClosePrice">
+            <summary>
+            Close price
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesStreamKline.Volume">
+            <summary>
+            Volume
             </summary>
         </member>
         <member name="T:CoinW.Net.Objects.Models.CoinWFuturesSymbol">
@@ -2628,6 +3866,51 @@
             Last price
             </summary>
         </member>
+        <member name="T:CoinW.Net.Objects.Models.CoinWFuturesTickerUpdate">
+            <summary>
+            Futures ticker update
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesTickerUpdate.Symbol">
+            <summary>
+            Symbol name
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesTickerUpdate.PercentageChange">
+            <summary>
+            Percentage change
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesTickerUpdate.HighPrice">
+            <summary>
+            Highest price in last 24h
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesTickerUpdate.LastPrice">
+            <summary>
+            Last trade price
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesTickerUpdate.LowPrice">
+            <summary>
+            Lowest price in last 24h
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesTickerUpdate.OpenPrice">
+            <summary>
+            Open price 24h ago
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesTickerUpdate.Volume">
+            <summary>
+            Volume in base asset
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesTickerUpdate.VolumeUsdt">
+            <summary>
+            Volume in USDT
+            </summary>
+        </member>
         <member name="T:CoinW.Net.Objects.Models.CoinWFuturesTrade">
             <summary>
             Trade info
@@ -2661,6 +3944,226 @@
         <member name="P:CoinW.Net.Objects.Models.CoinWFuturesTrade.QuantityBase">
             <summary>
             Quantity in base asset
+            </summary>
+        </member>
+        <member name="T:CoinW.Net.Objects.Models.CoinWHistOrderPage">
+            <summary>
+            Order page
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrderPage.NextId">
+            <summary>
+            Next id
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrderPage.PrevId">
+            <summary>
+            Prev id
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrderPage.Rows">
+            <summary>
+            Rows
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrderPage.Total">
+            <summary>
+            Total number of results
+            </summary>
+        </member>
+        <member name="T:CoinW.Net.Objects.Models.CoinWHistOrder">
+            <summary>
+            Order info
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.AveragePrice">
+            <summary>
+            Average price
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.BaseQuantity">
+            <summary>
+            Base quantity
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.QuantityCanceled">
+            <summary>
+            Canceled quantity
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.ValueFilled">
+            <summary>
+            USDT value filled
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.ContractType">
+            <summary>
+            Contract type
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.CreateTime">
+            <summary>
+            Create time
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.QuantityOpen">
+            <summary>
+            Open quantity
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.PositionSide">
+            <summary>
+            Position side
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.OrderQuantityUsdt">
+            <summary>
+            Order quantity in USDT
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.LiquidationRisk">
+            <summary>
+            Is at risk of liquidation
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.HedgeId">
+            <summary>
+            Hedge id
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.Id">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.IndexPrice">
+            <summary>
+            Index price
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.Leverage">
+            <summary>
+            Leverage
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.LiquidateBy">
+            <summary>
+            Liquidate by
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.Margin">
+            <summary>
+            Margin
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.PositionId">
+            <summary>
+            Position id
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.OrderPrice">
+            <summary>
+            Order price
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.OrderStatus">
+            <summary>
+            Order status
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.OriginalOrderType">
+            <summary>
+            Original order type
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.OrderType">
+            <summary>
+            Order type
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.MarginType">
+            <summary>
+            Margin type
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.OrderQuantity">
+            <summary>
+            Quantity of the order
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.QuantityUnit">
+            <summary>
+            Quantity unit
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.Source">
+            <summary>
+            Source
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.Status">
+            <summary>
+            Open status
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.ClientOrderId">
+            <summary>
+            Client order id
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.TotalQuantity">
+            <summary>
+            Total quantity in contracts
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.TradeQuantity">
+            <summary>
+            Trade quantity in contracts
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.TriggerPrice">
+            <summary>
+            Trigger price
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.TriggerOrderType">
+            <summary>
+            Trigger order type
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.UpdateTime">
+            <summary>
+            Update time
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.UserId">
+            <summary>
+            User id
+            </summary>
+        </member>
+        <member name="T:CoinW.Net.Objects.Models.CoinWPrice">
+            <summary>
+            Index price
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWPrice.Price">
+            <summary>
+            Price
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWPrice.Symbol">
+            <summary>
+            Symbol name
             </summary>
         </member>
         <member name="T:CoinW.Net.Objects.Models.CoinWKline">
@@ -2966,6 +4469,16 @@
         <member name="P:CoinW.Net.Objects.Models.CoinWOrderDetails.Status">
             <summary>
             Order status
+            </summary>
+        </member>
+        <member name="T:CoinW.Net.Objects.Models.CoinWOrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWOrderId.OrderId">
+            <summary>
+            Order id
             </summary>
         </member>
         <member name="T:CoinW.Net.Objects.Models.CoinWOrderResult">
@@ -3348,6 +4861,116 @@
             Volume in quote asset
             </summary>
         </member>
+        <member name="T:CoinW.Net.Objects.Models.CoinWTpSl">
+            <summary>
+            Take profit / stop loss info
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTpSl.CloseQuantity">
+            <summary>
+            Total contract quantity in tpsl order
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTpSl.CreateTime">
+            <summary>
+            Create time
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTpSl.CurrentQuantity">
+            <summary>
+            Current contract quantity in tpsl
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTpSl.PositionSide">
+            <summary>
+            Position side
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTpSl.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTpSl.IndexPrice">
+            <summary>
+            Index price
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTpSl.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTpSl.Leverage">
+            <summary>
+            Leverage
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTpSl.OpenId">
+            <summary>
+            Open id
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTpSl.MarginType">
+            <summary>
+            Margin type
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTpSl.PriceType">
+            <summary>
+            Price type
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTpSl.StopLossPrice">
+            <summary>
+            Stop loss price
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTpSl.StopLossRate">
+            <summary>
+            Stop loss rate
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTpSl.StopLossOrderType">
+            <summary>
+            Stop loss order type
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTpSl.StopProfitPrice">
+            <summary>
+            Stop profit price
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTpSl.StopProfitRate">
+            <summary>
+            Stop profit rate
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTpSl.StopProfitOrderType">
+            <summary>
+            Stop profit order type
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTpSl.StopType">
+            <summary>
+            Stop type
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTpSl.TriggerStatus">
+            <summary>
+            Trigger status
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTpSl.UpdateTime">
+            <summary>
+            Update time
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTpSl.UserId">
+            <summary>
+            User id
+            </summary>
+        </member>
         <member name="T:CoinW.Net.Objects.Models.CoinWTrade">
             <summary>
             Trade info
@@ -3383,6 +5006,61 @@
             Trade time
             </summary>
         </member>
+        <member name="T:CoinW.Net.Objects.Models.CoinWTradeHistory">
+            <summary>
+            Trade history
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTradeHistory.NextId">
+            <summary>
+            Next id
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTradeHistory.PrevId">
+            <summary>
+            Prev id
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTradeHistory.Rows">
+            <summary>
+            Rows
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTradeHistory.Total">
+            <summary>
+            Total number of results
+            </summary>
+        </member>
+        <member name="T:CoinW.Net.Objects.Models.CoinWHistoryTrade">
+            <summary>
+            Trade info
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistoryTrade.Quantity">
+            <summary>
+            Trade quantity in contracts
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistoryTrade.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistoryTrade.Price">
+            <summary>
+            Trade price
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistoryTrade.PositionSide">
+            <summary>
+            Position side
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistoryTrade.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
         <member name="T:CoinW.Net.Objects.Models.CoinWTradeUpdate">
             <summary>
             Trade info
@@ -3411,6 +5089,156 @@
         <member name="P:CoinW.Net.Objects.Models.CoinWTradeUpdate.Timestamp">
             <summary>
             Trade time
+            </summary>
+        </member>
+        <member name="T:CoinW.Net.Objects.Models.CoinWTrailingTpSl">
+            <summary>
+            Trailing take profit / stop loss info
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.BaseQuantity">
+            <summary>
+            Quantity in base asset
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.CallbackRate">
+            <summary>
+            Callback rate
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.ContractType">
+            <summary>
+            Contract type
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.CreateTime">
+            <summary>
+            Create time
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.QuantityOpen">
+            <summary>
+            Open quantity
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.PositionSide">
+            <summary>
+            Position side
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.Fee">
+            <summary>
+            Fee
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.FinishStatus">
+            <summary>
+            Finish status
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.FundingFee">
+            <summary>
+            Funding fee
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.Leverage">
+            <summary>
+            Leverage
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.Margin">
+            <summary>
+            Position margin
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.PositionId">
+            <summary>
+            Position id
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.OpenPrice">
+            <summary>
+            Open price
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.OrderPrice">
+            <summary>
+            Order price
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.OriginalType">
+            <summary>
+            Original type
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.PosType">
+            <summary>
+            Pos type
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.PositionMargin">
+            <summary>
+            Position margin
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.MarginType">
+            <summary>
+            Margin type
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.ProcessStatus">
+            <summary>
+            Process status
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.QuantityUnit">
+            <summary>
+            Quantity unit
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.Source">
+            <summary>
+            Source
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.TriggerPrice">
+            <summary>
+            Trigger price
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.TriggerType">
+            <summary>
+            Trigger type
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.UpdateTime">
+            <summary>
+            Update time
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWTrailingTpSl.UserId">
+            <summary>
+            User id
             </summary>
         </member>
         <member name="P:CoinW.Net.Objects.Models.CoinWUserTradeWrapper.List">
@@ -3558,13 +5386,24 @@
             Spot API options
             </summary>
         </member>
+        <member name="T:CoinW.Net.Objects.Sockets.Subscriptions.CoinWFuturesSubscription`1">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWFuturesSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.String,System.String,System.Nullable{CoinW.Net.Enums.FuturesKlineIntervalStream},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWFuturesSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWFuturesSubscription`1.GetUnsubQuery">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWFuturesSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Internal.CoinWSocketResponse{`0}})">
+            <inheritdoc />
+        </member>
         <member name="T:CoinW.Net.Objects.Sockets.Subscriptions.CoinWSubscription`1">
-            <inheritdoc />
-        </member>
-        <member name="P:CoinW.Net.Objects.Sockets.Subscriptions.CoinWSubscription`1.ListenerIdentifiers">
-            <inheritdoc />
-        </member>
-        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWSubscription`1.GetMessageType(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.String,System.String,System.Nullable{CoinW.Net.Enums.KlineIntervalStream},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
@@ -3578,16 +5417,10 @@
         <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWSubscription`1.GetUnsubQuery">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{System.Object})">
+        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Internal.CoinWSocketResponse{`0}})">
             <inheritdoc />
         </member>
         <member name="T:CoinW.Net.Objects.Sockets.Subscriptions.CoinWWrappedSubscription`1">
-            <inheritdoc />
-        </member>
-        <member name="P:CoinW.Net.Objects.Sockets.Subscriptions.CoinWWrappedSubscription`1.ListenerIdentifiers">
-            <inheritdoc />
-        </member>
-        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWWrappedSubscription`1.GetMessageType(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWWrappedSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.String,System.String,System.Nullable{CoinW.Net.Enums.KlineIntervalStream},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
@@ -3601,7 +5434,7 @@
         <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWWrappedSubscription`1.GetUnsubQuery">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWWrappedSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{System.Object})">
+        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWWrappedSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Internal.CoinWSocketResponse{System.String}})">
             <inheritdoc />
         </member>
         <member name="T:CoinW.Net.SymbolOrderBooks.CoinWFuturesSymbolOrderBook">

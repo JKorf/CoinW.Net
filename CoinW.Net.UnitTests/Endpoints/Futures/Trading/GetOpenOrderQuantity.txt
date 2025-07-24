@@ -1,0 +1,4 @@
+GET
+/v1/perpum/orders/openQuantity
+true
+{"code": 0, "data": {"value": 2}, "msg": ""}

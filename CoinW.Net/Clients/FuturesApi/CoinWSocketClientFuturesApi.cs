@@ -16,6 +16,10 @@ using CoinW.Net.Interfaces.Clients.FuturesApi;
 using CoinW.Net.Objects.Models;
 using CoinW.Net.Objects.Options;
 using CoinW.Net.Objects.Sockets.Subscriptions;
+using System.Linq;
+using CryptoExchange.Net;
+using CoinW.Net.Enums;
+using CoinW.Net.Objects.Sockets;
 
 namespace CoinW.Net.Clients.FuturesApi
 {
@@ -25,7 +29,11 @@ namespace CoinW.Net.Clients.FuturesApi
     internal partial class CoinWSocketClientFuturesApi : SocketApiClient, ICoinWSocketClientFuturesApi
     {
         #region fields
-        private static readonly MessagePath _idPath = MessagePath.Get().Property("id");
+        private static readonly MessagePath _symbolPath = MessagePath.Get().Property("pairCode");
+        private static readonly MessagePath _typePath = MessagePath.Get().Property("type");
+        private static readonly MessagePath _channel = MessagePath.Get().Property("channel");
+        private static readonly MessagePath _event = MessagePath.Get().Property("event");
+        private static readonly MessagePath _interval = MessagePath.Get().Property("interval");
         #endregion
 
         #region constructor/destructor
@@ -36,33 +44,114 @@ namespace CoinW.Net.Clients.FuturesApi
         internal CoinWSocketClientFuturesApi(ILogger logger, CoinWSocketOptions options) :
             base(logger, options.Environment.SocketClientAddress!, options, options.FuturesOptions)
         {
+            RegisterPeriodicQuery(
+                "ping",
+                TimeSpan.FromSeconds(5),
+                x => new CoinWPingQuery(),
+                (connection, result) =>
+                {
+                    if (result.Error?.Message.Equals("Query timeout") == true)
+                    {
+                        // Ping timeout, reconnect
+                        _logger.LogWarning("[Sckt {SocketId}] Ping response timeout, reconnecting", connection.SocketId);
+                        _ = connection.TriggerReconnectAsync();
+                    }
+                });
         }
         #endregion
 
         /// <inheritdoc />
-        protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(CoinWExchange._serializerContext));
+        protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(CoinWExchange._serializerContext);
         /// <inheritdoc />
-        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(CoinWExchange._serializerContext));
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(CoinWExchange._serializerContext);
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-            => new CoinWAuthenticationProvider(credentials);
+            => new CoinWSpotAuthenticationProvider(credentials);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToXXXUpdatesAsync(Action<DataEvent<CoinWModel>> onMessage, CancellationToken ct = default)
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<CoinWFuturesTickerUpdate>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new CoinWWrappedSubscription<CoinWModel>(_logger, "", "", null, null, onMessage, false);
-            return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
+            var subscription = new CoinWFuturesSubscription<CoinWFuturesTickerUpdate>(_logger, "ticker_swap", symbol, symbol, null, onMessage, false);
+            return await SubscribeAsync(BaseAddress.AppendPath("perpum"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<CoinWFuturesOrderBook>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new CoinWFuturesSubscription<CoinWFuturesOrderBook>(_logger, "depth", symbol, symbol, null, onMessage, false);
+            return await SubscribeAsync(BaseAddress.AppendPath("perpum"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<CoinWFuturesTrade[]>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new CoinWFuturesSubscription<CoinWFuturesTrade[]>(_logger, "fills", symbol, symbol, null, onMessage, false);
+            return await SubscribeAsync(BaseAddress.AppendPath("perpum"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, FuturesKlineIntervalStream interval, Action<DataEvent<CoinWFuturesStreamKline>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new CoinWFuturesSubscription<CoinWFuturesStreamKline>(_logger, "candles_swap_utc", symbol, symbol, interval, onMessage, false);
+            return await SubscribeAsync(BaseAddress.AppendPath("perpum"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToIndexPriceUpdatesAsync(string symbol, Action<DataEvent<CoinWPrice>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new CoinWFuturesSubscription<CoinWPrice>(_logger, "index_price", symbol, symbol, null, onMessage, false);
+            return await SubscribeAsync(BaseAddress.AppendPath("perpum"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(string symbol, Action<DataEvent<CoinWPrice>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new CoinWFuturesSubscription<CoinWPrice>(_logger, "mark_price", symbol, symbol, null, onMessage, false);
+            return await SubscribeAsync(BaseAddress.AppendPath("perpum"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(string symbol, Action<DataEvent<CoinWFundingRate>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new CoinWFuturesSubscription<CoinWFundingRate>(_logger, "funding_rate", symbol, symbol, null, onMessage, false);
+            return await SubscribeAsync(BaseAddress.AppendPath("perpum"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<CoinWFuturesOrder[]>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new CoinWFuturesSubscription<CoinWFuturesOrder[]>(_logger, "order", null, null, null, onMessage, true);
+            return await SubscribeAsync(BaseAddress.AppendPath("perpum"), subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public override string? GetListenerIdentifier(IMessageAccessor message)
         {
-            return message.GetValue<string>(_idPath);
+            var @event = message.GetValue<string>(_event);
+            if (@event == "pong")
+                return "pong";
+
+            var type = message.GetValue<string>(_typePath);
+            var symbol = message.GetValue<string>(_symbolPath);
+            var channel = message.GetValue<string?>(_channel);
+            var interval = message.GetValue<string?>(_interval);
+            if (channel != null)
+            {
+                if (channel.Equals("login", StringComparison.Ordinal))
+                    return "login";
+
+                return $"{type}-{(symbol == null ? "" : $"{symbol}-")}{(interval == null ? "" : $"{interval}-")}{channel}";
+            }
+
+            if (symbol != null)
+                return $"{type}-{symbol}{(interval == null ? "" : $"-{interval}")}";
+
+            return $"{type}";
         }
 
         /// <inheritdoc />
-        protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection) => Task.FromResult<Query?>(null);
+        protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection) => Task.FromResult<Query?>(new CoinWLoginQuery(ApiCredentials!.Key, ApiCredentials.Secret));
 
         /// <inheritdoc />
         public ICoinWSocketClientFuturesApiShared SharedClient => this;

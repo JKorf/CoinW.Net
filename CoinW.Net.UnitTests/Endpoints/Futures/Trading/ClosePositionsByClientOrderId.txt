@@ -1,0 +1,8 @@
+DELETE
+/v1/perpum/batchClose
+true
+{"code": 0,
+ "data": [
+  {"msgCode": 0,"openId": "33308750244767807","thirdOrderId": "111111111111"},
+  {"msgCode": 0, "openId": "33308750244776514", "thirdOrderId": "2222222222"}
+],"msg": ""}

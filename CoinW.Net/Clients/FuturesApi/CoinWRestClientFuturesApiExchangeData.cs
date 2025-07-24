@@ -129,11 +129,26 @@ namespace CoinW.Net.Clients.FuturesApi
         /// <inheritdoc />
         public async Task<WebCallResult<CoinWMarginRequirement[]>> GetMarginRequirementsAsync(CancellationToken ct = default)
         {
-#warning requires a parameter but unknown which parameter
             var parameters = new ParameterCollection();
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpum/ladders", CoinWExchange.RateLimiter.CoinW, 1, false, limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpum/ladders", CoinWExchange.RateLimiter.CoinW, 1, true, limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<CoinWMarginRequirementWrapper>(request, parameters, ct).ConfigureAwait(false);
             return result.As<CoinWMarginRequirement[]>(result.Data?.LadderConfig);
+        }
+
+        #endregion
+
+        #region Get Trades
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<CoinWTradeHistory>> GetTradeHistoryAsync(string symbol, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("instrument", symbol);
+            parameters.AddOptional("page", page);
+            parameters.AddOptional("pageSize", pageSize);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpum/orders/trades", CoinWExchange.RateLimiter.CoinW, 1, true, limitGuard: new SingleLimitGuard(5, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync<CoinWTradeHistory>(request, parameters, ct).ConfigureAwait(false);
+            return result;
         }
 
         #endregion

@@ -1,0 +1,4 @@
+POST
+/v1/perpum/order
+true
+{"code": 0, "data": {"value": "33308751556999718"}, "msg": ""}

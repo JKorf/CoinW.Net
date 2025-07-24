@@ -18,21 +18,11 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
     /// <inheritdoc />
     internal class CoinWSubscription<T> : Subscription<CoinWSocketResponse<CoinWSubscriptionResponse>, CoinWSocketResponse<CoinWSubscriptionResponse>>
     {
-        /// <inheritdoc />
-        public override HashSet<string> ListenerIdentifiers { get; set; }
-
-        private readonly IByteMessageAccessor _innerAccessor = new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(CoinWExchange._serializerContext));
         private readonly Action<DataEvent<T>> _handler;
         private string _topic;
         private string? _pairCode;
         private string? _symbolName;
         private KlineIntervalStream? _interval;
-
-        /// <inheritdoc />
-        public override Type? GetMessageType(IMessageAccessor message)
-        {
-            return typeof(CoinWSocketResponse<T>);
-        }
 
         /// <summary>
         /// ctor
@@ -45,16 +35,16 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
             _symbolName = symbolName;
             _interval = interval;
 
-            ListenerIdentifiers = new HashSet<string>() { topic + (pairCode == null ? "" : ("-" + pairCode)) + (interval == null ? "" : ("-" + EnumConverter.GetString(interval))) };
+            MessageMatcher = MessageMatcher.Create<CoinWSocketResponse<T>>(MessageLinkType.Full, topic + (pairCode == null ? "" : ("-" + pairCode)) + (interval == null ? "" : ("-" + EnumConverter.GetString(interval))), DoHandleMessage);
         }
 
         /// <inheritdoc />
         public override Query? GetSubQuery(SocketConnection connection)
         {
-            return new CoinWQuery<CoinWSubscriptionResponse>(new CoinWSocketRequest
+            return new CoinWSpotQuery<CoinWSubscriptionResponse>(new CoinWSpotSocketRequest
             {
                 Event = "sub",
-                Parameters = new CoinWSocketRequestParameters
+                Parameters = new CoinWSpotSocketRequestParameters
                 {
                     Biz = "exchange",
                     Type = _topic,
@@ -67,10 +57,10 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
         /// <inheritdoc />
         public override Query? GetUnsubQuery()
         {
-            return new CoinWQuery<CoinWSubscriptionResponse>(new CoinWSocketRequest
+            return new CoinWSpotQuery<CoinWSubscriptionResponse>(new CoinWSpotSocketRequest
             {
                 Event = "unsub",
-                Parameters = new CoinWSocketRequestParameters
+                Parameters = new CoinWSpotSocketRequestParameters
                 {
                     Biz = "exchange",
                     Type = _topic,
@@ -81,10 +71,9 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
         }
 
         /// <inheritdoc />
-        public override CallResult DoHandleMessage(SocketConnection connection, DataEvent<object> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<CoinWSocketResponse<T>> message)
         {
-            var data = (CoinWSocketResponse<T>)message.Data!;
-            _handler.Invoke(message.As(data.Data, data.Type, _symbolName, SocketUpdateType.Update));
+            _handler.Invoke(message.As(message.Data.Data, message.Data.Type, _symbolName, SocketUpdateType.Update));
             return new CallResult(null);
         }
     }

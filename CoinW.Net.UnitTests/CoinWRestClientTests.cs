@@ -14,7 +14,7 @@ namespace CoinW.Net.UnitTests
         [Test]
         public void CheckSignatureExample1()
         {
-            var authProvider = new CoinWAuthenticationProvider(new ApiCredentials("XXX", "XXX"));
+            var authProvider = new CoinWSpotAuthenticationProvider(new ApiCredentials("XXX", "XXX"));
             var client = (RestApiClient)new CoinWRestClient().SpotApi;
 
             CryptoExchange.Net.Testing.TestHelpers.CheckSignature(

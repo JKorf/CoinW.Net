@@ -65,6 +65,18 @@ namespace CoinW.Net.UnitTests
         }
 
         [Test]
+        public async Task ValidateFuturesAccountCalls()
+        {
+            var client = new CoinWRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
+            });
+            var tester = new RestRequestValidator<CoinWRestClient>(client, "Endpoints/Spot/Trading", "https://api.coinw.com", IsAuthenticated);
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetLeverageAsync(123), "GetLeverage", nestedJsonProperty: "data");
+        }
+
+        [Test]
         public async Task ValidateFuturesExchangeDataCalls()
         {
             var client = new CoinWRestClient(opts =>
@@ -80,6 +92,34 @@ namespace CoinW.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetOrderBookAsync("123"), "GetOrderBook", nestedJsonProperty: "data", ignoreProperties: ["t"]);
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetRecentTradesAsync("123"), "GetRecentTrades", nestedJsonProperty: "data");
         }
+
+        [Test]
+        public async Task ValidateFuturesTradingCalls()
+        {
+            var client = new CoinWRestClient(opts =>
+            {
+                opts.AutoTimestamp = false;
+                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
+            });
+            var tester = new RestRequestValidator<CoinWRestClient>(client, "Endpoints/Spot/Trading", "https://api.coinw.com", IsAuthenticated); 
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceOrderAsync("123", PositionSide.Long, FuturesOrderType.Market, 0.1m, 123), "PlaceOrder", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.CancelOrderAsync(123), "CancelOrder");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.CancelOrdersAsync([123]), "CancelOrders");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.ClosePositionAsync(123), "ClosePosition", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.ClosePositionsByClientOrderIdAsync(["123"]), "ClosePositionsByClientOrderId", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.CloseAllPositionsAsync("123"), "CloseAllPositions");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.ReversePositionAsync(123), "ReversePosition", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.AdjustMarginAsync(123, 0.1m, 0.1m), "AdjustMargin");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.SetTpSlAsync(123, "123"), "SetTpSl");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.SetTrailingTpSlAsync(123, 0.1m), "SetTrailingTpSl");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOpenOrdersAsync("123", FuturesOrderType.Plan), "GetOpenOrders", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOpenOrderCountAsync(), "GetOpenOrderQuantity", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetTpSlAsync(1), "GetTpSl", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetTrailingTpSlAsync(), "GetTrailingTpSl", nestedJsonProperty: "data", ignoreProperties: ["version"]);
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOrderHistory7DaysAsync(), "GetOrderHistory7D", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetPositionsAsync("123"), "GetPositions", nestedJsonProperty: "data");
+        }
+
 
 
         private bool IsAuthenticated(WebCallResult result)

@@ -1,0 +1,26 @@
+GET
+/v1/perpum/TPSL
+true
+{"code": 0,
+ "data": [{"closePiece": 2,
+   "createdDate": 1740771128000,
+   "currentPiece": 2,
+   "direction": "long",
+   "id": 33308288734471132,
+   "indexPrice": 84530.2,
+   "instrument": "BTC",
+   "leverage": 2,
+   "openId": 2435521222632076385,
+   "positionModel": 0,
+   "priceType": 2,
+   "stopLossPrice": 82000,
+   "stopLossRate": 0.05404302,
+   "stopLossType": "execute",
+   "stopProfitPrice": 95000,
+   "stopProfitRate": 0.2544624,
+   "stopProfitType": "execute",
+   "stopType": 2,
+   "triggerStatus": 0,
+   "updatedDate": 1740771128000,
+   "userId": 1162061}],
+ "msg": ""}

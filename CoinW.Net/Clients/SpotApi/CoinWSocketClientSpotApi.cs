@@ -69,13 +69,13 @@ namespace CoinW.Net.Clients.SpotApi
         #endregion
 
         /// <inheritdoc />
-        protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(SerializerOptions.WithConverters(CoinWExchange._serializerContext));
+        protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(CoinWExchange._serializerContext);
         /// <inheritdoc />
-        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(CoinWExchange._serializerContext));
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(CoinWExchange._serializerContext);
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-            => new CoinWAuthenticationProvider(credentials);
+            => new CoinWSpotAuthenticationProvider(credentials);
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<CoinWTickerUpdate>> onMessage, CancellationToken ct = default)
@@ -167,7 +167,7 @@ namespace CoinW.Net.Clients.SpotApi
             var interval = message.GetValue<string?>(_interval);
             if (channel != null)
             {
-                if (channel.Equals("login", StringComparison.OrdinalIgnoreCase))
+                if (channel.Equals("login", StringComparison.Ordinal))
                     return "login";
 
                 return $"{type}-{(symbol == null ? "" : $"{symbol}-")}{(interval == null ? "" : $"{interval}-")}{channel}";

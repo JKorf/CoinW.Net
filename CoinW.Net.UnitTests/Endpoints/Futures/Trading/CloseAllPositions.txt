@@ -1,0 +1,4 @@
+DELETE
+/v1/perpum/allpositions
+true
+{"code": 0, "msg": ""}

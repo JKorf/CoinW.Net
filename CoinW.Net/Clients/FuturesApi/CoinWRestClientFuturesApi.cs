@@ -26,6 +26,7 @@ namespace CoinW.Net.Clients.FuturesApi
 
         private readonly MessagePath _codePath = MessagePath.Get().Property("code");
         private readonly MessagePath _messagePath = MessagePath.Get().Property("msg");
+        private readonly MessagePath _messagePath2 = MessagePath.Get().Property("message");
         #endregion
 
         #region Api clients
@@ -50,14 +51,14 @@ namespace CoinW.Net.Clients.FuturesApi
         #endregion
 
         /// <inheritdoc />
-        protected override IStreamMessageAccessor CreateAccessor() => new SystemTextJsonStreamMessageAccessor(SerializerOptions.WithConverters(CoinWExchange._serializerContext));
+        protected override IStreamMessageAccessor CreateAccessor() => new SystemTextJsonStreamMessageAccessor(CoinWExchange._serializerContext);
         /// <inheritdoc />
-        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(SerializerOptions.WithConverters(CoinWExchange._serializerContext));
+        protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(CoinWExchange._serializerContext);
 
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-            => new CoinWAuthenticationProvider(credentials);
+            => new CoinWFuturesAuthenticationProvider(credentials);
 
 
         internal Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
@@ -102,7 +103,7 @@ namespace CoinW.Net.Clients.FuturesApi
                 return new ServerError(accessor.GetOriginalString());
 
             var code = accessor.GetValue<int?>(_codePath);
-            var msg = accessor.GetValue<string>(_messagePath);
+            var msg = accessor.GetValue<string>(_messagePath) ?? accessor.GetValue<string>(_messagePath2);
             if (code == 0)
                 return null;
 

@@ -18,12 +18,12 @@ namespace CoinW.Net.Enums
         /// <summary>
         /// Limit
         /// </summary>
-        [Map("LIMIT")]
+        [Map("LIMIT", "0")]
         Limit,
         /// <summary>
         /// Market
         /// </summary>
-        [Map("MARKET")]
+        [Map("MARKET", "1")]
         Market
     }
 }

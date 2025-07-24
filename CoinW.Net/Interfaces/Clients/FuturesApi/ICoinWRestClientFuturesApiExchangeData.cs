@@ -76,5 +76,15 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWMarginRequirement[]>> GetMarginRequirementsAsync(CancellationToken ct = default);
 
+        /// <summary>
+        /// Get trade history
+        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-historical-public-trades" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `ETH`</param>
+        /// <param name="page">Page number</param>
+        /// <param name="pageSize">Page size</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<CoinWTradeHistory>> GetTradeHistoryAsync(string symbol, int? page = null, int? pageSize = null, CancellationToken ct = default);
+
     }
 }

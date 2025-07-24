@@ -9,8 +9,6 @@ namespace CoinW.Net.Objects.Sockets
 {
     internal class CoinWLoginQuery : Query<CoinWSocketResponse<CoinWSubscriptionResponse>>
     {
-        public override HashSet<string> ListenerIdentifiers { get; set; }
-
         public CoinWLoginQuery(string key, string secret) : base(new CoinWLoginRequest
         {
             Event = "login",
@@ -21,11 +19,12 @@ namespace CoinW.Net.Objects.Sockets
             }
         }, false, 1)
         {
-            ListenerIdentifiers = new HashSet<string> { "login" };
+            MessageMatcher = MessageMatcher.Create<CoinWSocketResponse<CoinWSubscriptionResponse>>("login", HandleMessage);
         }
 
-        public override CallResult<CoinWSocketResponse<CoinWSubscriptionResponse>> HandleMessage(SocketConnection connection, DataEvent<CoinWSocketResponse<CoinWSubscriptionResponse>> message)
+        public CallResult<CoinWSocketResponse<CoinWSubscriptionResponse>> HandleMessage(SocketConnection connection, DataEvent<CoinWSocketResponse<CoinWSubscriptionResponse>> message)
         {
+#warning check result
             return message.ToCallResult();
         }
     }
