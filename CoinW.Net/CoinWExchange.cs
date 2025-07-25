@@ -106,10 +106,23 @@ namespace CoinW.Net
             CoinW = new RateLimitGate("CoinW");
             CoinW.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
             CoinW.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
+
+            Futures = new RateLimitGate("Futures")
+                .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, new PathStartFilter("/v1/perpumPublic"), 30, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding))
+                .AddGuard(new RateLimitGuard(RateLimitGuard.PerApiKey, new PathStartFilter("/v1/perpum/"), 100, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
+            Futures.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            Futures.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
+
+            Spot = new RateLimitGate("Futures")
+                .AddGuard(new RateLimitGuard(RateLimitGuard.PerHost, [], 100, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
+            Spot.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
+            Spot.RateLimitUpdated += (x) => RateLimitUpdated?.Invoke(x);
         }
 
 
         internal IRateLimitGate CoinW { get; private set; }
+        internal IRateLimitGate Futures { get; private set; }
+        internal IRateLimitGate Spot { get; private set; }
 
     }
 }

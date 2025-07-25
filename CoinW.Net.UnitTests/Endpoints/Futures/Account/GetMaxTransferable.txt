@@ -1,0 +1,4 @@
+GET
+/v1/perpum/account/available
+true
+{"code": 0, "data": {"value": "438.799142390000018"}, "msg": ""}

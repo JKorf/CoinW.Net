@@ -166,6 +166,16 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         Task<WebCallResult<CoinWFuturesOrderPage>> GetOpenOrdersAsync(string symbol, FuturesOrderType orderType, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
         /// <summary>
+        /// Get open orders for a symbol
+        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-order-information" /></para>
+        /// </summary>
+        /// <param name="orderType">Order type</param>
+        /// <param name="symbol">Filter by symbol, for example `ETH`</param>
+        /// <param name="orderIds">Filter by order ids</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<CoinWFuturesOrder[]>> GetOpenOrdersAsync(FuturesOrderType orderType, string? symbol = null, IEnumerable<long>? orderIds = null, CancellationToken ct = default);
+
+        /// <summary>
         /// Get the total number of open orders
         /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-pending-order-count" /></para>
         /// </summary>
@@ -219,6 +229,46 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">The symbol, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWPosition[]>> GetPositionsAsync(string symbol, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get position history
+        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/position/get-historical-position-information" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `ETH`</param>
+        /// <param name="marginType">Margin type</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<CoinWPositionHistoryPage>> GetPositionHistoryAsync(string? symbol = null, MarginType? marginType = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get all open positions
+        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/position/get-current-positions" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<CoinWPosition[]>> GetPositionsAsync(CancellationToken ct = default);
+
+        /// <summary>
+        /// Get transaction history for the last 3 days
+        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-transaction-details-3days" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `ETH`</param>
+        /// <param name="orderType">Filter by order type</param>
+        /// <param name="marginType">Filter by margin type</param>
+        /// <param name="page">page number</param>
+        /// <param name="pageSize">Page size</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<CoinWFuturesTransactionPage>> GetTransactionHistory3DaysAsync(string symbol, OrderType? orderType = null, MarginType? marginType = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
+
+        /// <summary>
+        /// Get transaction history for the last 3 months
+        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-transaction-details-3months" /></para>
+        /// </summary>
+        /// <param name="symbol">The symbol, for example `ETH`</param>
+        /// <param name="orderType">Filter by order type</param>
+        /// <param name="marginType">Filter by margin type</param>
+        /// <param name="page">page number</param>
+        /// <param name="pageSize">Page size</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<CoinWFuturesTransactionPage>> GetTransactionHistory3MonthsAsync(string symbol, OrderType? orderType = null, MarginType? marginType = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
     }
 }

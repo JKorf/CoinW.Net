@@ -1,0 +1,4 @@
+GET
+/v1/perpum/orders/availSize
+true
+{"code": 0, "data": {"availBuy": 0, "availSell": 1}, "msg": ""}

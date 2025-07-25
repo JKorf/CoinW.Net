@@ -1,0 +1,32 @@
+> {"event": "login", "params": { "api_key": "", "passphrase": ""}}
+< { "data": {"result": true}, "channel": "login"}
+> { "event": "sub", "params": { "biz": "futures","type": "assets"}}
+< {"biz": "futures", "data": {"result": true}, "channel": "subscribe", "type": "assets"}
+= 
+{"biz": "futures",
+ "pairCode": "USDT",
+ "data": [{"margin": 0.0,
+   "profitUnreal": 0,
+   "freeze": 0.0,
+   "size": 0,
+   "available": 488.53777423,
+   "currency": "usdt",
+   "type": 7,
+   "almightyGold": 0,
+   "transferAvailable": 488.53777423,
+   "userId": 1162061,
+   "availableMargin": 488.53777423,
+   "hold": 0.0},
+  {"margin": 0.0,
+   "profitUnreal": 0,
+   "freeze": 0.0,
+   "size": 0,
+   "available": 488.53777423,
+   "currency": "usdt",
+   "type": 7,
+   "almightyGold": 0,
+   "transferAvailable": 488.53777423,
+   "userId": 1162061,
+   "availableMargin": 488.53777423,
+   "hold": 0.0}],
+ "type": "assets"}

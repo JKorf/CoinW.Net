@@ -117,7 +117,7 @@ namespace CoinW.Net.Objects.Models
         /// Process status
         /// </summary>
         [JsonPropertyName("processStatus")]
-        public TrailingStatus ProcessStatus { get; set; }
+        public ProcessingStatus ProcessStatus { get; set; }
         /// <summary>
         /// Quantity
         /// </summary>

@@ -87,11 +87,48 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to user order updates
+        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/check/subscribe-current-orders" /></para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
         /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
         Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<CoinWFuturesOrder[]>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to user position updates
+        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/position/subscribe-position" /></para>
+        /// </summary>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<DataEvent<CoinWPosition[]>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to user position detail updates
+        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/position/subscribe-position-change" /></para>
+        /// </summary>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToPositionDetailUpdatesAsync(Action<DataEvent<CoinWPositionChange[]>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to balance updates
+        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/subscribe-assets" /></para>
+        /// </summary>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<CoinWFuturesBalanceUpdate[]>> onMessage, CancellationToken ct = default);
+
+        /// <summary>
+        /// Subscribe to margin configuration updates
+        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/subscribe-margin-mode" /></para>
+        /// </summary>
+        /// <param name="onMessage">The event handler for the received data</param>
+        /// <param name="ct">Cancellation token for closing this subscription</param>
+        /// <returns>A stream subscription. This stream subscription can be used to be notified when the socket is disconnected/reconnected</returns>
+        Task<CallResult<UpdateSubscription>> SubscribeToMarginConfigUpdatesAsync(Action<DataEvent<CoinWMarginInfo[]>> onMessage, CancellationToken ct = default);
 
         /// <summary>
         /// Get the shared socket requests client. This interface is shared with other exchanges to allow for a common implementation for different exchanges.

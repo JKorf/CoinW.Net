@@ -1,0 +1,4 @@
+POST
+/v1/perpum/account/almightyGoldInfo
+true
+{"code": 0, "msg": ""}

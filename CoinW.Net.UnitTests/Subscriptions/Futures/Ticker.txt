@@ -1,0 +1,14 @@
+> { "event": "sub", "params": { "biz": "futures", "pairCode": "ETH", "type": "ticker_swap"}}
+< {"biz": "futures", "pairCode": "ETH", "data": {"result": true}, "channel": "subscribe", "type": "ticker_swap"}
+= 
+{"biz": "futures",
+ "pairCode": "ETH",
+ "data": {"high": "96721.6",
+  "vol": "184464.598",
+  "volUsdt": "17546484639.42",
+  "last": "96192.6",
+  "low": "93321.4",
+  "changeRate": "-0.000020",
+  "currencyCode": "eth",
+  "open": "96194.5"},
+ "type": "ticker_swap"}

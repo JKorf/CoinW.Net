@@ -1,0 +1,12 @@
+> { "event": "sub", "params": { "biz": "futures", "pairCode": "ETH", "type": "fills"}}
+< {"biz": "futures", "pairCode": "ETH", "data": {"result": true}, "channel": "subscribe", "type": "fills"}
+= 
+{"biz": "futures",
+ "pairCode": "ETH",
+ "data": [{"createdDate": 1740386094525,
+   "quantity": 0.007,
+   "piece": 7,
+   "price": 95449,
+   "id": 20742103698619397,
+   "direction": "long"}],
+ "type": "fills"}

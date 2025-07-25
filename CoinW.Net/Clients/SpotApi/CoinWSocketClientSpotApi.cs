@@ -153,7 +153,6 @@ namespace CoinW.Net.Clients.SpotApi
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 
-
         /// <inheritdoc />
         public override string? GetListenerIdentifier(IMessageAccessor message)
         {
@@ -170,11 +169,11 @@ namespace CoinW.Net.Clients.SpotApi
                 if (channel.Equals("login", StringComparison.Ordinal))
                     return "login";
 
-                return $"{type}-{(symbol == null ? "" : $"{symbol}-")}{(interval == null ? "" : $"{interval}-")}{channel}";
+                return $"{type}-{(symbol == null ? "" : $"{symbol.ToLowerInvariant()}-")}{(interval == null ? "" : $"{interval}-")}{channel}";
             }
 
             if (symbol != null)
-                return $"{type}-{symbol}{(interval == null ? "" : $"-{interval}")}";
+                return $"{type}-{symbol.ToLowerInvariant()}{(interval == null ? "" : $"-{interval}")}";
 
             return $"{type}";
         }

@@ -48,7 +48,8 @@ namespace CoinW.Net.Clients.FuturesApi
             parameters.AddOptional("goldId", goldenId);
             parameters.AddOptional("thirdOrderId", clientOrderId);
             parameters.AddOptional("useAlmightyGold", useMegaCoupon);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/v1/perpum/order", CoinWExchange.RateLimiter.CoinW, 1, true, limitGuard: new SingleLimitGuard(30, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/v1/perpum/order", CoinWExchange.RateLimiter.CoinW, 1, true,
+                limitGuard: new SingleLimitGuard(30, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<CoinWOrderId>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -62,7 +63,8 @@ namespace CoinW.Net.Clients.FuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.SetBody(requests.ToArray());
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/v1/perpum/batchOrders", CoinWExchange.RateLimiter.CoinW, 1, true, limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/v1/perpum/batchOrders", CoinWExchange.RateLimiter.CoinW, 1, true, 
+                limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<CoinWBatchResult[]>(request, parameters, ct).ConfigureAwait(false);
             if (!result)
                 return result.As<CallResult<CoinWBatchResult>[]>(default);
@@ -95,7 +97,8 @@ namespace CoinW.Net.Clients.FuturesApi
             parameters.AddOptional("closeNum", quantityToClose);
             parameters.AddOptional("closeRate", factorToClose);
             parameters.AddOptional("orderPrice", price);
-            var request = _definitions.GetOrCreate(HttpMethod.Delete, "/v1/perpum/positions", CoinWExchange.RateLimiter.CoinW, 1, true, limitGuard: new SingleLimitGuard(30, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, "/v1/perpum/positions", CoinWExchange.RateLimiter.CoinW, 1, true,
+                limitGuard: new SingleLimitGuard(30, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync<CoinWOrderId>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -109,7 +112,8 @@ namespace CoinW.Net.Clients.FuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.SetBody(clientOrderIds.Select(x => new Dictionary<string, object> { { "thirdOrderId", x } }).ToArray());
-            var request = _definitions.GetOrCreate(HttpMethod.Delete, "/v1/perpum/batchClose", CoinWExchange.RateLimiter.CoinW, 1, true, limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, "/v1/perpum/batchClose", CoinWExchange.RateLimiter.CoinW, 1, true,
+                limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<CoinWBatchResult[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -123,7 +127,8 @@ namespace CoinW.Net.Clients.FuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("instrument", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Delete, "/v1/perpum/allpositions", CoinWExchange.RateLimiter.CoinW, 1, true, limitGuard: new SingleLimitGuard(5, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, "/v1/perpum/allpositions", CoinWExchange.RateLimiter.CoinW, 1, true, 
+                limitGuard: new SingleLimitGuard(5, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -137,7 +142,8 @@ namespace CoinW.Net.Clients.FuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("id", positionId);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/v1/perpum/positions/reverse", CoinWExchange.RateLimiter.CoinW, 1, true, limitGuard: new SingleLimitGuard(5, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/v1/perpum/positions/reverse", CoinWExchange.RateLimiter.CoinW, 1, true,
+                limitGuard: new SingleLimitGuard(5, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<CoinWOrderId>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -153,7 +159,8 @@ namespace CoinW.Net.Clients.FuturesApi
             parameters.Add("id", positionId);
             parameters.Add("addMargin", addMargin);
             parameters.Add("reduceMargin", reduceMargin);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/v1/perpum/positions/margin", CoinWExchange.RateLimiter.CoinW, 1, false);
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/v1/perpum/positions/margin", CoinWExchange.RateLimiter.CoinW, 1, false,
+                limitGuard: new SingleLimitGuard(5, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -174,7 +181,8 @@ namespace CoinW.Net.Clients.FuturesApi
             parameters.AddOptional("stopLossPrice", stopLossPrice);
             parameters.AddOptional("stopLossOrderPrice", stopLossOrderPrice);
             parameters.AddOptional("stopLossRate", stopLossRate);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/v1/perpum/TPSL", CoinWExchange.RateLimiter.CoinW, 1, true, limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/v1/perpum/TPSL", CoinWExchange.RateLimiter.CoinW, 1, true,
+                limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -192,7 +200,8 @@ namespace CoinW.Net.Clients.FuturesApi
             parameters.AddOptional("triggerPrice", triggerPrice);
             parameters.AddOptional("quantity", quantity);
             parameters.AddOptionalEnum("quantityUnit", quantityType);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/v1/perpum/moveTPSL", CoinWExchange.RateLimiter.CoinW, 1, true, limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/v1/perpum/moveTPSL", CoinWExchange.RateLimiter.CoinW, 1, true, 
+                limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -221,7 +230,8 @@ namespace CoinW.Net.Clients.FuturesApi
             parameters.AddOptional("goldId", goldenId);
             parameters.AddOptional("thirdOrderId", clientOrderId);
             parameters.AddOptional("useAlmightyGold", useMegaCoupon);
-            var request = _definitions.GetOrCreate(HttpMethod.Put, "/v1/perpum/order", CoinWExchange.RateLimiter.CoinW, 1, true, limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Put, "/v1/perpum/order", CoinWExchange.RateLimiter.CoinW, 1, true,
+                limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<CoinWEditResult>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -235,7 +245,8 @@ namespace CoinW.Net.Clients.FuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("id", orderId);
-            var request = _definitions.GetOrCreate(HttpMethod.Delete, "/v1/perpum/order", CoinWExchange.RateLimiter.CoinW, 1, true, limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, "/v1/perpum/order", CoinWExchange.RateLimiter.CoinW, 1, true,
+                limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -249,7 +260,8 @@ namespace CoinW.Net.Clients.FuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("sourceIds", orderIds.ToArray());
-            var request = _definitions.GetOrCreate(HttpMethod.Delete, "/v1/perpum/batchOrders", CoinWExchange.RateLimiter.CoinW, 1, true, limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Delete, "/v1/perpum/batchOrders", CoinWExchange.RateLimiter.CoinW, 1, true,
+                limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -266,8 +278,26 @@ namespace CoinW.Net.Clients.FuturesApi
             parameters.AddEnum("positionType", orderType);
             parameters.AddOptional("page", page);
             parameters.AddOptional("pageSize", pageSize);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpum/orders/open", CoinWExchange.RateLimiter.CoinW, 1, true, limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpum/orders/open", CoinWExchange.RateLimiter.CoinW, 1, true,
+                limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<CoinWFuturesOrderPage>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Open Orders
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<CoinWFuturesOrder[]>> GetOpenOrdersAsync(FuturesOrderType orderType, string? symbol = null, IEnumerable<long>? orderIds = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("instrument", symbol);
+            parameters.AddEnum("positionType", orderType);
+            parameters.AddOptional("sourceIds", orderIds == null ? null : string.Join(",", orderIds));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpum/order", CoinWExchange.RateLimiter.CoinW, 1, true,
+                limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync<CoinWFuturesOrder[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -279,7 +309,8 @@ namespace CoinW.Net.Clients.FuturesApi
         public async Task<WebCallResult<CoinWValue>> GetOpenOrderCountAsync(CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpum/orders/openQuantity", CoinWExchange.RateLimiter.CoinW, 1, true, limitGuard: new SingleLimitGuard(5, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpum/orders/openQuantity", CoinWExchange.RateLimiter.CoinW, 1, true, 
+                limitGuard: new SingleLimitGuard(5, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<CoinWValue>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -297,7 +328,8 @@ namespace CoinW.Net.Clients.FuturesApi
             parameters.AddOptional("planOrderId", planOrderId);
             parameters.AddOptional("stopFrom", orderId != null ? 1 : positionId != null ? 2 : 3);
             parameters.AddOptional("instrument", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpum/TPSL", CoinWExchange.RateLimiter.CoinW, 1, true, limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpum/TPSL", CoinWExchange.RateLimiter.CoinW, 1, true, 
+                limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<CoinWTpSl[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -310,7 +342,8 @@ namespace CoinW.Net.Clients.FuturesApi
         public async Task<WebCallResult<CoinWTrailingTpSl[]>> GetTrailingTpSlAsync(CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpum/moveTPSL", CoinWExchange.RateLimiter.CoinW, 1, true, limitGuard: new SingleLimitGuard(5, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpum/moveTPSL", CoinWExchange.RateLimiter.CoinW, 1, true, 
+                limitGuard: new SingleLimitGuard(5, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<CoinWTrailingTpSl[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -327,7 +360,8 @@ namespace CoinW.Net.Clients.FuturesApi
             parameters.AddOptionalEnum("originType", orderType);
             parameters.AddOptional("page", page);
             parameters.AddOptional("pageSize", pageSize);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpum/orders/history", CoinWExchange.RateLimiter.CoinW, 1, true, limitGuard: new SingleLimitGuard(5, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpum/orders/history", CoinWExchange.RateLimiter.CoinW, 1, true, 
+                limitGuard: new SingleLimitGuard(5, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<CoinWHistOrderPage>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -344,7 +378,8 @@ namespace CoinW.Net.Clients.FuturesApi
             parameters.AddOptionalEnum("originType", orderType);
             parameters.AddOptional("page", page);
             parameters.AddOptional("pageSize", pageSize);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpum/orders/archive", CoinWExchange.RateLimiter.CoinW, 1, true, limitGuard: new SingleLimitGuard(5, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpum/orders/archive", CoinWExchange.RateLimiter.CoinW, 1, true,
+                limitGuard: new SingleLimitGuard(5, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<CoinWHistOrderPage>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -358,12 +393,80 @@ namespace CoinW.Net.Clients.FuturesApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("instrument", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpum/positions", CoinWExchange.RateLimiter.CoinW, 1, true, limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpum/positions", CoinWExchange.RateLimiter.CoinW, 1, true,
+                limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<CoinWPosition[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
         #endregion
 
+        #region Get Position History
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<CoinWPositionHistoryPage>> GetPositionHistoryAsync(string? symbol = null, MarginType? marginType = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.AddOptional("instrument", symbol);
+            parameters.AddOptional("positionModel", marginType);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpum/positions/history", CoinWExchange.RateLimiter.CoinW, 1, true,
+                limitGuard: new SingleLimitGuard(15, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
+            var result = await _baseClient.SendAsync<CoinWPositionHistoryPage>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Positions
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<CoinWPosition[]>> GetPositionsAsync(CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "v1/perpum/positions/all", CoinWExchange.RateLimiter.CoinW, 1, true, 
+                limitGuard: new SingleLimitGuard(30, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: SingleLimitGuard.PerApiKey));
+            var result = await _baseClient.SendAsync<CoinWPosition[]>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Transaction History 3 Days
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<CoinWFuturesTransactionPage>> GetTransactionHistory3DaysAsync(string symbol, OrderType? orderType = null, MarginType? marginType = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("instrument", symbol);
+            parameters.AddOptionalEnum("originType", orderType);
+            parameters.AddOptionalEnum("positionModel", marginType);
+            parameters.AddOptional("page", page);
+            parameters.AddOptional("pageSize", pageSize);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpum/orders/deals", CoinWExchange.RateLimiter.CoinW, 1, true,
+                limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync<CoinWFuturesTransactionPage>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
+
+        #region Get Transaction History 3 Months
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<CoinWFuturesTransactionPage>> GetTransactionHistory3MonthsAsync(string symbol, OrderType? orderType = null, MarginType? marginType = null, int? page = null, int? pageSize = null, CancellationToken ct = default)
+        {
+            var parameters = new ParameterCollection();
+            parameters.Add("instrument", symbol);
+            parameters.AddOptionalEnum("originType", orderType);
+            parameters.AddOptionalEnum("positionModel", marginType);
+            parameters.AddOptional("page", page);
+            parameters.AddOptional("pageSize", pageSize);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpum/orders/deals/history", CoinWExchange.RateLimiter.CoinW, 1, true,
+                limitGuard: new SingleLimitGuard(5, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
+            var result = await _baseClient.SendAsync<CoinWFuturesTransactionPage>(request, parameters, ct).ConfigureAwait(false);
+            return result;
+        }
+
+        #endregion
     }
 }

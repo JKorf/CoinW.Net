@@ -104,7 +104,7 @@ namespace CoinW.Net.Clients.FuturesApi
 
             var code = accessor.GetValue<int?>(_codePath);
             var msg = accessor.GetValue<string>(_messagePath) ?? accessor.GetValue<string>(_messagePath2);
-            if (code == 0)
+            if (code == 0 || code == 200)
                 return null;
 
             return new ServerError(code, msg!);

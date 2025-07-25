@@ -21,7 +21,6 @@ namespace CoinW.Net.Utils
         private static Dictionary<string, DateTime> _lastSpotAssetUpdateTime = new Dictionary<string, DateTime>();
 
         private static readonly SemaphoreSlim _semaphoreSpot = new SemaphoreSlim(1, 1);
-        private static readonly SemaphoreSlim _semaphoreFutures = new SemaphoreSlim(1, 1);
 
         /// <summary>
         /// Update the internal spot symbol info

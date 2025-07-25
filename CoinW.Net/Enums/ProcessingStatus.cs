@@ -7,18 +7,18 @@ namespace CoinW.Net.Enums
     /// <summary>
     /// Trailing status
     /// </summary>
-    [JsonConverter(typeof(EnumConverter<TrailingStatus>))]
-    public enum TrailingStatus
+    [JsonConverter(typeof(EnumConverter<ProcessingStatus>))]
+    public enum ProcessingStatus
     {
         /// <summary>
-        /// Limit order
+        /// Waiting
         /// </summary>
-        [Map("1")]
+        [Map("0")]
         Waiting,
         /// <summary>
-        /// Market order
+        /// Processing
         /// </summary>
-        [Map("2")]
+        [Map("1")]
         Processing,
         /// <summary>
         /// Success
@@ -26,7 +26,7 @@ namespace CoinW.Net.Enums
         [Map("2")]
         Success,
         /// <summary>
-        /// Market order
+        /// Failure
         /// </summary>
         [Map("3")]
         Failure

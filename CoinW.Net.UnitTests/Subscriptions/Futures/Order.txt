@@ -1,0 +1,36 @@
+> {"event": "login", "params": { "api_key": "", "passphrase": ""}}
+< { "data": {"result": true}, "channel": "login"}
+> { "event": "sub", "params": { "biz": "futures","type": "order"}}
+< {"biz": "futures", "data": {"result": true}, "channel": "subscribe", "type": "order"}
+= 
+{"biz": "futures",
+ "pairCode": "BTC",
+ "data": [{"currentPiece": "1",
+   "leverage": "1",
+   "originalType": "plan",
+   "contractType": 1,
+   "fee": "0",
+   "frozenFee": "0.00954",
+   "orderStatus": "unFinish",
+   "instrument": "BTC",
+   "quantityUnit": 0,
+   "source": "api",
+   "updatedDate": 1739955929000,
+   "positionModel": 0,
+   "posType": "plan",
+   "baseSize": "0.001",
+   "liquidateBy": "manual",
+   "makerFee": "0.0001",
+   "totalPiece": "1",
+   "orderPrice": "95400",
+   "id": "33308740320587027",
+   "direction": "long",
+   "margin": "95.4",
+   "indexPrice": "95670.9",
+   "quantity": "100",
+   "takerFee": "0.0006",
+   "userId": "1162061",
+   "createdDate": 1739955929000,
+   "positionMargin": "95.4",
+   "status": "open"}],
+ "type": "order"}

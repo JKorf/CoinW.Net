@@ -1,0 +1,7 @@
+> { "event": "sub", "params": { "biz": "futures", "pairCode": "ETH", "type": "funding_rate"}}
+< {"biz": "futures", "pairCode": "ETH", "data": {"result": true}, "channel": "subscribe", "type": "funding_rate"}
+= 
+{"biz": "futures",
+ "pairCode": "eth",
+ "data": {"r": 4.926e-05, "nt": 1745490090000, "n": "eth"},
+ "type": "funding_rate"}

@@ -10,25 +10,20 @@ using System.Threading.Tasks;
 namespace CoinW.Net.Enums
 {
     /// <summary>
-    /// Trailing order status
+    /// Role
     /// </summary>
-    [JsonConverter(typeof(EnumConverter<TrailingOrderStatus>))]
-    public enum TrailingOrderStatus
+    [JsonConverter(typeof(EnumConverter<Role>))]
+    public enum Role
     {
         /// <summary>
-        /// Open
+        /// Taker
         /// </summary>
-        [Map("open")]
-        Open,
+        [Map("1")]
+        Taker,
         /// <summary>
-        /// Closed
+        /// Maker
         /// </summary>
-        [Map("closed", "close")]
-        Closed,
-        /// <summary>
-        /// Canceled
-        /// </summary>
-        [Map("cancel")]
-        Canceled
+        [Map("2")]
+        Maker
     }
 }

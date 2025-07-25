@@ -1,0 +1,6 @@
+GET
+/v1/perpum/account/fees
+true
+{"code": 0,
+ "data": {"makerFee": "0.0001", "takerFee": "0.0006", "userId": 1162061},
+ "msg": ""}

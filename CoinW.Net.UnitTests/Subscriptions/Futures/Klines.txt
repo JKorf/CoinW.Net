@@ -1,0 +1,4 @@
+> { "event": "sub", "params": { "biz": "futures", "pairCode": "ETH", "type": "candles_swap_utc"}}
+< {"biz":"futures","pairCode":"ETH","data":{"result":true},"channel":"subscribe","interval":"1H","type":"candles_swap_utc"}
+= 
+{"biz":"futures","pairCode":"ETH","data":["1753441200000","3718.19","3742.75","3716.96","3726.4","139182.24"],"interval":"1H","type":"candles_swap_utc"}

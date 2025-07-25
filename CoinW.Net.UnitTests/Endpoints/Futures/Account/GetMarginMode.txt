@@ -1,0 +1,4 @@
+GET
+/v1/perpum/positions/type
+true
+{"code": 0, "data": {"layout": 0, "positionModel": 0}, "msg": ""}

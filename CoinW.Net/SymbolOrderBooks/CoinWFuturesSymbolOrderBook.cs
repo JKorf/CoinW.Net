@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using CoinW.Net.Clients;
 using CoinW.Net.Interfaces.Clients;
 using CoinW.Net.Objects.Options;
+using CoinW.Net.Objects.Models;
 
 namespace CoinW.Net.SymbolOrderBooks
 {
@@ -18,7 +19,6 @@ namespace CoinW.Net.SymbolOrderBooks
     public class CoinWFuturesSymbolOrderBook : SymbolOrderBook
     {
         private readonly bool _clientOwner;
-        private readonly ICoinWRestClient _restClient;
         private readonly ICoinWSocketClient _socketClient;
         private readonly TimeSpan _initialDataTimeout;
 
@@ -60,14 +60,30 @@ namespace CoinW.Net.SymbolOrderBooks
             _initialDataTimeout = options?.InitialDataTimeout ?? TimeSpan.FromSeconds(30);
             _clientOwner = socketClient == null;
             _socketClient = socketClient ?? new CoinWSocketClient();
-            _restClient = restClient ?? new CoinWRestClient();
         }
 
         /// <inheritdoc />
         protected override async Task<CallResult<UpdateSubscription>> DoStartAsync(CancellationToken ct)
         {
-            // XXX
-            throw new NotImplementedException();
+            var subResult = await _socketClient.FuturesApi.SubscribeToOrderBookUpdatesAsync(Symbol, HandleUpdate).ConfigureAwait(false);
+            if (!subResult)
+                return new CallResult<UpdateSubscription>(subResult.Error!);
+
+            Status = OrderBookStatus.Syncing;
+
+            var result = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
+            if (!result)
+            {
+                _ = subResult.Data.CloseAsync();
+                return result.AsError<UpdateSubscription>(result.Error!);
+            }
+
+            return result.As(subResult.Data);
+        }
+
+        private void HandleUpdate(DataEvent<CoinWFuturesOrderBook> @event)
+        {
+            SetInitialOrderBook(DateTime.UtcNow.Ticks, @event.Data.Bids, @event.Data.Asks);
         }
 
         /// <inheritdoc />
@@ -78,8 +94,7 @@ namespace CoinW.Net.SymbolOrderBooks
         /// <inheritdoc />
         protected override async Task<CallResult<bool>> DoResyncAsync(CancellationToken ct)
         {
-            // XXX
-            throw new NotImplementedException();
+            return await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -87,7 +102,6 @@ namespace CoinW.Net.SymbolOrderBooks
         {
             if (_clientOwner)
             {
-                _restClient?.Dispose();
                 _socketClient?.Dispose();
             }
 

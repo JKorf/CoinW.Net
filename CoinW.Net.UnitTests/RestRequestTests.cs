@@ -8,6 +8,7 @@ using CoinW.Net.Clients;
 using NUnit.Framework.Constraints;
 using CoinW.Net.Enums;
 using System.Drawing;
+using System.Linq;
 
 namespace CoinW.Net.UnitTests
 {
@@ -62,6 +63,7 @@ namespace CoinW.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Trading.GetOrderAsync(123), "GetOrder", nestedJsonProperty: "data", ignoreProperties: ["date"]);
             await tester.ValidateAsync(client => client.SpotApi.Trading.GetOrderTransactionHistoryAsync("123"), "GetOrderTransactionHistory", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.SpotApi.Trading.GetUserTradesAsync(), "GetUserTrades", nestedJsonProperty: "data.list");
+
         }
 
         [Test]
@@ -72,8 +74,17 @@ namespace CoinW.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
-            var tester = new RestRequestValidator<CoinWRestClient>(client, "Endpoints/Spot/Trading", "https://api.coinw.com", IsAuthenticated);
+            var tester = new RestRequestValidator<CoinWRestClient>(client, "Endpoints/Futures/Account", "https://api.coinw.com", IsAuthenticatedFutures);
             await tester.ValidateAsync(client => client.FuturesApi.Account.GetLeverageAsync(123), "GetLeverage", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetMarginRateAsync(123), "GetMarginRate", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetMaxTradeSizeAsync("123", 123, MarginType.CrossMargin, 0.1m), "GetMaxTradeSize", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetMaxTransferableAsync(), "GetMaxTransferable", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetBalancesAsync(), "GetBalances", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetFeesAsync(), "GetFees", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetMarginModeAsync(), "GetMarginMode", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.SetMarginModeAsync(MarginType.IsolatedMargin, PositionCombineType.Split), "SetMarginMode");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.ToggleMegaCouponAsync(true), "ToggleMegaCoupon");
+            await tester.ValidateAsync(client => client.FuturesApi.Account.GetMaxPositionSizeAsync("123"), "GetMaxPositionSize", nestedJsonProperty: "data");
         }
 
         [Test]
@@ -84,7 +95,7 @@ namespace CoinW.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
-            var tester = new RestRequestValidator<CoinWRestClient>(client, "Endpoints/Futures/ExchangeData", "https://api.coinw.com", IsAuthenticated);
+            var tester = new RestRequestValidator<CoinWRestClient>(client, "Endpoints/Futures/ExchangeData", "https://api.coinw.com", IsAuthenticatedFutures);
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetSymbolsAsync(), "GetSymbols", nestedJsonProperty: "data", ignoreProperties: ["depthPrecision", "selected"]);
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetTickerAsync("123"), "GetTicker", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetKlinesAsync("123", FuturesKlineInterval.OneDay), "GetKlines", nestedJsonProperty: "data");
@@ -101,7 +112,7 @@ namespace CoinW.Net.UnitTests
                 opts.AutoTimestamp = false;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
-            var tester = new RestRequestValidator<CoinWRestClient>(client, "Endpoints/Spot/Trading", "https://api.coinw.com", IsAuthenticated); 
+            var tester = new RestRequestValidator<CoinWRestClient>(client, "Endpoints/Futures/Trading", "https://api.coinw.com", IsAuthenticatedFutures); 
             await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceOrderAsync("123", PositionSide.Long, FuturesOrderType.Market, 0.1m, 123), "PlaceOrder", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.CancelOrderAsync(123), "CancelOrder");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.CancelOrdersAsync([123]), "CancelOrders");
@@ -112,12 +123,15 @@ namespace CoinW.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.Trading.AdjustMarginAsync(123, 0.1m, 0.1m), "AdjustMargin");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.SetTpSlAsync(123, "123"), "SetTpSl");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.SetTrailingTpSlAsync(123, 0.1m), "SetTrailingTpSl");
-            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOpenOrdersAsync("123", FuturesOrderType.Plan), "GetOpenOrders", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOpenOrdersAsync("123", FuturesOrderType.Plan), "GetOpenOrders", nestedJsonProperty: "data", ignoreProperties: ["primaryId"]);
             await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOpenOrderCountAsync(), "GetOpenOrderQuantity", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.GetTpSlAsync(1), "GetTpSl", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.GetTrailingTpSlAsync(), "GetTrailingTpSl", nestedJsonProperty: "data", ignoreProperties: ["version"]);
-            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOrderHistory7DaysAsync(), "GetOrderHistory7D", nestedJsonProperty: "data");
-            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetPositionsAsync("123"), "GetPositions", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetOrderHistory7DaysAsync(), "GetOrderHistory7D", nestedJsonProperty: "data", ignoreProperties: ["stepMarginVersion"]);
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetPositionsAsync("123"), "GetPositions", nestedJsonProperty: "data", ignoreProperties: ["autoDeleveragingScore"]);
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetPositionsAsync(), "GetPositions2", nestedJsonProperty: "data", ignoreProperties: ["autoDeleveragingScore", "positionVersion"]);
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetPositionHistoryAsync(), "GetPositionHistory", nestedJsonProperty: "data");
+            await tester.ValidateAsync(client => client.FuturesApi.Trading.GetTransactionHistory3DaysAsync("123", OrderType.Market, MarginType.CrossMargin, 123, 123), "GetTransactionHistory3Days", nestedJsonProperty: "data", ignoreProperties: ["isProfession"]);
         }
 
 
@@ -125,6 +139,11 @@ namespace CoinW.Net.UnitTests
         private bool IsAuthenticated(WebCallResult result)
         {
             return result.RequestUrl?.Contains("sign") == true;
+        }
+
+        private bool IsAuthenticatedFutures(WebCallResult result)
+        {
+            return result.RequestHeaders?.Any(x => x.Key == "sign") == true;
         }
     }
 }

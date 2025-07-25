@@ -12,7 +12,7 @@ namespace CoinW.Net.Objects.Sockets
     {
         public CoinWFuturesQuery(CoinWFuturesSocketRequest request, bool authenticated, int weight = 1) : base(request, authenticated, weight)
         {
-            var topic = $"{request.Parameters.Type}{(request.Parameters.PairCode == null ? "" : ("-" + request.Parameters.PairCode))}{(request.Parameters.Interval == null ? "" : ("-" + EnumConverter.GetString(request.Parameters.Interval)))}";
+            var topic = $"{request.Parameters.Type}{(request.Parameters.PairCode == null ? "" : ("-" + request.Parameters.PairCode.ToLowerInvariant()))}{(request.Parameters.Interval == null ? "" : ("-" + EnumConverter.GetString(request.Parameters.Interval)))}";
             MessageMatcher = MessageMatcher.Create(
                 new MessageHandlerLink<CoinWSocketResponse<T>>(MessageLinkType.Full, $"{topic}-subscribe", HandleMessage),
                 new MessageHandlerLink<CoinWSocketResponse<T>>(MessageLinkType.Full, $"{topic}-unsub", HandleMessage)

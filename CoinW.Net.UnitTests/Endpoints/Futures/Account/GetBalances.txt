@@ -1,0 +1,12 @@
+GET
+/v1/perpum/account/getUserAssets
+true
+{"code": 0,
+ "data": {"alFreeze": 0,
+  "alMargin": 0.14311,
+  "almightyGold": 4.64407693,
+  "availableMargin": 499.71964459000003,
+  "availableUsdt": 495.07556766,
+  "time": 1742374984772,
+  "userId": 1162061},
+ "msg": ""}

@@ -126,6 +126,34 @@ namespace CoinW.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<DataEvent<CoinWPosition[]>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new CoinWFuturesSubscription<CoinWPosition[]>(_logger, "position", null, null, null, onMessage, true);
+            return await SubscribeAsync(BaseAddress.AppendPath("perpum"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToPositionDetailUpdatesAsync(Action<DataEvent<CoinWPositionChange[]>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new CoinWFuturesSubscription<CoinWPositionChange[]>(_logger, "position_change", null, null, null, onMessage, true);
+            return await SubscribeAsync(BaseAddress.AppendPath("perpum"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<CoinWFuturesBalanceUpdate[]>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new CoinWFuturesSubscription<CoinWFuturesBalanceUpdate[]>(_logger, "assets", null, null, null, onMessage, true);
+            return await SubscribeAsync(BaseAddress.AppendPath("perpum"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
+        public async Task<CallResult<UpdateSubscription>> SubscribeToMarginConfigUpdatesAsync(Action<DataEvent<CoinWMarginInfo[]>> onMessage, CancellationToken ct = default)
+        {
+            var subscription = new CoinWFuturesSubscription<CoinWMarginInfo[]>(_logger, "user_setting", null, null, null, onMessage, true);
+            return await SubscribeAsync(BaseAddress.AppendPath("perpum"), subscription, ct).ConfigureAwait(false);
+        }
+
+        /// <inheritdoc />
         public override string? GetListenerIdentifier(IMessageAccessor message)
         {
             var @event = message.GetValue<string>(_event);
@@ -141,13 +169,19 @@ namespace CoinW.Net.Clients.FuturesApi
                 if (channel.Equals("login", StringComparison.Ordinal))
                     return "login";
 
-                return $"{type}-{(symbol == null ? "" : $"{symbol}-")}{(interval == null ? "" : $"{interval}-")}{channel}";
+                return $"{type}-{(symbol == null ? "" : $"{symbol.ToLowerInvariant()}-")}{(interval == null ? "" : $"{interval}-")}{channel}";
             }
 
-            if (symbol != null)
-                return $"{type}-{symbol}{(interval == null ? "" : $"-{interval}")}";
+            if (type!.Equals("order", StringComparison.Ordinal)
+                || type.Equals("position", StringComparison.Ordinal)
+                || type.Equals("position_change", StringComparison.Ordinal)
+                || type.Equals("assets", StringComparison.Ordinal))
+                return type;
 
-            return $"{type}";
+            if (symbol != null)
+                return $"{type}-{symbol.ToLowerInvariant()}{(interval == null ? "" : $"-{interval}")}";
+
+            return type;
         }
 
         /// <inheritdoc />

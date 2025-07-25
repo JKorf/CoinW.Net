@@ -1,0 +1,8 @@
+> {"event": "login", "params": { "api_key": "", "passphrase": ""}}
+< { "data": {"result": true}, "channel": "login"}
+> { "event": "sub", "params": { "biz": "futures","type": "user_setting"}}
+< {"biz": "futures", "data": {"result": true}, "channel": "subscribe", "type": "user_setting"}
+= 
+{"biz": "futures",
+ "data": [{"layout": 1, "positionModel": 1, "userId": 600001359}],
+ "type": "user_setting"}

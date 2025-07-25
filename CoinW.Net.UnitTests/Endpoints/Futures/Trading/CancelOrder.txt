@@ -1,3 +1,4 @@
 DELETE
 /v1/perpum/order
 true
+{"code": 0, "msg": ""}

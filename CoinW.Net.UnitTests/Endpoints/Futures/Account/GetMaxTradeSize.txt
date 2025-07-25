@@ -1,0 +1,4 @@
+GET
+/v1/perpum/orders/maxSize
+true
+{"code": 0, "data": {"maxBuy": 36, "maxSell": 36}, "msg": ""}
