@@ -194,7 +194,7 @@ namespace CoinW.Net.Objects.Models
         /// Trade role
         /// </summary>
         [JsonPropertyName("takerMaker")]
-        public decimal Role { get; set; }
+        public Role Role { get; set; }
         /// <summary>
         /// Client order id
         /// </summary>

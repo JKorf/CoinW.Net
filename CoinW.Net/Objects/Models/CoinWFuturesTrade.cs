@@ -17,7 +17,7 @@ namespace CoinW.Net.Objects.Models
         /// Timestamp
         /// </summary>
         [JsonPropertyName("createdDate")]
-        public decimal Timestamp { get; set; }
+        public DateTime Timestamp { get; set; }
         /// <summary>
         /// Direction
         /// </summary>

@@ -13,7 +13,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
     public interface ICoinWRestClientFuturesApiTrading
     {
         /// <summary>
-        /// Place a new order. Note that this can not be used to place a direct order to close an open position. Use <see cref="Close" />
+        /// Place a new order. Note that this can not be used to place a direct order to close an open position. Use <see cref="ClosePositionAsync(long, FuturesOrderType?, decimal?, decimal?, decimal?, CancellationToken)" /> to close a position
         /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/place-an-order" /></para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH`</param>

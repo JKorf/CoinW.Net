@@ -13,6 +13,27 @@ namespace CoinW.Net.UnitTests
     public class SocketSubscriptionTests
     {
         [Test]
+        public async Task ValidateSpotSubscriptions()
+        {
+            var loggerFact = new LoggerFactory();
+            loggerFact.AddProvider(new TraceLoggerProvider());
+
+            var client = new CoinWSocketClient(Options.Create(new Objects.Options.CoinWSocketOptions
+            {
+                ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456")
+            }), loggerFact);
+            var tester = new SocketSubscriptionValidator<CoinWSocketClient>(client, "Subscriptions/Spot", "wss://ws.futurescw.com");
+            await tester.ValidateAsync<CoinWTickerUpdate>((client, handler) => client.SpotApi.SubscribeToTickerUpdatesAsync("UnitTest", handler), "Ticker", nestedJsonProperty: "data");
+            await tester.ValidateAsync<CoinWSymbolUpdate[]>((client, handler) => client.SpotApi.SubscribeToAllTickerUpdatesAsync(handler), "AllTicker", nestedJsonProperty: "data");
+            await tester.ValidateAsync<CoinWOrderBookUpdate>((client, handler) => client.SpotApi.SubscribeToOrderBookUpdatesAsync("UnitTest", handler), "Book", nestedJsonProperty: "data");
+            await tester.ValidateAsync<CoinWOrderBook>((client, handler) => client.SpotApi.SubscribeToPartialOrderBookUpdatesAsync("UnitTest", handler), "PartialBook", nestedJsonProperty: "data");
+            await tester.ValidateAsync<CoinWKlineUpdate>((client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("UnitTest", Enums.KlineIntervalStream.OneDay, handler), "Kline", nestedJsonProperty: "data");
+            await tester.ValidateAsync<CoinWTradeUpdate[]>((client, handler) => client.SpotApi.SubscribeToTradeUpdatesAsync("UnitTest", handler), "Trades", nestedJsonProperty: "data");
+            await tester.ValidateAsync<CoinWBalanceUpdate>((client, handler) => client.SpotApi.SubscribeToBalanceUpdatesAsync(handler), "Balance", nestedJsonProperty: "data", ignoreProperties: ["type", "account"]);
+            await tester.ValidateAsync<CoinWOrderUpdate>((client, handler) => client.SpotApi.SubscribeToOrderUpdatesAsync(handler), "Order", nestedJsonProperty: "data", ignoreProperties: ["type", "account"]);
+        }
+
+        [Test]
         public async Task ValidateFuturesSubscriptions()
         {
             var loggerFact = new LoggerFactory();

@@ -23,7 +23,6 @@ namespace CoinW.Net.Objects.Models
         /// Symbol
         /// </summary>
         [JsonPropertyName("currencyPair")]
-#warning Check
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
         /// CreateTime

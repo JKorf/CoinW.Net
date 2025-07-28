@@ -9,7 +9,14 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
     /// Shared interface for Futures rest API usage
     /// </summary>
     public interface ICoinWRestClientFuturesApiShared :
-        ISharedClient
+        IFeeRestClient,
+        IKlineRestClient,
+        IOrderBookRestClient,
+        IRecentTradeRestClient,
+        IFuturesSymbolRestClient,
+        IFuturesTickerRestClient,
+        IFuturesOrderRestClient,
+        IFuturesTpSlRestClient
     {
     }
 }

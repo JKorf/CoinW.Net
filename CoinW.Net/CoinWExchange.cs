@@ -33,8 +33,7 @@ namespace CoinW.Net
         /// <summary>
         /// Url to exchange image
         /// </summary>
-        #warning todo
-        public static string ImageUrl { get; } = "TODO";
+        public static string ImageUrl { get; } = "https://github.com/JKorf/CoinW.Net/blob/main/CoinW.Net/Icon/icon.png?raw=true";
 
         /// <summary>
         /// Url to the main website

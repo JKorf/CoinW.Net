@@ -21,9 +21,9 @@ namespace CoinW.Net.Enums
         [Map("open")]
         Open,
         /// <summary>
-        /// Closed
+        /// Close
         /// </summary>
-        [Map("closed")]
-        Closed
+        [Map("closed", "close")]
+        Close
     }
 }

@@ -13,6 +13,11 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
     /// </summary>
     public interface ICoinWRestClientSpotApiExchangeData
     {
+        /// <summary>
+        /// Get ticker info
+        /// <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-24h-trade-summary" /></para>
+        /// </summary>
+        /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWTicker[]>> GetTickersAsync(CancellationToken ct = default);
 
         /// <summary>

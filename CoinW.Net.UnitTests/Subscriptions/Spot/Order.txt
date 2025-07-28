@@ -1,0 +1,6 @@
+> {"event": "login", "params": { "api_key": "", "passphrase": ""}}
+< { "data": {"result": true}, "channel": "login"}
+> { "event": "sub", "params": { "biz": "exchange", "pairCode": "1", "type": "order"}}
+< {"biz": "exchange", "pairCode": "1", "data": {"result": true}, "channel": "subscribe", "type": "order"}
+=
+{"biz": "exchange", "data": {"side": "BUY",  "fee": "0",  "dealFunds": "0",  "type": "RECEIVED",  "client_id": "you*******",  "remaining_size": "0.0001",  "size": "0.0001",  "price": "82000",  "product_id": "BTC_USDT",  "time": 1743244437255,  "order_id": 4624530513294751114,  "order_type": "LIMIT"}, "type": "order"}

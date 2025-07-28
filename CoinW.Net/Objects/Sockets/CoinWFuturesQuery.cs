@@ -21,6 +21,7 @@ namespace CoinW.Net.Objects.Sockets
 
         public CallResult<T> HandleMessage(SocketConnection connection, DataEvent<CoinWSocketResponse<T>> message)
         {
+
             return message.As<T>(message.Data.Data).ToCallResult();
         }
     }

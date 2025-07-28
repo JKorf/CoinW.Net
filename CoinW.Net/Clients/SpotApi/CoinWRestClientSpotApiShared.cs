@@ -404,7 +404,6 @@ namespace CoinW.Net.Clients.SpotApi
         #endregion
 
         #region Spot Order Client
-#warning check values
         SharedFeeDeductionType ISpotOrderRestClient.SpotFeeDeductionType => SharedFeeDeductionType.AddToCost;
         SharedFeeAssetType ISpotOrderRestClient.SpotFeeAssetType => SharedFeeAssetType.QuoteAsset;
         SharedOrderType[] ISpotOrderRestClient.SpotSupportedOrderTypes { get; } = new[] { SharedOrderType.Limit, SharedOrderType.Market };
@@ -465,8 +464,7 @@ namespace CoinW.Net.Clients.SpotApi
                 ExchangeSymbolCache.ParseSymbol(_topicId, order.Data.Symbol),
                 order.Data.Symbol,
                 order.Data.OrderId.ToString(),
-#warning check
-                default, //ParseOrderType(order.Data),
+                default,
                 order.Data.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                 ParseOrderStatus(order.Data.Status),
                 order.Data.Timestamp)
@@ -498,8 +496,7 @@ namespace CoinW.Net.Clients.SpotApi
                 ExchangeSymbolCache.ParseSymbol(_topicId, symbol),
                 symbol,
                 x.OrderId.ToString(),
-#warning check
-                default, //ParseOrderType(order.Data),
+                default,
                 x.Side == OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
                 ParseOrderStatus(x.Status),
                 x.Timestamp)

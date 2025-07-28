@@ -52,6 +52,11 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
             }, false);
         }
 
+        public override void HandleSubQueryResponse(CoinWSocketResponse<CoinWSubscriptionResponse> message)
+        {
+
+        }
+
         /// <inheritdoc />
         public override Query? GetUnsubQuery()
         {

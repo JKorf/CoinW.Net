@@ -49,20 +49,20 @@ The NuGet package files are added along side the source with the latest GitHub r
 	```csharp
 	// Get the ETH/USDT ticker via rest request
 	var restClient = new CoinWRestClient();
-	var tickerResult = await restClient.SpotApi.ExchangeData.GetTickerAsync("ETHUSDT");
-	var lastPrice = tickerResult.Data.LastPrice;
+	var tickerResult = await restClient.SpotApi.ExchangeData.GetTickersAsync();
+	var lastPrice = tickerResult.Data.Single(x => x.Symbol == "ETH_USDT").LastPrice;
 	```
 * Websocket streams
 	```csharp
 	// Subscribe to ETH/USDT ticker updates via the websocket API
 	var socketClient = new CoinWSocketClient();
-	var tickerSubscriptionResult = socketClient.SpotApi.SubscribeToTickerUpdatesAsync("ETHUSDT", (update) => 
+	var tickerSubscriptionResult = socketClient.SpotApi.SubscribeToTickerUpdatesAsync("ETH_USDT", (update) => 
 	{
 	  var lastPrice = update.Data.LastPrice;
 	});
 	```
 
-For information on the clients, dependency injection, response processing and more see the [documentation](https://jkorf.github.io/CryptoExchange.Net), or have a look at the examples [here](https://github.com/JKorf/CoinW.Net/tree/main/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
+For information on the clients, dependency injection, response processing and more see the [documentation](https://cryptoexchange.jkorf.dev/client-libs/getting-started), or have a look at the examples [here](https://github.com/JKorf/CoinW.Net/tree/main/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
 
 ## CryptoExchange.Net
 CoinW.Net is based on the [CryptoExchange.Net](https://github.com/JKorf/CryptoExchange.Net) base library. Other exchange API implementations based on the CryptoExchange.Net base library are available and follow the same logic.
@@ -102,14 +102,38 @@ A Discord server is available [here](https://discord.gg/MSpeEtSY8t). For discuss
 
 ## Supported functionality
 
-### Spot
+### Spot REST
 |API|Supported|Location|
 |--|--:|--|
-|TODO|✓|`restClient.SpotApi.Account`|
-### Futures
+|Market Information|✓|`restClient.SpotApi.ExchangeData`|
+|Place Order|✓|`restClient.SpotApi.Trading`|
+|Check Order|✓|`restClient.SpotApi.Trading`|
+|Account Information|✓|`restClient.SpotApi.Account`|
+
+### Futures Websocket
 |API|Supported|Location|
 |--|--:|--|
-|TODO|✓|`restClient.FuturesApi.ExchangeData`|
+|Market Information|✓|`socketClient.SpotApi`|
+|Check Orders|✓|`socketClient.SpotApi`|
+|Account Information|✓|`socketClient.SpotApi`|
+
+### Futures REST
+|API|Supported|Location|
+|--|--:|--|
+|Market Information|✓|`restClient.FuturesApi.ExchangeData`|
+|Place Orders|✓|`restClient.FuturesApi.Trading`|
+|Check Orders|✓|`restClient.FuturesApi.Trading`|
+|Position Information|✓|`restClient.FuturesApi.Account` / `restClient.FuturesApi.Trading`|
+|Account & Assets|✓|`restClient.FuturesApi.Account`|
+|Common|✓|`restClient.FuturesApi.Account`|
+
+### Futures Websocket
+|API|Supported|Location|
+|--|--:|--|
+|Market Information|✓|`socketClient.FuturesApi`|
+|Check Orders|✓|`socketClient.FuturesApi`|
+|Position Information|✓|`socketClient.FuturesApi`|
+|Account & Assets|✓|`socketClient.FuturesApi`|
 
 ## Support the project
 Any support is greatly appreciated.

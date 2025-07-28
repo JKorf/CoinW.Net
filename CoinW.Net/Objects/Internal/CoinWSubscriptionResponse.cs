@@ -11,5 +11,9 @@ namespace CoinW.Net.Objects.Internal
     {
         [JsonPropertyName("success")]
         public bool Success { get; set; }
+        [JsonPropertyName("errorCode")]
+        public int? ErrorCode { get; set; }
+        [JsonPropertyName("errorMsg")]
+        public string? ErrorMessage { get; set; }
     }
 }

@@ -33,7 +33,12 @@ namespace CoinW.Net.Enums
         /// <summary>
         /// Canceled
         /// </summary>
-        [Map("Cancel")]
-        Canceled
+        [Map("Cancel", "cancelAll")]
+        Canceled,
+        /// <summary>
+        /// Marker change
+        /// </summary>
+        [Map("markerChange")]
+        MarkerChange
     }
 }

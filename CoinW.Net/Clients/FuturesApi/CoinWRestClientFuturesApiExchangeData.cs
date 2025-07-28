@@ -72,12 +72,21 @@ namespace CoinW.Net.Clients.FuturesApi
         #region Get Klines
 
         /// <inheritdoc />
-        public async Task<WebCallResult<CoinWFuturesKline[]>> GetKlinesAsync(string symbol, FuturesKlineInterval interval, int? limit = null, CancellationToken ct = default)
+        public async Task<WebCallResult<CoinWFuturesKline[]>> GetKlinesAsync(
+            string symbol, 
+            FuturesKlineInterval interval, 
+            DateTime? startTime = null,
+            DateTime? endTime = null,
+            int? limit = null,
+            CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("currencyCode", symbol);
             parameters.AddEnum("granularity", interval);
             parameters.AddOptional("limit", limit);
+            parameters.AddOptional("klineType", "1");
+            parameters.AddOptionalMillisecondsString("sinceStr", startTime);
+            parameters.AddOptionalMillisecondsString("sinceEndStr", endTime);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpumPublic/klines", CoinWExchange.RateLimiter.CoinW, 1, false,
                 limitGuard: new SingleLimitGuard(20, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<CoinWFuturesKline[]>(request, parameters, ct).ConfigureAwait(false);

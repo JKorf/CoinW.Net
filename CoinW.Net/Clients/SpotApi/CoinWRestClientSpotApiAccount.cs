@@ -8,7 +8,6 @@ using System;
 using CryptoExchange.Net.RateLimiting.Guards;
 using System.Collections.Generic;
 using CoinW.Net.Objects.Models;
-using CoinW.Net.Utils;
 using CoinW.Net.Enums;
 using CryptoExchange.Net.Converters.SystemTextJson;
 

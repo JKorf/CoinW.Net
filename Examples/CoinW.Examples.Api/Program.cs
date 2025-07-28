@@ -26,8 +26,8 @@ app.UseHttpsRedirection();
 // Map the endpoint and inject the rest client
 app.MapGet("/{Symbol}", async ([FromServices] ICoinWRestClient client, string symbol) =>
 {
-    var result = await client.SpotApi.ExchangeData.GetTickerAsync(symbol);
-    return result.Data.LastPrice;
+    var result = await client.SpotApi.ExchangeData.GetTickersAsync();
+    return result.Data.Single(x => x.Symbol == symbol)?.LastPrice;
 })
 .WithOpenApi();
 

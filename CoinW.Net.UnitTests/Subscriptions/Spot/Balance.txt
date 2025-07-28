@@ -1,0 +1,6 @@
+> {"event": "login", "params": { "api_key": "", "passphrase": ""}}
+< { "data": {"result": true}, "channel": "login"}
+> { "event": "sub", "params": { "biz": "exchange", "pairCode": "1", "type": "assets"}}
+< {"biz": "exchange", "pairCode": "1", "data": {"result": true}, "channel": "subscribe", "type": "assets"}
+=
+{"biz": "exchange", "data": {"available": "12.59490035",  "currency": "USDT",  "time": 1743773396836,  "type": "change",  "ledger_id": 1125899934698144651,  "account": "spot",  "hold": "0"}, "type": "assets"}

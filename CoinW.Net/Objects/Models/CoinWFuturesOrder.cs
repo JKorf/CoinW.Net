@@ -44,7 +44,7 @@ namespace CoinW.Net.Objects.Models
         /// Quantity in base asset
         /// </summary>
         [JsonPropertyName("baseSize")]
-        public decimal BaseQuantity { get; set; }
+        public decimal QuantityOpenBase { get; set; }
         /// <summary>
         /// Contract type
         /// </summary>
@@ -58,9 +58,13 @@ namespace CoinW.Net.Objects.Models
         /// <summary>
         /// Quantity open in contracts
         /// </summary>
-        #warning check
         [JsonPropertyName("currentPiece")]
         public decimal QuantityRemaining { get; set; }
+        /// <summary>
+        /// Quantity filled in contracts
+        /// </summary>
+        [JsonPropertyName("tradePiece")]
+        public decimal QuantityFilled { get; set; }
         /// <summary>
         /// Position side
         /// </summary>
@@ -71,6 +75,11 @@ namespace CoinW.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
+        /// <summary>
+        /// Average price
+        /// </summary>
+        [JsonPropertyName("avgPrice")]
+        public decimal? AveragePrice { get; set; }
         /// <summary>
         /// Frozen fee
         /// </summary>
@@ -206,27 +215,33 @@ namespace CoinW.Net.Objects.Models
         /// Stop loss order type
         /// </summary>
         [JsonPropertyName("stopLossType")]
-        public OrderType? StopLossType { get; set; }
+        public FuturesOrderType? StopLossType { get; set; }
         /// <summary>
         /// Take profit trigger price
         /// </summary>
-        [JsonPropertyName("takeProfitPrice")]
+        [JsonPropertyName("stopProfitPrice")]
         public decimal? TakeProfitPrice { get; set; }
         /// <summary>
         /// Take profit rate
         /// </summary>
-        [JsonPropertyName("takeProfitRate")]
+        [JsonPropertyName("stopProfitRate")]
         public decimal? TakeProfitRate { get; set; }
         /// <summary>
         /// Take profit order price
         /// </summary>
-        [JsonPropertyName("takeProfitOrderPrice")]
+        [JsonPropertyName("stopProfitOrderPrice")]
         public decimal? TakeProfitOrderPrice { get; set; }
         /// <summary>
         /// Take profit order type
         /// </summary>
-        [JsonPropertyName("takeProfitType")]
-        public OrderType? TakeProfitType { get; set; }
+        [JsonPropertyName("stopProfitType")]
+        public FuturesOrderType? TakeProfitType { get; set; }
+    
+        /// <summary>
+        /// Client order id
+        /// </summary>
+        [JsonPropertyName("thirdOrderId")]
+        public string? ClientOrderId { get; set; }
     }
 
 

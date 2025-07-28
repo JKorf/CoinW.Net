@@ -24,7 +24,9 @@ namespace CoinW.Net.Objects.Sockets
 
         public CallResult<CoinWSocketResponse<CoinWSubscriptionResponse>> HandleMessage(SocketConnection connection, DataEvent<CoinWSocketResponse<CoinWSubscriptionResponse>> message)
         {
-#warning check result
+            if (!message.Data.Data.Success)
+                return message.ToCallResult<CoinWSocketResponse<CoinWSubscriptionResponse>>(new ServerError(message.Data.Data.ErrorCode!.Value, message.Data.Data.ErrorMessage!));
+
             return message.ToCallResult();
         }
     }

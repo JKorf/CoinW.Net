@@ -17,7 +17,7 @@ namespace CoinW.Net.Enums
     public enum FuturesSymbolStatus
     {
         /// <summary>
-        /// ONline
+        /// Online
         /// </summary>
         [Map("online")]
         Online,

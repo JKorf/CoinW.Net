@@ -1,0 +1,4 @@
+> { "event": "sub", "params": { "biz": "exchange", "pairCode": "1", "type": "ticker"}}
+< {"biz": "exchange", "pairCode": "1", "data": {"result": true}, "channel": "subscribe", "type": "ticker"}
+= 
+{"biz":"exchange","pairCode":"1","data":"{\"changePrice\":\"535.14\",\"changeRate\":\"0.005678\",\"high\":\"94827.32\",\"last\":\"94788.99\",\"low\":\"92788.41\",\"open\":\"94253.85\",\"symbol\":\"78\",\"vol\":\"6209.9048\",\"volValue\":\"583370376.71\"}","type":"ticker"}

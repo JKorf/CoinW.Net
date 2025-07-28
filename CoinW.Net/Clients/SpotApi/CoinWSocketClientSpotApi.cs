@@ -16,7 +16,6 @@ using CoinW.Net.Interfaces.Clients.SpotApi;
 using CoinW.Net.Objects.Models;
 using CoinW.Net.Objects.Options;
 using CoinW.Net.Objects.Sockets.Subscriptions;
-using CoinW.Net.Utils;
 using CoinW.Net.Interfaces.Clients;
 using CoinW.Net.Enums;
 using CoinW.Net.Objects.Sockets;

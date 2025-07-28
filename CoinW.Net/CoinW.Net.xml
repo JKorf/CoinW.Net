@@ -183,7 +183,7 @@
         <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApiExchangeData.GetTickersAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApiExchangeData.GetKlinesAsync(System.String,CoinW.Net.Enums.FuturesKlineInterval,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApiExchangeData.GetKlinesAsync(System.String,CoinW.Net.Enums.FuturesKlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
         <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApiExchangeData.GetLastFundingRateAsync(System.String,System.Threading.CancellationToken)">
@@ -636,22 +636,22 @@
         <member name="M:CoinW.Net.CoinWTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
             <inheritdoc />
         </member>
-        <member name="T:CoinW.Net.Utils.CoinWUtils">
+        <member name="T:CoinW.Net.CoinWUtils">
             <summary>
             Util methods for the CoinW API
             </summary>
         </member>
-        <member name="M:CoinW.Net.Utils.CoinWUtils.UpdateSpotSymbolInfoAsync(CoinW.Net.Interfaces.Clients.ICoinWRestClient)">
+        <member name="M:CoinW.Net.CoinWUtils.UpdateSpotSymbolInfoAsync(CoinW.Net.Interfaces.Clients.ICoinWRestClient)">
             <summary>
             Update the internal spot symbol info
             </summary>
         </member>
-        <member name="M:CoinW.Net.Utils.CoinWUtils.UpdateSpotAssetInfoAsync(CoinW.Net.Interfaces.Clients.ICoinWRestClient)">
+        <member name="M:CoinW.Net.CoinWUtils.UpdateSpotAssetInfoAsync(CoinW.Net.Interfaces.Clients.ICoinWRestClient)">
             <summary>
             Update the internal spot symbol info
             </summary>
         </member>
-        <member name="M:CoinW.Net.Utils.CoinWUtils.GetSymbolIdFromNameAsync(CoinW.Net.Interfaces.Clients.ICoinWRestClient,System.String)">
+        <member name="M:CoinW.Net.CoinWUtils.GetSymbolIdFromNameAsync(CoinW.Net.Interfaces.Clients.ICoinWRestClient,System.String)">
             <summary>
             Get symbol id from a symbol name
             </summary>
@@ -659,7 +659,7 @@
             <param name="symbolName">Symbol name</param>
             <returns></returns>
         </member>
-        <member name="M:CoinW.Net.Utils.CoinWUtils.GetAssetIdFromNameAsync(CoinW.Net.Interfaces.Clients.ICoinWRestClient,System.String)">
+        <member name="M:CoinW.Net.CoinWUtils.GetAssetIdFromNameAsync(CoinW.Net.Interfaces.Clients.ICoinWRestClient,System.String)">
             <summary>
             Get asset id from an asset name
             </summary>
@@ -788,11 +788,6 @@
             </summary>
         </member>
         <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.OrderType">
-            <summary>
-            Defines the source generated JSON serialization contract metadata for a given type.
-            </summary>
-        </member>
-        <member name="P:CoinW.Net.Converters.CoinWSourceGenerationContext.NullableOrderType">
             <summary>
             Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
@@ -1911,6 +1906,11 @@
             Canceled
             </summary>
         </member>
+        <member name="F:CoinW.Net.Enums.FuturesOrderStatus.MarkerChange">
+            <summary>
+            Marker change
+            </summary>
+        </member>
         <member name="T:CoinW.Net.Enums.FuturesOrderType">
             <summary>
             Order type
@@ -1943,7 +1943,7 @@
         </member>
         <member name="F:CoinW.Net.Enums.FuturesSymbolStatus.Online">
             <summary>
-            ONline
+            Online
             </summary>
         </member>
         <member name="F:CoinW.Net.Enums.FuturesSymbolStatus.Offline">
@@ -2161,9 +2161,9 @@
             Open
             </summary>
         </member>
-        <member name="F:CoinW.Net.Enums.OpenStatus.Closed">
+        <member name="F:CoinW.Net.Enums.OpenStatus.Close">
             <summary>
-            Closed
+            Close
             </summary>
         </member>
         <member name="T:CoinW.Net.Enums.OrderEventReason">
@@ -2598,7 +2598,7 @@
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
-        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiExchangeData.GetKlinesAsync(System.String,CoinW.Net.Enums.FuturesKlineInterval,System.Nullable{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiExchangeData.GetKlinesAsync(System.String,CoinW.Net.Enums.FuturesKlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get kline info
             <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-k-line-of-an-instrument" /></para>
@@ -2606,6 +2606,8 @@
             <param name="symbol">The symbol, for example `ETH`</param>
             <param name="interval">Kline interval</param>
             <param name="limit">Max number of results</param>
+            <param name="startTime">Filter by start time</param>
+            <param name="endTime">Filter by end time</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiExchangeData.GetLastFundingRateAsync(System.String,System.Threading.CancellationToken)">
@@ -2661,7 +2663,7 @@
         </member>
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.PlaceOrderAsync(System.String,CoinW.Net.Enums.PositionSide,CoinW.Net.Enums.FuturesOrderType,System.Decimal,System.Int32,System.Nullable{System.Decimal},System.Nullable{CoinW.Net.Enums.QuantityUnit},System.Nullable{CoinW.Net.Enums.MarginType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{CoinW.Net.Enums.TriggerOrderType},System.Nullable{System.Int32},System.String,System.Nullable{System.Boolean},System.Threading.CancellationToken)">
             <summary>
-            Place a new order. Note that this can not be used to place a direct order to close an open position. Use <see cref="!:Close" />
+            Place a new order. Note that this can not be used to place a direct order to close an open position. Use <see cref="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.ClosePositionAsync(System.Int64,System.Nullable{CoinW.Net.Enums.FuturesOrderType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)" /> to close a position
             <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/place-an-order" /></para>
             </summary>
             <param name="symbol">The symbol, for example `ETH`</param>
@@ -3231,6 +3233,13 @@
             <summary>
             CoinW Spot exchange data endpoints. Exchange data includes market data (tickers, order books, etc) and system status.
             </summary>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWRestClientSpotApiExchangeData.GetTickersAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get ticker info
+            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-24h-trade-summary" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
         </member>
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWRestClientSpotApiExchangeData.GetAssetsAsync(System.Threading.CancellationToken)">
             <summary>
@@ -3942,7 +3951,7 @@
             Order info
             </summary>
         </member>
-        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.BaseQuantity">
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.QuantityOpenBase">
             <summary>
             Quantity in base asset
             </summary>
@@ -3962,6 +3971,11 @@
             Quantity open in contracts
             </summary>
         </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.QuantityFilled">
+            <summary>
+            Quantity filled in contracts
+            </summary>
+        </member>
         <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.PositionSide">
             <summary>
             Position side
@@ -3970,6 +3984,11 @@
         <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.Fee">
             <summary>
             Fee
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.AveragePrice">
+            <summary>
+            Average price
             </summary>
         </member>
         <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.FrozenFee">
@@ -4125,6 +4144,11 @@
         <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.TakeProfitType">
             <summary>
             Take profit order type
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWFuturesOrder.ClientOrderId">
+            <summary>
+            Client order id
             </summary>
         </member>
         <member name="T:CoinW.Net.Objects.Models.CoinWFuturesOrderBook">
@@ -4867,7 +4891,7 @@
             Average price
             </summary>
         </member>
-        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.BaseQuantity">
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.QuantityOpenBase">
             <summary>
             Base quantity
             </summary>
@@ -4880,6 +4904,11 @@
         <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.ValueFilled">
             <summary>
             USDT value filled
+            </summary>
+        </member>
+        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.QuantityFilled">
+            <summary>
+            Quantity filled in contracts
             </summary>
         </member>
         <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.ContractType">
@@ -5010,11 +5039,6 @@
         <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.TotalQuantity">
             <summary>
             Total quantity in contracts
-            </summary>
-        </member>
-        <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.TradeQuantity">
-            <summary>
-            Trade quantity in contracts
             </summary>
         </member>
         <member name="P:CoinW.Net.Objects.Models.CoinWHistOrder.TriggerPrice">

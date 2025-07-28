@@ -42,8 +42,16 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// <param name="symbol">The symbol, for example `ETH`</param>
         /// <param name="interval">Kline interval</param>
         /// <param name="limit">Max number of results</param>
+        /// <param name="startTime">Filter by start time</param>
+        /// <param name="endTime">Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWFuturesKline[]>> GetKlinesAsync(string symbol, FuturesKlineInterval interval, int? limit = null, CancellationToken ct = default);
+        Task<WebCallResult<CoinWFuturesKline[]>> GetKlinesAsync(
+            string symbol,
+            FuturesKlineInterval interval,
+            DateTime? startTime = null,
+            DateTime? endTime = null,
+            int? limit = null,
+            CancellationToken ct = default);
 
         /// <summary>
         /// Get last funding rate

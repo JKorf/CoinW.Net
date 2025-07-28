@@ -49,7 +49,7 @@ namespace CoinW.Net.Objects.Models
         /// Base quantity
         /// </summary>
         [JsonPropertyName("baseSize")]
-        public decimal BaseQuantity { get; set; }
+        public decimal QuantityOpenBase { get; set; }
         /// <summary>
         /// Canceled quantity
         /// </summary>
@@ -61,6 +61,11 @@ namespace CoinW.Net.Objects.Models
         [JsonPropertyName("completeUsdt")]
         public decimal ValueFilled { get; set; }
         /// <summary>
+        /// Quantity filled in contracts
+        /// </summary>
+        [JsonPropertyName("tradePiece")]
+        public decimal QuantityFilled { get; set; }
+        /// <summary>
         /// Contract type
         /// </summary>
         [JsonPropertyName("contractType")]
@@ -69,7 +74,7 @@ namespace CoinW.Net.Objects.Models
         /// Create time
         /// </summary>
         [JsonPropertyName("createdDate")]
-        public decimal CreateTime { get; set; }
+        public DateTime CreateTime { get; set; }
         /// <summary>
         /// Open quantity
         /// </summary>
@@ -169,7 +174,7 @@ namespace CoinW.Net.Objects.Models
         /// Quantity unit
         /// </summary>
         [JsonPropertyName("quantityUnit")]
-        public decimal QuantityUnit { get; set; }
+        public QuantityUnit QuantityUnit { get; set; }
         /// <summary>
         /// Source
         /// </summary>
@@ -184,17 +189,12 @@ namespace CoinW.Net.Objects.Models
         /// Client order id
         /// </summary>
         [JsonPropertyName("thirdOrderId")]
-        public string ClientOrderId { get; set; } = string.Empty;
+        public string? ClientOrderId { get; set; }
         /// <summary>
         /// Total quantity in contracts
         /// </summary>
         [JsonPropertyName("totalPiece")]
         public decimal TotalQuantity { get; set; }
-        /// <summary>
-        /// Trade quantity in contracts
-        /// </summary>
-        [JsonPropertyName("tradePiece")]
-        public decimal TradeQuantity { get; set; }
         /// <summary>
         /// Trigger price
         /// </summary>
@@ -209,7 +209,7 @@ namespace CoinW.Net.Objects.Models
         /// Update time
         /// </summary>
         [JsonPropertyName("updatedDate")]
-        public decimal UpdateTime { get; set; }
+        public DateTime UpdateTime { get; set; }
         /// <summary>
         /// User id
         /// </summary>

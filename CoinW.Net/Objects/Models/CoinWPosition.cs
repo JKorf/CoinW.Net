@@ -203,27 +203,27 @@ namespace CoinW.Net.Objects.Models
         /// Stop loss order type
         /// </summary>
         [JsonPropertyName("stopLossType")]
-        public OrderType? StopLossType { get; set; }
+        public FuturesOrderType? StopLossType { get; set; }
         /// <summary>
         /// Take profit trigger price
         /// </summary>
-        [JsonPropertyName("takeProfitPrice")]
+        [JsonPropertyName("stopProfitPrice")]
         public decimal? TakeProfitPrice { get; set; }
         /// <summary>
         /// Take profit rate
         /// </summary>
-        [JsonPropertyName("takeProfitRate")]
+        [JsonPropertyName("stopProfitRate")]
         public decimal? TakeProfitRate { get; set; }
         /// <summary>
         /// Take profit order price
         /// </summary>
-        [JsonPropertyName("takeProfitOrderPrice")]
+        [JsonPropertyName("stopProfitOrderPrice")]
         public decimal? TakeProfitOrderPrice { get; set; }
         /// <summary>
         /// Take profit order type
         /// </summary>
-        [JsonPropertyName("takeProfitType")]
-        public OrderType? TakeProfitType { get; set; }
+        [JsonPropertyName("stopProfitType")]
+        public FuturesOrderType? TakeProfitType { get; set; }
     }
 
 

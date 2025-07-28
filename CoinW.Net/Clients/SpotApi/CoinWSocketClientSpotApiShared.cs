@@ -160,6 +160,7 @@ namespace CoinW.Net.Clients.SpotApi
                         update.Data.Timestamp)
                     {
                         AveragePrice = update.Data.AverageFillPrice,
+                        Fee = update.Data.Fee,
                         ClientOrderId = update.Data.ClientOrderId?.ToString(),
                         OrderQuantity = new SharedOrderQuantity(update.Data.Quantity == 0 ? null : update.Data.Quantity),
                         QuantityFilled = new SharedOrderQuantity(update.Data.Quantity - update.Data.QuantityRemaining, update.Data.QuoteQuantityFilled),
@@ -183,7 +184,6 @@ namespace CoinW.Net.Clients.SpotApi
             if (data.EventType == Enums.OrderEventType.Done)
                 return SharedOrderStatus.Filled;
 
-#warning check partial fills?
             return SharedOrderStatus.Open;
         }
         #endregion

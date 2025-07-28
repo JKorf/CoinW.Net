@@ -1,0 +1,4 @@
+> { "event": "sub", "params": { "biz": "exchange", "pairCode": "1", "type": "fills"}}
+< {"biz": "exchange", "pairCode": "1", "data": {"result": true}, "channel": "subscribe", "type": "fills"}
+= 
+{"biz":"exchange","pairCode":"1","data":"[{\"price\":\"94718.84\",\"seq\":\"130167227\",\"side\":\"BUY\",\"size\":\"0.0010\",\"symbol\":\"78\",\"time\":\"1745825592789\"}]","type":"fills"}

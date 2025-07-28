@@ -37,7 +37,7 @@ namespace CoinW.Net.Objects.Models
         /// Order id
         /// </summary>
         [JsonPropertyName("orderId")]
-        public string OrderId { get; set; } = string.Empty;
+        public long OrderId { get; set; }
         /// <summary>
         /// Contract type
         /// </summary>
@@ -47,7 +47,7 @@ namespace CoinW.Net.Objects.Models
         /// Position id
         /// </summary>
         [JsonPropertyName("openId")]
-        public string PositionId { get; set; } = string.Empty;
+        public long PositionId { get; set; }
         /// <summary>
         /// Fee
         /// </summary>

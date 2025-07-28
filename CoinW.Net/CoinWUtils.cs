@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CoinW.Net.Utils
+namespace CoinW.Net
 {
     /// <summary>
     /// Util methods for the CoinW API
