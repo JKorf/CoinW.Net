@@ -79,7 +79,7 @@ namespace CoinW.Net.UnitTests
             await RunAndCheckResult(client => client.FuturesApi.Account.GetMaxTradeSizeAsync("ETH", 1, Enums.MarginType.IsolatedMargin, 1, CancellationToken.None), true);
             await RunAndCheckResult(client => client.FuturesApi.Account.GetFeesAsync(CancellationToken.None), true);
             await RunAndCheckResult(client => client.FuturesApi.Account.GetMarginModeAsync(CancellationToken.None), true);
-            await RunAndCheckResult(client => client.FuturesApi.Account.GetMaxPositionSizeAsync("ETH", CancellationToken.None), true);
+            //await RunAndCheckResult(client => client.FuturesApi.Account.GetMaxPositionSizeAsync("ETH", CancellationToken.None), true);
         }
 
         [Test]

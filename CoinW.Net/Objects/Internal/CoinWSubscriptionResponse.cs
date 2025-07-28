@@ -9,7 +9,7 @@ namespace CoinW.Net.Objects.Internal
 {
     internal record CoinWSubscriptionResponse
     {
-        [JsonPropertyName("success")]
+        [JsonPropertyName("result")]
         public bool Success { get; set; }
         [JsonPropertyName("errorCode")]
         public int? ErrorCode { get; set; }
