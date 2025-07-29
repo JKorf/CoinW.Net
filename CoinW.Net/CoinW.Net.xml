@@ -6303,7 +6303,7 @@
         </member>
         <member name="P:CoinW.Net.Objects.Models.CoinWTicker.Volume">
             <summary>
-            Volume in base asset
+            Volume in quote asset
             </summary>
         </member>
         <member name="T:CoinW.Net.Objects.Models.CoinWTickerUpdate">

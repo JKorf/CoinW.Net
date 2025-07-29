@@ -59,7 +59,7 @@ namespace CoinW.Net.Objects.Models
         [JsonPropertyName("lowestAsk")]
         public decimal BestAskPrice { get; set; }
         /// <summary>
-        /// Volume in base asset
+        /// Volume in quote asset
         /// </summary>
         [JsonPropertyName("baseVolume")]
         public decimal Volume { get; set; }
