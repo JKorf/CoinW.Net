@@ -120,6 +120,12 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<ICoinWOrderBookFactory, CoinWOrderBookFactory>();
             services.AddTransient<ICoinWTrackerFactory, CoinWTrackerFactory>();
+            services.AddSingleton<ICoinWUserClientProvider, CoinWUserClientProvider>(x =>
+                new CoinWUserClientProvider(
+                    x.GetRequiredService<HttpClient>(),
+                    x.GetRequiredService<ILoggerFactory>(),
+                    x.GetRequiredService<IOptions<CoinWRestOptions>>(),
+                    x.GetRequiredService<IOptions<CoinWSocketOptions>>()));
 
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<ICoinWRestClient>().SpotApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<ICoinWSocketClient>().SpotApi.SharedClient);
