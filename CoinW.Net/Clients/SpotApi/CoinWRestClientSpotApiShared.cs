@@ -343,9 +343,10 @@ namespace CoinW.Net.Clients.SpotApi
                 ticker.LastPrice,
                 ticker.HighPrice,
                 ticker.LowPrice,
-                ticker.Volume,
-                ticker.PercentageChange)
+                0,
+                ticker.PercentageChange * 100)
             {
+                QuoteVolume = ticker.Volume
             });
         }
 
@@ -367,9 +368,10 @@ namespace CoinW.Net.Clients.SpotApi
                     x.LastPrice,
                     x.HighPrice, 
                     x.LowPrice, 
-                    x.Volume, 
-                    x.PercentageChange)
+                    0, 
+                    x.PercentageChange * 100)
                 {
+                    QuoteVolume = x.Volume
                 }).ToArray());
         }
 
