@@ -149,6 +149,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.1.0 - 04 Aug 2025
+    * Updated CryptoExchange.Net to version 9.4.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
+
 * Version 1.0.1 - 29 Jul 2025
     * Added missing ICoinWUserClientProvider DI registration
     * Fixed spot shared ticker percentage change being factor 100 off
