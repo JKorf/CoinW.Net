@@ -47,7 +47,7 @@ namespace CoinW.Net.Clients.FuturesApi
         {
             var interval = (Enums.FuturesKlineIntervalStream)request.Interval;
             if (!Enum.IsDefined(typeof(Enums.FuturesKlineIntervalStream), interval))
-                return new ExchangeResult<UpdateSubscription>(Exchange, new ArgumentError("Interval not supported"));
+                return new ExchangeResult<UpdateSubscription>(Exchange, ArgumentError.Invalid(nameof(GetKlinesRequest.Interval), "Interval not supported"));
 
             var validationError = ((IKlineSocketClient)this).SubscribeKlineOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)

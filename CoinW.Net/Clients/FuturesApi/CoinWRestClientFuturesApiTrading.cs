@@ -11,6 +11,7 @@ using CryptoExchange.Net.RateLimiting.Guards;
 using CoinW.Net.Objects.Models;
 using System.Collections.Generic;
 using System.Linq;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace CoinW.Net.Clients.FuturesApi
 {
@@ -73,13 +74,13 @@ namespace CoinW.Net.Clients.FuturesApi
             foreach (var item in result.Data)
             {
                 if (item.Code > 0)
-                    ordersResult.Add(new CallResult<CoinWBatchResult>(new ServerError(item.Code, "", null)));
+                    ordersResult.Add(new CallResult<CoinWBatchResult>(new ServerError(item.Code, _baseClient.GetErrorInfo(item.Code, null))));
                 else
                     ordersResult.Add(new CallResult<CoinWBatchResult>(item));
             }
 
             if (ordersResult.All(x => !x.Success))
-                return result.AsErrorWithData(new ServerError("All orders failed"), ordersResult.ToArray());
+                return result.AsErrorWithData(new ServerError(new ErrorInfo(ErrorType.AllOrdersFailed, "All orders failed")), ordersResult.ToArray());
 
             return result.As(ordersResult.ToArray());
         }

@@ -7,21 +7,19 @@ using System.Threading.Tasks;
 using CoinW.Net.Clients;
 using CoinW.Net.Objects.Options;
 using System.Threading;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace CoinW.Net.UnitTests
 {
     [NonParallelizable]
     public class CoinWRestIntegrationTests : RestIntegrationTest<CoinWRestClient>
     {
-        public override bool Run { get; set; } = true;
+        public override bool Run { get; set; } = false;
 
         public override CoinWRestClient GetClient(ILoggerFactory loggerFactory)
         {
             var key = Environment.GetEnvironmentVariable("APIKEY");
             var sec = Environment.GetEnvironmentVariable("APISECRET");
-
-            key = "a0933177-59aa-4d78-978a-cec8e2548085";
-            sec = "MKRPKUTZQDTA2MGOMHNFSBYYBMG2CFMT5905";
 
             Authenticated = key != null && sec != null;
             return new CoinWRestClient(null, loggerFactory, Options.Create(new CoinWRestOptions
@@ -41,7 +39,8 @@ namespace CoinW.Net.UnitTests
             var result = await CreateClient().SpotApi.ExchangeData.GetRecentTradesAsync("TSTTST", default);
 
             Assert.That(result.Success, Is.False);
-            Assert.That(result.Error.Code, Is.EqualTo(-3));
+            Assert.That(result.Error.ErrorCode, Is.EqualTo("-3"));
+            Assert.That(result.Error.ErrorType, Is.EqualTo(ErrorType.UnknownSymbol));
         }
 
         [Test]

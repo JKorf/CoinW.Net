@@ -10,6 +10,7 @@ using System.Linq;
 using CryptoExchange.Net;
 using CoinW.Net.Enums;
 using CoinW.Net.Objects.Models;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace CoinW.Net.Clients.FuturesApi
 {
@@ -51,7 +52,7 @@ namespace CoinW.Net.Clients.FuturesApi
         {
             var interval = (Enums.FuturesKlineInterval)request.Interval;
             if (!Enum.IsDefined(typeof(Enums.FuturesKlineInterval), interval))
-                return new ExchangeWebResult<SharedKline[]>(Exchange, new ArgumentError("Interval not supported"));
+                return new ExchangeWebResult<SharedKline[]>(Exchange, ArgumentError.Invalid(nameof(GetKlinesRequest.Interval), "Interval not supported"));
 
             var validationError = ((IKlineRestClient)this).GetKlinesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
             if (validationError != null)
@@ -248,10 +249,10 @@ namespace CoinW.Net.Clients.FuturesApi
                 || (request.Side == SharedOrderSide.Sell && request.PositionSide == SharedPositionSide.Short))
             {
                 if (request.Leverage == null)
-                    return new ExchangeWebResult<SharedId>(Exchange, new ArgumentError($"Required optional parameter `{nameof(PlaceFuturesOrderRequest.Leverage)}` for exchange `{Exchange}` is missing"));
+                    return new ExchangeWebResult<SharedId>(Exchange, ArgumentError.Missing(nameof(PlaceFuturesOrderRequest.Leverage), $"Required optional parameter `{nameof(PlaceFuturesOrderRequest.Leverage)}` for exchange `{Exchange}` is missing"));
 
                 if (request.PositionSide == null)
-                    return new ExchangeWebResult<SharedId>(Exchange, new ArgumentError($"Required optional parameter `{nameof(PlaceFuturesOrderRequest.PositionSide)}` for exchange `{Exchange}` is missing"));
+                    return new ExchangeWebResult<SharedId>(Exchange, ArgumentError.Missing(nameof(PlaceFuturesOrderRequest.PositionSide), $"Required optional parameter `{nameof(PlaceFuturesOrderRequest.PositionSide)}` for exchange `{Exchange}` is missing"));
 
                 var result = await Trading.PlaceOrderAsync(
                     request.Symbol!.GetSymbol(FormatSymbol),
@@ -277,7 +278,7 @@ namespace CoinW.Net.Clients.FuturesApi
                 // Closing position needs a separate endpoint
                 var positionId = ExchangeParameters.GetValue<long?>(request.ExchangeParameters, Exchange, "PositionId");
                 if (positionId == null)
-                    return new ExchangeWebResult<SharedId>(Exchange, new ArgumentError("Required parameter `PositionId` missing for PlaceFuturesOrderAsync. `PositionId` is required for closing positions."));
+                    return new ExchangeWebResult<SharedId>(Exchange, ArgumentError.Missing("PositionId", "Required parameter `PositionId` missing for PlaceFuturesOrderAsync. `PositionId` is required for closing positions."));
 
                 var result = await Trading.ClosePositionAsync(
                     positionId.Value,
@@ -302,7 +303,7 @@ namespace CoinW.Net.Clients.FuturesApi
                 return new ExchangeWebResult<SharedFuturesOrder>(Exchange, validationError);
 
             if (!long.TryParse(request.OrderId, out var orderId))
-                return new ExchangeWebResult<SharedFuturesOrder>(Exchange, new ArgumentError("Invalid order id"));
+                return new ExchangeWebResult<SharedFuturesOrder>(Exchange, ArgumentError.Invalid(nameof(GetOrderRequest.OrderId), "Invalid order id"));
 
             var orderResult = await Trading.GetOpenOrdersAsync(FuturesOrderType.Market, orderIds: [orderId], ct: ct).ConfigureAwait(false);
             if (!orderResult)
@@ -315,7 +316,7 @@ namespace CoinW.Net.Clients.FuturesApi
                     return closedOrders.AsExchangeResult<SharedFuturesOrder>(Exchange, null, default);
 
                 if (closedOrders.Data.Rows.Length == 0)
-                    return orderResult.AsExchangeError<SharedFuturesOrder>(Exchange, new ServerError("Order not found"));
+                    return orderResult.AsExchangeError<SharedFuturesOrder>(Exchange, new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Order not found")));
 
                 var order = closedOrders.Data.Rows[0];
                 return closedOrders.AsExchangeResult(Exchange, request.Symbol.TradingMode, new SharedFuturesOrder(
@@ -450,7 +451,7 @@ namespace CoinW.Net.Clients.FuturesApi
                 return new ExchangeWebResult<SharedUserTrade[]>(Exchange, validationError);
 
             if (!long.TryParse(request.OrderId, out var orderId))
-                return new ExchangeWebResult<SharedUserTrade[]>(Exchange, new ArgumentError("Invalid order id"));
+                return new ExchangeWebResult<SharedUserTrade[]>(Exchange, ArgumentError.Invalid(nameof(GetOrderTradesRequest.OrderId), "Invalid order id"));
 
             var orders = await Trading.GetTransactionHistory3DaysAsync(request.Symbol!.GetSymbol(FormatSymbol), ct: ct).ConfigureAwait(false);
             if (!orders)
@@ -523,7 +524,7 @@ namespace CoinW.Net.Clients.FuturesApi
                 return new ExchangeWebResult<SharedId>(Exchange, validationError);
 
             if (!long.TryParse(request.OrderId, out var orderId))
-                return new ExchangeWebResult<SharedId>(Exchange, new ArgumentError("Invalid order id"));
+                return new ExchangeWebResult<SharedId>(Exchange, ArgumentError.Invalid(nameof(CancelOrderRequest.OrderId), "Invalid order id"));
 
             var order = await Trading.CancelOrderAsync( orderId, ct: ct).ConfigureAwait(false);
             if (!order)
@@ -614,7 +615,7 @@ namespace CoinW.Net.Clients.FuturesApi
                 return positionResult.AsExchangeError<SharedId>(Exchange, positionResult.Error!);
 
             if (positionResult.Data.Length == 0)
-                return positionResult.AsExchangeError<SharedId>(Exchange, new ServerError("Position not found"));
+                return positionResult.AsExchangeError<SharedId>(Exchange, new ServerError(new ErrorInfo(ErrorType.NoPosition, "Position not found")));
 
             var position = positionResult.Data[0];
 
@@ -644,7 +645,7 @@ namespace CoinW.Net.Clients.FuturesApi
                 return positionResult.AsExchangeError<bool>(Exchange, positionResult.Error!);
 
             if (positionResult.Data.Length == 0)
-                return positionResult.AsExchangeError<bool>(Exchange, new ServerError("Position not found"));
+                return positionResult.AsExchangeError<bool>(Exchange, new ServerError(new ErrorInfo(ErrorType.NoPosition, "Position not found")));
 
             var position = positionResult.Data[0];
 
