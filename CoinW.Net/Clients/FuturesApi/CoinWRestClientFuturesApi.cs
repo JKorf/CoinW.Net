@@ -29,22 +29,7 @@ namespace CoinW.Net.Clients.FuturesApi
         private readonly MessagePath _messagePath = MessagePath.Get().Property("msg");
         private readonly MessagePath _messagePath2 = MessagePath.Get().Property("message");
 
-        internal static ErrorCollection RestErrorMapping { get; } = new ErrorCollection(
-            [
-                new ErrorInfo(ErrorType.SignatureInvalid, false, "Invalid signature", "6001"),
-
-                new ErrorInfo(ErrorType.Unauthorized, false, "Authentication error", "6000"),
-                new ErrorInfo(ErrorType.Unauthorized, false, "Insufficient permissions", "6003"),
-
-                new ErrorInfo(ErrorType.RequestRateLimited, false, "Too many requests", "29001", "429"),
-
-                new ErrorInfo(ErrorType.InvalidParameter, false, "Invalid parameter", "1"),
-
-                new ErrorInfo(ErrorType.MissingParameter, false, "Missing parameter", "402"),
-
-                new ErrorInfo(ErrorType.SymbolNotTrading, false, "Symbol currently doesn't allow trading", "9111")
-            ]
-        );
+        internal static ErrorCollection RestErrorMapping => CoinWErrors.FuturesErrors;
         #endregion
 
         #region Api clients

@@ -31,21 +31,11 @@ namespace CoinW.Net.Clients.SpotApi
         private readonly MessagePath _messagePath = MessagePath.Get().Property("message");
         private readonly MessagePath _messagePath2 = MessagePath.Get().Property("msg");
 
-        internal static ErrorCollection RestErrorMapping { get; } = new ErrorCollection(
-            [
-                new ErrorInfo(ErrorType.Unauthorized, false, "Authentication error", "6000"),
-
-                new ErrorInfo(ErrorType.RequestRateLimited, false, "Too many requests", "29001", "429"),
-
-                new ErrorInfo(ErrorType.InvalidParameter, false, "Invalid parameter", "-103", "-3"),
-
-                new ErrorInfo(ErrorType.SystemError, true, "System error", "-200"),
-            ]
-        );
+        protected override ErrorCollection ErrorMapping => CoinWErrors.SpotErrors;
         #endregion
 
-            #region Api clients
-            /// <inheritdoc />
+        #region Api clients
+        /// <inheritdoc />
         public ICoinWRestClientSpotApiAccount Account { get; }
         /// <inheritdoc />
         public ICoinWRestClientSpotApiExchangeData ExchangeData { get; }
