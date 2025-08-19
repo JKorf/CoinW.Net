@@ -1,13 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
 using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
 
 namespace CoinW.Net
 {
@@ -19,38 +19,26 @@ namespace CoinW.Net
         {
         }
 
-        public override void AuthenticateRequest(
-            RestApiClient apiClient,
-            Uri uri,
-            HttpMethod method,
-            ref IDictionary<string, object>? uriParameters,
-            ref IDictionary<string, object>? bodyParameters,
-            ref Dictionary<string, string>? headers,
-            bool auth,
-            ArrayParametersSerialization arraySerialization,
-            HttpMethodParameterPosition parameterPosition,
-            RequestBodyFormat requestBodyFormat)
+        public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration request)
         {
-            headers = new Dictionary<string, string>() { };
-
-            if (!auth)
+            if (!request.Authenticated)
                 return;
 
             var time = GetMillisecondTimestamp(apiClient);
+            var queryParams = request.GetQueryString(false);
+            if (!string.IsNullOrEmpty(queryParams))
+                queryParams = $"?{queryParams}";
 
-            var queryParamStr = uriParameters?.CreateParamString(false, arraySerialization);
-            var bodyParamStr = bodyParameters == null ? "" : GetSerializedBody(_serializer, bodyParameters);
-            var signStr = "";
-            signStr += queryParamStr;
-            signStr += bodyParamStr;
-            signStr = $"{time}{method}{uri.AbsolutePath}{((queryParamStr?.Any() == true ? "?" : "") + queryParamStr)}{bodyParamStr}";
+            var body = request.BodyParameters.Any() ? GetSerializedBody(_serializer, request.BodyParameters) : string.Empty;
+            var signStr = $"{time}{request.Method}{request.Path}{queryParams}{body}";
+            var signature = SignHMACSHA256(signStr, SignOutputType.Base64);
 
-            var sign = SignHMACSHA256(signStr, SignOutputType.Base64);
+            request.Headers.Add("sign", signature);
+            request.Headers.Add("api_key", ApiKey);
+            request.Headers.Add("timestamp", time);
 
-            headers ??= new Dictionary<string, string>();
-            headers.Add("sign", sign);
-            headers.Add("api_key", ApiKey);
-            headers.Add("timestamp", time);
+            request.SetQueryString(queryParams);
+            request.SetBodyContent(body);
         }
     }
 }

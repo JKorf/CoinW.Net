@@ -9,7 +9,7 @@ namespace CoinW.Net
 {
     internal static class CoinWErrors
     {
-        public static ErrorCollection SpotErrors { get; } = new ErrorCollection(
+        public static ErrorMapping SpotErrors { get; } = new ErrorMapping(
             [
                 new ErrorInfo(ErrorType.Unauthorized, false, "Authentication error", "6000"),
 
@@ -17,11 +17,13 @@ namespace CoinW.Net
 
                 new ErrorInfo(ErrorType.InvalidParameter, false, "Invalid parameter", "-103", "-3"),
 
+                new ErrorInfo(ErrorType.InsufficientBalance, false, "Insufficient balance", "200005"),
+
                 new ErrorInfo(ErrorType.SystemError, true, "System error", "-200"),
             ]
         );
 
-        public static ErrorCollection FuturesErrors { get; } = new ErrorCollection(
+        public static ErrorMapping FuturesErrors { get; } = new ErrorMapping(
             [
                 new ErrorInfo(ErrorType.Unauthorized, false, "Invalid signature", "6001"),
                 new ErrorInfo(ErrorType.Unauthorized, false, "Authentication error", "6000"),

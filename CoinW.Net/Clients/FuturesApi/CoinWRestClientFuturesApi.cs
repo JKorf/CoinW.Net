@@ -29,7 +29,7 @@ namespace CoinW.Net.Clients.FuturesApi
         private readonly MessagePath _messagePath = MessagePath.Get().Property("msg");
         private readonly MessagePath _messagePath2 = MessagePath.Get().Property("message");
 
-        internal static ErrorCollection RestErrorMapping => CoinWErrors.FuturesErrors;
+        internal static ErrorMapping RestErrorMapping => CoinWErrors.FuturesErrors;
         #endregion
 
         #region Api clients

@@ -31,7 +31,7 @@ namespace CoinW.Net.Clients.SpotApi
         private readonly MessagePath _messagePath = MessagePath.Get().Property("message");
         private readonly MessagePath _messagePath2 = MessagePath.Get().Property("msg");
 
-        protected override ErrorCollection ErrorMapping => CoinWErrors.SpotErrors;
+        protected override ErrorMapping ErrorMapping => CoinWErrors.SpotErrors;
         #endregion
 
         #region Api clients

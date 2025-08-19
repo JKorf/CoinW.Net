@@ -74,7 +74,7 @@ namespace CoinW.Net.Clients.FuturesApi
             foreach (var item in result.Data)
             {
                 if (item.Code > 0)
-                    ordersResult.Add(new CallResult<CoinWBatchResult>(new ServerError(item.Code, _baseClient.GetErrorInfo(item.Code, null))));
+                    ordersResult.Add(new CallResult<CoinWBatchResult>(item, null, new ServerError(item.Code, _baseClient.GetErrorInfo(item.Code, null))));
                 else
                     ordersResult.Add(new CallResult<CoinWBatchResult>(item));
             }
