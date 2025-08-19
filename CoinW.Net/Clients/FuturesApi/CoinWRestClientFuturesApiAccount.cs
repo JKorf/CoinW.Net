@@ -8,6 +8,7 @@ using System;
 using CoinW.Net.Objects.Models;
 using CryptoExchange.Net.RateLimiting.Guards;
 using CoinW.Net.Enums;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace CoinW.Net.Clients.FuturesApi
 {
@@ -172,7 +173,7 @@ namespace CoinW.Net.Clients.FuturesApi
                 return result;
 
             if (result.Data == null)
-                return result.AsError<CoinWMaxPosition>(new ServerError("Only available after opening a position"));
+                return result.AsError<CoinWMaxPosition>(new ServerError(new ErrorInfo(ErrorType.NoPosition, "Only available after opening a position")));
 ;
             return result;
         }

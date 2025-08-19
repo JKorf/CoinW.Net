@@ -33,7 +33,7 @@ namespace CoinW.Net.Clients.SpotApi
             parameters.Add("command", "returnBalances");
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/private", CoinWExchange.RateLimiter.CoinW, 1, true, 
                 limitGuard: new SingleLimitGuard(3, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: (def, host, key) => "returnBalances" + key));
-            var result = await _baseClient.SendAsync<Dictionary<string, decimal>>(request, parameters, null, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<Dictionary<string, decimal>>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -48,7 +48,7 @@ namespace CoinW.Net.Clients.SpotApi
             parameters.Add("command", "returnCompleteBalances");
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/private", CoinWExchange.RateLimiter.CoinW, 1, true,
                 limitGuard: new SingleLimitGuard(5, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: (def, host, key) => "returnCompleteBalances" + key));
-            var result = await _baseClient.SendAsync<Dictionary<string, CoinWBalance>>(request, parameters, null, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<Dictionary<string, CoinWBalance>>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 
@@ -65,7 +65,7 @@ namespace CoinW.Net.Clients.SpotApi
             parameters.AddOptional("id", id);
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/private", CoinWExchange.RateLimiter.CoinW, 1, true, 
                 limitGuard: new SingleLimitGuard(3, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: (def, host, key) => "returnDepositsWithdrawals" + key));
-            var result = await _baseClient.SendAsync<CoinWDepositWithdrawal[]>(request, parameters, null, ct).ConfigureAwait(false);
+            var result = await _baseClient.SendAsync<CoinWDepositWithdrawal[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
 

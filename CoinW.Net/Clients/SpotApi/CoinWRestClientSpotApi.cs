@@ -16,6 +16,7 @@ using CryptoExchange.Net.SharedApis;
 using CoinW.Net.Objects.Internal;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CoinW.Net.Interfaces.Clients;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace CoinW.Net.Clients.SpotApi
 {
@@ -29,6 +30,8 @@ namespace CoinW.Net.Clients.SpotApi
         private readonly MessagePath _codePath = MessagePath.Get().Property("code");
         private readonly MessagePath _messagePath = MessagePath.Get().Property("message");
         private readonly MessagePath _messagePath2 = MessagePath.Get().Property("msg");
+
+        protected override ErrorMapping ErrorMapping => CoinWErrors.SpotErrors;
         #endregion
 
         #region Api clients
@@ -80,7 +83,7 @@ namespace CoinW.Net.Clients.SpotApi
                 return result.AsDataless();
 
             if (!result.Data.Success)
-                return result.AsDatalessError(new ServerError(result.Data.Code, result.Data.Message!));
+                return result.AsDatalessError(new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message!)));
 
             return result.AsDataless();
         }
@@ -96,7 +99,7 @@ namespace CoinW.Net.Clients.SpotApi
                 return result.As<T>(default);
 
             if (!result.Data.Success)
-                return result.AsError<T>(new ServerError(result.Data.Code, result.Data.Message!));
+                return result.AsError<T>(new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message!)));
 
             return result.As(result.Data.Data);
         }
@@ -112,7 +115,7 @@ namespace CoinW.Net.Clients.SpotApi
                 return result.As<T>(default);
 
             if (!result.Data.Success)
-                return result.AsError<T>(new ServerError(result.Data.Code, result.Data.Message!));
+                return result.AsError<T>(new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message!)));
 
             return result.As(result.Data.Data);
         }
@@ -120,14 +123,14 @@ namespace CoinW.Net.Clients.SpotApi
         protected override Error? TryParseError(KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
         {
             if (!accessor.IsValid)
-                return new ServerError(accessor.GetOriginalString());
+                return new ServerError(ErrorInfo.Unknown);
 
             if (accessor.GetValue<bool>(_successPath))
                 return null;
 
             var code = accessor.GetValue<int>(_codePath);
             var msg = accessor.GetValue<string>(_messagePath) ?? accessor.GetValue<string>(_messagePath2);
-            return new ServerError(code, msg!);
+            return new ServerError(code, GetErrorInfo(code, msg!));
         }
 
         /// <inheritdoc />

@@ -15,30 +15,23 @@ namespace CoinW.Net
         {
         }
 
-        public override void AuthenticateRequest(
-            RestApiClient apiClient,
-            Uri uri,
-            HttpMethod method,
-            ref IDictionary<string, object>? uriParameters,
-            ref IDictionary<string, object>? bodyParameters,
-            ref Dictionary<string, string>? headers,
-            bool auth,
-            ArrayParametersSerialization arraySerialization,
-            HttpMethodParameterPosition parameterPosition,
-            RequestBodyFormat requestBodyFormat)
+        public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration request)
         {
-            headers = new Dictionary<string, string>() { };
-
-            if (!auth)
+            if (!request.Authenticated)
                 return;
 
-            uriParameters!.Add("api_key", ApiKey);
-            var parameters = uriParameters.Where(x => x.Key != "command").OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
-            var paramString = parameters.ToFormData();
-            var signParams = (paramString + "&secret_key=" + _credentials.Secret).TrimStart('&');
+            request.QueryParameters.Add("api_key", ApiKey);
+            var signParameters = request.QueryParameters.Where(x => x.Key != "command").OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
+            var queryString = signParameters.ToFormData();
+            var signParams = (queryString + "&secret_key=" + _credentials.Secret).TrimStart('&');
 
             var sign = SignMD5(signParams, SignOutputType.Hex).ToUpperInvariant();
-            uriParameters.Add("sign", sign);
+            request.QueryParameters.Add("sign", sign);
+
+            if (request.QueryParameters.TryGetValue("command", out var command))
+                request.SetQueryString($"command={command}&{queryString}&sign={sign}");
+            else
+                request.SetQueryString($"{queryString}&sign={sign}");
         }
     }
 }

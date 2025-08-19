@@ -20,6 +20,7 @@ using System.Linq;
 using CryptoExchange.Net;
 using CoinW.Net.Enums;
 using CoinW.Net.Objects.Sockets;
+using CryptoExchange.Net.Objects.Errors;
 
 namespace CoinW.Net.Clients.FuturesApi
 {
@@ -50,7 +51,7 @@ namespace CoinW.Net.Clients.FuturesApi
                 x => new CoinWPingQuery(),
                 (connection, result) =>
                 {
-                    if (result.Error?.Message.Equals("Query timeout") == true)
+                    if (result.Error?.ErrorType == ErrorType.Timeout)
                     {
                         // Ping timeout, reconnect
                         _logger.LogWarning("[Sckt {SocketId}] Ping response timeout, reconnecting", connection.SocketId);
@@ -176,7 +177,9 @@ namespace CoinW.Net.Clients.FuturesApi
                 || type.Equals("position", StringComparison.Ordinal)
                 || type.Equals("position_change", StringComparison.Ordinal)
                 || type.Equals("assets", StringComparison.Ordinal))
+            {
                 return type;
+            }
 
             if (symbol != null)
                 return $"{type}-{symbol.ToLowerInvariant()}{(interval == null ? "" : $"-{interval}")}";
@@ -185,7 +188,7 @@ namespace CoinW.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection) => Task.FromResult<Query?>(new CoinWLoginQuery(ApiCredentials!.Key, ApiCredentials.Secret));
+        protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection) => Task.FromResult<Query?>(new CoinWLoginQuery(this, ApiCredentials!.Key, ApiCredentials.Secret));
 
         /// <inheritdoc />
         public ICoinWSocketClientFuturesApiShared SharedClient => this;

@@ -8,6 +8,7 @@ using System;
 using CoinW.Net.Enums;
 using CryptoExchange.Net.RateLimiting.Guards;
 using CoinW.Net.Objects.Models;
+using CryptoExchange.Net;
 
 namespace CoinW.Net.Clients.SpotApi
 {
@@ -38,7 +39,7 @@ namespace CoinW.Net.Clients.SpotApi
             parameters.AddOptionalString("amount", quantity);
             parameters.AddOptionalString("rate", price);
             parameters.AddOptionalString("funds", quoteQuantity);
-            parameters.AddOptional("out_trade_no", clientOrderId);
+            parameters.AddOptional("out_trade_no", clientOrderId ?? ExchangeHelpers.RandomString(32));
             var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/private", CoinWExchange.RateLimiter.CoinW, 1, true,
                 limitGuard: new SingleLimitGuard(30, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: (def, host, key) => "doTrade" + key));
             var result = await _baseClient.SendAsync<CoinWOrderResult>(request, parameters, ct).ConfigureAwait(false);

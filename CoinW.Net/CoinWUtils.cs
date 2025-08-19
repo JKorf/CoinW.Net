@@ -2,6 +2,7 @@
 using CoinW.Net.Objects.Models;
 using CoinW.Net.Objects.Options;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects.Errors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -94,7 +95,7 @@ namespace CoinW.Net
             var envName = ((CoinWRestOptions)client.ClientOptions).Environment.Name;
             var symbol = _spotSymbolInfo[envName].SingleOrDefault(x => string.Equals(x.Symbol, symbolName, StringComparison.InvariantCultureIgnoreCase));
             if (symbol == null)
-                return new CallResult<int>(new ServerError("Symbol not found"));
+                return new CallResult<int>(new ServerError(new ErrorInfo(ErrorType.UnknownSymbol, "Symbol not found")));
 
             return new CallResult<int>(symbol.Id);
         }
@@ -117,7 +118,7 @@ namespace CoinW.Net
             var envName = ((CoinWRestOptions)client.ClientOptions).Environment.Name;
             var symbol = _spotAssetInfo[envName].SingleOrDefault(x => string.Equals(x.Asset, assetName, StringComparison.InvariantCultureIgnoreCase));
             if (symbol == null)
-                return new CallResult<int>(new ServerError("Asset not found"));
+                return new CallResult<int>(new ServerError(new ErrorInfo(ErrorType.UnknownAsset, "Asset not found")));
 
             return new CallResult<int>(symbol.Id);
         }
