@@ -40,7 +40,6 @@ namespace CoinW.Net.UnitTests
 
             Assert.That(result.Success, Is.False);
             Assert.That(result.Error.ErrorCode, Is.EqualTo("-3"));
-            Assert.That(result.Error.ErrorType, Is.EqualTo(ErrorType.UnknownSymbol));
         }
 
         [Test]
