@@ -16,7 +16,8 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         IFuturesSymbolRestClient,
         IFuturesTickerRestClient,
         IFuturesOrderRestClient,
-        IFuturesTpSlRestClient
+        IFuturesTpSlRestClient,
+        IBalanceRestClient
     {
     }
 }

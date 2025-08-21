@@ -24,6 +24,24 @@ namespace CoinW.Net.Clients.FuturesApi
         public void SetDefaultExchangeParameter(string key, object value) => ExchangeParameters.SetStaticParameter(Exchange, key, value);
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
 
+        #region Balance Client
+        EndpointOptions<GetBalancesRequest> IBalanceRestClient.GetBalancesOptions { get; } = new EndpointOptions<GetBalancesRequest>(true);
+
+        async Task<ExchangeWebResult<SharedBalance[]>> IBalanceRestClient.GetBalancesAsync(GetBalancesRequest request, CancellationToken ct)
+        {
+            var validationError = ((IBalanceRestClient)this).GetBalancesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedBalance[]>(Exchange, validationError);
+
+            var result = await Account.GetBalancesAsync(ct: ct).ConfigureAwait(false);
+            if (!result)
+                return result.AsExchangeResult<SharedBalance[]>(Exchange, null, default);
+
+            return result.AsExchangeResult<SharedBalance[]>(Exchange, TradingMode.Spot, [new SharedBalance("USDT", result.Data.AvailableUsdt, result.Data.AvailableUsdt + result.Data.Holding + result.Data.Frozen)]);
+        }
+
+        #endregion
+
         #region Fee Client
         EndpointOptions<GetFeeRequest> IFeeRestClient.GetFeeOptions { get; } = new EndpointOptions<GetFeeRequest>(true);
 
