@@ -11,6 +11,8 @@ namespace CoinW.Net
     {
         public static ErrorMapping SpotErrors { get; } = new ErrorMapping(
             [
+                new ErrorInfo(ErrorType.Unauthorized, false, "Authentication error", "1003"),
+
                 new ErrorInfo(ErrorType.Unauthorized, false, "Authentication error", "6000"),
 
                 new ErrorInfo(ErrorType.RateLimitRequest, false, "Too many requests", "29001", "429"),
