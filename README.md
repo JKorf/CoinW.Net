@@ -149,6 +149,10 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.3.0 - 25 Aug 2025
+    * Updated CryptoExchange.Net version to 9.6.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
+    * Added ClearUserClients method to user client provider
+
 * Version 1.2.1 - 21 Aug 2025
     * Added missing Futures Shared GetBalancesAsync implementation
     * Added websocket authentication error mapping
