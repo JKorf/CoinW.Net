@@ -90,6 +90,9 @@
         <member name="M:CoinW.Net.Clients.CoinWUserClientProvider.InitializeUserClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CoinW.Net.CoinWEnvironment)">
             <inheritdoc />
         </member>
+        <member name="M:CoinW.Net.Clients.CoinWUserClientProvider.ClearUserClients(System.String)">
+            <inheritdoc />
+        </member>
         <member name="M:CoinW.Net.Clients.CoinWUserClientProvider.GetRestClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CoinW.Net.CoinWEnvironment)">
             <inheritdoc />
         </member>
@@ -129,7 +132,7 @@
         <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApi.GetTimeOffset">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApi.TryParseError(System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApi.TryParseError(CryptoExchange.Net.Objects.RequestDefinition,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
         <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
@@ -3114,6 +3117,11 @@
             <param name="userIdentifier">The identifier for the user</param>
             <param name="credentials">The credentials for the user</param>
             <param name="environment">The environment to use</param>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.Clients.ICoinWUserClientProvider.ClearUserClients(System.String)">
+            <summary>
+            Reset the cached clients for a user. This can be useful when a user changes API credentials.
+            </summary>
         </member>
         <member name="M:CoinW.Net.Interfaces.Clients.ICoinWUserClientProvider.GetRestClient(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CoinW.Net.CoinWEnvironment)">
             <summary>
@@ -6887,7 +6895,7 @@
         <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWFuturesSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWFuturesSubscription`1.GetUnsubQuery">
+        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWFuturesSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWFuturesSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Internal.CoinWSocketResponse{`0}})">
@@ -6904,7 +6912,7 @@
         <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWSubscription`1.GetUnsubQuery">
+        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Internal.CoinWSocketResponse{`0}})">
@@ -6921,7 +6929,7 @@
         <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWWrappedSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWWrappedSubscription`1.GetUnsubQuery">
+        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWWrappedSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWWrappedSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Internal.CoinWSocketResponse{System.String}})">
