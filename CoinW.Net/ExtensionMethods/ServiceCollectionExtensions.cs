@@ -103,6 +103,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<ICoinWOrderBookFactory, CoinWOrderBookFactory>();
             services.AddTransient<ICoinWTrackerFactory, CoinWTrackerFactory>();
+            services.AddTransient<ITrackerFactory, CoinWTrackerFactory>();
             services.AddSingleton<ICoinWUserClientProvider, CoinWUserClientProvider>(x =>
                 new CoinWUserClientProvider(
                     x.GetRequiredService<HttpClient>(),
