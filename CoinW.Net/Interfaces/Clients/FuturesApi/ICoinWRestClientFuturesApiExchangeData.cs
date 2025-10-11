@@ -90,7 +90,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH`</param>
         /// <param name="page">Page number</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="pageSize">Page size, max 500</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWTradeHistory>> GetTradeHistoryAsync(string symbol, int? page = null, int? pageSize = null, CancellationToken ct = default);
 

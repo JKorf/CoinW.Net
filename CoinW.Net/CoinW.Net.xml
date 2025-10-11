@@ -2657,7 +2657,7 @@
             </summary>
             <param name="symbol">The symbol, for example `ETH`</param>
             <param name="page">Page number</param>
-            <param name="pageSize">Page size</param>
+            <param name="pageSize">Page size, max 500</param>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="T:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiShared">

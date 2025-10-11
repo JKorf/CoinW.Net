@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CoinW.Net.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,7 +49,7 @@ namespace CoinW.Net.Objects.Models
         /// Timestamp
         /// </summary>
         [JsonPropertyName("createdDate")]
-        public decimal Timestamp { get; set; }
+        public DateTime Timestamp { get; set; }
         /// <summary>
         /// Trade price
         /// </summary>
@@ -58,7 +59,7 @@ namespace CoinW.Net.Objects.Models
         /// Position side
         /// </summary>
         [JsonPropertyName("direction")]
-        public string PositionSide { get; set; } = string.Empty;
+        public PositionSide PositionSide { get; set; }
         /// <summary>
         /// Id
         /// </summary>
