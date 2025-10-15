@@ -19,7 +19,8 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         IWithdrawRestClient,
         ISpotTickerRestClient,
         ISpotSymbolRestClient,
-        ISpotOrderRestClient
+        ISpotOrderRestClient,
+        ITransferRestClient
     {
     }
 }

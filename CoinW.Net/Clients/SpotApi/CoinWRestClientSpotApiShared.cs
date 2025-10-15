@@ -81,11 +81,11 @@ namespace CoinW.Net.Clients.SpotApi
         #endregion
 
         #region Balance Client
-        EndpointOptions<GetBalancesRequest> IBalanceRestClient.GetBalancesOptions { get; } = new EndpointOptions<GetBalancesRequest>(true);
+        GetBalancesOptions IBalanceRestClient.GetBalancesOptions { get; } = new GetBalancesOptions(AccountTypeFilter.Spot);
 
         async Task<ExchangeWebResult<SharedBalance[]>> IBalanceRestClient.GetBalancesAsync(GetBalancesRequest request, CancellationToken ct)
         {
-            var validationError = ((IBalanceRestClient)this).GetBalancesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
+            var validationError = ((IBalanceRestClient)this).GetBalancesOptions.ValidateRequest(Exchange, request, SupportedTradingModes);
             if (validationError != null)
                 return new ExchangeWebResult<SharedBalance[]>(Exchange, validationError);
 
@@ -653,6 +653,45 @@ namespace CoinW.Net.Clients.SpotApi
             if (status == OrderStatus.Open || status == OrderStatus.PartiallyFilled) return SharedOrderStatus.Open;
             if (status == OrderStatus.Canceled) return SharedOrderStatus.Canceled;
             return SharedOrderStatus.Filled;
+        }
+
+        #endregion
+
+        #region Transfer client
+
+        TransferOptions ITransferRestClient.TransferOptions { get; } = new TransferOptions([
+            SharedAccountType.Funding,
+            SharedAccountType.Spot
+            ]);
+        async Task<ExchangeWebResult<SharedId>> ITransferRestClient.TransferAsync(TransferRequest request, CancellationToken ct)
+        {
+            var validationError = ((ITransferRestClient)this).TransferOptions.ValidateRequest(Exchange, request, TradingMode.Spot, SupportedTradingModes);
+            if (validationError != null)
+                return new ExchangeWebResult<SharedId>(Exchange, validationError);
+
+            var fromType = GetTransferType(request.FromAccountType);
+            var toType = GetTransferType(request.ToAccountType);
+            if (fromType == null || toType == null)
+                return new ExchangeWebResult<SharedId>(Exchange, ArgumentError.Invalid("To/From AccountType", "invalid to/from account combination"));
+
+            // Get data
+            var transfer = await Account.TransferAsync(
+                fromType.Value,
+                toType.Value,
+                request.Asset,
+                request.Quantity,
+                ct: ct).ConfigureAwait(false);
+            if (!transfer)
+                return transfer.AsExchangeResult<SharedId>(Exchange, null, default);
+
+            return transfer.AsExchangeResult(Exchange, TradingMode.Spot, new SharedId(""));
+        }
+
+        private AccountType? GetTransferType(SharedAccountType type)
+        {
+            if (type == SharedAccountType.Spot) return AccountType.Spot;
+            if (type == SharedAccountType.Funding) return AccountType.Funding;
+            return null;
         }
 
         #endregion
