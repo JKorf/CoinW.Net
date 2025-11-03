@@ -589,6 +589,11 @@
             Type of exchange
             </summary>
         </member>
+        <member name="P:CoinW.Net.CoinWExchange.AssetAliases">
+            <summary>
+            Aliases for CoinW assets
+            </summary>
+        </member>
         <member name="M:CoinW.Net.CoinWExchange.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <summary>
             Format a base and quote asset to an CoinW recognized symbol 
