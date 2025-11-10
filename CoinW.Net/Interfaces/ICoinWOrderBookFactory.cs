@@ -8,7 +8,7 @@ namespace CoinW.Net.Interfaces
     /// <summary>
     /// CoinW local order book factory
     /// </summary>
-    public interface ICoinWOrderBookFactory
+    public interface ICoinWOrderBookFactory : IExchangeService
     {
         
         /// <summary>

@@ -17,6 +17,9 @@ namespace CoinW.Net.SymbolOrderBooks
     {
         private readonly IServiceProvider _serviceProvider;
 
+        /// <inheritdoc />
+        public string ExchangeName => CoinWExchange.ExchangeName;
+
         /// <summary>
         /// ctor
         /// </summary>

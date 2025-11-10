@@ -76,6 +76,9 @@
         <member name="T:CoinW.Net.Clients.CoinWUserClientProvider">
             <inheritdoc />
         </member>
+        <member name="P:CoinW.Net.Clients.CoinWUserClientProvider.ExchangeName">
+            <inheritdoc />
+        </member>
         <member name="M:CoinW.Net.Clients.CoinWUserClientProvider.#ctor(System.Action{CoinW.Net.Objects.Options.CoinWOptions})">
             <summary>
             ctor
@@ -6966,6 +6969,9 @@
             <summary>
             CoinW order book factory
             </summary>
+        </member>
+        <member name="P:CoinW.Net.SymbolOrderBooks.CoinWOrderBookFactory.ExchangeName">
+            <inheritdoc />
         </member>
         <member name="M:CoinW.Net.SymbolOrderBooks.CoinWOrderBookFactory.#ctor(System.IServiceProvider)">
             <summary>
