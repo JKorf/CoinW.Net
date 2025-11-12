@@ -22,7 +22,7 @@ namespace CoinW.Net
 
             request.QueryParameters.Add("api_key", ApiKey);
             var signParameters = request.QueryParameters.Where(x => x.Key != "command").OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
-            var queryString = signParameters.ToFormData();
+            var queryString = signParameters.CreateParamString(false, request.ArraySerialization);
             var signParams = (queryString + "&secret_key=" + _credentials.Secret).TrimStart('&');
 
             var sign = SignMD5(signParams, SignOutputType.Hex).ToUpperInvariant();
