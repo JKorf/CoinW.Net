@@ -152,6 +152,9 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 1.8.1 - 12 Nov 2025
+    * Fixed request signing when parameters contain special characters
+
 * Version 1.8.0 - 11 Nov 2025
     * Updated CryptoExchange.Net version to 9.13.0, see https://github.com/JKorf/CryptoExchange.Net/releases/
 
