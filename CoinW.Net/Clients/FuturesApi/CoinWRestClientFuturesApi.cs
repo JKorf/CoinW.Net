@@ -16,6 +16,9 @@ using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CoinW.Net.Objects.Internal;
 using CryptoExchange.Net.Objects.Errors;
+using System.Net.Http.Headers;
+using CoinW.Net.Clients.MessageHandlers;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 
 namespace CoinW.Net.Clients.FuturesApi
 {
@@ -29,6 +32,7 @@ namespace CoinW.Net.Clients.FuturesApi
         private readonly MessagePath _messagePath = MessagePath.Get().Property("msg");
         private readonly MessagePath _messagePath2 = MessagePath.Get().Property("message");
 
+        protected override IRestMessageHandler MessageHandler => new CoinWRestMessageHandler(CoinWErrors.FuturesErrors);
         internal static ErrorMapping RestErrorMapping => CoinWErrors.FuturesErrors;
         #endregion
 
@@ -100,7 +104,7 @@ namespace CoinW.Net.Clients.FuturesApi
             => null;
 
         /// <inheritdoc />
-        protected override Error? TryParseError(RequestDefinition request, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
+        protected override Error? TryParseError(RequestDefinition request, HttpResponseHeaders responseHeaders, IMessageAccessor accessor)
         {
             if (!accessor.IsValid)
                 return new ServerError(ErrorInfo.Unknown);

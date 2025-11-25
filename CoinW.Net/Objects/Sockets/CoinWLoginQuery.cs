@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using CoinW.Net.Objects.Models;
 using CoinW.Net.Objects.Internal;
 using CryptoExchange.Net.Clients;
+using System;
 
 namespace CoinW.Net.Objects.Sockets
 {
@@ -26,12 +27,12 @@ namespace CoinW.Net.Objects.Sockets
             MessageMatcher = MessageMatcher.Create<CoinWSocketResponse<CoinWSubscriptionResponse>>("login", HandleMessage);
         }
 
-        public CallResult<CoinWSocketResponse<CoinWSubscriptionResponse>> HandleMessage(SocketConnection connection, DataEvent<CoinWSocketResponse<CoinWSubscriptionResponse>> message)
+        public CallResult<CoinWSocketResponse<CoinWSubscriptionResponse>> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, CoinWSocketResponse<CoinWSubscriptionResponse> message)
         {
-            if (!message.Data.Data.Success)
-                return message.ToCallResult<CoinWSocketResponse<CoinWSubscriptionResponse>>(new ServerError(message.Data.Data.ErrorCode!.Value, _client.GetErrorInfo(message.Data.Data.ErrorCode!.Value, message.Data.Data.ErrorMessage!)));
+            if (!message.Data.Success)
+                return new CallResult<CoinWSocketResponse<CoinWSubscriptionResponse>>(new ServerError(message.Data.ErrorCode!.Value, _client.GetErrorInfo(message.Data.ErrorCode!.Value, message.Data.ErrorMessage!)));
 
-            return message.ToCallResult();
+            return new CallResult<CoinWSocketResponse<CoinWSubscriptionResponse>>(message, originalData, null);
         }
     }
 }

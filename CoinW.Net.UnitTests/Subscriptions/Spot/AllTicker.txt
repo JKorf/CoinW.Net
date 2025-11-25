@@ -1,4 +1,4 @@
 > { "event": "sub", "params": { "biz": "exchange", "pairCode": "1", "type": "ticker_all"}}
-< {"biz": "exchange", "pairCode": "1", "data": {"result": true}, "channel": "subscribe", "type": "ticker_all"}
+< {"biz": "exchange", "data": {"result": true}, "channel": "subscribe", "type": "ticker_all"}
 = 
 {"biz":"exchange","data":"[{\"activityState\":0,\"currencyVol\":604768021.9400,\"fPartitionIds\":\"1,2006\",\"fav\":false,\"hotCoinSort\":46,\"leftCoinName\":\"BTC\",\"leftCoinUrl\":\"https://hkto-prod.oss-accelerate.aliyuncs.com/201810020046047_T9g8i.png\",\"newCoinSort\":0,\"oneDayHighest\":\"94827.32\",\"oneDayLowest\":\"92788.41\",\"oneDayTotal\":\"6434.1919000000\",\"price\":\"94728.91\",\"rightCoinName\":\"USDT\",\"rose\":\"0.0063\",\"selective\":false,\"symbol\":\"$\",\"tmId\":78,\"transferPrice\":\"664049.6591\",\"transferSymbol\":\"\"}]","type":"ticker_all"}

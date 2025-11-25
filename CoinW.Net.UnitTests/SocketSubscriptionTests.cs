@@ -12,14 +12,17 @@ namespace CoinW.Net.UnitTests
     [TestFixture]
     public class SocketSubscriptionTests
     {
-        [Test]
-        public async Task ValidateSpotSubscriptions()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateSpotSubscriptions(bool useUpdatedDeserialization)
         {
             var loggerFact = new LoggerFactory();
             loggerFact.AddProvider(new TraceLoggerProvider());
 
             var client = new CoinWSocketClient(Options.Create(new Objects.Options.CoinWSocketOptions
             {
+                UseUpdatedDeserialization = useUpdatedDeserialization,
+                OutputOriginalData = true,
                 ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456")
             }), loggerFact);
             var tester = new SocketSubscriptionValidator<CoinWSocketClient>(client, "Subscriptions/Spot", "wss://ws.futurescw.com");
@@ -33,14 +36,17 @@ namespace CoinW.Net.UnitTests
             await tester.ValidateAsync<CoinWOrderUpdate>((client, handler) => client.SpotApi.SubscribeToOrderUpdatesAsync(handler), "Order", nestedJsonProperty: "data", ignoreProperties: ["type", "account"]);
         }
 
-        [Test]
-        public async Task ValidateFuturesSubscriptions()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateFuturesSubscriptions(bool useUpdatedDeserialization)
         {
             var loggerFact = new LoggerFactory();
             loggerFact.AddProvider(new TraceLoggerProvider());
 
             var client = new CoinWSocketClient(Options.Create(new Objects.Options.CoinWSocketOptions
             {
+                UseUpdatedDeserialization = useUpdatedDeserialization,
+                OutputOriginalData = true,
                 ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456")
             }), loggerFact);
             var tester = new SocketSubscriptionValidator<CoinWSocketClient>(client, "Subscriptions/Futures", "wss://ws.futurescw.com");

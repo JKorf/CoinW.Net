@@ -19,9 +19,9 @@ namespace CoinW.Net.Objects.Sockets
             MessageMatcher = MessageMatcher.Create<CoinWSocketResponse<CoinWSubscriptionResponse>>("pong", HandleMessage);
         }
 
-        public CallResult<CoinWSocketResponse<CoinWSubscriptionResponse>> HandleMessage(SocketConnection connection, DataEvent<CoinWSocketResponse<CoinWSubscriptionResponse>> message)
+        public CallResult<CoinWSocketResponse<CoinWSubscriptionResponse>> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, CoinWSocketResponse<CoinWSubscriptionResponse> message)
         {
-            return message.ToCallResult();
+            return new CallResult<CoinWSocketResponse<CoinWSubscriptionResponse>>(message, originalData, null);
         }
     }
 }

@@ -20,6 +20,7 @@ namespace CoinW.Net
             if (!request.Authenticated)
                 return;
 
+            request.QueryParameters ??= new Dictionary<string, object>();
             request.QueryParameters.Add("api_key", ApiKey);
             var signParameters = request.QueryParameters.Where(x => x.Key != "command").OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
             var queryString = signParameters.CreateParamString(false, request.ArraySerialization);

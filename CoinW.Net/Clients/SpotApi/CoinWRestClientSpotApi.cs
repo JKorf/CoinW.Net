@@ -17,6 +17,9 @@ using CoinW.Net.Objects.Internal;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CoinW.Net.Interfaces.Clients;
 using CryptoExchange.Net.Objects.Errors;
+using System.Net.Http.Headers;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
+using CoinW.Net.Clients.MessageHandlers;
 
 namespace CoinW.Net.Clients.SpotApi
 {
@@ -32,6 +35,8 @@ namespace CoinW.Net.Clients.SpotApi
         private readonly MessagePath _messagePath2 = MessagePath.Get().Property("msg");
 
         protected override ErrorMapping ErrorMapping => CoinWErrors.SpotErrors;
+
+        protected override IRestMessageHandler MessageHandler => new CoinWRestMessageHandler(CoinWErrors.SpotErrors);
         #endregion
 
         #region Api clients
@@ -83,7 +88,7 @@ namespace CoinW.Net.Clients.SpotApi
                 return result.AsDataless();
 
             if (!result.Data.Success)
-                return result.AsDatalessError(new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message!)));
+                return result.AsDatalessError(new ServerError(result.Data.Code!.Value, GetErrorInfo(result.Data.Code!.Value, result.Data.Message!)));
 
             return result.AsDataless();
         }
@@ -99,7 +104,7 @@ namespace CoinW.Net.Clients.SpotApi
                 return result.As<T>(default);
 
             if (!result.Data.Success)
-                return result.AsError<T>(new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message!)));
+                return result.AsError<T>(new ServerError(result.Data.Code!.Value, GetErrorInfo(result.Data.Code.Value, result.Data.Message!)));
 
             return result.As(result.Data.Data);
         }
@@ -115,12 +120,12 @@ namespace CoinW.Net.Clients.SpotApi
                 return result.As<T>(default);
 
             if (!result.Data.Success)
-                return result.AsError<T>(new ServerError(result.Data.Code, GetErrorInfo(result.Data.Code, result.Data.Message!)));
+                return result.AsError<T>(new ServerError(result.Data.Code!.Value, GetErrorInfo(result.Data.Code.Value, result.Data.Message!)));
 
             return result.As(result.Data.Data);
         }
 
-        protected override Error? TryParseError(RequestDefinition request, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
+        protected override Error? TryParseError(RequestDefinition request, HttpResponseHeaders responseHeaders, IMessageAccessor accessor)
         {
             if (!accessor.IsValid)
                 return new ServerError(ErrorInfo.Unknown);

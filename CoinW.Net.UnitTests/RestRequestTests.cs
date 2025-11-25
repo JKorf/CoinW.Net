@@ -15,12 +15,14 @@ namespace CoinW.Net.UnitTests
     [TestFixture]
     public class RestRequestTests
     {
-        [Test]
-        public async Task ValidateSpotAccountCalls()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateSpotAccountCalls(bool useUpdatedDeserialization)
         {
             var client = new CoinWRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
             var tester = new RestRequestValidator<CoinWRestClient>(client, "Endpoints/Spot/Account", "https://api.coinw.com", IsAuthenticated);
@@ -31,12 +33,14 @@ namespace CoinW.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.Account.TransferAsync(AccountType.Spot, AccountType.Funding, "123", 0.1m), "Transfer");
         }
 
-        [Test]
-        public async Task ValidateSpotExchangeDataCalls()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateSpotExchangeDataCalls(bool useUpdatedDeserialization)
         {
             var client = new CoinWRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
             var tester = new RestRequestValidator<CoinWRestClient>(client, "Endpoints/Spot/ExchangeData", "https://api.coinw.com", IsAuthenticated);
@@ -47,12 +51,14 @@ namespace CoinW.Net.UnitTests
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetKlinesAsync("123", KlineInterval.OneMinute), "GetKlines", nestedJsonProperty: "data");
         }
 
-        [Test]
-        public async Task ValidateSpotTradingCalls()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateSpotTradingCalls(bool useUpdatedDeserialization)
         {
             var client = new CoinWRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
             var tester = new RestRequestValidator<CoinWRestClient>(client, "Endpoints/Spot/Trading", "https://api.coinw.com", IsAuthenticated);
@@ -66,12 +72,14 @@ namespace CoinW.Net.UnitTests
 
         }
 
-        [Test]
-        public async Task ValidateFuturesAccountCalls()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateFuturesAccountCalls(bool useUpdatedDeserialization)
         {
             var client = new CoinWRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
             var tester = new RestRequestValidator<CoinWRestClient>(client, "Endpoints/Futures/Account", "https://api.coinw.com", IsAuthenticatedFutures);
@@ -87,12 +95,14 @@ namespace CoinW.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.Account.GetMaxPositionSizeAsync("123"), "GetMaxPositionSize", nestedJsonProperty: "data");
         }
 
-        [Test]
-        public async Task ValidateFuturesExchangeDataCalls()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateFuturesExchangeDataCalls(bool useUpdatedDeserialization)
         {
             var client = new CoinWRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
             var tester = new RestRequestValidator<CoinWRestClient>(client, "Endpoints/Futures/ExchangeData", "https://api.coinw.com", IsAuthenticatedFutures);
@@ -104,12 +114,14 @@ namespace CoinW.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetRecentTradesAsync("123"), "GetRecentTrades", nestedJsonProperty: "data");
         }
 
-        [Test]
-        public async Task ValidateFuturesTradingCalls()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateFuturesTradingCalls(bool useUpdatedDeserialization)
         {
             var client = new CoinWRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
+                opts.UseUpdatedDeserialization = useUpdatedDeserialization;
                 opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
             });
             var tester = new RestRequestValidator<CoinWRestClient>(client, "Endpoints/Futures/Trading", "https://api.coinw.com", IsAuthenticatedFutures); 
@@ -133,8 +145,6 @@ namespace CoinW.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.Trading.GetPositionHistoryAsync(), "GetPositionHistory", nestedJsonProperty: "data");
             await tester.ValidateAsync(client => client.FuturesApi.Trading.GetTransactionHistory3DaysAsync("123", OrderType.Market, MarginType.CrossMargin, 123, 123), "GetTransactionHistory3Days", nestedJsonProperty: "data", ignoreProperties: ["isProfession"]);
         }
-
-
 
         private bool IsAuthenticated(WebCallResult result)
         {

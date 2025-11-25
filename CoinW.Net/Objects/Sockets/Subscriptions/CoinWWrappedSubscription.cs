@@ -73,9 +73,9 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
         }
 
         /// <inheritdoc />
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<CoinWSocketResponse<string>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, CoinWSocketResponse<string> message)
         {
-            var innerReadResult = _innerAccessor.Read(Encoding.UTF8.GetBytes(message.Data.Data));
+            var innerReadResult = _innerAccessor.Read(Encoding.UTF8.GetBytes(message.Data));
             if (!innerReadResult)
                 return innerReadResult;
 
@@ -83,7 +83,11 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
             if (!desData)
                 return desData;
 
-            _handler.Invoke(message.As(desData.Data, message.Data.Type, _symbolName, SocketUpdateType.Update));
+            _handler.Invoke(
+                new DataEvent<T>(desData.Data, receiveTime, originalData)
+                    .WithSymbol(_symbolName)
+                    .WithUpdateType(SocketUpdateType.Update));
+
             return new CallResult(null);
         }
     }

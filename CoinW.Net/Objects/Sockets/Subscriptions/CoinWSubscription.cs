@@ -18,7 +18,7 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
     /// <inheritdoc />
     internal class CoinWSubscription<T> : Subscription<CoinWSocketResponse<CoinWSubscriptionResponse>, CoinWSocketResponse<CoinWSubscriptionResponse>>
     {
-        private readonly Action<DataEvent<T>> _handler;
+        private readonly Action<DateTime, string?, CoinWSocketResponse<T>> _handler;
         private string _topic;
         private string? _pairCode;
         private string? _symbolName;
@@ -27,7 +27,7 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
         /// <summary>
         /// ctor
         /// </summary>
-        public CoinWSubscription(ILogger logger, string topic, string? pairCode, string? symbolName, KlineIntervalStream? interval, Action<DataEvent<T>> handler, bool auth) : base(logger, auth)
+        public CoinWSubscription(ILogger logger, string topic, string? pairCode, string? symbolName, KlineIntervalStream? interval, Action<DateTime, string?, CoinWSocketResponse<T>> handler, bool auth) : base(logger, auth)
         {
             _handler = handler;
             _topic = topic;
@@ -71,9 +71,9 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
         }
 
         /// <inheritdoc />
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<CoinWSocketResponse<T>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, CoinWSocketResponse<T> message)
         {
-            _handler.Invoke(message.As(message.Data.Data, message.Data.Type, _symbolName, SocketUpdateType.Update));
+            _handler.Invoke(receiveTime, originalData, message);
             return new CallResult(null);
         }
     }
