@@ -1,4 +1,5 @@
 ﻿using CoinW.Net;
+using CoinW.Net.Objects.Internal;
 using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using System;
@@ -14,7 +15,11 @@ namespace CoinW.Net.Clients.MessageHandlers
     {
         public override JsonSerializerOptions Options { get; } = CoinWExchange._serializerContext;
 
-        protected override MessageEvaluator[] MessageEvaluators { get; } = [
+        public CoinWSocketSpotMessageHandler()
+        {
+            AddTopicMapping<CoinWSocketResponse>(x => x.Type + x.PairCode?.ToLowerInvariant() + x.Interval);
+        }
+        protected override MessageEvaluator[] TypeEvaluators { get; } = [
 
             new MessageEvaluator {
                 Priority = 1,
@@ -36,61 +41,22 @@ namespace CoinW.Net.Clients.MessageHandlers
 
             new MessageEvaluator {
                 Priority = 3,
+                ForceIfFound = true,
                 Fields = [
-                    new PropertyFieldReference("type"),
-                    new PropertyFieldReference("channel"),
-                    new PropertyFieldReference("pairCode"),
-                    new PropertyFieldReference("interval"),
+                    new PropertyFieldReference("channel") { Constraint = x => x == "subscribe" || x == "unsubscribe" },
                 ],
-                IdentifyMessageCallback = x => $"{x.FieldValue("type")}-{x.FieldValue("pairCode")!.ToLowerInvariant()}-{x.FieldValue("interval")}-{x.FieldValue("channel")}"
+                StaticIdentifier = "SubResponse"
             },
 
             new MessageEvaluator {
                 Priority = 4,
-                Fields = [
-                    new PropertyFieldReference("type"),
-                    new PropertyFieldReference("channel"),
-                    new PropertyFieldReference("pairCode"),
-                ],
-                IdentifyMessageCallback = x => $"{x.FieldValue("type")}-{x.FieldValue("pairCode")!.ToLowerInvariant()}-{x.FieldValue("channel")}"
-            },
-
-            new MessageEvaluator {
-                Priority = 5,
-                Fields = [
-                    new PropertyFieldReference("type"),
-                    new PropertyFieldReference("interval"),
-                    new PropertyFieldReference("pairCode"),
-                ],
-                IdentifyMessageCallback = x => $"{x.FieldValue("type")}-{x.FieldValue("pairCode")!.ToLowerInvariant()}-{x.FieldValue("interval")}"
-            },
-
-            new MessageEvaluator {
-                Priority = 6,
-                Fields = [
-                    new PropertyFieldReference("type"),
-                    new PropertyFieldReference("channel"),
-                ],
-                IdentifyMessageCallback = x => $"{x.FieldValue("type")}-{x.FieldValue("channel")}"
-            },
-
-            new MessageEvaluator {
-                Priority = 7,
-                Fields = [
-                    new PropertyFieldReference("type"),
-                    new PropertyFieldReference("pairCode"),
-                ],
-                IdentifyMessageCallback = x => $"{x.FieldValue("type")}-{x.FieldValue("pairCode")!.ToLowerInvariant()}"
-            },
-
-
-            new MessageEvaluator {
-                Priority = 8,
+                ForceIfFound = true,
                 Fields = [
                     new PropertyFieldReference("type"),
                 ],
                 IdentifyMessageCallback = x => x.FieldValue("type")!
-            },
+            }
+
         ];
     }
 }

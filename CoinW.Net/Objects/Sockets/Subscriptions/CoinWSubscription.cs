@@ -36,6 +36,9 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
             _interval = interval;
 
             MessageMatcher = MessageMatcher.Create<CoinWSocketResponse<T>>(MessageLinkType.Full, topic + (pairCode == null ? "" : ("-" + pairCode)) + (interval == null ? "" : ("-" + EnumConverter.GetString(interval))), DoHandleMessage);
+
+#warning this (HashSet<string>?)null parameter makes it so it accepts any topic identifier, should be more clear from the call this
+            MessageRouter = MessageRouter.Create<CoinWSocketResponse<T>>(topic, (HashSet<string>?)null, DoHandleMessage);
         }
 
         /// <inheritdoc />

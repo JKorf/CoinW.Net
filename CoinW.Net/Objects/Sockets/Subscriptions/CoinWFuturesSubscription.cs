@@ -18,6 +18,15 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
     /// <inheritdoc />
     internal class CoinWFuturesSubscription<T> : Subscription<CoinWSocketResponse<CoinWSubscriptionResponse>, CoinWSocketResponse<CoinWSubscriptionResponse>>
     {
+        private static readonly HashSet<string> _typesWithoutSymbol = new HashSet<string>
+        {
+            "order",
+            "position",
+            "position_change",
+            "assets",
+        };
+
+
         private readonly Action<DateTime, string?, CoinWSocketResponse<T>> _handler;
         private string _topic;
         private string? _pairCode;
@@ -34,6 +43,11 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
             _interval = interval;
 
             MessageMatcher = MessageMatcher.Create<CoinWSocketResponse<T>>(MessageLinkType.Full, topic + (pairCode == null ? "" : ("-" + pairCode.ToLowerInvariant())) + (interval == null ? "" : ("-" + EnumConverter.GetString(interval))), DoHandleMessage);
+            if (_typesWithoutSymbol.Contains(_topic))
+#warning this (HashSet<string>?)null parameter makes it so it accepts any topic identifier, should be more clear from the call this
+                MessageRouter = MessageRouter.Create<CoinWSocketResponse<T>>(topic, (HashSet<string>?)null, DoHandleMessage);
+            else
+                MessageRouter = MessageRouter.Create<CoinWSocketResponse<T>>(topic, _topic + _pairCode?.ToLowerInvariant() + EnumConverter.GetString(interval), DoHandleMessage);
         }
 
         /// <inheritdoc />

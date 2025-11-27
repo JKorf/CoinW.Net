@@ -17,6 +17,7 @@ namespace CoinW.Net.Objects.Sockets
         {
             RequestTimeout = TimeSpan.FromSeconds(5);
             MessageMatcher = MessageMatcher.Create<CoinWSocketResponse<CoinWSubscriptionResponse>>("pong", HandleMessage);
+            MessageRouter = MessageRouter.Create<CoinWSocketResponse<CoinWSubscriptionResponse>>("pong", HandleMessage);
         }
 
         public CallResult<CoinWSocketResponse<CoinWSubscriptionResponse>> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, CoinWSocketResponse<CoinWSubscriptionResponse> message)
