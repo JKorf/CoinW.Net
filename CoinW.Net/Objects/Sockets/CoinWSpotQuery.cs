@@ -19,7 +19,7 @@ namespace CoinW.Net.Objects.Sockets
                 new MessageHandlerLink<CoinWSocketResponse<T>>(MessageLinkType.Full, $"{topic}-unsub", HandleMessage)
                 );
 
-            MessageRouter = MessageRouter.Create<CoinWSocketResponse<T>>("SubResponse", request.Parameters.Type + request.Parameters.PairCode?.ToLowerInvariant() + EnumConverter.GetString(request.Parameters.Interval), HandleMessage);
+            MessageRouter = MessageRouter.CreateWithTopicFilter<CoinWSocketResponse<T>>("SubResponse", request.Parameters.Type + request.Parameters.PairCode?.ToLowerInvariant() + EnumConverter.GetString(request.Parameters.Interval), HandleMessage);
         }
 
         public CallResult<T> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, CoinWSocketResponse<T> message)

@@ -44,10 +44,9 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
 
             MessageMatcher = MessageMatcher.Create<CoinWSocketResponse<T>>(MessageLinkType.Full, topic + (pairCode == null ? "" : ("-" + pairCode.ToLowerInvariant())) + (interval == null ? "" : ("-" + EnumConverter.GetString(interval))), DoHandleMessage);
             if (_typesWithoutSymbol.Contains(_topic))
-#warning this (HashSet<string>?)null parameter makes it so it accepts any topic identifier, should be more clear from the call this
-                MessageRouter = MessageRouter.Create<CoinWSocketResponse<T>>(topic, (HashSet<string>?)null, DoHandleMessage);
+                MessageRouter = MessageRouter.CreateWithoutTopicFilter<CoinWSocketResponse<T>>(topic, DoHandleMessage);
             else
-                MessageRouter = MessageRouter.Create<CoinWSocketResponse<T>>(topic, _topic + _pairCode?.ToLowerInvariant() + EnumConverter.GetString(interval), DoHandleMessage);
+                MessageRouter = MessageRouter.CreateWithTopicFilter<CoinWSocketResponse<T>>(topic, _topic + _pairCode?.ToLowerInvariant() + EnumConverter.GetString(interval), DoHandleMessage);
         }
 
         /// <inheritdoc />

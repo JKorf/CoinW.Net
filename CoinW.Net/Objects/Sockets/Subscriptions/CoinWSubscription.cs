@@ -35,10 +35,10 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
             _symbolName = symbolName;
             _interval = interval;
 
-            MessageMatcher = MessageMatcher.Create<CoinWSocketResponse<T>>(MessageLinkType.Full, topic + (pairCode == null ? "" : ("-" + pairCode)) + (interval == null ? "" : ("-" + EnumConverter.GetString(interval))), DoHandleMessage);
-
-#warning this (HashSet<string>?)null parameter makes it so it accepts any topic identifier, should be more clear from the call this
-            MessageRouter = MessageRouter.Create<CoinWSocketResponse<T>>(topic, (HashSet<string>?)null, DoHandleMessage);
+            var topicFilter = (pairCode == null ? "" : ("-" + pairCode)) + (interval == null ? "" : ("-" + EnumConverter.GetString(interval)));
+            MessageMatcher = MessageMatcher.Create<CoinWSocketResponse<T>>(MessageLinkType.Full, topic + topicFilter, DoHandleMessage);
+            var routerFilter = pairCode + interval + EnumConverter.GetString(interval);
+            MessageRouter = MessageRouter.CreateWithOptionalTopicFilter<CoinWSocketResponse<T>>(topic, string.IsNullOrEmpty(routerFilter) ? null : routerFilter, DoHandleMessage);
         }
 
         /// <inheritdoc />

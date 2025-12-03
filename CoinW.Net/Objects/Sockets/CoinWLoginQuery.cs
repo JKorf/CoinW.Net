@@ -25,7 +25,7 @@ namespace CoinW.Net.Objects.Sockets
         {
             _client = client;
             MessageMatcher = MessageMatcher.Create<CoinWSocketResponse<CoinWSubscriptionResponse>>("login", HandleMessage);
-            MessageRouter = MessageRouter.Create<CoinWSocketResponse<CoinWSubscriptionResponse>>("login", HandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<CoinWSocketResponse<CoinWSubscriptionResponse>>("login", HandleMessage);
         }
 
         public CallResult<CoinWSocketResponse<CoinWSubscriptionResponse>> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, CoinWSocketResponse<CoinWSubscriptionResponse> message)
