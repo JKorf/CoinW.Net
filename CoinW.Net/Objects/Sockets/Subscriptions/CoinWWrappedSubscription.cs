@@ -16,7 +16,7 @@ using CoinW.Net.Enums;
 namespace CoinW.Net.Objects.Sockets.Subscriptions
 {
     /// <inheritdoc />
-    internal class CoinWWrappedSubscription<T> : Subscription<CoinWSocketResponse<CoinWSubscriptionResponse>, CoinWSocketResponse<CoinWSubscriptionResponse>>
+    internal class CoinWWrappedSubscription<T> : Subscription
     {
 
         private readonly IByteMessageAccessor _innerAccessor = new SystemTextJsonByteMessageAccessor(CoinWExchange._serializerContext);

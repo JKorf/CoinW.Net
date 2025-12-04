@@ -37,7 +37,6 @@ namespace CoinW.Net.Clients.MessageHandlers
 
         public override async ValueTask<Error> ParseErrorResponse(
             int httpStatusCode,
-            object? state,
             HttpResponseHeaders responseHeaders,
             Stream responseStream)
         {

@@ -16,7 +16,7 @@ using CoinW.Net.Enums;
 namespace CoinW.Net.Objects.Sockets.Subscriptions
 {
     /// <inheritdoc />
-    internal class CoinWSubscription<T> : Subscription<CoinWSocketResponse<CoinWSubscriptionResponse>, CoinWSocketResponse<CoinWSubscriptionResponse>>
+    internal class CoinWSubscription<T> : Subscription
     {
         private readonly Action<DateTime, string?, CoinWSocketResponse<T>> _handler;
         private string _topic;

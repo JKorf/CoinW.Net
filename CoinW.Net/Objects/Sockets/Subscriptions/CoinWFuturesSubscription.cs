@@ -16,7 +16,7 @@ using CoinW.Net.Enums;
 namespace CoinW.Net.Objects.Sockets.Subscriptions
 {
     /// <inheritdoc />
-    internal class CoinWFuturesSubscription<T> : Subscription<CoinWSocketResponse<CoinWSubscriptionResponse>, CoinWSocketResponse<CoinWSubscriptionResponse>>
+    internal class CoinWFuturesSubscription<T> : Subscription
     {
         private static readonly HashSet<string> _typesWithoutSymbol = new HashSet<string>
         {
