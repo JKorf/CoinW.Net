@@ -6,12 +6,33 @@ using CoinW.Net.Objects.Models;
 using Microsoft.Extensions.Logging;
 using CryptoExchange.Net.Objects;
 using Microsoft.Extensions.Options;
+using CoinW.Net.Objects.Options;
 
 namespace CoinW.Net.UnitTests
 {
     [TestFixture]
     public class SocketSubscriptionTests
     {
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task ValidateConcurrentSpotSubscriptions(bool newDeserialization)
+        {
+            var logger = new LoggerFactory();
+            logger.AddProvider(new TraceLoggerProvider());
+
+            var client = new CoinWSocketClient(Options.Create(new CoinWSocketOptions
+            {
+                OutputOriginalData = true,
+                UseUpdatedDeserialization = newDeserialization
+            }), logger);
+
+            var tester = new SocketSubscriptionValidator<CoinWSocketClient>(client, "Subscriptions/Spot", "wss://ws.futurescw.com");
+            await tester.ValidateConcurrentAsync<CoinWKlineUpdate>(
+                (client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("UnitTest", Enums.KlineIntervalStream.OneDay, handler),
+                (client, handler) => client.SpotApi.SubscribeToKlineUpdatesAsync("UnitTest", Enums.KlineIntervalStream.OneHour, handler),
+                "Concurrent");
+        }
+
         [TestCase(false)]
         [TestCase(true)]
         public async Task ValidateSpotSubscriptions(bool useUpdatedDeserialization)

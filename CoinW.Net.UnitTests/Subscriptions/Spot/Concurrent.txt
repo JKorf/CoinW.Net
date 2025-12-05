@@ -1,0 +1,6 @@
+>1 { "event": "sub", "params": { "biz": "exchange", "pairCode": "1", "type": "candles","interval":"1d"}}
+>2 { "event": "sub", "params": { "biz": "exchange", "pairCode": "1", "type": "candles","interval":"1h"}}
+<1 {"biz": "exchange", "pairCode": "1", "data": {"result": true}, "channel": "subscribe", "type": "candles","interval":"1d"}
+<2 {"biz": "exchange", "pairCode": "1", "data": {"result": true}, "channel": "subscribe", "type": "candles","interval":"1h"}
+=1 {"biz":"exchange","pairCode":"1","data":"[\"1745823600000\",\"94580.17\",\"94600.06\",\"94600.08\",\"94579.66\",\"2.6366\",\"249401.987844\"]","interval":"1d","type":"candles"}
+=2 {"biz":"exchange","pairCode":"1","data":"[\"1745823600000\",\"94580.17\",\"94600.06\",\"94600.08\",\"94579.66\",\"2.6366\",\"249401.987844\"]","interval":"1h","type":"candles"}
