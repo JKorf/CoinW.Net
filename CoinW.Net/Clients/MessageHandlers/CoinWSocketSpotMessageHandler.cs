@@ -13,48 +13,49 @@ namespace CoinW.Net.Clients.MessageHandlers
 {
     internal class CoinWSocketSpotMessageHandler : JsonSocketMessageHandler
     {
+        private static readonly HashSet<string?> _subActions = new HashSet<string?>()
+        {
+            "subscribe",
+            "unsubscribe"
+        };
         public override JsonSerializerOptions Options { get; } = CoinWExchange._serializerContext;
 
         public CoinWSocketSpotMessageHandler()
         {
             AddTopicMapping<CoinWSocketResponse>(x => x.Type + x.PairCode?.ToLowerInvariant() + x.Interval);
         }
-        protected override MessageEvaluator[] TypeEvaluators { get; } = [
+        protected override MessageTypeDefinition[] TypeEvaluators { get; } = [
 
-            new MessageEvaluator {
-                Priority = 1,
+            new MessageTypeDefinition {
                 ForceIfFound = true,
                 Fields = [
-                    new PropertyFieldReference("event") { Constraint = x => x == "pong" },
+                    new PropertyFieldReference("event").WithEqualContstraint("pong"),
                 ],
                 StaticIdentifier = "pong"
             },
 
-            new MessageEvaluator {
-                Priority = 2,
+            new MessageTypeDefinition {
                 ForceIfFound = true,
                 Fields = [
-                    new PropertyFieldReference("channel") { Constraint = x => x == "login" },
+                    new PropertyFieldReference("channel").WithEqualContstraint("login"),
                 ],
                 StaticIdentifier = "login"
             },
 
-            new MessageEvaluator {
-                Priority = 3,
+            new MessageTypeDefinition {
                 ForceIfFound = true,
                 Fields = [
-                    new PropertyFieldReference("channel") { Constraint = x => x == "subscribe" || x == "unsubscribe" },
+                    new PropertyFieldReference("channel").WithFilterContstraint(_subActions),
                 ],
                 StaticIdentifier = "SubResponse"
             },
 
-            new MessageEvaluator {
-                Priority = 4,
+            new MessageTypeDefinition {
                 ForceIfFound = true,
                 Fields = [
                     new PropertyFieldReference("type"),
                 ],
-                IdentifyMessageCallback = x => x.FieldValue("type")!
+                TypeIdentifierCallback = x => x.FieldValue("type")!
             }
 
         ];
