@@ -1,13 +1,8 @@
-﻿using CoinW.Net;
-using CoinW.Net.Objects.Internal;
+﻿using CoinW.Net.Objects.Internal;
 using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
-using CryptoExchange.Net.Converters.SystemTextJson;
-using System;
+using CryptoExchange.Net.Converters.SystemTextJson.MessageHandlers;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace CoinW.Net.Clients.MessageHandlers
 {

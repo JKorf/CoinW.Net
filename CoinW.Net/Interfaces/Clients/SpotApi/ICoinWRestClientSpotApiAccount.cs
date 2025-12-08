@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using System.Threading;
 using CryptoExchange.Net.Objects;
 using CoinW.Net.Objects.Models;
-using System;
 using CoinW.Net.Enums;
 
 namespace CoinW.Net.Interfaces.Clients.SpotApi

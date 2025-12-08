@@ -1,7 +1,6 @@
 using CryptoExchange.Net.Objects;
 using Microsoft.Extensions.Logging;
 using CoinW.Net.Interfaces.Clients.FuturesApi;
-using System.Drawing;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Threading;

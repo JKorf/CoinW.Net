@@ -1,6 +1,6 @@
-using CryptoExchange.Net.Interfaces;
 using CoinW.Net.Clients;
 using CoinW.Net.Interfaces.Clients;
+using CryptoExchange.Net.Interfaces.Clients;
 
 namespace CryptoExchange.Net.Interfaces
 {

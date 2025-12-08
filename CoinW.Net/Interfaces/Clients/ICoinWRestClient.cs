@@ -1,7 +1,7 @@
 using CoinW.Net.Interfaces.Clients.FuturesApi;
 using CoinW.Net.Interfaces.Clients.SpotApi;
 using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.Interfaces.Clients;
 using CryptoExchange.Net.Objects.Options;
 
 namespace CoinW.Net.Interfaces.Clients

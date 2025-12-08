@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
-using System.Net;
 using System.Net.Http;
 using CoinW.Net;
 using CoinW.Net.Clients;
@@ -13,6 +12,7 @@ using CoinW.Net.Interfaces;
 using CoinW.Net.Interfaces.Clients;
 using CoinW.Net.Objects.Options;
 using CoinW.Net.SymbolOrderBooks;
+using CryptoExchange.Net.Interfaces.Clients;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

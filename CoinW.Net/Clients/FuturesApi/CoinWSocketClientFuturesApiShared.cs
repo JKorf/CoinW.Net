@@ -1,9 +1,6 @@
 using CryptoExchange.Net.SharedApis;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using CoinW.Net.Interfaces.Clients.FuturesApi;
-using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Threading;
 using CryptoExchange.Net.Objects.Sockets;

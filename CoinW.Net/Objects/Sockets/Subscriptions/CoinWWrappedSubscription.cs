@@ -4,14 +4,11 @@ using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using CoinW.Net.Objects.Models;
 using CoinW.Net.Objects.Internal;
-using System.Linq;
-using System.Text.Json;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using System.Text;
 using CoinW.Net.Enums;
+using CryptoExchange.Net.Sockets.Default;
 
 namespace CoinW.Net.Objects.Sockets.Subscriptions
 {

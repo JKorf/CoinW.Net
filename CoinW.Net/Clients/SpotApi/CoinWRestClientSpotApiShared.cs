@@ -1,7 +1,6 @@
 using CryptoExchange.Net.SharedApis;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using CoinW.Net.Interfaces.Clients.SpotApi;
 using System.Threading.Tasks;
 using System.Threading;

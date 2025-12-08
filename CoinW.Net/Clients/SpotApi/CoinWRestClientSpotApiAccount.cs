@@ -1,5 +1,4 @@
 using CryptoExchange.Net.Objects;
-using CoinW.Net.Clients.SpotApi;
 using CoinW.Net.Interfaces.Clients.SpotApi;
 using System.Net.Http;
 using System.Threading.Tasks;
