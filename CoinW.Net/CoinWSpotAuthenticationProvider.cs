@@ -9,6 +9,8 @@ namespace CoinW.Net
 {
     internal class CoinWSpotAuthenticationProvider : AuthenticationProvider
     {
+        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac];
+
         public CoinWSpotAuthenticationProvider(ApiCredentials credentials) : base(credentials)
         {
         }
