@@ -123,19 +123,6 @@ namespace CoinW.Net.Clients.SpotApi
             return result.As(result.Data.Data);
         }
 
-        protected override Error? TryParseError(RequestDefinition request, HttpResponseHeaders responseHeaders, IMessageAccessor accessor)
-        {
-            if (!accessor.IsValid)
-                return new ServerError(ErrorInfo.Unknown);
-
-            if (accessor.GetValue<bool>(_successPath))
-                return null;
-
-            var code = accessor.GetValue<int>(_codePath);
-            var msg = accessor.GetValue<string>(_messagePath) ?? accessor.GetValue<string>(_messagePath2);
-            return new ServerError(code, GetErrorInfo(code, msg!));
-        }
-
         /// <inheritdoc />
         protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
             => throw new NotImplementedException();

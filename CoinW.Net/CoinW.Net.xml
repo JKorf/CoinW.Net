@@ -135,9 +135,6 @@
         <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApi.GetTimeOffset">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApi.TryParseError(CryptoExchange.Net.Objects.RequestDefinition,System.Net.Http.Headers.HttpResponseHeaders,CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
         <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>

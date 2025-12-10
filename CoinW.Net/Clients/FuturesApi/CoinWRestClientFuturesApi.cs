@@ -102,23 +102,6 @@ namespace CoinW.Net.Clients.FuturesApi
             => null;
 
         /// <inheritdoc />
-        protected override Error? TryParseError(RequestDefinition request, HttpResponseHeaders responseHeaders, IMessageAccessor accessor)
-        {
-            if (!accessor.IsValid)
-                return new ServerError(ErrorInfo.Unknown);
-
-            var code = accessor.GetValue<int?>(_codePath);
-            var msg = accessor.GetValue<string>(_messagePath) ?? accessor.GetValue<string>(_messagePath2);
-            if (code == 0 || code == 200)
-                return null;
-
-            if (!code.HasValue)
-                return new ServerError(ErrorInfo.Unknown with { Message = msg });
-
-            return new ServerError(code.Value, GetErrorInfo(code.Value, msg!));
-        }
-
-        /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverDate = null) 
             => CoinWExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverDate);
 
