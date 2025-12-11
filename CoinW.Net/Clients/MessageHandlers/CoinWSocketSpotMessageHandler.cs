@@ -24,7 +24,7 @@ namespace CoinW.Net.Clients.MessageHandlers
             new MessageTypeDefinition {
                 ForceIfFound = true,
                 Fields = [
-                    new PropertyFieldReference("event").WithEqualContstraint("pong"),
+                    new PropertyFieldReference("event").WithEqualConstraint("pong"),
                 ],
                 StaticIdentifier = "pong"
             },
@@ -32,7 +32,7 @@ namespace CoinW.Net.Clients.MessageHandlers
             new MessageTypeDefinition {
                 ForceIfFound = true,
                 Fields = [
-                    new PropertyFieldReference("channel").WithEqualContstraint("login"),
+                    new PropertyFieldReference("channel").WithEqualConstraint("login"),
                 ],
                 StaticIdentifier = "login"
             },
@@ -40,7 +40,7 @@ namespace CoinW.Net.Clients.MessageHandlers
             new MessageTypeDefinition {
                 ForceIfFound = true,
                 Fields = [
-                    new PropertyFieldReference("channel").WithFilterContstraint(_subActions),
+                    new PropertyFieldReference("channel").WithFilterConstraint(_subActions),
                 ],
                 StaticIdentifier = "SubResponse"
             },
