@@ -82,7 +82,7 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
                 return desData;
 
             _handler.Invoke(
-                new DataEvent<T>(desData.Data, receiveTime, originalData)
+                new DataEvent<T>(CoinWExchange.ExchangeName, desData.Data, receiveTime, originalData)
                     .WithSymbol(_symbolName)
                     .WithUpdateType(SocketUpdateType.Update));
 

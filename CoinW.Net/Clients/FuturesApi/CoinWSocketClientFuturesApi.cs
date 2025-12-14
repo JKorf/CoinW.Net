@@ -83,7 +83,7 @@ namespace CoinW.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWFuturesTickerUpdate>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<CoinWFuturesTickerUpdate>(data.Data, receiveTime, originalData)
+                    new DataEvent<CoinWFuturesTickerUpdate>(CoinWExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Type)
                         .WithSymbol(data.Data.Symbol)
@@ -100,7 +100,7 @@ namespace CoinW.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWFuturesOrderBook>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<CoinWFuturesOrderBook>(data.Data, receiveTime, originalData)
+                    new DataEvent<CoinWFuturesOrderBook>(CoinWExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Type)
                         .WithSymbol(data.Data.Symbol)
@@ -117,7 +117,7 @@ namespace CoinW.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWFuturesTrade[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<CoinWFuturesTrade[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<CoinWFuturesTrade[]>(CoinWExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Type)
                         .WithSymbol(data.PairCode)
@@ -134,7 +134,7 @@ namespace CoinW.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWFuturesStreamKline>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<CoinWFuturesStreamKline>(data.Data, receiveTime, originalData)
+                    new DataEvent<CoinWFuturesStreamKline>(CoinWExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Type)
                         .WithSymbol(data.PairCode)
@@ -151,7 +151,7 @@ namespace CoinW.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWPrice>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<CoinWPrice>(data.Data, receiveTime, originalData)
+                    new DataEvent<CoinWPrice>(CoinWExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Type)
                         .WithSymbol(data.Data.Symbol)
@@ -168,7 +168,7 @@ namespace CoinW.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWPrice>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<CoinWPrice>(data.Data, receiveTime, originalData)
+                    new DataEvent<CoinWPrice>(CoinWExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Type)
                         .WithSymbol(data.Data.Symbol)
@@ -185,7 +185,7 @@ namespace CoinW.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWFundingRate>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<CoinWFundingRate>(data.Data, receiveTime, originalData)
+                    new DataEvent<CoinWFundingRate>(CoinWExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Type)
                         .WithSymbol(data.Data.Symbol)
@@ -202,7 +202,7 @@ namespace CoinW.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWFuturesOrder[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<CoinWFuturesOrder[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<CoinWFuturesOrder[]>(CoinWExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Type)
                         .WithSymbol(data.Data.FirstOrDefault()?.Symbol)
@@ -219,7 +219,7 @@ namespace CoinW.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWPosition[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<CoinWPosition[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<CoinWPosition[]>(CoinWExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Type)
                         .WithSymbol(data.Data.FirstOrDefault()?.Symbol)
@@ -236,7 +236,7 @@ namespace CoinW.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWPositionChange[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<CoinWPositionChange[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<CoinWPositionChange[]>(CoinWExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Type)
                         .WithSymbol(data.Data.FirstOrDefault()?.Symbol)
@@ -253,7 +253,7 @@ namespace CoinW.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWFuturesBalanceUpdate[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<CoinWFuturesBalanceUpdate[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<CoinWFuturesBalanceUpdate[]>(CoinWExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Type)
                     );
@@ -269,7 +269,7 @@ namespace CoinW.Net.Clients.FuturesApi
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWMarginInfo[]>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<CoinWMarginInfo[]>(data.Data, receiveTime, originalData)
+                    new DataEvent<CoinWMarginInfo[]>(CoinWExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Type)
                     );

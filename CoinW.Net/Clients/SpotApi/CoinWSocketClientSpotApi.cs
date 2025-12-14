@@ -151,7 +151,7 @@ namespace CoinW.Net.Clients.SpotApi
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWBalanceUpdate>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<CoinWBalanceUpdate>(data.Data, receiveTime, originalData)
+                    new DataEvent<CoinWBalanceUpdate>(CoinWExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Type)
                     );
@@ -167,7 +167,7 @@ namespace CoinW.Net.Clients.SpotApi
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWOrderUpdate>>((receiveTime, originalData, data) =>
             {
                 onMessage(
-                    new DataEvent<CoinWOrderUpdate>(data.Data, receiveTime, originalData)
+                    new DataEvent<CoinWOrderUpdate>(CoinWExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Type)
                     );
