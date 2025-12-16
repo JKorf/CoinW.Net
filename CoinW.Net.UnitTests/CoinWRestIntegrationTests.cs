@@ -14,7 +14,7 @@ namespace CoinW.Net.UnitTests
     [NonParallelizable]
     public class CoinWRestIntegrationTests : RestIntegrationTest<CoinWRestClient>
     {
-        public override bool Run { get; set; } = true;
+        public override bool Run { get; set; } = false;
 
         public override CoinWRestClient GetClient(ILoggerFactory loggerFactory)
         {
