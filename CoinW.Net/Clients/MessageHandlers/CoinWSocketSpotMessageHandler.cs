@@ -11,7 +11,7 @@ namespace CoinW.Net.Clients.MessageHandlers
         private static readonly HashSet<string?> _subActions = new HashSet<string?>()
         {
             "subscribe",
-            "unsubscribe"
+            "unsub"
         };
         public override JsonSerializerOptions Options { get; } = CoinWExchange._serializerContext;
 
@@ -46,7 +46,6 @@ namespace CoinW.Net.Clients.MessageHandlers
             },
 
             new MessageTypeDefinition {
-                ForceIfFound = true,
                 Fields = [
                     new PropertyFieldReference("type"),
                 ],
