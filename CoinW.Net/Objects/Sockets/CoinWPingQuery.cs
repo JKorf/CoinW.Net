@@ -1,10 +1,8 @@
 using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
-using System.Collections.Generic;
-using CoinW.Net.Objects.Models;
 using CoinW.Net.Objects.Internal;
 using System;
+using CryptoExchange.Net.Sockets.Default;
 
 namespace CoinW.Net.Objects.Sockets
 {
@@ -17,11 +15,12 @@ namespace CoinW.Net.Objects.Sockets
         {
             RequestTimeout = TimeSpan.FromSeconds(5);
             MessageMatcher = MessageMatcher.Create<CoinWSocketResponse<CoinWSubscriptionResponse>>("pong", HandleMessage);
+            MessageRouter = MessageRouter.CreateWithoutTopicFilter<CoinWSocketResponse<CoinWSubscriptionResponse>>("pong", HandleMessage);
         }
 
-        public CallResult<CoinWSocketResponse<CoinWSubscriptionResponse>> HandleMessage(SocketConnection connection, DataEvent<CoinWSocketResponse<CoinWSubscriptionResponse>> message)
+        public CallResult<CoinWSocketResponse<CoinWSubscriptionResponse>> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, CoinWSocketResponse<CoinWSubscriptionResponse> message)
         {
-            return message.ToCallResult();
+            return new CallResult<CoinWSocketResponse<CoinWSubscriptionResponse>>(message, originalData, null);
         }
     }
 }

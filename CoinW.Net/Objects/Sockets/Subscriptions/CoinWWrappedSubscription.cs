@@ -4,19 +4,16 @@ using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using CoinW.Net.Objects.Models;
 using CoinW.Net.Objects.Internal;
-using System.Linq;
-using System.Text.Json;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using System.Text;
 using CoinW.Net.Enums;
+using CryptoExchange.Net.Sockets.Default;
 
 namespace CoinW.Net.Objects.Sockets.Subscriptions
 {
     /// <inheritdoc />
-    internal class CoinWWrappedSubscription<T> : Subscription<CoinWSocketResponse<CoinWSubscriptionResponse>, CoinWSocketResponse<CoinWSubscriptionResponse>>
+    internal class CoinWWrappedSubscription<T> : Subscription
     {
 
         private readonly IByteMessageAccessor _innerAccessor = new SystemTextJsonByteMessageAccessor(CoinWExchange._serializerContext);
@@ -38,6 +35,7 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
             _interval = interval;
 
             MessageMatcher = MessageMatcher.Create<CoinWSocketResponse<string>>(MessageLinkType.Full, topic + (pairCode == null ? "" : ("-" + pairCode)) + (interval == null ? "" : ("-" + EnumConverter.GetString(interval))), DoHandleMessage);
+            MessageRouter = MessageRouter.CreateWithTopicFilter<CoinWSocketResponse<string>>(topic, _topic + _pairCode?.ToLowerInvariant() + EnumConverter.GetString(interval), DoHandleMessage);
         }
 
         /// <inheritdoc />
@@ -73,9 +71,9 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
         }
 
         /// <inheritdoc />
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<CoinWSocketResponse<string>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, CoinWSocketResponse<string> message)
         {
-            var innerReadResult = _innerAccessor.Read(Encoding.UTF8.GetBytes(message.Data.Data));
+            var innerReadResult = _innerAccessor.Read(Encoding.UTF8.GetBytes(message.Data));
             if (!innerReadResult)
                 return innerReadResult;
 
@@ -83,7 +81,11 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
             if (!desData)
                 return desData;
 
-            _handler.Invoke(message.As(desData.Data, message.Data.Type, _symbolName, SocketUpdateType.Update));
+            _handler.Invoke(
+                new DataEvent<T>(CoinWExchange.ExchangeName, desData.Data, receiveTime, originalData)
+                    .WithSymbol(_symbolName)
+                    .WithUpdateType(SocketUpdateType.Update));
+
             return new CallResult(null);
         }
     }

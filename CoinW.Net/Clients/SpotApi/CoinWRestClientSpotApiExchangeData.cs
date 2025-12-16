@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Objects;
@@ -113,7 +112,10 @@ namespace CoinW.Net.Clients.SpotApi
             {
                 // Time is return in UTC+8, so convert to UTC
                 foreach (var item in result.Data)
-                    item.Time = new DateTime(item.Time.Year, item.Time.Month, item.Time.Day, item.Time.Hour - 8, item.Time.Minute, item.Time.Second, DateTimeKind.Utc);
+                {
+                    var time = item.Time.AddHours(-8);
+                    item.Time = new DateTime(time.Year, time.Month, time.Day, time.Hour, time.Minute, time.Second, DateTimeKind.Utc);
+                }
             }    
             
             return result;

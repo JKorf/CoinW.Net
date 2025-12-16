@@ -1,10 +1,9 @@
 using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
-using System.Collections.Generic;
-using CoinW.Net.Objects.Models;
 using CoinW.Net.Objects.Internal;
 using CryptoExchange.Net.Converters.SystemTextJson;
+using System;
+using CryptoExchange.Net.Sockets.Default;
 
 namespace CoinW.Net.Objects.Sockets
 {
@@ -17,11 +16,13 @@ namespace CoinW.Net.Objects.Sockets
                 new MessageHandlerLink<CoinWSocketResponse<T>>(MessageLinkType.Full, $"{topic}-subscribe", HandleMessage),
                 new MessageHandlerLink<CoinWSocketResponse<T>>(MessageLinkType.Full, $"{topic}-unsub", HandleMessage)
                 );
+
+            MessageRouter = MessageRouter.CreateWithTopicFilter<CoinWSocketResponse<T>>("SubResponse", request.Parameters.Type + request.Parameters.PairCode?.ToLowerInvariant() + EnumConverter.GetString(request.Parameters.Interval), HandleMessage);
         }
 
-        public CallResult<T> HandleMessage(SocketConnection connection, DataEvent<CoinWSocketResponse<T>> message)
+        public CallResult<T> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, CoinWSocketResponse<T> message)
         {
-            return message.As<T>(message.Data.Data).ToCallResult();
+            return new CallResult<T>(message.Data, originalData, null);
         }
     }
 }

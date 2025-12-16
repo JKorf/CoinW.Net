@@ -2,7 +2,6 @@ using CoinW.Net.Objects.Internal;
 using CoinW.Net.Objects.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Text.Json.Serialization;
 
 namespace CoinW.Net.Converters

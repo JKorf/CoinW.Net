@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace CoinW.Net.Objects.Internal
 {
     internal record CoinWResponse
     {
         [JsonPropertyName("code")]
-        public int Code { get; set; }
+        public int? Code { get; set; }
         [JsonPropertyName("message")]
         public string? Message { get; set; }
         [JsonPropertyName("success")]

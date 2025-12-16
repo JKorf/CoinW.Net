@@ -1,25 +1,29 @@
+using CoinW.Net.Clients.MessageHandlers;
+using CoinW.Net.Enums;
+using CoinW.Net.Interfaces.Clients;
+using CoinW.Net.Interfaces.Clients.SpotApi;
+using CoinW.Net.Objects.Internal;
+using CoinW.Net.Objects.Models;
+using CoinW.Net.Objects.Options;
+using CoinW.Net.Objects.Sockets;
+using CoinW.Net.Objects.Sockets.Subscriptions;
+using CryptoExchange.Net.Authentication;
+using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Converters.MessageParsing;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Interfaces;
+using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Objects.Errors;
+using CryptoExchange.Net.Objects.Sockets;
+using CryptoExchange.Net.SharedApis;
+using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
-using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.Converters.MessageParsing;
-using CryptoExchange.Net.Converters.SystemTextJson;
-using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Objects.Sockets;
-using CryptoExchange.Net.SharedApis;
-using CryptoExchange.Net.Sockets;
-using Microsoft.Extensions.Logging;
-using CoinW.Net.Interfaces.Clients.SpotApi;
-using CoinW.Net.Objects.Models;
-using CoinW.Net.Objects.Options;
-using CoinW.Net.Objects.Sockets.Subscriptions;
-using CoinW.Net.Interfaces.Clients;
-using CoinW.Net.Enums;
-using CoinW.Net.Objects.Sockets;
-using CryptoExchange.Net.Objects.Errors;
 
 namespace CoinW.Net.Clients.SpotApi
 {
@@ -72,6 +76,8 @@ namespace CoinW.Net.Clients.SpotApi
         protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(CoinWExchange._serializerContext);
         /// <inheritdoc />
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(CoinWExchange._serializerContext);
+        /// <inheritdoc />
+        public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new CoinWSocketSpotMessageHandler();
 
         /// <inheritdoc />
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
@@ -142,14 +148,32 @@ namespace CoinW.Net.Clients.SpotApi
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<CoinWBalanceUpdate>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new CoinWSubscription<CoinWBalanceUpdate>(_logger, "assets", null, null, null, onMessage, true);
+            var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWBalanceUpdate>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<CoinWBalanceUpdate>(CoinWExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithStreamId(data.Type)
+                    );
+            });
+
+            var subscription = new CoinWSubscription<CoinWBalanceUpdate>(_logger, "assets", null, null, null, internalHandler, true);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<CoinWOrderUpdate>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new CoinWSubscription<CoinWOrderUpdate>(_logger, "order", null, null, null, onMessage, true);
+            var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWOrderUpdate>>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<CoinWOrderUpdate>(CoinWExchange.ExchangeName, data.Data, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithStreamId(data.Type)
+                    );
+            });
+
+            var subscription = new CoinWSubscription<CoinWOrderUpdate>(_logger, "order", null, null, null, internalHandler, true);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 

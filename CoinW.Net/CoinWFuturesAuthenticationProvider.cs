@@ -1,13 +1,9 @@
-using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
 
 namespace CoinW.Net
 {
@@ -15,6 +11,7 @@ namespace CoinW.Net
     {
         private readonly IStringMessageSerializer _serializer = new SystemTextJsonMessageSerializer(CoinWExchange._serializerContext);
 
+        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac];
         public CoinWFuturesAuthenticationProvider(ApiCredentials credentials) : base(credentials)
         {
         }
@@ -29,10 +26,11 @@ namespace CoinW.Net
             if (!string.IsNullOrEmpty(queryParams))
                 queryParams = $"?{queryParams}";
 
-            var body = request.BodyParameters.Any() ? GetSerializedBody(_serializer, request.BodyParameters) : string.Empty;
+            var body = request.BodyParameters?.Count > 0 ? GetSerializedBody(_serializer, request.BodyParameters) : string.Empty;
             var signStr = $"{time}{request.Method}{request.Path}{queryParams}{body}";
             var signature = SignHMACSHA256(signStr, SignOutputType.Base64);
 
+            request.Headers ??= new Dictionary<string, string>();
             request.Headers.Add("sign", signature);
             request.Headers.Add("api_key", ApiKey);
             request.Headers.Add("timestamp", time);

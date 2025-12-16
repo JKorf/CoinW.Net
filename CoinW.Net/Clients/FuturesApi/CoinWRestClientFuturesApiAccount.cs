@@ -1,5 +1,4 @@
 using CryptoExchange.Net.Objects;
-using CoinW.Net.Clients.FuturesApi;
 using CoinW.Net.Interfaces.Clients.FuturesApi;
 using System.Net.Http;
 using System.Threading.Tasks;

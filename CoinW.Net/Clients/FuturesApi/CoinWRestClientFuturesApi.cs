@@ -1,9 +1,7 @@
-using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,6 +14,9 @@ using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Converters.MessageParsing;
 using CoinW.Net.Objects.Internal;
 using CryptoExchange.Net.Objects.Errors;
+using System.Net.Http.Headers;
+using CoinW.Net.Clients.MessageHandlers;
+using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 
 namespace CoinW.Net.Clients.FuturesApi
 {
@@ -29,6 +30,7 @@ namespace CoinW.Net.Clients.FuturesApi
         private readonly MessagePath _messagePath = MessagePath.Get().Property("msg");
         private readonly MessagePath _messagePath2 = MessagePath.Get().Property("message");
 
+        protected override IRestMessageHandler MessageHandler => new CoinWRestMessageHandler(CoinWErrors.FuturesErrors);
         internal static ErrorMapping RestErrorMapping => CoinWErrors.FuturesErrors;
         #endregion
 
@@ -98,23 +100,6 @@ namespace CoinW.Net.Clients.FuturesApi
         /// <inheritdoc />
         public override TimeSpan? GetTimeOffset()
             => null;
-
-        /// <inheritdoc />
-        protected override Error? TryParseError(RequestDefinition request, KeyValuePair<string, string[]>[] responseHeaders, IMessageAccessor accessor)
-        {
-            if (!accessor.IsValid)
-                return new ServerError(ErrorInfo.Unknown);
-
-            var code = accessor.GetValue<int?>(_codePath);
-            var msg = accessor.GetValue<string>(_messagePath) ?? accessor.GetValue<string>(_messagePath2);
-            if (code == 0 || code == 200)
-                return null;
-
-            if (!code.HasValue)
-                return new ServerError(ErrorInfo.Unknown with { Message = msg });
-
-            return new ServerError(code.Value, GetErrorInfo(code.Value, msg!));
-        }
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverDate = null) 

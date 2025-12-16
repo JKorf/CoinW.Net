@@ -1,24 +1,18 @@
-using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.Sockets;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using CoinW.Net.Objects.Models;
 using CoinW.Net.Objects.Internal;
-using System.Linq;
-using System.Text.Json;
 using CryptoExchange.Net.Converters.SystemTextJson;
-using System.Text;
 using CoinW.Net.Enums;
+using CryptoExchange.Net.Sockets.Default;
 
 namespace CoinW.Net.Objects.Sockets.Subscriptions
 {
     /// <inheritdoc />
-    internal class CoinWSubscription<T> : Subscription<CoinWSocketResponse<CoinWSubscriptionResponse>, CoinWSocketResponse<CoinWSubscriptionResponse>>
+    internal class CoinWSubscription<T> : Subscription
     {
-        private readonly Action<DataEvent<T>> _handler;
+        private readonly Action<DateTime, string?, CoinWSocketResponse<T>> _handler;
         private string _topic;
         private string? _pairCode;
         private string? _symbolName;
@@ -27,7 +21,7 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
         /// <summary>
         /// ctor
         /// </summary>
-        public CoinWSubscription(ILogger logger, string topic, string? pairCode, string? symbolName, KlineIntervalStream? interval, Action<DataEvent<T>> handler, bool auth) : base(logger, auth)
+        public CoinWSubscription(ILogger logger, string topic, string? pairCode, string? symbolName, KlineIntervalStream? interval, Action<DateTime, string?, CoinWSocketResponse<T>> handler, bool auth) : base(logger, auth)
         {
             _handler = handler;
             _topic = topic;
@@ -35,7 +29,10 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
             _symbolName = symbolName;
             _interval = interval;
 
-            MessageMatcher = MessageMatcher.Create<CoinWSocketResponse<T>>(MessageLinkType.Full, topic + (pairCode == null ? "" : ("-" + pairCode)) + (interval == null ? "" : ("-" + EnumConverter.GetString(interval))), DoHandleMessage);
+            var topicFilter = (pairCode == null ? "" : ("-" + pairCode)) + (interval == null ? "" : ("-" + EnumConverter.GetString(interval)));
+            MessageMatcher = MessageMatcher.Create<CoinWSocketResponse<T>>(MessageLinkType.Full, topic + topicFilter, DoHandleMessage);
+            var routerFilter = pairCode + interval + EnumConverter.GetString(interval);
+            MessageRouter = MessageRouter.CreateWithOptionalTopicFilter<CoinWSocketResponse<T>>(topic, string.IsNullOrEmpty(routerFilter) ? null : routerFilter, DoHandleMessage);
         }
 
         /// <inheritdoc />
@@ -71,9 +68,9 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
         }
 
         /// <inheritdoc />
-        public CallResult DoHandleMessage(SocketConnection connection, DataEvent<CoinWSocketResponse<T>> message)
+        public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, CoinWSocketResponse<T> message)
         {
-            _handler.Invoke(message.As(message.Data.Data, message.Data.Type, _symbolName, SocketUpdateType.Update));
+            _handler.Invoke(receiveTime, originalData, message);
             return new CallResult(null);
         }
     }

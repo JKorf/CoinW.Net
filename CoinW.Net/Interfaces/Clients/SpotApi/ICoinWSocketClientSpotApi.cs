@@ -2,10 +2,10 @@ using CryptoExchange.Net.Objects;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects.Sockets;
 using CoinW.Net.Objects.Models;
 using CoinW.Net.Enums;
+using CryptoExchange.Net.Interfaces.Clients;
 
 namespace CoinW.Net.Interfaces.Clients.SpotApi
 {

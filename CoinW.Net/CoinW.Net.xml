@@ -135,9 +135,6 @@
         <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApi.GetTimeOffset">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApi.TryParseError(CryptoExchange.Net.Objects.RequestDefinition,System.Collections.Generic.KeyValuePair{System.String,System.String[]}[],CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
         <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
@@ -298,6 +295,9 @@
         <member name="M:CoinW.Net.Clients.FuturesApi.CoinWSocketClientFuturesApi.CreateSerializer">
             <inheritdoc />
         </member>
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWSocketClientFuturesApi.CreateMessageConverter(System.Net.WebSockets.WebSocketMessageType)">
+            <inheritdoc />
+        </member>
         <member name="M:CoinW.Net.Clients.FuturesApi.CoinWSocketClientFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
@@ -340,7 +340,7 @@
         <member name="M:CoinW.Net.Clients.FuturesApi.CoinWSocketClientFuturesApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWSocketClientFuturesApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWSocketClientFuturesApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="P:CoinW.Net.Clients.FuturesApi.CoinWSocketClientFuturesApi.SharedClient">
@@ -473,6 +473,9 @@
         <member name="M:CoinW.Net.Clients.SpotApi.CoinWSocketClientSpotApi.CreateSerializer">
             <inheritdoc />
         </member>
+        <member name="M:CoinW.Net.Clients.SpotApi.CoinWSocketClientSpotApi.CreateMessageConverter(System.Net.WebSockets.WebSocketMessageType)">
+            <inheritdoc />
+        </member>
         <member name="M:CoinW.Net.Clients.SpotApi.CoinWSocketClientSpotApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
             <inheritdoc />
         </member>
@@ -503,7 +506,7 @@
         <member name="M:CoinW.Net.Clients.SpotApi.CoinWSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.Clients.SpotApi.CoinWSocketClientSpotApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:CoinW.Net.Clients.SpotApi.CoinWSocketClientSpotApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="P:CoinW.Net.Clients.SpotApi.CoinWSocketClientSpotApi.SharedClient">
@@ -6882,35 +6885,35 @@
         <member name="T:CoinW.Net.Objects.Sockets.Subscriptions.CoinWFuturesSubscription`1">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWFuturesSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.String,System.String,System.Nullable{CoinW.Net.Enums.FuturesKlineIntervalStream},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
+        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWFuturesSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.String,System.String,System.Nullable{CoinW.Net.Enums.FuturesKlineIntervalStream},System.Action{System.DateTime,System.String,CoinW.Net.Objects.Internal.CoinWSocketResponse{`0}},System.Boolean)">
             <summary>
             ctor
             </summary>
         </member>
-        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWFuturesSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWFuturesSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWFuturesSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWFuturesSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWFuturesSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Internal.CoinWSocketResponse{`0}})">
+        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWFuturesSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.Default.SocketConnection,System.DateTime,System.String,CoinW.Net.Objects.Internal.CoinWSocketResponse{`0})">
             <inheritdoc />
         </member>
         <member name="T:CoinW.Net.Objects.Sockets.Subscriptions.CoinWSubscription`1">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.String,System.String,System.Nullable{CoinW.Net.Enums.KlineIntervalStream},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
+        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.String,System.String,System.Nullable{CoinW.Net.Enums.KlineIntervalStream},System.Action{System.DateTime,System.String,CoinW.Net.Objects.Internal.CoinWSocketResponse{`0}},System.Boolean)">
             <summary>
             ctor
             </summary>
         </member>
-        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Internal.CoinWSocketResponse{`0}})">
+        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.Default.SocketConnection,System.DateTime,System.String,CoinW.Net.Objects.Internal.CoinWSocketResponse{`0})">
             <inheritdoc />
         </member>
         <member name="T:CoinW.Net.Objects.Sockets.Subscriptions.CoinWWrappedSubscription`1">
@@ -6921,13 +6924,13 @@
             ctor
             </summary>
         </member>
-        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWWrappedSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWWrappedSubscription`1.GetSubQuery(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWWrappedSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.SocketConnection)">
+        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWWrappedSubscription`1.GetUnsubQuery(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWWrappedSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.SocketConnection,CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Internal.CoinWSocketResponse{System.String}})">
+        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWWrappedSubscription`1.DoHandleMessage(CryptoExchange.Net.Sockets.Default.SocketConnection,System.DateTime,System.String,CoinW.Net.Objects.Internal.CoinWSocketResponse{System.String})">
             <inheritdoc />
         </member>
         <member name="T:CoinW.Net.SymbolOrderBooks.CoinWFuturesSymbolOrderBook">
@@ -7034,14 +7037,14 @@
             Extensions for the ICryptoRestClient and ICryptoSocketClient interfaces
             </summary>
         </member>
-        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.CoinW(CryptoExchange.Net.Interfaces.ICryptoRestClient)">
+        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.CoinW(CryptoExchange.Net.Interfaces.Clients.ICryptoRestClient)">
             <summary>
             Get the CoinW REST Api client
             </summary>
             <param name="baseClient"></param>
             <returns></returns>
         </member>
-        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.CoinW(CryptoExchange.Net.Interfaces.ICryptoSocketClient)">
+        <member name="M:CryptoExchange.Net.Interfaces.CryptoClientExtensions.CoinW(CryptoExchange.Net.Interfaces.Clients.ICryptoSocketClient)">
             <summary>
             Get the CoinW Websocket Api client
             </summary>
@@ -7071,6 +7074,9 @@
         </member>
         <member name="M:Microsoft.Extensions.Configuration.Binder.SourceGeneration.BindingExtensions.Bind_CoinWOptions(Microsoft.Extensions.Configuration.IConfiguration,System.Object)">
             <summary>Attempts to bind the given object instance to configuration values by matching property names against configuration keys recursively.</summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Configuration.Binder.SourceGeneration.BindingExtensions.TryGetConfigurationValue(Microsoft.Extensions.Configuration.IConfiguration,System.String,System.String@)">
+            <summary>Tries to get the configuration value for the specified key.</summary>
         </member>
         <member name="M:Microsoft.Extensions.Configuration.Binder.SourceGeneration.BindingExtensions.ValidateConfigurationKeys(System.Type,System.Lazy{System.Collections.Generic.HashSet{System.String}},Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Configuration.BinderOptions)">
             <summary>If required by the binder options, validates that there are no unknown keys in the input configuration object.</summary>
