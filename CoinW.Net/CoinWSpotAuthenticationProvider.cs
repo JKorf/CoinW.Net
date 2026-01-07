@@ -1,9 +1,12 @@
-using System.Collections.Generic;
-using System.Linq;
+using CoinW.Net.Objects.Sockets;
 using CryptoExchange.Net;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CoinW.Net
 {
@@ -33,6 +36,11 @@ namespace CoinW.Net
                 request.SetQueryString($"command={command}&{queryString}&sign={sign}");
             else
                 request.SetQueryString($"{queryString}&sign={sign}");
+        }
+
+        public override Query? GetAuthenticationQuery(SocketApiClient apiClient, SocketConnection connection, Dictionary<string, object?>? context = null)
+        {
+            return new CoinWLoginQuery(apiClient, ApiKey, _credentials.Secret);
         }
     }
 }

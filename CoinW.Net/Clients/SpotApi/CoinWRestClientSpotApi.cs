@@ -25,8 +25,6 @@ namespace CoinW.Net.Clients.SpotApi
     internal partial class CoinWRestClientSpotApi : RestApiClient, ICoinWRestClientSpotApi
     {
         #region fields 
-        internal static TimeSyncState _timeSyncState = new TimeSyncState("Spot Api");
-
         private readonly MessagePath _successPath = MessagePath.Get().Property("success");
         private readonly MessagePath _codePath = MessagePath.Get().Property("code");
         private readonly MessagePath _messagePath = MessagePath.Get().Property("message");
@@ -126,14 +124,6 @@ namespace CoinW.Net.Clients.SpotApi
         /// <inheritdoc />
         protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
             => throw new NotImplementedException();
-
-        /// <inheritdoc />
-        public override TimeSyncInfo? GetTimeSyncInfo()
-            => new TimeSyncInfo(_logger, false, ApiOptions.TimestampRecalculationInterval ?? ClientOptions.TimestampRecalculationInterval, _timeSyncState);
-
-        /// <inheritdoc />
-        public override TimeSpan? GetTimeOffset()
-            => null;
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverDate = null) 

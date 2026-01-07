@@ -21,6 +21,7 @@ using CryptoExchange.Net.Sockets;
 using CryptoExchange.Net.Sockets.Default;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
@@ -90,14 +91,33 @@ namespace CoinW.Net.Clients.SpotApi
             if (!result)
                 return result.As<UpdateSubscription>(default);
 
-            var subscription = new CoinWWrappedSubscription<CoinWTickerUpdate>(_logger, "ticker", result.Data.ToString(), symbol, null, onMessage, false);
+            var internalHandler = new Action<DateTime, string?, CoinWTickerUpdate>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<CoinWTickerUpdate>(CoinWExchange.ExchangeName, data, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(symbol)
+                        .WithStreamId("ticker")
+                    );
+            });
+
+            var subscription = new CoinWWrappedSubscription<CoinWTickerUpdate>(_logger, "ticker", result.Data.ToString(), null, internalHandler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToAllTickerUpdatesAsync(Action<DataEvent<CoinWSymbolUpdate[]>> onMessage, CancellationToken ct = default)
         {
-            var subscription = new CoinWWrappedSubscription<CoinWSymbolUpdate[]>(_logger, "ticker_all", null, null, null, onMessage, false);
+            var internalHandler = new Action<DateTime, string?, CoinWSymbolUpdate[]>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<CoinWSymbolUpdate[]>(CoinWExchange.ExchangeName, data, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithStreamId("ticker_all")
+                    );
+            });
+
+            var subscription = new CoinWWrappedSubscription<CoinWSymbolUpdate[]>(_logger, "ticker_all", null, null, internalHandler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 
@@ -108,7 +128,17 @@ namespace CoinW.Net.Clients.SpotApi
             if (!result)
                 return result.As<UpdateSubscription>(default);
 
-            var subscription = new CoinWWrappedSubscription<CoinWOrderBookUpdate>(_logger, "depth", result.Data.ToString(), symbol, null, onMessage, false);
+            var internalHandler = new Action<DateTime, string?, CoinWOrderBookUpdate>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<CoinWOrderBookUpdate>(CoinWExchange.ExchangeName, data, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(symbol)
+                        .WithStreamId("depth")
+                    );
+            });
+
+            var subscription = new CoinWWrappedSubscription<CoinWOrderBookUpdate>(_logger, "depth", result.Data.ToString(), null, internalHandler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 
@@ -119,7 +149,17 @@ namespace CoinW.Net.Clients.SpotApi
             if (!result)
                 return result.As<UpdateSubscription>(default);
 
-            var subscription = new CoinWWrappedSubscription<CoinWOrderBook>(_logger, "depth_snapshot", result.Data.ToString(), symbol, null, onMessage, false);
+            var internalHandler = new Action<DateTime, string?, CoinWOrderBook>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<CoinWOrderBook>(CoinWExchange.ExchangeName, data, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(symbol)
+                        .WithStreamId("depth_snapshot")
+                    );
+            });
+
+            var subscription = new CoinWWrappedSubscription<CoinWOrderBook>(_logger, "depth_snapshot", result.Data.ToString(), null, internalHandler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 
@@ -130,7 +170,16 @@ namespace CoinW.Net.Clients.SpotApi
             if (!result)
                 return result.As<UpdateSubscription>(default);
 
-            var subscription = new CoinWWrappedSubscription<CoinWKlineUpdate>(_logger, "candles", result.Data.ToString(), symbol, interval, onMessage, false);
+            var internalHandler = new Action<DateTime, string?, CoinWKlineUpdate>((receiveTime, originalData, data) =>
+            {
+                onMessage(
+                    new DataEvent<CoinWKlineUpdate>(CoinWExchange.ExchangeName, data, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(symbol)
+                        .WithStreamId("candles")
+                    );
+            });
+            var subscription = new CoinWWrappedSubscription<CoinWKlineUpdate>(_logger, "candles", result.Data.ToString(), interval, internalHandler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 
@@ -141,7 +190,21 @@ namespace CoinW.Net.Clients.SpotApi
             if (!result)
                 return result.As<UpdateSubscription>(default);
 
-            var subscription = new CoinWWrappedSubscription<CoinWTradeUpdate[]>(_logger, "fills", result.Data.ToString(), symbol, null, onMessage, false);
+            var internalHandler = new Action<DateTime, string?, CoinWTradeUpdate[]>((receiveTime, originalData, data) =>
+            {
+                var timestamp = data.Max(x => x.Timestamp);
+                UpdateTimeOffset(timestamp);
+
+                onMessage(
+                    new DataEvent<CoinWTradeUpdate[]>(CoinWExchange.ExchangeName, data, receiveTime, originalData)
+                        .WithUpdateType(SocketUpdateType.Update)
+                        .WithSymbol(symbol)
+                        .WithStreamId("fills")
+                        .WithDataTimestamp(timestamp, GetTimeOffset())
+                    );
+            });
+
+            var subscription = new CoinWWrappedSubscription<CoinWTradeUpdate[]>(_logger, "fills", result.Data.ToString(), null, internalHandler, false);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
         }
 
@@ -150,10 +213,13 @@ namespace CoinW.Net.Clients.SpotApi
         {
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWBalanceUpdate>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Data.Timestamp);
+
                 onMessage(
                     new DataEvent<CoinWBalanceUpdate>(CoinWExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Type)
+                        .WithDataTimestamp(data.Data.Timestamp, GetTimeOffset())
                     );
             });
 
@@ -166,10 +232,13 @@ namespace CoinW.Net.Clients.SpotApi
         {
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWOrderUpdate>>((receiveTime, originalData, data) =>
             {
+                UpdateTimeOffset(data.Data.Timestamp);
+
                 onMessage(
                     new DataEvent<CoinWOrderUpdate>(CoinWExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Type)
+                        .WithDataTimestamp(data.Data.Timestamp, GetTimeOffset())
                     );
             });
 
@@ -201,9 +270,6 @@ namespace CoinW.Net.Clients.SpotApi
 
             return $"{type}";
         }
-
-        /// <inheritdoc />
-        protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection) => Task.FromResult<Query?>(new CoinWLoginQuery(this, ApiCredentials!.Key, ApiCredentials.Secret));
 
         /// <inheritdoc />
         public ICoinWSocketClientSpotApiShared SharedClient => this;

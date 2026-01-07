@@ -129,12 +129,6 @@
         <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApi.GetServerTimestampAsync">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApi.GetTimeSyncInfo">
-            <inheritdoc />
-        </member>
-        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApi.GetTimeOffset">
-            <inheritdoc />
-        </member>
         <member name="M:CoinW.Net.Clients.FuturesApi.CoinWRestClientFuturesApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
             <inheritdoc />
         </member>
@@ -340,9 +334,6 @@
         <member name="M:CoinW.Net.Clients.FuturesApi.CoinWSocketClientFuturesApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.Clients.FuturesApi.CoinWSocketClientFuturesApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.Default.SocketConnection)">
-            <inheritdoc />
-        </member>
         <member name="P:CoinW.Net.Clients.FuturesApi.CoinWSocketClientFuturesApi.SharedClient">
             <inheritdoc />
         </member>
@@ -374,12 +365,6 @@
             <inheritdoc />
         </member>
         <member name="M:CoinW.Net.Clients.SpotApi.CoinWRestClientSpotApi.GetServerTimestampAsync">
-            <inheritdoc />
-        </member>
-        <member name="M:CoinW.Net.Clients.SpotApi.CoinWRestClientSpotApi.GetTimeSyncInfo">
-            <inheritdoc />
-        </member>
-        <member name="M:CoinW.Net.Clients.SpotApi.CoinWRestClientSpotApi.GetTimeOffset">
             <inheritdoc />
         </member>
         <member name="M:CoinW.Net.Clients.SpotApi.CoinWRestClientSpotApi.FormatSymbol(System.String,System.String,CryptoExchange.Net.SharedApis.TradingMode,System.Nullable{System.DateTime})">
@@ -504,9 +489,6 @@
             <inheritdoc />
         </member>
         <member name="M:CoinW.Net.Clients.SpotApi.CoinWSocketClientSpotApi.GetListenerIdentifier(CryptoExchange.Net.Interfaces.IMessageAccessor)">
-            <inheritdoc />
-        </member>
-        <member name="M:CoinW.Net.Clients.SpotApi.CoinWSocketClientSpotApi.GetAuthenticationRequestAsync(CryptoExchange.Net.Sockets.Default.SocketConnection)">
             <inheritdoc />
         </member>
         <member name="P:CoinW.Net.Clients.SpotApi.CoinWSocketClientSpotApi.SharedClient">
@@ -6919,7 +6901,7 @@
         <member name="T:CoinW.Net.Objects.Sockets.Subscriptions.CoinWWrappedSubscription`1">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWWrappedSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.String,System.String,System.Nullable{CoinW.Net.Enums.KlineIntervalStream},System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{`0}},System.Boolean)">
+        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWWrappedSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.String,System.Nullable{CoinW.Net.Enums.KlineIntervalStream},System.Action{System.DateTime,System.String,`0},System.Boolean)">
             <summary>
             ctor
             </summary>

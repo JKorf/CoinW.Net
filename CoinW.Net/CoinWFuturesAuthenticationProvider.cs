@@ -1,8 +1,11 @@
+using CoinW.Net.Objects.Sockets;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Sockets;
+using CryptoExchange.Net.Sockets.Default;
 using System.Collections.Generic;
 
 namespace CoinW.Net
@@ -37,6 +40,11 @@ namespace CoinW.Net
 
             request.SetQueryString(queryParams);
             request.SetBodyContent(body);
+        }
+
+        public override Query? GetAuthenticationQuery(SocketApiClient apiClient, SocketConnection connection, Dictionary<string, object?>? context = null)
+        {
+            return new CoinWLoginQuery(apiClient, ApiKey, _credentials.Secret);
         }
     }
 }

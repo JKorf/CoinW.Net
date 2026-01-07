@@ -116,11 +116,15 @@ namespace CoinW.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWFuturesTrade[]>>((receiveTime, originalData, data) =>
             {
+                var timestamp = data.Data.Max(x => x.Timestamp);
+                UpdateTimeOffset(timestamp);
+
                 onMessage(
                     new DataEvent<CoinWFuturesTrade[]>(CoinWExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Type)
                         .WithSymbol(data.PairCode)
+                        .WithDataTimestamp(timestamp, GetTimeOffset())
                     );
             });
 
@@ -201,11 +205,19 @@ namespace CoinW.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWFuturesOrder[]>>((receiveTime, originalData, data) =>
             {
+                DateTime? timestamp = null;
+                if (data.Data.Length != 0)
+                {
+                    timestamp = data.Data.Max(x => x.UpdateTime);
+                    UpdateTimeOffset(timestamp.Value);
+                }
+
                 onMessage(
                     new DataEvent<CoinWFuturesOrder[]>(CoinWExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Type)
                         .WithSymbol(data.Data.FirstOrDefault()?.Symbol)
+                        .WithDataTimestamp(timestamp, GetTimeOffset())
                     );
             });
 
@@ -218,11 +230,19 @@ namespace CoinW.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWPosition[]>>((receiveTime, originalData, data) =>
             {
+                DateTime? timestamp = null;
+                if (data.Data.Length != 0)
+                {
+                    timestamp = data.Data.Max(x => x.UpdateTime);
+                    UpdateTimeOffset(timestamp.Value);
+                }
+
                 onMessage(
                     new DataEvent<CoinWPosition[]>(CoinWExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Type)
                         .WithSymbol(data.Data.FirstOrDefault()?.Symbol)
+                        .WithDataTimestamp(timestamp, GetTimeOffset())
                     );
             });
 
@@ -235,11 +255,19 @@ namespace CoinW.Net.Clients.FuturesApi
         {
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWPositionChange[]>>((receiveTime, originalData, data) =>
             {
+                DateTime? timestamp = null;
+                if (data.Data.Length != 0)
+                {
+                    timestamp = data.Data.Max(x => x.UpdateTime);
+                    UpdateTimeOffset(timestamp.Value);
+                }
+
                 onMessage(
                     new DataEvent<CoinWPositionChange[]>(CoinWExchange.ExchangeName, data.Data, receiveTime, originalData)
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Type)
                         .WithSymbol(data.Data.FirstOrDefault()?.Symbol)
+                        .WithDataTimestamp(timestamp, GetTimeOffset())
                     );
             });
 
@@ -311,9 +339,6 @@ namespace CoinW.Net.Clients.FuturesApi
 
             return type;
         }
-
-        /// <inheritdoc />
-        protected override Task<Query?> GetAuthenticationRequestAsync(SocketConnection connection) => Task.FromResult<Query?>(new CoinWLoginQuery(this, ApiCredentials!.Key, ApiCredentials.Secret));
 
         /// <inheritdoc />
         public ICoinWSocketClientFuturesApiShared SharedClient => this;

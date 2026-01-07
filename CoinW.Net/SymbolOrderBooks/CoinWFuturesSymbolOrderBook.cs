@@ -83,7 +83,7 @@ namespace CoinW.Net.SymbolOrderBooks
 
         private void HandleUpdate(DataEvent<CoinWFuturesOrderBook> @event)
         {
-            SetInitialOrderBook(DateTime.UtcNow.Ticks, @event.Data.Bids, @event.Data.Asks);
+            SetInitialOrderBook(DateTime.UtcNow.Ticks, @event.Data.Bids, @event.Data.Asks, @event.DataTime, @event.DataTimeLocal);
         }
 
         /// <inheritdoc />

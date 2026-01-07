@@ -17,21 +17,19 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
     {
 
         private readonly IByteMessageAccessor _innerAccessor = new SystemTextJsonByteMessageAccessor(CoinWExchange._serializerContext);
-        private readonly Action<DataEvent<T>> _handler;
+        private readonly Action<DateTime, string?, T> _handler;
         private string _topic;
         private string? _pairCode;
-        private string? _symbolName;
         private KlineIntervalStream? _interval;
 
         /// <summary>
         /// ctor
         /// </summary>
-        public CoinWWrappedSubscription(ILogger logger, string topic, string? pairCode, string? symbolName, KlineIntervalStream? interval, Action<DataEvent<T>> handler, bool auth) : base(logger, auth)
+        public CoinWWrappedSubscription(ILogger logger, string topic, string? pairCode, KlineIntervalStream? interval, Action<DateTime, string?, T> handler, bool auth) : base(logger, auth)
         {
             _handler = handler;
             _topic = topic;
             _pairCode = pairCode;
-            _symbolName = symbolName;
             _interval = interval;
 
             MessageMatcher = MessageMatcher.Create<CoinWSocketResponse<string>>(MessageLinkType.Full, topic + (pairCode == null ? "" : ("-" + pairCode)) + (interval == null ? "" : ("-" + EnumConverter.GetString(interval))), DoHandleMessage);
@@ -81,11 +79,7 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
             if (!desData)
                 return desData;
 
-            _handler.Invoke(
-                new DataEvent<T>(CoinWExchange.ExchangeName, desData.Data, receiveTime, originalData)
-                    .WithSymbol(_symbolName)
-                    .WithUpdateType(SocketUpdateType.Update));
-
+            _handler.Invoke(receiveTime, originalData, desData.Data);
             return new CallResult(null);
         }
     }

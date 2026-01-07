@@ -24,8 +24,6 @@ namespace CoinW.Net.Clients.FuturesApi
     internal partial class CoinWRestClientFuturesApi : RestApiClient, ICoinWRestClientFuturesApi
     {
         #region fields 
-        internal static TimeSyncState _timeSyncState = new TimeSyncState("Futures Api");
-
         private readonly MessagePath _codePath = MessagePath.Get().Property("code");
         private readonly MessagePath _messagePath = MessagePath.Get().Property("msg");
         private readonly MessagePath _messagePath2 = MessagePath.Get().Property("message");
@@ -92,14 +90,6 @@ namespace CoinW.Net.Clients.FuturesApi
         /// <inheritdoc />
         protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
             => throw new NotImplementedException();
-
-        /// <inheritdoc />
-        public override TimeSyncInfo? GetTimeSyncInfo()
-            => new TimeSyncInfo(_logger, false, ApiOptions.TimestampRecalculationInterval ?? ClientOptions.TimestampRecalculationInterval, _timeSyncState);
-
-        /// <inheritdoc />
-        public override TimeSpan? GetTimeOffset()
-            => null;
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverDate = null) 

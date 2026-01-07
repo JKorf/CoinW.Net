@@ -92,7 +92,7 @@ namespace CoinW.Net.SymbolOrderBooks
 
         private void HandleUpdate(DataEvent<CoinWOrderBookUpdate> data)
         {
-            UpdateOrderBook(data.Data.StartSequence, data.Data.EndSequence, data.Data.Bids, data.Data.Asks);
+            UpdateOrderBook(data.Data.StartSequence, data.Data.EndSequence, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
         }
 
         /// <inheritdoc />
