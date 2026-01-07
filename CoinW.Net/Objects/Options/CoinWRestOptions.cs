@@ -12,8 +12,7 @@ namespace CoinW.Net.Objects.Options
         /// </summary>
         internal static CoinWRestOptions Default { get; set; } = new CoinWRestOptions()
         {
-            Environment = CoinWEnvironment.Live,
-            AutoTimestamp = true
+            Environment = CoinWEnvironment.Live
         };
 
         /// <summary>
@@ -38,12 +37,9 @@ namespace CoinW.Net.Objects.Options
 
         internal CoinWRestOptions Set(CoinWRestOptions targetOptions)
         {
-            targetOptions = base.Set<CoinWRestOptions>(targetOptions);
-            
+            targetOptions = base.Set<CoinWRestOptions>(targetOptions);            
             targetOptions.FuturesOptions = FuturesOptions.Set(targetOptions.FuturesOptions);
-
             targetOptions.SpotOptions = SpotOptions.Set(targetOptions.SpotOptions);
-
             return targetOptions;
         }
     }
