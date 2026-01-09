@@ -1,14 +1,14 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+using CoinW.Net.Clients;
+using CoinW.Net.Interfaces.Clients;
+using CoinW.Net.Objects.Models;
+using CoinW.Net.Objects.Options;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.OrderBook;
 using Microsoft.Extensions.Logging;
-using CoinW.Net.Clients;
-using CoinW.Net.Interfaces.Clients;
-using CoinW.Net.Objects.Options;
-using CoinW.Net.Objects.Models;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CoinW.Net.SymbolOrderBooks
 {
@@ -54,7 +54,6 @@ namespace CoinW.Net.SymbolOrderBooks
             Initialize(options);
 
             _strictLevels = false;
-            _sequencesAreConsecutive = options?.Limit == null;
 
             Levels = options?.Limit;
 
@@ -81,18 +80,20 @@ namespace CoinW.Net.SymbolOrderBooks
             var bookResult = await _restClient.SpotApi.ExchangeData.GetOrderBookAsync(Symbol, Levels ?? 5000).ConfigureAwait(false);
             if (!bookResult)
             {
-                _logger.Log(Microsoft.Extensions.Logging.LogLevel.Debug, $"{Api} order book {Symbol} failed to retrieve initial order book");
+                _logger.Log(LogLevel.Debug, $"{Api} order book {Symbol} failed to retrieve initial order book");
                 await _socketClient.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
                 return new CallResult<UpdateSubscription>(bookResult.Error!);
             }
 
-            SetInitialOrderBook(0, bookResult.Data.Bids, bookResult.Data.Asks);
+            SetSnapshot(null, bookResult.Data.Bids, bookResult.Data.Asks);
             return new CallResult<UpdateSubscription>(subResult.Data);
         }
 
         private void HandleUpdate(DataEvent<CoinWOrderBookUpdate> data)
         {
-            UpdateOrderBook(data.Data.StartSequence, data.Data.EndSequence, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
+            // Although there is a StartSequence/EndSequence it doesn't seem usable as they sometimes overlap and snapshot doesn't have a sequence number
+            // The event sequence number here is a `time` value on the message, however that also can't be matched with the REST snapshot..
+            UpdateOrderBook(data.SequenceNumber!.Value, data.Data.Bids, data.Data.Asks, data.DataTime, data.DataTimeLocal);
         }
 
         /// <inheritdoc />
@@ -107,7 +108,7 @@ namespace CoinW.Net.SymbolOrderBooks
             if (!bookResult)
                 return new CallResult<bool>(bookResult.Error!);
 
-            SetInitialOrderBook(0, bookResult.Data.Bids, bookResult.Data.Asks);
+            SetSnapshot(null, bookResult.Data.Bids, bookResult.Data.Asks);
             return new CallResult<bool>(true);
         }
 

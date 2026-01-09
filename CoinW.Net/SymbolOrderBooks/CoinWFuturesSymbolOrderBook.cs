@@ -1,14 +1,14 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+using CoinW.Net.Clients;
+using CoinW.Net.Interfaces.Clients;
+using CoinW.Net.Objects.Models;
+using CoinW.Net.Objects.Options;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Objects.Sockets;
 using CryptoExchange.Net.OrderBook;
 using Microsoft.Extensions.Logging;
-using CoinW.Net.Clients;
-using CoinW.Net.Interfaces.Clients;
-using CoinW.Net.Objects.Options;
-using CoinW.Net.Objects.Models;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CoinW.Net.SymbolOrderBooks
 {
@@ -83,7 +83,8 @@ namespace CoinW.Net.SymbolOrderBooks
 
         private void HandleUpdate(DataEvent<CoinWFuturesOrderBook> @event)
         {
-            SetInitialOrderBook(DateTime.UtcNow.Ticks, @event.Data.Bids, @event.Data.Asks, @event.DataTime, @event.DataTimeLocal);
+            // The event sequence number here is a `time` value on the message, though it doesn't seem to be an actual timstamp
+            SetSnapshot(@event.SequenceNumber!.Value, @event.Data.Bids, @event.Data.Asks, @event.DataTime, @event.DataTimeLocal);
         }
 
         /// <inheritdoc />

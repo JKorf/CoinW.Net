@@ -104,6 +104,7 @@ namespace CoinW.Net.Clients.FuturesApi
                         .WithUpdateType(SocketUpdateType.Update)
                         .WithStreamId(data.Type)
                         .WithSymbol(data.Data.Symbol)
+                        .WithSequenceNumber(data.Time)
                     );
             });
 

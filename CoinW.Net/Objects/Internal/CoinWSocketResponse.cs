@@ -15,6 +15,9 @@ namespace CoinW.Net.Objects.Internal
         public string Channel { get; set; } = string.Empty;
         [JsonPropertyName("interval")]
         public string? Interval { get; set; }
+
+        [JsonPropertyName("time")]
+        public long Time { get; set; } // Not actually a timestamp value?
     }
 
     internal record CoinWSocketResponse<T> : CoinWSocketResponse
