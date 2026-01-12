@@ -6901,7 +6901,7 @@
         <member name="T:CoinW.Net.Objects.Sockets.Subscriptions.CoinWWrappedSubscription`1">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWWrappedSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.String,System.Nullable{CoinW.Net.Enums.KlineIntervalStream},System.Action{System.DateTime,System.String,`0},System.Boolean)">
+        <member name="M:CoinW.Net.Objects.Sockets.Subscriptions.CoinWWrappedSubscription`1.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.String,System.Nullable{CoinW.Net.Enums.KlineIntervalStream},System.Action{System.DateTime,System.String,`0,System.Int64},System.Boolean)">
             <summary>
             ctor
             </summary>
