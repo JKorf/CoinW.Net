@@ -22,7 +22,6 @@ namespace CoinW.Net.Objects.Sockets
         }, false, 1)
         {
             _client = client;
-            MessageMatcher = MessageMatcher.Create<CoinWSocketResponse<CoinWSubscriptionResponse>>("login", HandleMessage);
             MessageRouter = MessageRouter.CreateWithoutTopicFilter<CoinWSocketResponse<CoinWSubscriptionResponse>>("login", HandleMessage);
         }
 

@@ -13,17 +13,15 @@ namespace CoinW.Net.UnitTests
     [TestFixture]
     public class SocketSubscriptionTests
     {
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateConcurrentSpotSubscriptions(bool newDeserialization)
+        [Test]
+        public async Task ValidateConcurrentSpotSubscriptions()
         {
             var logger = new LoggerFactory();
             logger.AddProvider(new TraceLoggerProvider());
 
             var client = new CoinWSocketClient(Options.Create(new CoinWSocketOptions
             {
-                OutputOriginalData = true,
-                UseUpdatedDeserialization = newDeserialization
+                OutputOriginalData = true
             }), logger);
 
             var tester = new SocketSubscriptionValidator<CoinWSocketClient>(client, "Subscriptions/Spot", "wss://ws.futurescw.com");
@@ -33,16 +31,14 @@ namespace CoinW.Net.UnitTests
                 "Concurrent");
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateSpotSubscriptions(bool useUpdatedDeserialization)
+        [Test]
+        public async Task ValidateSpotSubscriptions()
         {
             var loggerFact = new LoggerFactory();
             loggerFact.AddProvider(new TraceLoggerProvider());
 
             var client = new CoinWSocketClient(Options.Create(new Objects.Options.CoinWSocketOptions
             {
-                UseUpdatedDeserialization = useUpdatedDeserialization,
                 OutputOriginalData = true,
                 ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456")
             }), loggerFact);
@@ -57,16 +53,14 @@ namespace CoinW.Net.UnitTests
             await tester.ValidateAsync<CoinWOrderUpdate>((client, handler) => client.SpotApi.SubscribeToOrderUpdatesAsync(handler), "Order", nestedJsonProperty: "data", ignoreProperties: ["type", "account"]);
         }
 
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task ValidateFuturesSubscriptions(bool useUpdatedDeserialization)
+        [Test]
+        public async Task ValidateFuturesSubscriptions()
         {
             var loggerFact = new LoggerFactory();
             loggerFact.AddProvider(new TraceLoggerProvider());
 
             var client = new CoinWSocketClient(Options.Create(new Objects.Options.CoinWSocketOptions
             {
-                UseUpdatedDeserialization = useUpdatedDeserialization,
                 OutputOriginalData = true,
                 ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456")
             }), loggerFact);

@@ -18,6 +18,19 @@ namespace CoinW.Net
     public static class CoinWExchange
     {
         /// <summary>
+        /// Platform metadata
+        /// </summary>
+        public static PlatformInfo Metadata { get; } = new PlatformInfo(
+                "CoinW",
+                "CoinW",
+                "https://github.com/JKorf/CoinW.Net/blob/main/CoinW.Net/Icon/icon.png?raw=true",
+                "https://www.coinw.com/",
+                ["https://www.coinw.com/api-doc/en/common/introduction"],
+                PlatformType.CryptoCurrencyExchange,
+                CentralizationType.Centralized
+                );
+
+        /// <summary>
         /// Exchange name
         /// </summary>
         public static string ExchangeName => "CoinW";

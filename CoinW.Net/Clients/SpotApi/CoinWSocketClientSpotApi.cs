@@ -34,12 +34,6 @@ namespace CoinW.Net.Clients.SpotApi
     internal partial class CoinWSocketClientSpotApi : SocketApiClient, ICoinWSocketClientSpotApi
     {
         #region fields
-        private static readonly MessagePath _symbolPath = MessagePath.Get().Property("pairCode");
-        private static readonly MessagePath _typePath = MessagePath.Get().Property("type");
-        private static readonly MessagePath _channel = MessagePath.Get().Property("channel");
-        private static readonly MessagePath _event = MessagePath.Get().Property("event");
-        private static readonly MessagePath _interval = MessagePath.Get().Property("interval");
-
         private ICoinWRestClient _restClient;
         #endregion
 
@@ -73,8 +67,6 @@ namespace CoinW.Net.Clients.SpotApi
         }
         #endregion
 
-        /// <inheritdoc />
-        protected override IByteMessageAccessor CreateAccessor(WebSocketMessageType type) => new SystemTextJsonByteMessageAccessor(CoinWExchange._serializerContext);
         /// <inheritdoc />
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(CoinWExchange._serializerContext);
         /// <inheritdoc />
@@ -246,31 +238,6 @@ namespace CoinW.Net.Clients.SpotApi
 
             var subscription = new CoinWSubscription<CoinWOrderUpdate>(_logger, "order", null, null, null, internalHandler, true);
             return await SubscribeAsync(subscription, ct).ConfigureAwait(false);
-        }
-
-        /// <inheritdoc />
-        public override string? GetListenerIdentifier(IMessageAccessor message)
-        {
-            var @event = message.GetValue<string>(_event);
-            if (@event == "pong")
-                return "pong";
-
-            var type = message.GetValue<string>(_typePath);
-            var symbol = message.GetValue<string>(_symbolPath);
-            var channel = message.GetValue<string?>(_channel);
-            var interval = message.GetValue<string?>(_interval);
-            if (channel != null)
-            {
-                if (channel.Equals("login", StringComparison.Ordinal))
-                    return "login";
-
-                return $"{type}-{(symbol == null ? "" : $"{symbol.ToLowerInvariant()}-")}{(interval == null ? "" : $"{interval}-")}{channel}";
-            }
-
-            if (symbol != null)
-                return $"{type}-{symbol.ToLowerInvariant()}{(interval == null ? "" : $"-{interval}")}";
-
-            return $"{type}";
         }
 
         /// <inheritdoc />

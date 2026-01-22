@@ -29,8 +29,6 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
             _symbolName = symbolName;
             _interval = interval;
 
-            var topicFilter = (pairCode == null ? "" : ("-" + pairCode)) + (interval == null ? "" : ("-" + EnumConverter.GetString(interval)));
-            MessageMatcher = MessageMatcher.Create<CoinWSocketResponse<T>>(MessageLinkType.Full, topic + topicFilter, DoHandleMessage);
             var routerFilter = pairCode + interval + EnumConverter.GetString(interval);
             MessageRouter = MessageRouter.CreateWithOptionalTopicFilter<CoinWSocketResponse<T>>(topic, string.IsNullOrEmpty(routerFilter) ? null : routerFilter, DoHandleMessage);
         }

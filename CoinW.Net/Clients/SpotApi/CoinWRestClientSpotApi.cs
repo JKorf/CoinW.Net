@@ -25,11 +25,6 @@ namespace CoinW.Net.Clients.SpotApi
     internal partial class CoinWRestClientSpotApi : RestApiClient, ICoinWRestClientSpotApi
     {
         #region fields 
-        private readonly MessagePath _successPath = MessagePath.Get().Property("success");
-        private readonly MessagePath _codePath = MessagePath.Get().Property("code");
-        private readonly MessagePath _messagePath = MessagePath.Get().Property("message");
-        private readonly MessagePath _messagePath2 = MessagePath.Get().Property("msg");
-
         protected override ErrorMapping ErrorMapping => CoinWErrors.SpotErrors;
 
         protected override IRestMessageHandler MessageHandler => new CoinWRestMessageHandler(CoinWErrors.SpotErrors);
@@ -63,8 +58,6 @@ namespace CoinW.Net.Clients.SpotApi
         }
         #endregion
 
-        /// <inheritdoc />
-        protected override IStreamMessageAccessor CreateAccessor() => new SystemTextJsonStreamMessageAccessor(CoinWExchange._serializerContext);
         /// <inheritdoc />
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(CoinWExchange._serializerContext);
 

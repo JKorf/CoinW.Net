@@ -24,10 +24,6 @@ namespace CoinW.Net.Clients.FuturesApi
     internal partial class CoinWRestClientFuturesApi : RestApiClient, ICoinWRestClientFuturesApi
     {
         #region fields 
-        private readonly MessagePath _codePath = MessagePath.Get().Property("code");
-        private readonly MessagePath _messagePath = MessagePath.Get().Property("msg");
-        private readonly MessagePath _messagePath2 = MessagePath.Get().Property("message");
-
         protected override IRestMessageHandler MessageHandler => new CoinWRestMessageHandler(CoinWErrors.FuturesErrors);
         internal static ErrorMapping RestErrorMapping => CoinWErrors.FuturesErrors;
         #endregion
@@ -53,8 +49,6 @@ namespace CoinW.Net.Clients.FuturesApi
         }
         #endregion
 
-        /// <inheritdoc />
-        protected override IStreamMessageAccessor CreateAccessor() => new SystemTextJsonStreamMessageAccessor(CoinWExchange._serializerContext);
         /// <inheritdoc />
         protected override IMessageSerializer CreateSerializer() => new SystemTextJsonMessageSerializer(CoinWExchange._serializerContext);
 
