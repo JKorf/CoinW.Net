@@ -618,6 +618,7 @@ namespace CoinW.Net.Clients.FuturesApi
                 LiquidationPrice = x.LiquidationPrice == 0 ? null : x.LiquidationPrice,
                 Leverage = x.Leverage,
                 AverageOpenPrice = x.OpenPrice,
+                PositionMode = SharedPositionMode.HedgeMode,
                 PositionSide = x.PositionSide == PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long,
                 UpdateTime = x.UpdateTime,
                 StopLossPrice = x.StopLossPrice,

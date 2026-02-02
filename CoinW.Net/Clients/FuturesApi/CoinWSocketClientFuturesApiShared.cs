@@ -191,6 +191,7 @@ namespace CoinW.Net.Clients.FuturesApi
                         {
                             Id = x.PositionId.ToString(),
                             AverageOpenPrice = x.OpenPrice,
+                            PositionMode = SharedPositionMode.HedgeMode,
                             PositionSide = x.PositionSide == Enums.PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long,
                             Leverage = x.Leverage,
                             UpdateTime = x.UpdateTime
