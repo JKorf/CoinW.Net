@@ -145,7 +145,15 @@ namespace CoinW.Net.Clients.SpotApi
                 return deposits.AsExchangeResult<SharedDeposit[]>(Exchange, null, default);
 
             var result = deposits.Data.Where(x => x.Type == Enums.MovementType.Deposit);
-            return deposits.AsExchangeResult(Exchange, TradingMode.Spot, result.Select(x => new SharedDeposit(x.Asset, x.Quantity, x.Status == Enums.MovementStatus.Success, x.Timestamp)
+            return deposits.AsExchangeResult(Exchange, TradingMode.Spot, result.Select(x => 
+            new SharedDeposit(
+                x.Asset,
+                x.Quantity,
+                x.Status == Enums.MovementStatus.Success,
+                x.Timestamp,
+                x.Status == MovementStatus.Success ? SharedTransferStatus.Completed
+                : x.Status == MovementStatus.Waiting ? SharedTransferStatus.InProgress
+                : SharedTransferStatus.Failed)
             {
                 Network = x.Network,
                 TransactionId = x.TransactionId,
