@@ -625,6 +625,37 @@
         <member name="M:CoinW.Net.CoinWTrackerFactory.CreateTradeTracker(CryptoExchange.Net.SharedApis.SharedSymbol,System.Nullable{System.Int32},System.Nullable{System.TimeSpan})">
             <inheritdoc />
         </member>
+        <member name="M:CoinW.Net.CoinWTrackerFactory.CreateUserSpotDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.CoinWTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,CoinW.Net.CoinWEnvironment)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.CoinWTrackerFactory.CreateUserFuturesDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinW.Net.CoinWTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,CoinW.Net.CoinWEnvironment)">
+            <inheritdoc />
+        </member>
+        <member name="T:CoinW.Net.CoinWUserSpotDataTracker">
+            <inheritdoc/>
+        </member>
+        <member name="M:CoinW.Net.CoinWUserSpotDataTracker.#ctor(Microsoft.Extensions.Logging.ILogger{CoinW.Net.CoinWUserSpotDataTracker},CoinW.Net.Interfaces.Clients.ICoinWRestClient,CoinW.Net.Interfaces.Clients.ICoinWSocketClient,System.String,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig)">
+            <summary>
+            ctor
+            </summary>
+        </member>
+        <member name="T:CoinW.Net.CoinWUserFuturesDataTracker">
+            <inheritdoc/>
+        </member>
+        <member name="P:CoinW.Net.CoinWUserFuturesDataTracker.WebsocketPositionUpdatesAreFullSnapshots">
+            <inheritdoc/>
+        </member>
+        <member name="M:CoinW.Net.CoinWUserFuturesDataTracker.#ctor(Microsoft.Extensions.Logging.ILogger{CoinW.Net.CoinWUserFuturesDataTracker},CoinW.Net.Interfaces.Clients.ICoinWRestClient,CoinW.Net.Interfaces.Clients.ICoinWSocketClient,System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig)">
+            <summary>
+            ctor
+            </summary>
+        </member>
         <member name="T:CoinW.Net.CoinWUtils">
             <summary>
             Util methods for the CoinW API
@@ -3490,6 +3521,36 @@
             <summary>
             Tracker factory
             </summary>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.ICoinWTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,CoinW.Net.CoinWEnvironment)">
+            <summary>
+            Create a new Spot user data tracker
+            </summary>
+            <param name="userIdentifier">User identifier</param>
+            <param name="config">Configuration</param>
+            <param name="credentials">Credentials</param>
+            <param name="environment">Environment</param>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.ICoinWTrackerFactory.CreateUserSpotDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig)">
+            <summary>
+            Create a new spot user data tracker
+            </summary>
+            <param name="config">Configuration</param>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.ICoinWTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,CoinW.Net.CoinWEnvironment)">
+            <summary>
+            Create a new futures user data tracker
+            </summary>
+            <param name="userIdentifier">User identifier</param>
+            <param name="config">Configuration</param>
+            <param name="credentials">Credentials</param>
+            <param name="environment">Environment</param>
+        </member>
+        <member name="M:CoinW.Net.Interfaces.ICoinWTrackerFactory.CreateUserFuturesDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig)">
+            <summary>
+            Create a new futures user data tracker
+            </summary>
+            <param name="config">Configuration</param>
         </member>
         <member name="T:CoinW.Net.Objects.CoinWApiAddresses">
             <summary>

@@ -30,7 +30,7 @@ namespace CoinW.Net.Clients.FuturesApi
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
             var result = await SubscribeToBalanceUpdatesAsync(
-                update => handler(update.ToType(update.Data.Select(x => new SharedBalance(x.Asset, x.Available, x.Available + x.Frozen + x.Holding)).ToArray())),
+                update => handler(update.ToType(update.Data.Select(x => new SharedBalance(x.Asset.ToUpperInvariant(), x.Available, x.Available + x.Frozen + x.Holding)).ToArray())),
                 ct: ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
