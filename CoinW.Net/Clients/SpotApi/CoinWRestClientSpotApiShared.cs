@@ -530,7 +530,7 @@ namespace CoinW.Net.Clients.SpotApi
         {
             RequiredOptionalParameters = new List<ParameterDescription>
             {
-                new ParameterDescription(nameof(GetOpenOrdersRequest.Symbol), typeof(string), "Symbol name", "ETH_USDT")
+                new ParameterDescription(nameof(GetOpenOrdersRequest.Symbol), typeof(SharedSymbol), "Symbol", "ETH_USDT")
             }
         };
         async Task<ExchangeWebResult<SharedSpotOrder[]>> ISpotOrderRestClient.GetOpenSpotOrdersAsync(GetOpenOrdersRequest request, CancellationToken ct)

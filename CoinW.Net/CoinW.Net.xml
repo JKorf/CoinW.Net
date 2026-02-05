@@ -628,13 +628,13 @@
         <member name="M:CoinW.Net.CoinWTrackerFactory.CreateUserSpotDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig)">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.CoinWTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,CoinW.Net.CoinWEnvironment)">
+        <member name="M:CoinW.Net.CoinWTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,CoinW.Net.CoinWEnvironment)">
             <inheritdoc />
         </member>
         <member name="M:CoinW.Net.CoinWTrackerFactory.CreateUserFuturesDataTracker(CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig)">
             <inheritdoc />
         </member>
-        <member name="M:CoinW.Net.CoinWTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,CoinW.Net.CoinWEnvironment)">
+        <member name="M:CoinW.Net.CoinWTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CoinW.Net.CoinWEnvironment)">
             <inheritdoc />
         </member>
         <member name="T:CoinW.Net.CoinWUserSpotDataTracker">
@@ -3522,7 +3522,7 @@
             Tracker factory
             </summary>
         </member>
-        <member name="M:CoinW.Net.Interfaces.ICoinWTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,CoinW.Net.CoinWEnvironment)">
+        <member name="M:CoinW.Net.Interfaces.ICoinWTrackerFactory.CreateUserSpotDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.Trackers.UserData.Objects.SpotUserDataTrackerConfig,CoinW.Net.CoinWEnvironment)">
             <summary>
             Create a new Spot user data tracker
             </summary>
@@ -3537,7 +3537,7 @@
             </summary>
             <param name="config">Configuration</param>
         </member>
-        <member name="M:CoinW.Net.Interfaces.ICoinWTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CryptoExchange.Net.Authentication.ApiCredentials,CoinW.Net.CoinWEnvironment)">
+        <member name="M:CoinW.Net.Interfaces.ICoinWTrackerFactory.CreateUserFuturesDataTracker(System.String,CryptoExchange.Net.Authentication.ApiCredentials,CryptoExchange.Net.Trackers.UserData.Objects.FuturesUserDataTrackerConfig,CoinW.Net.CoinWEnvironment)">
             <summary>
             Create a new futures user data tracker
             </summary>
