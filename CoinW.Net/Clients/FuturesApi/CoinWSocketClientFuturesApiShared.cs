@@ -30,7 +30,7 @@ namespace CoinW.Net.Clients.FuturesApi
                 return new ExchangeResult<UpdateSubscription>(Exchange, validationError);
 
             var result = await SubscribeToBalanceUpdatesAsync(
-                update => handler(update.ToType(update.Data.Select(x => new SharedBalance(x.Asset, x.Available, x.Available + x.Frozen + x.Holding)).ToArray())),
+                update => handler(update.ToType(update.Data.Select(x => new SharedBalance(x.Asset.ToUpperInvariant(), x.Available, x.Available + x.Frozen + x.Holding)).ToArray())),
                 ct: ct).ConfigureAwait(false);
 
             return new ExchangeResult<UpdateSubscription>(Exchange, result);
@@ -191,6 +191,7 @@ namespace CoinW.Net.Clients.FuturesApi
                         {
                             Id = x.PositionId.ToString(),
                             AverageOpenPrice = x.OpenPrice,
+                            PositionMode = SharedPositionMode.HedgeMode,
                             PositionSide = x.PositionSide == Enums.PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long,
                             Leverage = x.Leverage,
                             UpdateTime = x.UpdateTime

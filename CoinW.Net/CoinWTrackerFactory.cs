@@ -1,12 +1,16 @@
+using CoinW.Net.Clients;
+using CoinW.Net.Interfaces;
+using CoinW.Net.Interfaces.Clients;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.SharedApis;
 using CryptoExchange.Net.Trackers.Klines;
 using CryptoExchange.Net.Trackers.Trades;
-using CoinW.Net.Interfaces;
-using CoinW.Net.Interfaces.Clients;
+using CryptoExchange.Net.Trackers.UserData.Interfaces;
+using CryptoExchange.Net.Trackers.UserData.Objects;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using System;
-using CoinW.Net.Clients;
 
 namespace CoinW.Net
 {
@@ -98,6 +102,64 @@ namespace CoinW.Net
                 symbol,
                 limit,
                 period
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserSpotDataTracker CreateUserSpotDataTracker(SpotUserDataTrackerConfig? config = null)
+        {
+            var restClient = _serviceProvider?.GetRequiredService<ICoinWRestClient>() ?? new CoinWRestClient();
+            var socketClient = _serviceProvider?.GetRequiredService<ICoinWSocketClient>() ?? new CoinWSocketClient();
+            return new CoinWUserSpotDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<CoinWUserSpotDataTracker>>() ?? new NullLogger<CoinWUserSpotDataTracker>(),
+                restClient,
+                socketClient,
+                null,
+                config
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, ApiCredentials credentials, SpotUserDataTrackerConfig? config = null, CoinWEnvironment? environment = null)
+        {
+            var clientProvider = _serviceProvider?.GetRequiredService<ICoinWUserClientProvider>() ?? new CoinWUserClientProvider();
+            var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
+            var socketClient = clientProvider.GetSocketClient(userIdentifier, credentials, environment);
+            return new CoinWUserSpotDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<CoinWUserSpotDataTracker>>() ?? new NullLogger<CoinWUserSpotDataTracker>(),
+                restClient,
+                socketClient,
+                userIdentifier,
+                config
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(FuturesUserDataTrackerConfig? config = null)
+        {
+            var restClient = _serviceProvider?.GetRequiredService<ICoinWRestClient>() ?? new CoinWRestClient();
+            var socketClient = _serviceProvider?.GetRequiredService<ICoinWSocketClient>() ?? new CoinWSocketClient();
+            return new CoinWUserFuturesDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<CoinWUserFuturesDataTracker>>() ?? new NullLogger<CoinWUserFuturesDataTracker>(),
+                restClient,
+                socketClient,
+                null,
+                config
+                );
+        }
+
+        /// <inheritdoc />
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, ApiCredentials credentials, FuturesUserDataTrackerConfig? config = null, CoinWEnvironment? environment = null)
+        {
+            var clientProvider = _serviceProvider?.GetRequiredService<ICoinWUserClientProvider>() ?? new CoinWUserClientProvider();
+            var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
+            var socketClient = clientProvider.GetSocketClient(userIdentifier, credentials, environment);
+            return new CoinWUserFuturesDataTracker(
+                _serviceProvider?.GetRequiredService<ILogger<CoinWUserFuturesDataTracker>>() ?? new NullLogger<CoinWUserFuturesDataTracker>(),
+                restClient,
+                socketClient,
+                userIdentifier,
+                config
                 );
         }
     }

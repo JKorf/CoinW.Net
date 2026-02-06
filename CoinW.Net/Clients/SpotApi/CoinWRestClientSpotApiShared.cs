@@ -145,7 +145,15 @@ namespace CoinW.Net.Clients.SpotApi
                 return deposits.AsExchangeResult<SharedDeposit[]>(Exchange, null, default);
 
             var result = deposits.Data.Where(x => x.Type == Enums.MovementType.Deposit);
-            return deposits.AsExchangeResult(Exchange, TradingMode.Spot, result.Select(x => new SharedDeposit(x.Asset, x.Quantity, x.Status == Enums.MovementStatus.Success, x.Timestamp)
+            return deposits.AsExchangeResult(Exchange, TradingMode.Spot, result.Select(x => 
+            new SharedDeposit(
+                x.Asset,
+                x.Quantity,
+                x.Status == Enums.MovementStatus.Success,
+                x.Timestamp,
+                x.Status == MovementStatus.Success ? SharedTransferStatus.Completed
+                : x.Status == MovementStatus.Waiting ? SharedTransferStatus.InProgress
+                : SharedTransferStatus.Failed)
             {
                 Network = x.Network,
                 TransactionId = x.TransactionId,
@@ -407,6 +415,44 @@ namespace CoinW.Net.Clients.SpotApi
             return resultData;
         }
 
+        async Task<ExchangeResult<SharedSymbol[]>> ISpotSymbolRestClient.GetSpotSymbolsForBaseAssetAsync(string baseAsset)
+        {
+            if (!ExchangeSymbolCache.HasCached(_topicId))
+            {
+                var symbols = await ((ISpotSymbolRestClient)this).GetSpotSymbolsAsync(new GetSymbolsRequest()).ConfigureAwait(false);
+                if (!symbols)
+                    return new ExchangeResult<SharedSymbol[]>(Exchange, symbols.Error!);
+            }
+
+            return new ExchangeResult<SharedSymbol[]>(Exchange, ExchangeSymbolCache.GetSymbolsForBaseAsset(_topicId, baseAsset));
+        }
+
+        async Task<ExchangeResult<bool>> ISpotSymbolRestClient.SupportsSpotSymbolAsync(SharedSymbol symbol)
+        {
+            if (symbol.TradingMode != TradingMode.Spot)
+                throw new ArgumentException(nameof(symbol), "Only Spot symbols allowed");
+
+            if (!ExchangeSymbolCache.HasCached(_topicId))
+            {
+                var symbols = await ((ISpotSymbolRestClient)this).GetSpotSymbolsAsync(new GetSymbolsRequest()).ConfigureAwait(false);
+                if (!symbols)
+                    return new ExchangeResult<bool>(Exchange, symbols.Error!);
+            }
+
+            return new ExchangeResult<bool>(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicId, symbol));
+        }
+
+        async Task<ExchangeResult<bool>> ISpotSymbolRestClient.SupportsSpotSymbolAsync(string symbolName)
+        {
+            if (!ExchangeSymbolCache.HasCached(_topicId))
+            {
+                var symbols = await ((ISpotSymbolRestClient)this).GetSpotSymbolsAsync(new GetSymbolsRequest()).ConfigureAwait(false);
+                if (!symbols)
+                    return new ExchangeResult<bool>(Exchange, symbols.Error!);
+            }
+
+            return new ExchangeResult<bool>(Exchange, ExchangeSymbolCache.SupportsSymbol(_topicId, symbolName));
+        }
         #endregion
 
         #region Spot Order Client
@@ -484,7 +530,7 @@ namespace CoinW.Net.Clients.SpotApi
         {
             RequiredOptionalParameters = new List<ParameterDescription>
             {
-                new ParameterDescription(nameof(GetOpenOrdersRequest.Symbol), typeof(string), "Symbol name", "ETH_USDT")
+                new ParameterDescription(nameof(GetOpenOrdersRequest.Symbol), typeof(SharedSymbol), "Symbol", "ETH_USDT")
             }
         };
         async Task<ExchangeWebResult<SharedSpotOrder[]>> ISpotOrderRestClient.GetOpenSpotOrdersAsync(GetOpenOrdersRequest request, CancellationToken ct)
