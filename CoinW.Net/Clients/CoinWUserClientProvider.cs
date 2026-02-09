@@ -12,8 +12,8 @@ namespace CoinW.Net.Clients
     /// <inheritdoc />
     public class CoinWUserClientProvider : ICoinWUserClientProvider
     {
-        private static ConcurrentDictionary<string, ICoinWRestClient> _restClients = new ConcurrentDictionary<string, ICoinWRestClient>();
-        private static ConcurrentDictionary<string, ICoinWSocketClient> _socketClients = new ConcurrentDictionary<string, ICoinWSocketClient>();
+        private ConcurrentDictionary<string, ICoinWRestClient> _restClients = new ConcurrentDictionary<string, ICoinWRestClient>();
+        private ConcurrentDictionary<string, ICoinWSocketClient> _socketClients = new ConcurrentDictionary<string, ICoinWSocketClient>();
         
         private readonly IOptions<CoinWRestOptions> _restOptions;
         private readonly IOptions<CoinWSocketOptions> _socketOptions;
