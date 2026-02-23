@@ -124,7 +124,7 @@ namespace CoinW.Net.Clients.SpotApi
             });
         }
 
-        GetDepositsOptions IDepositRestClient.GetDepositsOptions { get; } = new GetDepositsOptions(false, false, false, 1000)
+        GetDepositsOptions IDepositRestClient.GetDepositsOptions { get; } = new GetDepositsOptions(true, true, false, 1000)
         {
             RequiredOptionalParameters = new List<ParameterDescription>
             {
@@ -145,21 +145,25 @@ namespace CoinW.Net.Clients.SpotApi
                 return deposits.AsExchangeResult<SharedDeposit[]>(Exchange, null, default);
 
             var result = deposits.Data.Where(x => x.Type == Enums.MovementType.Deposit);
-            return deposits.AsExchangeResult(Exchange, TradingMode.Spot, result.Select(x => 
-            new SharedDeposit(
-                x.Asset,
-                x.Quantity,
-                x.Status == Enums.MovementStatus.Success,
-                x.Timestamp,
-                x.Status == MovementStatus.Success ? SharedTransferStatus.Completed
-                : x.Status == MovementStatus.Waiting ? SharedTransferStatus.InProgress
-                : SharedTransferStatus.Failed)
-            {
-                Network = x.Network,
-                TransactionId = x.TransactionId,
-                Confirmations = x.Confirmations,
-                Id = x.Id.ToString()
-            }).ToArray());
+            return deposits.AsExchangeResult(
+                Exchange,
+                TradingMode.Spot,
+                ExchangeHelpers.ApplyFilter(result, x => x.Timestamp, request.StartTime, request.EndTime, request.Direction ?? DataDirection.Ascending)
+                .Select(x => 
+                    new SharedDeposit(
+                        x.Asset,
+                        x.Quantity,
+                        x.Status == Enums.MovementStatus.Success,
+                        x.Timestamp,
+                        x.Status == MovementStatus.Success ? SharedTransferStatus.Completed
+                        : x.Status == MovementStatus.Waiting ? SharedTransferStatus.InProgress
+                        : SharedTransferStatus.Failed)
+                    {
+                        Network = x.Network,
+                        TransactionId = x.TransactionId,
+                        Confirmations = x.Confirmations,
+                        Id = x.Id.ToString()
+                    }).ToArray());
         }
 
         #endregion
@@ -261,7 +265,7 @@ namespace CoinW.Net.Clients.SpotApi
 
         #region Withdrawal client
 
-        GetWithdrawalsOptions IWithdrawalRestClient.GetWithdrawalsOptions { get; } = new GetWithdrawalsOptions(false, false, false, 1000)
+        GetWithdrawalsOptions IWithdrawalRestClient.GetWithdrawalsOptions { get; } = new GetWithdrawalsOptions(true, true, false, 1000)
         {
             RequiredOptionalParameters = new List<ParameterDescription>
             {
@@ -275,19 +279,24 @@ namespace CoinW.Net.Clients.SpotApi
                 return new ExchangeWebResult<SharedWithdrawal[]>(Exchange, validationError);
 
             // Get data
-            var withdrawals = await Account.GetDepositWithdrawalHistoryAsync(
+            var result = await Account.GetDepositWithdrawalHistoryAsync(
                 request.Asset!,
                 ct: ct).ConfigureAwait(false);
-            if (!withdrawals)
-                return withdrawals.AsExchangeResult<SharedWithdrawal[]>(Exchange, null, default);
+            if (!result)
+                return result.AsExchangeResult<SharedWithdrawal[]>(Exchange, null, default);
 
-            return withdrawals.AsExchangeResult(Exchange, TradingMode.Spot, withdrawals.Data.Select(x => new SharedWithdrawal(x.Asset, x.Address, x.Quantity, x.Status == Enums.MovementStatus.Success, x.Timestamp)
-            {
-                Network = x.Network,
-                TransactionId = x.TransactionId,
-                Confirmations = x.Confirmations,
-                Id = x.Id.ToString()
-            }).ToArray());
+            return result.AsExchangeResult(
+                Exchange,
+                TradingMode.Spot,
+                ExchangeHelpers.ApplyFilter(result.Data, x => x.Timestamp, request.StartTime, request.EndTime, request.Direction ?? DataDirection.Ascending)
+                .Select(x => 
+                    new SharedWithdrawal(x.Asset, x.Address, x.Quantity, x.Status == Enums.MovementStatus.Success, x.Timestamp)
+                    {
+                        Network = x.Network,
+                        TransactionId = x.TransactionId,
+                        Confirmations = x.Confirmations,
+                        Id = x.Id.ToString()
+                    }).ToArray());
         }
 
         #endregion
@@ -550,7 +559,10 @@ namespace CoinW.Net.Clients.SpotApi
             }).ToArray());
         }
 
-        GetClosedOrdersOptions ISpotOrderRestClient.GetClosedSpotOrdersOptions { get; } = new GetClosedOrdersOptions(false, true, true, 1000);
+        GetClosedOrdersOptions ISpotOrderRestClient.GetClosedSpotOrdersOptions { get; } = new GetClosedOrdersOptions(false, true, true, 1000)
+        {
+            MaxAge = TimeSpan.FromDays(30)
+        };
         async Task<ExchangeWebResult<SharedSpotOrder[]>> ISpotOrderRestClient.GetClosedSpotOrdersAsync(GetClosedOrdersRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
             var validationError = ((ISpotOrderRestClient)this).GetClosedSpotOrdersOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
@@ -578,7 +590,8 @@ namespace CoinW.Net.Clients.SpotApi
                     result.Data.Select(x => x.Timestamp),
                     request.StartTime,
                     request.EndTime ?? DateTime.UtcNow,
-                    pageParams);
+                    pageParams,
+                    maxAge: TimeSpan.FromDays(30));
 
             return result.AsExchangeResult(
                     Exchange,

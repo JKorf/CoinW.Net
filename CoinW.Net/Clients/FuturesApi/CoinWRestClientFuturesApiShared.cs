@@ -446,7 +446,10 @@ namespace CoinW.Net.Clients.FuturesApi
             }).ToArray());
         }
 
-        GetClosedOrdersOptions IFuturesOrderRestClient.GetClosedFuturesOrdersOptions { get; } = new GetClosedOrdersOptions(false, true, true, 1000);
+        GetClosedOrdersOptions IFuturesOrderRestClient.GetClosedFuturesOrdersOptions { get; } = new GetClosedOrdersOptions(false, true, true, 1000)
+        {
+            MaxAge = TimeSpan.FromDays(7)
+        };
         async Task<ExchangeWebResult<SharedFuturesOrder[]>> IFuturesOrderRestClient.GetClosedFuturesOrdersAsync(GetClosedOrdersRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
             var validationError = ((IFuturesOrderRestClient)this).GetClosedFuturesOrdersOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
@@ -474,7 +477,8 @@ namespace CoinW.Net.Clients.FuturesApi
                     result.Data.Rows.Select(x => x.CreateTime),
                     request.StartTime,
                     request.EndTime ?? DateTime.UtcNow,
-                    pageParams);
+                    pageParams,
+                    maxAge: TimeSpan.FromDays(7));
 
             return result.AsExchangeResult(
                     Exchange,
@@ -529,7 +533,10 @@ namespace CoinW.Net.Clients.FuturesApi
             }).ToArray());
         }
 
-        GetUserTradesOptions IFuturesOrderRestClient.GetFuturesUserTradesOptions { get; } = new GetUserTradesOptions(false, true, false, 100);
+        GetUserTradesOptions IFuturesOrderRestClient.GetFuturesUserTradesOptions { get; } = new GetUserTradesOptions(false, true, false, 100)
+        {
+            MaxAge = TimeSpan.FromDays(3)
+        };
         async Task<ExchangeWebResult<SharedUserTrade[]>> IFuturesOrderRestClient.GetFuturesUserTradesAsync(GetUserTradesRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
             var validationError = ((IFuturesOrderRestClient)this).GetFuturesUserTradesOptions.ValidateRequest(Exchange, request, request.TradingMode, SupportedTradingModes);
@@ -557,7 +564,8 @@ namespace CoinW.Net.Clients.FuturesApi
                     result.Data.Rows.Select(x => x.CreateTime),
                     request.StartTime,
                     request.EndTime ?? DateTime.UtcNow,
-                    pageParams);
+                    pageParams,
+                    maxAge: TimeSpan.FromDays(7));
 
             return result.AsExchangeResult(
                     Exchange,
