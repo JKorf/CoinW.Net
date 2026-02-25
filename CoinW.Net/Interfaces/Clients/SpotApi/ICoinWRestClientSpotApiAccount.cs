@@ -36,6 +36,15 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         Task<WebCallResult<CoinWDepositWithdrawal[]>> GetDepositWithdrawalHistoryAsync(string asset, long? id = null, CancellationToken ct = default);
 
         /// <summary>
+        /// Get deposit/withdrawal history
+        /// <para><a href="https://www.coinw.com/api-doc/en/spot-trading/account/get-deposit-withdrawal-history" /></para>
+        /// </summary>
+        /// <param name="assets">Filter by assets, max 20 per request</param>
+        /// <param name="id">Filter by id</param>
+        /// <param name="ct">Cancellation token</param>
+        Task<WebCallResult<CoinWDepositWithdrawal[]>> GetDepositWithdrawalHistoryAsync(IEnumerable<string> assets, long? id = null, CancellationToken ct = default);
+
+        /// <summary>
         /// Get deposit addresses for an asset
         /// <para><a href="https://www.coinw.com/api-doc/en/spot-trading/account/get-deposit-withdrawal-address" /></para>
         /// </summary>
