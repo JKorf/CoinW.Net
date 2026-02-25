@@ -56,7 +56,7 @@ namespace CoinW.Net.Clients.SpotApi
             var parameters = new ParameterCollection();
             parameters.Add("command", "cancelOrder");
             parameters.AddString("orderNumber", orderId);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/private", CoinWExchange.RateLimiter.CoinW, 1, true, 
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/private", CoinWExchange.RateLimiter.CoinW, 1, true,
                 limitGuard: new SingleLimitGuard(30, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: (def, host, key) => "cancelOrder" + key));
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
@@ -72,7 +72,7 @@ namespace CoinW.Net.Clients.SpotApi
             var parameters = new ParameterCollection();
             parameters.Add("command", "cancelAllOrder");
             parameters.AddOptional("currencyPair", symbol);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/private", CoinWExchange.RateLimiter.CoinW, 1, true, 
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/private", CoinWExchange.RateLimiter.CoinW, 1, true,
                 limitGuard: new SingleLimitGuard(30, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: (def, host, key) => "cancelAllOrder" + key));
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
@@ -106,14 +106,14 @@ namespace CoinW.Net.Clients.SpotApi
             var parameters = new ParameterCollection();
             parameters.Add("command", "returnOrderTrades");
             parameters.Add("orderNumber", orderId);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/private", CoinWExchange.RateLimiter.CoinW, 1, true, 
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/private", CoinWExchange.RateLimiter.CoinW, 1, true,
                 limitGuard: new SingleLimitGuard(30, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: (def, host, key) => "returnOrderTrades" + key));
             var result = await _baseClient.SendAsync<CoinWOrderDetails>(request, parameters, ct).ConfigureAwait(false);
             if (!result)
                 return result;
 
             var time = result.Data.Timestamp;
-            result.Data.Timestamp = new DateTime(time.Year, time.Month, time.Day, time.Hour - 8, time.Minute, time.Second, DateTimeKind.Utc);
+            result.Data.Timestamp = new DateTime(time.Year, time.Month, time.Day, time.Hour, time.Minute, time.Second, DateTimeKind.Utc).AddHours(-8);
             return result;
         }
 
@@ -129,7 +129,7 @@ namespace CoinW.Net.Clients.SpotApi
             parameters.Add("currencyPair", symbol);
             parameters.AddOptionalMillisecondsString("startAt", startTime);
             parameters.AddOptionalMillisecondsString("endAt", endTime);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/private", CoinWExchange.RateLimiter.CoinW, 1, true, 
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/private", CoinWExchange.RateLimiter.CoinW, 1, true,
                 limitGuard: new SingleLimitGuard(5, TimeSpan.FromSeconds(2), RateLimitWindowType.Sliding, keySelector: (def, host, key) => "returnUTradeHistory" + key));
             var result = await _baseClient.SendAsync<CoinWOrderTransaction[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
