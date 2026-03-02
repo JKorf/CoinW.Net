@@ -14,28 +14,48 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Get ticker info
-        /// <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-24h-trade-summary" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-24h-trade-summary" /><br />
+        /// Endpoint:<br />
+        /// GET api/v1/public
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWTicker[]>> GetTickersAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get asset and network info
-        /// <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/get-coin-deposits-withdrawal-limits" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/spot-trading/market/get-coin-deposits-withdrawal-limits" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/public
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWAsset[]>> GetAssetsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get symbol information
-        /// <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/get-trading-pair-information" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/spot-trading/market/get-trading-pair-information" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/public
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWSymbol[]>> GetSymbolsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get order book snapshot
-        /// <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/get-order-book" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/spot-trading/market/get-order-book" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/public
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="limit">Number of rows, either 5 or 20</param>
@@ -44,7 +64,12 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get the most recent trades for a symbol
-        /// <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/get-recent-trades" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/spot-trading/market/get-recent-trades" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/public
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="startTime">Filter by start time</param>
@@ -54,7 +79,12 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get kline data
-        /// <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/get-k-line" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/spot-trading/market/get-k-line" /><br />
+        /// Endpoint:<br />
+        /// GET /api/v1/public
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="interval">Kline interval</param>

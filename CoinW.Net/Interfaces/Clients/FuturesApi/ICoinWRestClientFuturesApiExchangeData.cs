@@ -14,7 +14,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
     {
         /// <summary>
         /// Get symbols/instruments
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-instrument-information" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-instrument-information" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpum/instruments
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol name, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
@@ -22,7 +27,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get price ticker info
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-last-trade-summary-of-an-instrument" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-last-trade-summary-of-an-instrument" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpumPublic/ticker
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
@@ -30,14 +40,24 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get price ticker info
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-last-trade-summary-of-all-instruments" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-last-trade-summary-of-all-instruments" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpumPublic/tickers
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWFuturesTicker[]>> GetTickersAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get kline info
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-k-line-of-an-instrument" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-k-line-of-an-instrument" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpumPublic/klines
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH`</param>
         /// <param name="interval">Kline interval</param>
@@ -55,7 +75,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get last funding rate
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-last-settelment-funding-fee-rate" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-last-settelment-funding-fee-rate" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpum/fundingRate
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
@@ -63,7 +88,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get order book
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-order-book-of-an-instrument" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-order-book-of-an-instrument" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpumPublic/depth
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
@@ -71,7 +101,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get recent trades
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-trade-data-of-an-instrument" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-trade-data-of-an-instrument" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpumPublic/trades
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
@@ -79,14 +114,24 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get margin requirements
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-margin-requirements-of-all-instruments" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-margin-requirements-of-all-instruments" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpum/ladders
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWMarginRequirement[]>> GetMarginRequirementsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get trade history
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-historical-public-trades" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-historical-public-trades" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpum/orders/trades
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH`</param>
         /// <param name="page">Page number</param>

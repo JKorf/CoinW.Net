@@ -2512,7 +2512,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiAccount.GetLeverageAsync(System.Nullable{System.Int64},System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Get leverage for a position or order
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/common/get-leverage-information" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/common/get-leverage-information" /><br />
+            Endpoint:<br />
+            GET /v1/perpum/positions/leverage
+            </para>
             </summary>
             <param name="positionId">Position id, either this or orderId should be provided</param>
             <param name="orderId">Order id, either this or positionId should be provided</param>
@@ -2521,7 +2526,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiAccount.GetMarginRateAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Get margin rate for an open position
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/position/get-position-margin-rate" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/position/get-position-margin-rate" /><br />
+            Endpoint:<br />
+            GET /v1/perpum/positions/marginRate
+            </para>
             </summary>
             <param name="positionId">Required for isolated positions, leave empty for cross margin</param>
             <param name="ct">Cancellation token</param>
@@ -2529,7 +2539,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiAccount.GetMaxTradeSizeAsync(System.String,System.Int32,CoinW.Net.Enums.MarginType,System.Decimal,System.Threading.CancellationToken)">
             <summary>
             Get max buy/sell size
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/position/get-max-contract-size" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/position/get-max-contract-size" /><br />
+            Endpoint:<br />
+            GET /v1/perpum/orders/maxSize
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH`</param>
             <param name="leverage">Leverage</param>
@@ -2540,35 +2555,60 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiAccount.GetMaxTransferableAsync(System.Threading.CancellationToken)">
             <summary>
             Get max transferable quantity
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-max-transferable-balance" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-max-transferable-balance" /><br />
+            Endpoint:<br />
+            GET /v1/perpum/account/available
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiAccount.GetBalancesAsync(System.Threading.CancellationToken)">
             <summary>
             Get balances
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-futures-account-assets" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-futures-account-assets" /><br />
+            Endpoint:<br />
+            GET /v1/perpum/account/getUserAssets
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiAccount.GetFeesAsync(System.Threading.CancellationToken)">
             <summary>
             Get trading fees
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-futures-account-fees" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-futures-account-fees" /><br />
+            Endpoint:<br />
+            GET /v1/perpum/account/fees
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiAccount.GetMarginModeAsync(System.Threading.CancellationToken)">
             <summary>
             Get margin configuration
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-margin-mode" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-margin-mode" /><br />
+            Endpoint:<br />
+            GET /v1/perpum/positions/type
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiAccount.SetMarginModeAsync(CoinW.Net.Enums.MarginType,CoinW.Net.Enums.PositionCombineType,System.Threading.CancellationToken)">
             <summary>
             Set margin mode
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/set-margin-mode" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/assets/set-margin-mode" /><br />
+            Endpoint:<br />
+            POST /v1/perpum/positions/type
+            </para>
             </summary>
             <param name="marginType">Margin type</param>
             <param name="positionCombineType">Position combine type</param>
@@ -2577,7 +2617,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiAccount.ToggleMegaCouponAsync(System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Enable or disable mega coupon usage
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/enable-disable-mega-coupon" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/assets/enable-disable-mega-coupon" /><br />
+            Endpoint:<br />
+            POST /v1/perpum/account/almightyGoldInfo
+            </para>
             </summary>
             <param name="enabled">Whether to use mega coupon</param>
             <param name="ct">Cancellation token</param>
@@ -2585,7 +2630,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiAccount.GetMaxPositionSizeAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get max position size
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-max-users-contract-size" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-max-users-contract-size" /><br />
+            Endpoint:<br />
+            GET /v1/perpum/orders/availSize
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH`</param>
             <param name="ct">Cancellation token</param>
@@ -2598,7 +2648,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiExchangeData.GetSymbolsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get symbols/instruments
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-instrument-information" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-instrument-information" /><br />
+            Endpoint:<br />
+            GET /v1/perpum/instruments
+            </para>
             </summary>
             <param name="symbol">Filter by symbol name, for example `ETH`</param>
             <param name="ct">Cancellation token</param>
@@ -2606,7 +2661,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiExchangeData.GetTickerAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get price ticker info
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-last-trade-summary-of-an-instrument" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-last-trade-summary-of-an-instrument" /><br />
+            Endpoint:<br />
+            GET /v1/perpumPublic/ticker
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH`</param>
             <param name="ct">Cancellation token</param>
@@ -2614,14 +2674,24 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiExchangeData.GetTickersAsync(System.Threading.CancellationToken)">
             <summary>
             Get price ticker info
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-last-trade-summary-of-all-instruments" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-last-trade-summary-of-all-instruments" /><br />
+            Endpoint:<br />
+            GET /v1/perpumPublic/tickers
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiExchangeData.GetKlinesAsync(System.String,CoinW.Net.Enums.FuturesKlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get kline info
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-k-line-of-an-instrument" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-k-line-of-an-instrument" /><br />
+            Endpoint:<br />
+            GET /v1/perpumPublic/klines
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH`</param>
             <param name="interval">Kline interval</param>
@@ -2633,7 +2703,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiExchangeData.GetLastFundingRateAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get last funding rate
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-last-settelment-funding-fee-rate" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-last-settelment-funding-fee-rate" /><br />
+            Endpoint:<br />
+            GET /v1/perpum/fundingRate
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH`</param>
             <param name="ct">Cancellation token</param>
@@ -2641,7 +2716,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiExchangeData.GetOrderBookAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get order book
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-order-book-of-an-instrument" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-order-book-of-an-instrument" /><br />
+            Endpoint:<br />
+            GET /v1/perpumPublic/depth
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH`</param>
             <param name="ct">Cancellation token</param>
@@ -2649,7 +2729,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiExchangeData.GetRecentTradesAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get recent trades
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-trade-data-of-an-instrument" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-trade-data-of-an-instrument" /><br />
+            Endpoint:<br />
+            GET /v1/perpumPublic/trades
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH`</param>
             <param name="ct">Cancellation token</param>
@@ -2657,14 +2742,24 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiExchangeData.GetMarginRequirementsAsync(System.Threading.CancellationToken)">
             <summary>
             Get margin requirements
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-margin-requirements-of-all-instruments" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-margin-requirements-of-all-instruments" /><br />
+            Endpoint:<br />
+            GET /v1/perpum/ladders
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiExchangeData.GetTradeHistoryAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get trade history
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-historical-public-trades" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/market/get-historical-public-trades" /><br />
+            Endpoint:<br />
+            GET /v1/perpum/orders/trades
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH`</param>
             <param name="page">Page number</param>
@@ -2684,7 +2779,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.PlaceOrderAsync(System.String,CoinW.Net.Enums.PositionSide,CoinW.Net.Enums.FuturesOrderType,System.Decimal,System.Int32,System.Nullable{System.Decimal},System.Nullable{CoinW.Net.Enums.QuantityUnit},System.Nullable{CoinW.Net.Enums.MarginType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{CoinW.Net.Enums.TriggerOrderType},System.Nullable{System.Int32},System.String,System.Nullable{System.Boolean},System.Threading.CancellationToken)">
             <summary>
             Place a new order. Note that this can not be used to place a direct order to close an open position. Use <see cref="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.ClosePositionAsync(System.Int64,System.Nullable{CoinW.Net.Enums.FuturesOrderType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)" /> to close a position
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/place-an-order" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/trade/place-an-order" /><br />
+            Endpoint:<br />
+            POST /v1/perpum/order
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH`</param>
             <param name="side">Position side</param>
@@ -2706,7 +2806,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.PlaceMultipleOrdersAsync(System.Collections.Generic.IEnumerable{CoinW.Net.Objects.Models.CoinWFuturesOrderRequest},System.Threading.CancellationToken)">
             <summary>
             Place multiple orders
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/place-batch-orders" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/trade/place-batch-orders" /><br />
+            Endpoint:<br />
+            POST /v1/perpum/batchOrders
+            </para>
             </summary>
             <param name="requests">Orders to place</param>
             <param name="ct">Cancellation token</param>
@@ -2714,7 +2819,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.ClosePositionAsync(System.Int64,System.Nullable{CoinW.Net.Enums.FuturesOrderType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
             <summary>
             Close an open position
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/close-a-position" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/trade/close-a-position" /><br />
+            Endpoint:<br />
+            DELETE /v1/perpum/positions
+            </para>
             </summary>
             <param name="positionId">Position id</param>
             <param name="orderType">Order type, defaults to market order</param>
@@ -2726,7 +2836,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.ClosePositionsByClientOrderIdAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <summary>
             Close positions by client order ids
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/close-batch-positions" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/trade/close-batch-positions" /><br />
+            Endpoint:<br />
+            DELETE /v1/perpum/batchClose
+            </para>
             </summary>
             <param name="clientOrderIds">Client order ids to cancel</param>
             <param name="ct">Cancellation token</param>
@@ -2734,7 +2849,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.CloseAllPositionsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Close all open position for a symbol at market price
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/close-positions-at-market-price" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/trade/close-positions-at-market-price" /><br />
+            Endpoint:<br />
+            DELETE /v1/perpum/allpositions
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH`</param>
             <param name="ct">Cancellation token</param>
@@ -2742,7 +2862,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.ReversePositionAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Reverse a position by closing the existing position and opening an equal position on the opposite side
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/reverse-a-position" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/trade/reverse-a-position" /><br />
+            Endpoint:<br />
+            POST /v1/perpum/positions/reverse
+            </para>
             </summary>
             <param name="positionId">Id of position to reverse</param>
             <param name="ct">Cancellation token</param>
@@ -2750,7 +2875,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.AdjustMarginAsync(System.Int64,System.Decimal,System.Decimal,System.Threading.CancellationToken)">
             <summary>
             Adjust margin for an open position
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/adjust-margin" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/trade/adjust-margin" /><br />
+            Endpoint:<br />
+            POST /v1/perpum/positions/margin
+            </para>
             </summary>
             <param name="positionId">Position id</param>
             <param name="addMargin">Margin to add</param>
@@ -2760,7 +2890,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.SetTpSlAsync(System.Int64,System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Threading.CancellationToken)">
             <summary>
             Set take profit / stop loss for an order or position
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/set-stop-loss-take-profit" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/trade/set-stop-loss-take-profit" /><br />
+            Endpoint:<br />
+            POST /v1/perpum/TPSL
+            </para>
             </summary>
             <param name="orderOrPositionId">Order id for an open order or position id for an open position</param>
             <param name="symbol">The symbol, for example `ETH`</param>
@@ -2775,7 +2910,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.SetTrailingTpSlAsync(System.Int64,System.Decimal,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{CoinW.Net.Enums.QuantityUnit},System.Threading.CancellationToken)">
             <summary>
             Set trailing take profit / stop loss for a position
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/set-trailing-stop-loss-take-profit" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/trade/set-trailing-stop-loss-take-profit" /><br />
+            Endpoint:<br />
+            POST /v1/perpum/moveTPSL
+            </para>
             </summary>
             <param name="positionId">Position id</param>
             <param name="callbackRate">Callback rate, with a valid range from 0 to 1. For example: 0.5 represents a 50% callback rate</param>
@@ -2787,7 +2927,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.EditOrderAsync(System.Int64,System.String,CoinW.Net.Enums.PositionSide,CoinW.Net.Enums.FuturesOrderType,System.Decimal,System.Int32,System.Nullable{System.Decimal},System.Nullable{CoinW.Net.Enums.QuantityUnit},System.Nullable{CoinW.Net.Enums.MarginType},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{CoinW.Net.Enums.TriggerOrderType},System.Nullable{System.Int32},System.String,System.Nullable{System.Boolean},System.Threading.CancellationToken)">
             <summary>
             Edit an open order
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/modify-an-order" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/trade/modify-an-order" /><br />
+            Endpoint:<br />
+            PUT /v1/perpum/order
+            </para>
             </summary>
             <param name="orderId">Id of the order to edit</param>
             <param name="symbol">The symbol, for example `ETH`</param>
@@ -2810,7 +2955,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.CancelOrderAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Cancel an open order
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/cancel-an-order" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/trade/cancel-an-order" /><br />
+            Endpoint:<br />
+            DELETE /v1/perpum/order
+            </para>
             </summary>
             <param name="orderId">Order id</param>
             <param name="ct">Cancellation token</param>
@@ -2818,7 +2968,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.CancelOrdersAsync(System.Collections.Generic.IEnumerable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Cancel multiple orders by order id
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/cancel-batch-orders" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/trade/cancel-batch-orders" /><br />
+            Endpoint:<br />
+            DELETE /v1/perpum/batchOrders
+            </para>
             </summary>
             <param name="orderIds">Order ids to cancel, max 20</param>
             <param name="ct">Cancellation token</param>
@@ -2826,7 +2981,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.GetOpenOrdersAsync(System.String,CoinW.Net.Enums.FuturesOrderType,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get open orders for a symbol
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-current-orders" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-current-orders" /><br />
+            Endpoint:<br />
+            GET /v1/perpum/orders/open
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH`</param>
             <param name="orderType">Order type</param>
@@ -2837,7 +2997,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.GetOpenOrdersAsync(CoinW.Net.Enums.FuturesOrderType,System.String,System.Collections.Generic.IEnumerable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Get open orders for a symbol
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-order-information" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-order-information" /><br />
+            Endpoint:<br />
+            GET /v1/perpum/order
+            </para>
             </summary>
             <param name="orderType">Order type</param>
             <param name="symbol">Filter by symbol, for example `ETH`</param>
@@ -2847,14 +3012,24 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.GetOpenOrderCountAsync(System.Threading.CancellationToken)">
             <summary>
             Get the total number of open orders
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-pending-order-count" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-pending-order-count" /><br />
+            Endpoint:<br />
+            GET /v1/perpum/orders/openQuantity
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.GetTpSlAsync(System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.String,System.Threading.CancellationToken)">
             <summary>
             Get take profit / stop loss info
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-stop-loss-take-profit-information" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-stop-loss-take-profit-information" /><br />
+            Endpoint:<br />
+            GET /v1/perpum/TPSL
+            </para>
             </summary>
             <param name="orderId">Order id</param>
             <param name="positionId">Position id</param>
@@ -2865,14 +3040,24 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.GetTrailingTpSlAsync(System.Threading.CancellationToken)">
             <summary>
             Get trailing take profit / stop loss info
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-trailing-stop-loss-take-profit-information" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-trailing-stop-loss-take-profit-information" /><br />
+            Endpoint:<br />
+            GET /v1/perpum/moveTPSL
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.GetOrderHistory7DaysAsync(System.String,System.Nullable{CoinW.Net.Enums.FuturesOrderType},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get order history of the last 7 days. Does not return fully canceled orders
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-historical-orders-7days" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-historical-orders-7days" /><br />
+            Endpoint:<br />
+            GET /v1/perpum/orders/history
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH`</param>
             <param name="orderType">Order type filed</param>
@@ -2883,7 +3068,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.GetOrderHistory3MonthsAsync(System.String,System.Nullable{CoinW.Net.Enums.FuturesOrderType},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get order history of the last 3 months. Does not return fully canceled orders
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-historical-orders-7days" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-historical-orders-7days" /><br />
+            Endpoint:<br />
+            GET /v1/perpum/orders/archive
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH`</param>
             <param name="orderType">Order type filed</param>
@@ -2894,7 +3084,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.GetPositionsAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Get open positions
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/position/get-current-position-information" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/position/get-current-position-information" /><br />
+            Endpoint:<br />
+            GET /v1/perpum/positions
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH`</param>
             <param name="ct">Cancellation token</param>
@@ -2902,7 +3097,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.GetPositionHistoryAsync(System.String,System.Nullable{CoinW.Net.Enums.MarginType},System.Threading.CancellationToken)">
             <summary>
             Get position history
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/position/get-historical-position-information" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/position/get-historical-position-information" /><br />
+            Endpoint:<br />
+            GET /v1/perpum/positions/history
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH`</param>
             <param name="marginType">Margin type</param>
@@ -2911,14 +3111,24 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.GetPositionsAsync(System.Threading.CancellationToken)">
             <summary>
             Get all open positions
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/position/get-current-positions" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/position/get-current-positions" /><br />
+            Endpoint:<br />
+            GET v1/perpum/positions/all
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.GetTransactionHistory3DaysAsync(System.String,System.Nullable{CoinW.Net.Enums.OrderType},System.Nullable{CoinW.Net.Enums.MarginType},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get transaction history for the last 3 days
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-transaction-details-3days" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-transaction-details-3days" /><br />
+            Endpoint:<br />
+            GET /v1/perpum/orders/deals
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH`</param>
             <param name="orderType">Filter by order type</param>
@@ -2930,7 +3140,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWRestClientFuturesApiTrading.GetTransactionHistory3MonthsAsync(System.String,System.Nullable{CoinW.Net.Enums.OrderType},System.Nullable{CoinW.Net.Enums.MarginType},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get transaction history for the last 3 months
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-transaction-details-3months" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-transaction-details-3months" /><br />
+            Endpoint:<br />
+            GET /v1/perpum/orders/deals/history
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH`</param>
             <param name="orderType">Filter by order type</param>
@@ -2947,7 +3162,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWSocketClientFuturesApi.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWFuturesTickerUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to ticker updates
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-24h-trade-summary" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-24h-trade-summary" /><br />
+            Endpoint:<br />
+            ticker_swap
+            </para>
             </summary>
             <param name="symbol">The futures symbol, for example `ETH`</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -2957,7 +3177,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWSocketClientFuturesApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWFuturesOrderBook}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to order book updates
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-order-book" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-order-book" /><br />
+            Endpoint:<br />
+            depth
+            </para>
             </summary>
             <param name="symbol">The futures symbol, for example `ETH`</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -2967,7 +3192,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWSocketClientFuturesApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWFuturesTrade[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-trade-data" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-trade-data" /><br />
+            Endpoint:<br />
+            fills
+            </para>
             </summary>
             <param name="symbol">The futures symbol, for example `ETH`</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -2977,7 +3207,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWSocketClientFuturesApi.SubscribeToKlineUpdatesAsync(System.String,CoinW.Net.Enums.FuturesKlineIntervalStream,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWFuturesStreamKline}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to kline updates
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-k-line-utc+0" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-k-line-utc+0" /><br />
+            Endpoint:<br />
+            candles_swap_utc
+            </para>
             </summary>
             <param name="symbol">The futures symbol, for example `ETH`</param>
             <param name="interval">Kline interval</param>
@@ -2988,7 +3223,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWSocketClientFuturesApi.SubscribeToIndexPriceUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWPrice}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to index price updates
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-index-price" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-index-price" /><br />
+            Endpoint:<br />
+            index_price
+            </para>
             </summary>
             <param name="symbol">The futures symbol, for example `ETH`</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -2998,7 +3238,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWSocketClientFuturesApi.SubscribeToMarkPriceUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWPrice}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to mark price updates
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-mark-price" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-mark-price" /><br />
+            Endpoint:<br />
+            mark_price
+            </para>
             </summary>
             <param name="symbol">The futures symbol, for example `ETH`</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -3008,7 +3253,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWSocketClientFuturesApi.SubscribeToFundingRateUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWFundingRate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to funding rate updates
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-funding-fee-rate" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-funding-fee-rate" /><br />
+            Endpoint:<br />
+            funding_rate
+            </para>
             </summary>
             <param name="symbol">The futures symbol, for example `ETH`</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -3018,7 +3268,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWSocketClientFuturesApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWFuturesOrder[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to user order updates
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/check/subscribe-current-orders" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/check/subscribe-current-orders" /><br />
+            Endpoint:<br />
+            order
+            </para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -3027,7 +3282,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWSocketClientFuturesApi.SubscribeToPositionUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWPosition[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to user position updates
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/position/subscribe-position" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/position/subscribe-position" /><br />
+            Endpoint:<br />
+            position
+            </para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -3036,7 +3296,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWSocketClientFuturesApi.SubscribeToPositionDetailUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWPositionChange[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to user position detail updates
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/position/subscribe-position-change" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/position/subscribe-position-change" /><br />
+            Endpoint:<br />
+            position_change
+            </para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -3045,7 +3310,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWSocketClientFuturesApi.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWFuturesBalanceUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to balance updates
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/subscribe-assets" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/assets/subscribe-assets" /><br />
+            Endpoint:<br />
+            assets
+            </para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -3054,7 +3324,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.FuturesApi.ICoinWSocketClientFuturesApi.SubscribeToMarginConfigUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWMarginInfo[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to margin configuration updates
-            <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/subscribe-margin-mode" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/futures-trading/assets/subscribe-margin-mode" /><br />
+            Endpoint:<br />
+            user_setting
+            </para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -3192,21 +3467,36 @@
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWRestClientSpotApiAccount.GetBalancesAsync(System.Threading.CancellationToken)">
             <summary>
             Get account balances
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/account/get-spot-account-balance" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/account/get-spot-account-balance" /><br />
+            Endpoint:<br />
+            POST /api/v1/private
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWRestClientSpotApiAccount.GetBalancesDetailsAsync(System.Threading.CancellationToken)">
             <summary>
             Get account balances with details
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/account/get-total-spot-account-balance" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/account/get-total-spot-account-balance" /><br />
+            Endpoint:<br />
+            POST /api/v1/private
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWRestClientSpotApiAccount.GetDepositWithdrawalHistoryAsync(System.String,System.Nullable{System.Int64},System.Threading.CancellationToken)">
             <summary>
             Get deposit/withdrawal history
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/account/get-deposit-withdrawal-history" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/account/get-deposit-withdrawal-history" /><br />
+            Endpoint:<br />
+            POST /api/v1/private
+            </para>
             </summary>
             <param name="asset">Filter by asset</param>
             <param name="id">Filter by id</param>
@@ -3215,7 +3505,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWRestClientSpotApiAccount.GetDepositAddressesAsync(System.String,System.String,System.Threading.CancellationToken)">
             <summary>
             Get deposit addresses for an asset
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/account/get-deposit-withdrawal-address" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/account/get-deposit-withdrawal-address" /><br />
+            Endpoint:<br />
+            POST /api/v1/private
+            </para>
             </summary>
             <param name="asset">The asset, for example `ETH`</param>
             <param name="network">The network</param>
@@ -3224,7 +3519,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWRestClientSpotApiAccount.WithdrawAsync(System.String,System.Decimal,System.String,System.String,System.String,System.Nullable{CoinW.Net.Enums.WithdrawType},System.Nullable{CoinW.Net.Enums.InternalWithdrawType},System.Threading.CancellationToken)">
             <summary>
             Withdraw funds
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/account/initiate-withdrawal" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/account/initiate-withdrawal" /><br />
+            Endpoint:<br />
+            POST /api/v1/private
+            </para>
             </summary>
             <param name="asset">The asset, for example `ETH`</param>
             <param name="quantity">Quantity to withdraw</param>
@@ -3238,7 +3538,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWRestClientSpotApiAccount.CancelWithdrawalAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Cancel a pending withdrawal
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/account/cancel-withdrawal" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/account/cancel-withdrawal" /><br />
+            Endpoint:<br />
+            POST /api/v1/private
+            </para>
             </summary>
             <param name="withdrawalId">Id to cancel</param>
             <param name="ct">Cancellation token</param>
@@ -3246,7 +3551,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWRestClientSpotApiAccount.TransferAsync(CoinW.Net.Enums.AccountType,CoinW.Net.Enums.AccountType,System.String,System.Decimal,System.Threading.CancellationToken)">
             <summary>
             Transfer between account types
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/account/transfer-assets" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/account/transfer-assets" /><br />
+            Endpoint:<br />
+            POST /api/v1/private
+            </para>
             </summary>
             <param name="fromAccount">From account type</param>
             <param name="toAccount">To account type</param>
@@ -3262,28 +3572,48 @@
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWRestClientSpotApiExchangeData.GetTickersAsync(System.Threading.CancellationToken)">
             <summary>
             Get ticker info
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-24h-trade-summary" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-24h-trade-summary" /><br />
+            Endpoint:<br />
+            GET api/v1/public
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWRestClientSpotApiExchangeData.GetAssetsAsync(System.Threading.CancellationToken)">
             <summary>
             Get asset and network info
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/get-coin-deposits-withdrawal-limits" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/market/get-coin-deposits-withdrawal-limits" /><br />
+            Endpoint:<br />
+            GET /api/v1/public
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWRestClientSpotApiExchangeData.GetSymbolsAsync(System.Threading.CancellationToken)">
             <summary>
             Get symbol information
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/get-trading-pair-information" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/market/get-trading-pair-information" /><br />
+            Endpoint:<br />
+            GET /api/v1/public
+            </para>
             </summary>
             <param name="ct">Cancellation token</param>
         </member>
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWRestClientSpotApiExchangeData.GetOrderBookAsync(System.String,System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get order book snapshot
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/get-order-book" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/market/get-order-book" /><br />
+            Endpoint:<br />
+            GET /api/v1/public
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="limit">Number of rows, either 5 or 20</param>
@@ -3292,7 +3622,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWRestClientSpotApiExchangeData.GetRecentTradesAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <summary>
             Get the most recent trades for a symbol
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/get-recent-trades" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/market/get-recent-trades" /><br />
+            Endpoint:<br />
+            GET /api/v1/public
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="startTime">Filter by start time</param>
@@ -3302,7 +3637,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWRestClientSpotApiExchangeData.GetKlinesAsync(System.String,CoinW.Net.Enums.KlineInterval,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <summary>
             Get kline data
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/get-k-line" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/market/get-k-line" /><br />
+            Endpoint:<br />
+            GET /api/v1/public
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="interval">Kline interval</param>
@@ -3323,7 +3663,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWRestClientSpotApiTrading.PlaceOrderAsync(System.String,CoinW.Net.Enums.OrderSide,CoinW.Net.Enums.OrderType,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.Threading.CancellationToken)">
             <summary>
             Place a new order
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/trade/place-order" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/trade/place-order" /><br />
+            Endpoint:<br />
+            POST /api/v1/private
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="side">Order side</param>
@@ -3337,7 +3682,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWRestClientSpotApiTrading.CancelOrderAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Cancel an open order
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/trade/cancel-order" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/trade/cancel-order" /><br />
+            Endpoint:<br />
+            POST /api/v1/private
+            </para>
             </summary>
             <param name="orderId">Order id to cancel</param>
             <param name="ct">Cancellation token</param>
@@ -3345,7 +3695,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWRestClientSpotApiTrading.CancelAllOrdersAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Cancel all open orders
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/trade/cancel-all-orders" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/trade/cancel-all-orders" /><br />
+            Endpoint:<br />
+            POST /api/v1/private
+            </para>
             </summary>
             <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
             <param name="ct">Cancellation token</param>
@@ -3353,7 +3708,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWRestClientSpotApiTrading.GetOpenOrdersAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <summary>
             Get open orders
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/check/get-current-orders" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/check/get-current-orders" /><br />
+            Endpoint:<br />
+            POST /api/v1/private
+            </para>
             </summary>
             <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
             <param name="startTime">Filter by start time</param>
@@ -3363,7 +3723,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWRestClientSpotApiTrading.GetOrderAsync(System.Int64,System.Threading.CancellationToken)">
             <summary>
             Get order details
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/check/get-order-details" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/check/get-order-details" /><br />
+            Endpoint:<br />
+            POST /api/v1/private
+            </para>
             </summary>
             <param name="orderId">Order id</param>
             <param name="ct">Cancellation token</param>
@@ -3371,7 +3736,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWRestClientSpotApiTrading.GetOrderTransactionHistoryAsync(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <summary>
             Get user order transaction history
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/check/get-transaction-history" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/check/get-transaction-history" /><br />
+            Endpoint:<br />
+            POST /api/v1/private
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETHUSDT`</param>
             <param name="startTime">Filter by start time</param>
@@ -3381,7 +3751,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWRestClientSpotApiTrading.GetUserTradesAsync(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Threading.CancellationToken)">
             <summary>
             Get user trades
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/check/get-historical-orders" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/check/get-historical-orders" /><br />
+            Endpoint:<br />
+            POST /api/v1/private
+            </para>
             </summary>
             <param name="symbol">The symbol, for example `ETH_USDT`</param>
             <param name="fromId">Filter by id</param>
@@ -3399,7 +3774,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWSocketClientSpotApi.SubscribeToTickerUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWTickerUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to ticker updates for a symbol
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-24h-trade-summary" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-24h-trade-summary" /><br />
+            Endpoint:<br />
+            ticker
+            </para>
             </summary>
             <param name="symbol">Symbol to subscribe, for example `ETH_USDT`</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -3409,7 +3789,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWSocketClientSpotApi.SubscribeToAllTickerUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWSymbolUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to ticker updates for all symbols
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-24h-trades-summary-for-all-instruments" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-24h-trades-summary-for-all-instruments" /><br />
+            Endpoint:<br />
+            ticker_all
+            </para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -3418,7 +3803,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWSocketClientSpotApi.SubscribeToOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWOrderBookUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to incremental order book updates
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-incremental-order-book" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-incremental-order-book" /><br />
+            Endpoint:<br />
+            depth
+            </para>
             </summary>
             <param name="symbol">Symbol to subscribe, for example `ETH_USDT`</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -3428,7 +3818,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWSocketClientSpotApi.SubscribeToPartialOrderBookUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWOrderBook}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to snapshot order book updates for the top rows
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-incremental-order-book" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-incremental-order-book" /><br />
+            Endpoint:<br />
+            depth_snapshot
+            </para>
             </summary>
             <param name="symbol">Symbol to subscribe, for example `ETH_USDT`</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -3438,7 +3833,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWSocketClientSpotApi.SubscribeToKlineUpdatesAsync(System.String,CoinW.Net.Enums.KlineIntervalStream,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWKlineUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to Kline updates
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-k-line" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-k-line" /><br />
+            Endpoint:<br />
+            candles
+            </para>
             </summary>
             <param name="symbol">Symbol to subscribe, for example `ETH_USDT`</param>
             <param name="interval">The kline interval</param>
@@ -3449,7 +3849,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWSocketClientSpotApi.SubscribeToTradeUpdatesAsync(System.String,System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWTradeUpdate[]}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to trade updates
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-trades" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-trades" /><br />
+            Endpoint:<br />
+            fills
+            </para>
             </summary>
             <param name="symbol">Symbol to subscribe, for example `ETH_USDT`</param>
             <param name="onMessage">The event handler for the received data</param>
@@ -3459,7 +3864,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWSocketClientSpotApi.SubscribeToBalanceUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWBalanceUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to balance updates
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/account/subscribe-assets" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/account/subscribe-assets" /><br />
+            Endpoint:<br />
+            assets
+            </para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>
@@ -3468,7 +3878,12 @@
         <member name="M:CoinW.Net.Interfaces.Clients.SpotApi.ICoinWSocketClientSpotApi.SubscribeToOrderUpdatesAsync(System.Action{CryptoExchange.Net.Objects.Sockets.DataEvent{CoinW.Net.Objects.Models.CoinWOrderUpdate}},System.Threading.CancellationToken)">
             <summary>
             Subscribe to order updates
-            <para><a href="https://www.coinw.com/api-doc/en/spot-trading/check/subscribe-current-orders" /></para>
+            <para>
+            Docs:<br />
+            <a href="https://www.coinw.com/api-doc/en/spot-trading/check/subscribe-current-orders" /><br />
+            Endpoint:<br />
+            order
+            </para>
             </summary>
             <param name="onMessage">The event handler for the received data</param>
             <param name="ct">Cancellation token for closing this subscription</param>

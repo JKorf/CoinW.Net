@@ -14,7 +14,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
     {
         /// <summary>
         /// Place a new order. Note that this can not be used to place a direct order to close an open position. Use <see cref="ClosePositionAsync(long, FuturesOrderType?, decimal?, decimal?, decimal?, CancellationToken)" /> to close a position
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/place-an-order" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/trade/place-an-order" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/perpum/order
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH`</param>
         /// <param name="side">Position side</param>
@@ -36,7 +41,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Place multiple orders
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/place-batch-orders" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/trade/place-batch-orders" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/perpum/batchOrders
+        /// </para>
         /// </summary>
         /// <param name="requests">Orders to place</param>
         /// <param name="ct">Cancellation token</param>
@@ -44,7 +54,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Close an open position
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/close-a-position" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/trade/close-a-position" /><br />
+        /// Endpoint:<br />
+        /// DELETE /v1/perpum/positions
+        /// </para>
         /// </summary>
         /// <param name="positionId">Position id</param>
         /// <param name="orderType">Order type, defaults to market order</param>
@@ -56,7 +71,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Close positions by client order ids
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/close-batch-positions" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/trade/close-batch-positions" /><br />
+        /// Endpoint:<br />
+        /// DELETE /v1/perpum/batchClose
+        /// </para>
         /// </summary>
         /// <param name="clientOrderIds">Client order ids to cancel</param>
         /// <param name="ct">Cancellation token</param>
@@ -64,7 +84,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Close all open position for a symbol at market price
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/close-positions-at-market-price" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/trade/close-positions-at-market-price" /><br />
+        /// Endpoint:<br />
+        /// DELETE /v1/perpum/allpositions
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
@@ -72,7 +97,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Reverse a position by closing the existing position and opening an equal position on the opposite side
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/reverse-a-position" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/trade/reverse-a-position" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/perpum/positions/reverse
+        /// </para>
         /// </summary>
         /// <param name="positionId">Id of position to reverse</param>
         /// <param name="ct">Cancellation token</param>
@@ -80,7 +110,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Adjust margin for an open position
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/adjust-margin" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/trade/adjust-margin" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/perpum/positions/margin
+        /// </para>
         /// </summary>
         /// <param name="positionId">Position id</param>
         /// <param name="addMargin">Margin to add</param>
@@ -90,7 +125,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Set take profit / stop loss for an order or position
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/set-stop-loss-take-profit" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/trade/set-stop-loss-take-profit" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/perpum/TPSL
+        /// </para>
         /// </summary>
         /// <param name="orderOrPositionId">Order id for an open order or position id for an open position</param>
         /// <param name="symbol">The symbol, for example `ETH`</param>
@@ -105,7 +145,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Set trailing take profit / stop loss for a position
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/set-trailing-stop-loss-take-profit" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/trade/set-trailing-stop-loss-take-profit" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/perpum/moveTPSL
+        /// </para>
         /// </summary>
         /// <param name="positionId">Position id</param>
         /// <param name="callbackRate">Callback rate, with a valid range from 0 to 1. For example: 0.5 represents a 50% callback rate</param>
@@ -117,7 +162,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Edit an open order
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/modify-an-order" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/trade/modify-an-order" /><br />
+        /// Endpoint:<br />
+        /// PUT /v1/perpum/order
+        /// </para>
         /// </summary>
         /// <param name="orderId">Id of the order to edit</param>
         /// <param name="symbol">The symbol, for example `ETH`</param>
@@ -140,7 +190,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Cancel an open order
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/cancel-an-order" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/trade/cancel-an-order" /><br />
+        /// Endpoint:<br />
+        /// DELETE /v1/perpum/order
+        /// </para>
         /// </summary>
         /// <param name="orderId">Order id</param>
         /// <param name="ct">Cancellation token</param>
@@ -148,7 +203,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Cancel multiple orders by order id
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/trade/cancel-batch-orders" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/trade/cancel-batch-orders" /><br />
+        /// Endpoint:<br />
+        /// DELETE /v1/perpum/batchOrders
+        /// </para>
         /// </summary>
         /// <param name="orderIds">Order ids to cancel, max 20</param>
         /// <param name="ct">Cancellation token</param>
@@ -156,7 +216,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get open orders for a symbol
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-current-orders" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-current-orders" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpum/orders/open
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH`</param>
         /// <param name="orderType">Order type</param>
@@ -167,7 +232,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get open orders for a symbol
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-order-information" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-order-information" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpum/order
+        /// </para>
         /// </summary>
         /// <param name="orderType">Order type</param>
         /// <param name="symbol">Filter by symbol, for example `ETH`</param>
@@ -177,14 +247,24 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get the total number of open orders
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-pending-order-count" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-pending-order-count" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpum/orders/openQuantity
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWValue>> GetOpenOrderCountAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get take profit / stop loss info
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-stop-loss-take-profit-information" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-stop-loss-take-profit-information" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpum/TPSL
+        /// </para>
         /// </summary>
         /// <param name="orderId">Order id</param>
         /// <param name="positionId">Position id</param>
@@ -195,14 +275,24 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get trailing take profit / stop loss info
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-trailing-stop-loss-take-profit-information" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-trailing-stop-loss-take-profit-information" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpum/moveTPSL
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWTrailingTpSl[]>> GetTrailingTpSlAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get order history of the last 7 days. Does not return fully canceled orders
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-historical-orders-7days" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-historical-orders-7days" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpum/orders/history
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH`</param>
         /// <param name="orderType">Order type filed</param>
@@ -213,7 +303,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get order history of the last 3 months. Does not return fully canceled orders
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-historical-orders-7days" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/check/get-historical-orders-7days" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpum/orders/archive
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH`</param>
         /// <param name="orderType">Order type filed</param>
@@ -224,7 +319,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get open positions
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/position/get-current-position-information" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/position/get-current-position-information" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpum/positions
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
@@ -232,7 +332,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get position history
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/position/get-historical-position-information" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/position/get-historical-position-information" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpum/positions/history
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH`</param>
         /// <param name="marginType">Margin type</param>
@@ -241,14 +346,24 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get all open positions
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/position/get-current-positions" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/position/get-current-positions" /><br />
+        /// Endpoint:<br />
+        /// GET v1/perpum/positions/all
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWPosition[]>> GetPositionsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get transaction history for the last 3 days
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-transaction-details-3days" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-transaction-details-3days" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpum/orders/deals
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH`</param>
         /// <param name="orderType">Filter by order type</param>
@@ -260,7 +375,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get transaction history for the last 3 months
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-transaction-details-3months" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-transaction-details-3months" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpum/orders/deals/history
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH`</param>
         /// <param name="orderType">Filter by order type</param>

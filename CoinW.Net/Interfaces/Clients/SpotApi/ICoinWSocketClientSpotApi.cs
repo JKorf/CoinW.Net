@@ -16,7 +16,12 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Subscribe to ticker updates for a symbol
-        /// <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-24h-trade-summary" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-24h-trade-summary" /><br />
+        /// Endpoint:<br />
+        /// ticker
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol to subscribe, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -26,7 +31,12 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to ticker updates for all symbols
-        /// <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-24h-trades-summary-for-all-instruments" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-24h-trades-summary-for-all-instruments" /><br />
+        /// Endpoint:<br />
+        /// ticker_all
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -35,7 +45,12 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to incremental order book updates
-        /// <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-incremental-order-book" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-incremental-order-book" /><br />
+        /// Endpoint:<br />
+        /// depth
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol to subscribe, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -45,7 +60,12 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to snapshot order book updates for the top rows
-        /// <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-incremental-order-book" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-incremental-order-book" /><br />
+        /// Endpoint:<br />
+        /// depth_snapshot
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol to subscribe, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -55,7 +75,12 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to Kline updates
-        /// <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-k-line" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-k-line" /><br />
+        /// Endpoint:<br />
+        /// candles
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol to subscribe, for example `ETH_USDT`</param>
         /// <param name="interval">The kline interval</param>
@@ -66,7 +91,12 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to trade updates
-        /// <para><a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-trades" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/spot-trading/market/subscribe-trades" /><br />
+        /// Endpoint:<br />
+        /// fills
+        /// </para>
         /// </summary>
         /// <param name="symbol">Symbol to subscribe, for example `ETH_USDT`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -76,7 +106,12 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to balance updates
-        /// <para><a href="https://www.coinw.com/api-doc/en/spot-trading/account/subscribe-assets" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/spot-trading/account/subscribe-assets" /><br />
+        /// Endpoint:<br />
+        /// assets
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -85,7 +120,12 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Subscribe to order updates
-        /// <para><a href="https://www.coinw.com/api-doc/en/spot-trading/check/subscribe-current-orders" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/spot-trading/check/subscribe-current-orders" /><br />
+        /// Endpoint:<br />
+        /// order
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>

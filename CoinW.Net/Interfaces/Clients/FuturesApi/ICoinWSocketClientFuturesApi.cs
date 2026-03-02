@@ -16,7 +16,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
     {
         /// <summary>
         /// Subscribe to ticker updates
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-24h-trade-summary" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-24h-trade-summary" /><br />
+        /// Endpoint:<br />
+        /// ticker_swap
+        /// </para>
         /// </summary>
         /// <param name="symbol">The futures symbol, for example `ETH`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -26,7 +31,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to order book updates
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-order-book" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-order-book" /><br />
+        /// Endpoint:<br />
+        /// depth
+        /// </para>
         /// </summary>
         /// <param name="symbol">The futures symbol, for example `ETH`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -36,7 +46,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to trade updates
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-trade-data" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-trade-data" /><br />
+        /// Endpoint:<br />
+        /// fills
+        /// </para>
         /// </summary>
         /// <param name="symbol">The futures symbol, for example `ETH`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -46,7 +61,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to kline updates
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-k-line-utc+0" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-k-line-utc+0" /><br />
+        /// Endpoint:<br />
+        /// candles_swap_utc
+        /// </para>
         /// </summary>
         /// <param name="symbol">The futures symbol, for example `ETH`</param>
         /// <param name="interval">Kline interval</param>
@@ -57,7 +77,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to index price updates
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-index-price" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-index-price" /><br />
+        /// Endpoint:<br />
+        /// index_price
+        /// </para>
         /// </summary>
         /// <param name="symbol">The futures symbol, for example `ETH`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -67,7 +92,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to mark price updates
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-mark-price" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-mark-price" /><br />
+        /// Endpoint:<br />
+        /// mark_price
+        /// </para>
         /// </summary>
         /// <param name="symbol">The futures symbol, for example `ETH`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -77,7 +107,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to funding rate updates
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-funding-fee-rate" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/market/subscribe-funding-fee-rate" /><br />
+        /// Endpoint:<br />
+        /// funding_rate
+        /// </para>
         /// </summary>
         /// <param name="symbol">The futures symbol, for example `ETH`</param>
         /// <param name="onMessage">The event handler for the received data</param>
@@ -87,7 +122,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to user order updates
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/check/subscribe-current-orders" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/check/subscribe-current-orders" /><br />
+        /// Endpoint:<br />
+        /// order
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -96,7 +136,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to user position updates
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/position/subscribe-position" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/position/subscribe-position" /><br />
+        /// Endpoint:<br />
+        /// position
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -105,7 +150,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to user position detail updates
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/position/subscribe-position-change" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/position/subscribe-position-change" /><br />
+        /// Endpoint:<br />
+        /// position_change
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -114,7 +164,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to balance updates
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/subscribe-assets" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/assets/subscribe-assets" /><br />
+        /// Endpoint:<br />
+        /// assets
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>
@@ -123,7 +178,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Subscribe to margin configuration updates
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/subscribe-margin-mode" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/assets/subscribe-margin-mode" /><br />
+        /// Endpoint:<br />
+        /// user_setting
+        /// </para>
         /// </summary>
         /// <param name="onMessage">The event handler for the received data</param>
         /// <param name="ct">Cancellation token for closing this subscription</param>

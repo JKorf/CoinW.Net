@@ -14,7 +14,12 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
     {
         /// <summary>
         /// Place a new order
-        /// <para><a href="https://www.coinw.com/api-doc/en/spot-trading/trade/place-order" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/spot-trading/trade/place-order" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/private
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="side">Order side</param>
@@ -28,7 +33,12 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel an open order
-        /// <para><a href="https://www.coinw.com/api-doc/en/spot-trading/trade/cancel-order" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/spot-trading/trade/cancel-order" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/private
+        /// </para>
         /// </summary>
         /// <param name="orderId">Order id to cancel</param>
         /// <param name="ct">Cancellation token</param>
@@ -36,7 +46,12 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Cancel all open orders
-        /// <para><a href="https://www.coinw.com/api-doc/en/spot-trading/trade/cancel-all-orders" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/spot-trading/trade/cancel-all-orders" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/private
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
@@ -44,7 +59,12 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get open orders
-        /// <para><a href="https://www.coinw.com/api-doc/en/spot-trading/check/get-current-orders" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/spot-trading/check/get-current-orders" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/private
+        /// </para>
         /// </summary>
         /// <param name="symbol">Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="startTime">Filter by start time</param>
@@ -54,7 +74,12 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get order details
-        /// <para><a href="https://www.coinw.com/api-doc/en/spot-trading/check/get-order-details" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/spot-trading/check/get-order-details" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/private
+        /// </para>
         /// </summary>
         /// <param name="orderId">Order id</param>
         /// <param name="ct">Cancellation token</param>
@@ -62,7 +87,12 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get user order transaction history
-        /// <para><a href="https://www.coinw.com/api-doc/en/spot-trading/check/get-transaction-history" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/spot-trading/check/get-transaction-history" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/private
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETHUSDT`</param>
         /// <param name="startTime">Filter by start time</param>
@@ -72,7 +102,12 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
 
         /// <summary>
         /// Get user trades
-        /// <para><a href="https://www.coinw.com/api-doc/en/spot-trading/check/get-historical-orders" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/spot-trading/check/get-historical-orders" /><br />
+        /// Endpoint:<br />
+        /// POST /api/v1/private
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
         /// <param name="fromId">Filter by id</param>

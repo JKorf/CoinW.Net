@@ -13,7 +13,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
     {
         /// <summary>
         /// Get leverage for a position or order
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/common/get-leverage-information" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/common/get-leverage-information" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpum/positions/leverage
+        /// </para>
         /// </summary>
         /// <param name="positionId">Position id, either this or orderId should be provided</param>
         /// <param name="orderId">Order id, either this or positionId should be provided</param>
@@ -22,7 +27,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get margin rate for an open position
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/position/get-position-margin-rate" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/position/get-position-margin-rate" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpum/positions/marginRate
+        /// </para>
         /// </summary>
         /// <param name="positionId">Required for isolated positions, leave empty for cross margin</param>
         /// <param name="ct">Cancellation token</param>
@@ -30,7 +40,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get max buy/sell size
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/position/get-max-contract-size" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/position/get-max-contract-size" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpum/orders/maxSize
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH`</param>
         /// <param name="leverage">Leverage</param>
@@ -41,35 +56,60 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get max transferable quantity
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-max-transferable-balance" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-max-transferable-balance" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpum/account/available
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWValue>> GetMaxTransferableAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get balances
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-futures-account-assets" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-futures-account-assets" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpum/account/getUserAssets
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWFuturesBalance>> GetBalancesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get trading fees
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-futures-account-fees" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-futures-account-fees" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpum/account/fees
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWFees>> GetFeesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get margin configuration
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-margin-mode" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-margin-mode" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpum/positions/type
+        /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWMarginInfo>> GetMarginModeAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Set margin mode
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/set-margin-mode" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/assets/set-margin-mode" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/perpum/positions/type
+        /// </para>
         /// </summary>
         /// <param name="marginType">Margin type</param>
         /// <param name="positionCombineType">Position combine type</param>
@@ -78,7 +118,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Enable or disable mega coupon usage
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/enable-disable-mega-coupon" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/assets/enable-disable-mega-coupon" /><br />
+        /// Endpoint:<br />
+        /// POST /v1/perpum/account/almightyGoldInfo
+        /// </para>
         /// </summary>
         /// <param name="enabled">Whether to use mega coupon</param>
         /// <param name="ct">Cancellation token</param>
@@ -86,7 +131,12 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
 
         /// <summary>
         /// Get max position size
-        /// <para><a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-max-users-contract-size" /></para>
+        /// <para>
+        /// Docs:<br />
+        /// <a href="https://www.coinw.com/api-doc/en/futures-trading/assets/get-max-users-contract-size" /><br />
+        /// Endpoint:<br />
+        /// GET /v1/perpum/orders/availSize
+        /// </para>
         /// </summary>
         /// <param name="symbol">The symbol, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
