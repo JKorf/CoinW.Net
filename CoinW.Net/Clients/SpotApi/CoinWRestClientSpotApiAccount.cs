@@ -30,7 +30,7 @@ namespace CoinW.Net.Clients.SpotApi
         {
             var parameters = new ParameterCollection();
             parameters.Add("command", "returnBalances");
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/private", CoinWExchange.RateLimiter.CoinW, 1, true, 
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/private", CoinWExchange.RateLimiter.CoinW, 1, true,
                 limitGuard: new SingleLimitGuard(3, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: (def, host, key) => "returnBalances" + key));
             var result = await _baseClient.SendAsync<Dictionary<string, decimal>>(request, parameters, ct).ConfigureAwait(false);
             return result;
@@ -56,18 +56,21 @@ namespace CoinW.Net.Clients.SpotApi
         #region Get Deposit Withdrawal History
 
         /// <inheritdoc />
-        public async Task<WebCallResult<CoinWDepositWithdrawal[]>> GetDepositWithdrawalHistoryAsync(string asset, long? id = null, CancellationToken ct = default)
+        public Task<WebCallResult<CoinWDepositWithdrawal[]>> GetDepositWithdrawalHistoryAsync(string asset, long? id = null, CancellationToken ct = default)
+            => GetDepositWithdrawalHistoryAsync([asset], id, ct);
+
+        /// <inheritdoc />
+        public async Task<WebCallResult<CoinWDepositWithdrawal[]>> GetDepositWithdrawalHistoryAsync(IEnumerable<string> assets, long? id = null, CancellationToken ct = default)
         {
             var parameters = new ParameterCollection();
             parameters.Add("command", "returnDepositsWithdrawals");
-            parameters.Add("symbol", asset);
+            parameters.AddCommaSeparated("symbol", assets);
             parameters.AddOptional("id", id);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/private", CoinWExchange.RateLimiter.CoinW, 1, true, 
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/private", CoinWExchange.RateLimiter.CoinW, 1, true,
                 limitGuard: new SingleLimitGuard(3, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: (def, host, key) => "returnDepositsWithdrawals" + key));
             var result = await _baseClient.SendAsync<CoinWDepositWithdrawal[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
-
         #endregion
 
         #region Get Deposit Addresses
@@ -83,7 +86,7 @@ namespace CoinW.Net.Clients.SpotApi
             parameters.Add("command", "returnDepositAddresses");
             parameters.Add("symbolId", assetIdResult.Data);
             parameters.Add("chain", network);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/private", CoinWExchange.RateLimiter.CoinW, 1, true, 
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/private", CoinWExchange.RateLimiter.CoinW, 1, true,
                 limitGuard: new SingleLimitGuard(3, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: (def, host, key) => "returnDepositAddresses" + key));
             var result = await _baseClient.SendAsync<CoinWDepositAddress[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
@@ -105,7 +108,7 @@ namespace CoinW.Net.Clients.SpotApi
             parameters.AddOptional("memo", memo);
             parameters.AddOptionalEnum("type", type);
             parameters.AddOptionalEnumAsInt("innerToType", internalWithdrawType);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/private", CoinWExchange.RateLimiter.CoinW, 1, true, 
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/private", CoinWExchange.RateLimiter.CoinW, 1, true,
                 limitGuard: new SingleLimitGuard(3, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: (def, host, key) => "doWithdraw" + key));
             var result = await _baseClient.SendAsync<CoinWWithdrawResult>(request, parameters, ct).ConfigureAwait(false);
             return result;
@@ -121,7 +124,7 @@ namespace CoinW.Net.Clients.SpotApi
             var parameters = new ParameterCollection();
             parameters.Add("command", "cancelWithdraw");
             parameters.Add("id", withdrawalId);
-            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/private", CoinWExchange.RateLimiter.CoinW, 1, true, 
+            var request = _definitions.GetOrCreate(HttpMethod.Post, "/api/v1/private", CoinWExchange.RateLimiter.CoinW, 1, true,
                 limitGuard: new SingleLimitGuard(3, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: (def, host, key) => "cancelWithdraw" + key));
             var result = await _baseClient.SendAsync(request, parameters, ct).ConfigureAwait(false);
             return result;
