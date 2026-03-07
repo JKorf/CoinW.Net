@@ -21,21 +21,21 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// POST /v1/perpum/order
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH`</param>
-        /// <param name="side">Position side</param>
-        /// <param name="orderType">Order type</param>
-        /// <param name="quantity">Quantity</param>
-        /// <param name="leverage">Leverage</param>
-        /// <param name="price">Order price</param>
-        /// <param name="quantityUnit">Type of quantity. Defaults to contracts</param>
-        /// <param name="marginType">Margin type. Defaults to isolated margin</param>
-        /// <param name="stopLossPrice">Stop loss price</param>
-        /// <param name="takeProfitPrice">Take profit price</param>
-        /// <param name="triggerPrice">Trigger price</param>
-        /// <param name="triggerOrderType">Trigger order type</param>
-        /// <param name="goldenId">Golden Id</param>
-        /// <param name="clientOrderId">Client order id</param>
-        /// <param name="useMegaCoupon">Use mega coupon</param>
+        /// <param name="symbol">["instrument"] The symbol, for example `ETH`</param>
+        /// <param name="side">["direction"] Position side</param>
+        /// <param name="orderType">["positionType"] Order type</param>
+        /// <param name="quantity">["quantity"] Quantity</param>
+        /// <param name="leverage">["leverage"] Leverage</param>
+        /// <param name="price">["openPrice"] Order price</param>
+        /// <param name="quantityUnit">["quantityUnit"] Type of quantity. Defaults to contracts</param>
+        /// <param name="marginType">["positionModel"] Margin type. Defaults to isolated margin</param>
+        /// <param name="stopLossPrice">["stopLossPrice"] Stop loss price</param>
+        /// <param name="takeProfitPrice">["stopProfitPrice"] Take profit price</param>
+        /// <param name="triggerPrice">["triggerPrice"] Trigger price</param>
+        /// <param name="triggerOrderType">["triggerType"] Trigger order type</param>
+        /// <param name="goldenId">["goldId"] Golden Id</param>
+        /// <param name="clientOrderId">["thirdOrderId"] Client order id</param>
+        /// <param name="useMegaCoupon">["useAlmightyGold"] Use mega coupon</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWOrderId>> PlaceOrderAsync(string symbol, PositionSide side, FuturesOrderType orderType, decimal quantity, int leverage, decimal? price = null, QuantityUnit? quantityUnit = null, MarginType? marginType = null, decimal? stopLossPrice = null, decimal? takeProfitPrice = null, decimal? triggerPrice = null, TriggerOrderType? triggerOrderType = null, int? goldenId = null, string? clientOrderId = null, bool? useMegaCoupon = null, CancellationToken ct = default);
 
@@ -61,11 +61,11 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// DELETE /v1/perpum/positions
         /// </para>
         /// </summary>
-        /// <param name="positionId">Position id</param>
-        /// <param name="orderType">Order type, defaults to market order</param>
-        /// <param name="quantityToClose">Quantity in contracts to close. Either this or factorToClose should be provided</param>
-        /// <param name="factorToClose">Factor from 0 to 1 to close. For example 0.5 would close 50% of the position. Either this or quantityToClose should be provided</param>
-        /// <param name="price">Limit order price</param>
+        /// <param name="positionId">["id"] Position id</param>
+        /// <param name="orderType">["positionType"] Order type, defaults to market order</param>
+        /// <param name="quantityToClose">["closeNum"] Quantity in contracts to close. Either this or factorToClose should be provided</param>
+        /// <param name="factorToClose">["closeRate"] Factor from 0 to 1 to close. For example 0.5 would close 50% of the position. Either this or quantityToClose should be provided</param>
+        /// <param name="price">["orderPrice"] Limit order price</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWOrderId>> ClosePositionAsync(long positionId, FuturesOrderType? orderType = null, decimal? quantityToClose = null, decimal? factorToClose = null, decimal? price = null, CancellationToken ct = default);
 
@@ -91,7 +91,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// DELETE /v1/perpum/allpositions
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH`</param>
+        /// <param name="symbol">["instrument"] The symbol, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult> CloseAllPositionsAsync(string symbol, CancellationToken ct = default);
 
@@ -104,7 +104,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// POST /v1/perpum/positions/reverse
         /// </para>
         /// </summary>
-        /// <param name="positionId">Id of position to reverse</param>
+        /// <param name="positionId">["id"] Id of position to reverse</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWOrderId>> ReversePositionAsync(long positionId, CancellationToken ct = default);
 
@@ -117,9 +117,9 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// POST /v1/perpum/positions/margin
         /// </para>
         /// </summary>
-        /// <param name="positionId">Position id</param>
-        /// <param name="addMargin">Margin to add</param>
-        /// <param name="reduceMargin">Margin to reduce</param>
+        /// <param name="positionId">["id"] Position id</param>
+        /// <param name="addMargin">["addMargin"] Margin to add</param>
+        /// <param name="reduceMargin">["reduceMargin"] Margin to reduce</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult> AdjustMarginAsync(long positionId, decimal addMargin, decimal reduceMargin, CancellationToken ct = default);
 
@@ -132,14 +132,14 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// POST /v1/perpum/TPSL
         /// </para>
         /// </summary>
-        /// <param name="orderOrPositionId">Order id for an open order or position id for an open position</param>
-        /// <param name="symbol">The symbol, for example `ETH`</param>
-        /// <param name="takeProfitPrice">Take profit price</param>
-        /// <param name="takeProfitOrderPrice">Take profit order price</param>
-        /// <param name="takeProfitRate">Take profit rate</param>
-        /// <param name="stopLossPrice">Stop loss price</param>
-        /// <param name="stopLossOrderPrice">Stop loss order price</param>
-        /// <param name="stopLossRate">Stop loss rate</param>
+        /// <param name="orderOrPositionId">["id"] Order id for an open order or position id for an open position</param>
+        /// <param name="symbol">["instrument"] The symbol, for example `ETH`</param>
+        /// <param name="takeProfitPrice">["stopProfitPrice"] Take profit price</param>
+        /// <param name="takeProfitOrderPrice">["stopProfitOrderPrice"] Take profit order price</param>
+        /// <param name="takeProfitRate">["stopProfitRate"] Take profit rate</param>
+        /// <param name="stopLossPrice">["stopLossPrice"] Stop loss price</param>
+        /// <param name="stopLossOrderPrice">["stopLossOrderPrice"] Stop loss order price</param>
+        /// <param name="stopLossRate">["stopLossRate"] Stop loss rate</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult> SetTpSlAsync(long orderOrPositionId, string symbol, decimal? takeProfitPrice = null, decimal? takeProfitOrderPrice = null, decimal? takeProfitRate = null, decimal? stopLossPrice = null, decimal? stopLossOrderPrice = null, decimal? stopLossRate = null, CancellationToken ct = default);
 
@@ -152,11 +152,11 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// POST /v1/perpum/moveTPSL
         /// </para>
         /// </summary>
-        /// <param name="positionId">Position id</param>
-        /// <param name="callbackRate">Callback rate, with a valid range from 0 to 1. For example: 0.5 represents a 50% callback rate</param>
-        /// <param name="triggerPrice">Trigger price</param>
-        /// <param name="quantity">Quantity</param>
-        /// <param name="quantityType">Quantity type, defaults to contracts</param>
+        /// <param name="positionId">["openId"] Position id</param>
+        /// <param name="callbackRate">["callbackRate"] Callback rate, with a valid range from 0 to 1. For example: 0.5 represents a 50% callback rate</param>
+        /// <param name="triggerPrice">["triggerPrice"] Trigger price</param>
+        /// <param name="quantity">["quantity"] Quantity</param>
+        /// <param name="quantityType">["quantityUnit"] Quantity type, defaults to contracts</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult> SetTrailingTpSlAsync(long positionId, decimal callbackRate, decimal? triggerPrice = null, decimal? quantity = null, QuantityUnit? quantityType = null, CancellationToken ct = default);
 
@@ -170,21 +170,21 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// </para>
         /// </summary>
         /// <param name="orderId">Id of the order to edit</param>
-        /// <param name="symbol">The symbol, for example `ETH`</param>
-        /// <param name="side">Position side</param>
-        /// <param name="orderType">Order type</param>
-        /// <param name="quantity">Quantity</param>
-        /// <param name="leverage">Leverage</param>
-        /// <param name="price">Order price</param>
-        /// <param name="quantityUnit">Type of quantity. Defaults to contracts</param>
-        /// <param name="marginType">Margin type. Defaults to isolated margin</param>
-        /// <param name="stopLossPrice">Stop loss price</param>
-        /// <param name="takeProfitPrice">Take profit price</param>
-        /// <param name="triggerPrice">Trigger price</param>
-        /// <param name="triggerOrderType">Trigger order type</param>
-        /// <param name="goldenId">Golden Id</param>
-        /// <param name="clientOrderId">Client order id</param>
-        /// <param name="useMegaCoupon">Use mega coupon</param>
+        /// <param name="symbol">["instrument"] The symbol, for example `ETH`</param>
+        /// <param name="side">["direction"] Position side</param>
+        /// <param name="orderType">["positionType"] Order type</param>
+        /// <param name="quantity">["quantity"] Quantity</param>
+        /// <param name="leverage">["leverage"] Leverage</param>
+        /// <param name="price">["openPrice"] Order price</param>
+        /// <param name="quantityUnit">["quantityUnit"] Type of quantity. Defaults to contracts</param>
+        /// <param name="marginType">["positionModel"] Margin type. Defaults to isolated margin</param>
+        /// <param name="stopLossPrice">["stopLossPrice"] Stop loss price</param>
+        /// <param name="takeProfitPrice">["stopProfitPrice"] Take profit price</param>
+        /// <param name="triggerPrice">["triggerPrice"] Trigger price</param>
+        /// <param name="triggerOrderType">["triggerType"] Trigger order type</param>
+        /// <param name="goldenId">["goldId"] Golden Id</param>
+        /// <param name="clientOrderId">["thirdOrderId"] Client order id</param>
+        /// <param name="useMegaCoupon">["useAlmightyGold"] Use mega coupon</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWEditResult>> EditOrderAsync(long orderId, string symbol, PositionSide side, FuturesOrderType orderType, decimal quantity, int leverage, decimal? price = null, QuantityUnit? quantityUnit = null, MarginType? marginType = null, decimal? stopLossPrice = null, decimal? takeProfitPrice = null, decimal? triggerPrice = null, TriggerOrderType? triggerOrderType = null, int? goldenId = null, string? clientOrderId = null, bool? useMegaCoupon = null, CancellationToken ct = default);
 
@@ -197,7 +197,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// DELETE /v1/perpum/order
         /// </para>
         /// </summary>
-        /// <param name="orderId">Order id</param>
+        /// <param name="orderId">["id"] Order id</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult> CancelOrderAsync(long orderId, CancellationToken ct = default);
 
@@ -210,7 +210,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// DELETE /v1/perpum/batchOrders
         /// </para>
         /// </summary>
-        /// <param name="orderIds">Order ids to cancel, max 20</param>
+        /// <param name="orderIds">["sourceIds"] Order ids to cancel, max 20</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult> CancelOrdersAsync(IEnumerable<long> orderIds, CancellationToken ct = default);
 
@@ -223,10 +223,10 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// GET /v1/perpum/orders/open
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH`</param>
-        /// <param name="orderType">Order type</param>
-        /// <param name="page">Page number</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="symbol">["instrument"] The symbol, for example `ETH`</param>
+        /// <param name="orderType">["positionType"] Order type</param>
+        /// <param name="page">["page"] Page number</param>
+        /// <param name="pageSize">["pageSize"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWFuturesOrderPage>> GetOpenOrdersAsync(string symbol, FuturesOrderType orderType, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
@@ -239,9 +239,9 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// GET /v1/perpum/order
         /// </para>
         /// </summary>
-        /// <param name="orderType">Order type</param>
-        /// <param name="symbol">Filter by symbol, for example `ETH`</param>
-        /// <param name="orderIds">Filter by order ids</param>
+        /// <param name="orderType">["positionType"] Order type</param>
+        /// <param name="symbol">["instrument"] Filter by symbol, for example `ETH`</param>
+        /// <param name="orderIds">["sourceIds"] Filter by order ids</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWFuturesOrder[]>> GetOpenOrdersAsync(FuturesOrderType orderType, string? symbol = null, IEnumerable<long>? orderIds = null, CancellationToken ct = default);
 
@@ -266,10 +266,10 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// GET /v1/perpum/TPSL
         /// </para>
         /// </summary>
-        /// <param name="orderId">Order id</param>
-        /// <param name="positionId">Position id</param>
-        /// <param name="planOrderId">Plan order id</param>
-        /// <param name="symbol">The symbol, for example `ETH`</param>
+        /// <param name="orderId">["orderId"] Order id</param>
+        /// <param name="positionId">["openId"] Position id</param>
+        /// <param name="planOrderId">["planOrderId"] Plan order id</param>
+        /// <param name="symbol">["instrument"] The symbol, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWTpSl[]>> GetTpSlAsync(long? orderId = null, long? positionId = null, long? planOrderId = null, string? symbol = null, CancellationToken ct = default);
 
@@ -294,10 +294,10 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// GET /v1/perpum/orders/history
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH`</param>
-        /// <param name="orderType">Order type filed</param>
-        /// <param name="page">Page number</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="symbol">["instrument"] The symbol, for example `ETH`</param>
+        /// <param name="orderType">["originType"] Order type filed</param>
+        /// <param name="page">["page"] Page number</param>
+        /// <param name="pageSize">["pageSize"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWHistOrderPage>> GetOrderHistory7DaysAsync(string? symbol = null, FuturesOrderType? orderType = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
@@ -310,10 +310,10 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// GET /v1/perpum/orders/archive
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH`</param>
-        /// <param name="orderType">Order type filed</param>
-        /// <param name="page">Page number</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="symbol">["instrument"] The symbol, for example `ETH`</param>
+        /// <param name="orderType">["originType"] Order type filed</param>
+        /// <param name="page">["page"] Page number</param>
+        /// <param name="pageSize">["pageSize"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWHistOrderPage>> GetOrderHistory3MonthsAsync(string? symbol = null, FuturesOrderType? orderType = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
@@ -326,7 +326,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// GET /v1/perpum/positions
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH`</param>
+        /// <param name="symbol">["instrument"] The symbol, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWPosition[]>> GetPositionsAsync(string symbol, CancellationToken ct = default);
 
@@ -339,8 +339,8 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// GET /v1/perpum/positions/history
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH`</param>
-        /// <param name="marginType">Margin type</param>
+        /// <param name="symbol">["instrument"] The symbol, for example `ETH`</param>
+        /// <param name="marginType">["positionModel"] Margin type</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWPositionHistoryPage>> GetPositionHistoryAsync(string? symbol = null, MarginType? marginType = null, CancellationToken ct = default);
 
@@ -365,11 +365,11 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// GET /v1/perpum/orders/deals
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH`</param>
-        /// <param name="orderType">Filter by order type</param>
-        /// <param name="marginType">Filter by margin type</param>
-        /// <param name="page">page number</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="symbol">["instrument"] The symbol, for example `ETH`</param>
+        /// <param name="orderType">["originType"] Filter by order type</param>
+        /// <param name="marginType">["positionModel"] Filter by margin type</param>
+        /// <param name="page">["page"] page number</param>
+        /// <param name="pageSize">["pageSize"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWFuturesTransactionPage>> GetTransactionHistory3DaysAsync(string symbol, OrderType? orderType = null, MarginType? marginType = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
@@ -382,11 +382,11 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// GET /v1/perpum/orders/deals/history
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH`</param>
-        /// <param name="orderType">Filter by order type</param>
-        /// <param name="marginType">Filter by margin type</param>
-        /// <param name="page">page number</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="symbol">["instrument"] The symbol, for example `ETH`</param>
+        /// <param name="orderType">["originType"] Filter by order type</param>
+        /// <param name="marginType">["positionModel"] Filter by margin type</param>
+        /// <param name="page">["page"] page number</param>
+        /// <param name="pageSize">["pageSize"] Page size</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWFuturesTransactionPage>> GetTransactionHistory3MonthsAsync(string symbol, OrderType? orderType = null, MarginType? marginType = null, int? page = null, int? pageSize = null, CancellationToken ct = default);
 

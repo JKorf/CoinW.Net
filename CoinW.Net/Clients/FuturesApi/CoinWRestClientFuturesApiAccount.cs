@@ -62,7 +62,7 @@ namespace CoinW.Net.Clients.FuturesApi
             parameters.Add("instrument", symbol);
             parameters.Add("leverage", leverage);
             parameters.AddEnum("positionModel", marginType);
-            parameters.Add("orderPRice", orderPrice);
+            parameters.Add("orderPrice", orderPrice);
             var request = _definitions.GetOrCreate(HttpMethod.Get, "/v1/perpum/orders/maxSize", CoinWExchange.RateLimiter.CoinW, 1, true, 
                 limitGuard: new SingleLimitGuard(8, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<CoinWMaxTrade>(request, parameters, ct).ConfigureAwait(false);

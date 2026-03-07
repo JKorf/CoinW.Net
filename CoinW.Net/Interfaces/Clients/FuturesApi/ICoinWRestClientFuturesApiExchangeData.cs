@@ -21,7 +21,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// GET /v1/perpum/instruments
         /// </para>
         /// </summary>
-        /// <param name="symbol">Filter by symbol name, for example `ETH`</param>
+        /// <param name="symbol">["name"] Filter by symbol name, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWFuturesSymbol[]>> GetSymbolsAsync(string? symbol = null, CancellationToken ct = default);
 
@@ -34,7 +34,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// GET /v1/perpumPublic/ticker
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH`</param>
+        /// <param name="symbol">["instrument"] The symbol, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWFuturesTicker>> GetTickerAsync(string symbol, CancellationToken ct = default);
 
@@ -59,11 +59,11 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// GET /v1/perpumPublic/klines
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH`</param>
-        /// <param name="interval">Kline interval</param>
-        /// <param name="limit">Max number of results</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
+        /// <param name="symbol">["currencyCode"] The symbol, for example `ETH`</param>
+        /// <param name="interval">["granularity"] Kline interval</param>
+        /// <param name="limit">["limit"] Max number of results</param>
+        /// <param name="startTime">["sinceStr"] Filter by start time</param>
+        /// <param name="endTime">["sinceEndStr"] Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWFuturesKline[]>> GetKlinesAsync(
             string symbol,
@@ -82,7 +82,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// GET /v1/perpum/fundingRate
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH`</param>
+        /// <param name="symbol">["instrument"] The symbol, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWValue>> GetLastFundingRateAsync(string symbol, CancellationToken ct = default);
 
@@ -95,7 +95,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// GET /v1/perpumPublic/depth
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH`</param>
+        /// <param name="symbol">["base"] The symbol, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWFuturesOrderBook>> GetOrderBookAsync(string symbol, CancellationToken ct = default);
 
@@ -108,7 +108,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// GET /v1/perpumPublic/trades
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH`</param>
+        /// <param name="symbol">["base"] The symbol, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWFuturesTrade[]>> GetRecentTradesAsync(string symbol, CancellationToken ct = default);
 
@@ -133,9 +133,9 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// GET /v1/perpum/orders/trades
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH`</param>
-        /// <param name="page">Page number</param>
-        /// <param name="pageSize">Page size, max 500</param>
+        /// <param name="symbol">["instrument"] The symbol, for example `ETH`</param>
+        /// <param name="page">["page"] Page number</param>
+        /// <param name="pageSize">["pageSize"] Page size, max 500</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWTradeHistory>> GetTradeHistoryAsync(string symbol, int? page = null, int? pageSize = null, CancellationToken ct = default);
 

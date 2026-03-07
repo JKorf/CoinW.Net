@@ -20,8 +20,8 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// GET /v1/perpum/positions/leverage
         /// </para>
         /// </summary>
-        /// <param name="positionId">Position id, either this or orderId should be provided</param>
-        /// <param name="orderId">Order id, either this or positionId should be provided</param>
+        /// <param name="positionId">["positionId"] Position id, either this or orderId should be provided</param>
+        /// <param name="orderId">["orderId"] Order id, either this or positionId should be provided</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWValue>> GetLeverageAsync(long? positionId = null, long? orderId = null, CancellationToken ct = default);
 
@@ -34,7 +34,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// GET /v1/perpum/positions/marginRate
         /// </para>
         /// </summary>
-        /// <param name="positionId">Required for isolated positions, leave empty for cross margin</param>
+        /// <param name="positionId">["positionId"] Required for isolated positions, leave empty for cross margin</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWValue>> GetMarginRateAsync(long positionId, CancellationToken ct = default);
 
@@ -47,10 +47,10 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// GET /v1/perpum/orders/maxSize
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH`</param>
-        /// <param name="leverage">Leverage</param>
-        /// <param name="marginType">Margin type</param>
-        /// <param name="orderPrice">Order price to use for calculation</param>
+        /// <param name="symbol">["instrument"] The symbol, for example `ETH`</param>
+        /// <param name="leverage">["leverage"] Leverage</param>
+        /// <param name="marginType">["positionModel"] Margin type</param>
+        /// <param name="orderPrice">["orderPrice"] Order price to use for calculation</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWMaxTrade>> GetMaxTradeSizeAsync(string symbol, int leverage, MarginType marginType, decimal orderPrice, CancellationToken ct = default);
 
@@ -111,8 +111,8 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// POST /v1/perpum/positions/type
         /// </para>
         /// </summary>
-        /// <param name="marginType">Margin type</param>
-        /// <param name="positionCombineType">Position combine type</param>
+        /// <param name="marginType">["positionModel"] Margin type</param>
+        /// <param name="positionCombineType">["layout"] Position combine type</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult> SetMarginModeAsync(MarginType marginType, PositionCombineType positionCombineType, CancellationToken ct = default);
 
@@ -125,7 +125,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// POST /v1/perpum/account/almightyGoldInfo
         /// </para>
         /// </summary>
-        /// <param name="enabled">Whether to use mega coupon</param>
+        /// <param name="enabled">["status"] Whether to use mega coupon</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult> ToggleMegaCouponAsync(bool enabled, CancellationToken ct = default);
 
@@ -138,7 +138,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// GET /v1/perpum/orders/availSize
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH`</param>
+        /// <param name="symbol">["instrument"] The symbol, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWMaxPosition>> GetMaxPositionSizeAsync(string symbol, CancellationToken ct = default);
 

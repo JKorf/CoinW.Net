@@ -57,8 +57,8 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         /// GET /api/v1/public
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
-        /// <param name="limit">Number of rows, either 5 or 20</param>
+        /// <param name="symbol">["symbol"] The symbol, for example `ETH_USDT`</param>
+        /// <param name="limit">["size"] Number of rows, either 5 or 20</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWOrderBook>> GetOrderBookAsync(string symbol, int? limit = null, CancellationToken ct = default);
 
@@ -71,9 +71,9 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         /// GET /api/v1/public
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
+        /// <param name="symbol">["symbol"] The symbol, for example `ETH_USDT`</param>
+        /// <param name="startTime">["start"] Filter by start time</param>
+        /// <param name="endTime">["end"] Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWTrade[]>> GetRecentTradesAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
 
@@ -86,10 +86,10 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         /// GET /api/v1/public
         /// </para>
         /// </summary>
-        /// <param name="symbol">The symbol, for example `ETH_USDT`</param>
-        /// <param name="interval">Kline interval</param>
-        /// <param name="startTime">Filter by start time</param>
-        /// <param name="endTime">Filter by end time</param>
+        /// <param name="symbol">["currencyPair"] The symbol, for example `ETH_USDT`</param>
+        /// <param name="interval">["period"] Kline interval</param>
+        /// <param name="startTime">["start"] Filter by start time</param>
+        /// <param name="endTime">["end"] Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
         Task<WebCallResult<CoinWKline[]>> GetKlinesAsync( string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
 
