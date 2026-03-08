@@ -1,4 +1,4 @@
-﻿using CoinW.Net.Enums;
+using CoinW.Net.Enums;
 using System;
 using System.Text.Json.Serialization;
 
@@ -7,7 +7,7 @@ namespace CoinW.Net.Objects.Models
     internal record CoinWUserTradeWrapper
     {
         /// <summary>
-        /// List
+        /// ["<c>list</c>"] List
         /// </summary>
         [JsonPropertyName("list")]
         public CoinWUserTrade[] List { get; set; } = [];
@@ -19,42 +19,42 @@ namespace CoinW.Net.Objects.Models
     public record CoinWUserTrade
     {
         /// <summary>
-        /// Order type
+        /// ["<c>orderType</c>"] Order type
         /// </summary>
         [JsonPropertyName("orderType")]
         public OrderType OrderType { get; set; }
         /// <summary>
-        /// Order id
+        /// ["<c>orderId</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderId")]
         public long OrderId { get; set; }
         /// <summary>
-        /// Fee
+        /// ["<c>fee</c>"] Fee
         /// </summary>
         [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
         /// <summary>
-        /// Trade price
+        /// ["<c>price</c>"] Trade price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Trade quantity
+        /// ["<c>size</c>"] Trade quantity
         /// </summary>
         [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Order side
+        /// ["<c>side</c>"] Order side
         /// </summary>
         [JsonPropertyName("side")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Trade time
+        /// ["<c>time</c>"] Trade time
         /// </summary>
         [JsonPropertyName("time")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Trade id
+        /// ["<c>tradeId</c>"] Trade id
         /// </summary>
         [JsonPropertyName("tradeId")]
         public long TradeId { get; set; }

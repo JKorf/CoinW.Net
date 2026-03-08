@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace CoinW.Net.Objects.Models
 {
@@ -8,42 +8,42 @@ namespace CoinW.Net.Objects.Models
     public record CoinWAsset
     {
         /// <summary>
-        /// Id
+        /// ["<c>symbolId</c>"] Id
         /// </summary>
         [JsonPropertyName("symbolId")]
         public int Id { get; set; }
         /// <summary>
-        /// Asset
+        /// ["<c>symbol</c>"] Asset
         /// </summary>
         [JsonPropertyName("symbol")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Withdrawal enabled
+        /// ["<c>withDraw</c>"] Withdrawal enabled
         /// </summary>
         [JsonPropertyName("withDraw")]
         public bool WithdrawEnabled { get; set; }
         /// <summary>
-        /// Deposits enabled
+        /// ["<c>recharge</c>"] Deposits enabled
         /// </summary>
         [JsonPropertyName("recharge")]
         public bool DepositEnabled { get; set; }
         /// <summary>
-        /// Max withdrawal quantity
+        /// ["<c>maxQty</c>"] Max withdrawal quantity
         /// </summary>
         [JsonPropertyName("maxQty")]
         public decimal MaxWithdrawQuantity { get; set; }
         /// <summary>
-        /// Min withdrawal quantity
+        /// ["<c>minQty</c>"] Min withdrawal quantity
         /// </summary>
         [JsonPropertyName("minQty")]
         public decimal MinWithdrawQuantity { get; set; }
         /// <summary>
-        /// Transaction fee
+        /// ["<c>txFee</c>"] Transaction fee
         /// </summary>
         [JsonPropertyName("txFee")]
         public decimal? TransactionFee { get; set; }
         /// <summary>
-        /// Network
+        /// ["<c>chain</c>"] Network
         /// </summary>
         [JsonPropertyName("chain")]
         public string Network { get; set; } = string.Empty;

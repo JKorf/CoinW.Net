@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace CoinW.Net.Objects.Models
 {
@@ -8,12 +8,12 @@ namespace CoinW.Net.Objects.Models
     public record CoinWMaxTrade
     {
         /// <summary>
-        /// Max buy quantity in number of contracts
+        /// ["<c>maxBuy</c>"] Max buy quantity in number of contracts
         /// </summary>
         [JsonPropertyName("maxBuy")]
         public int MaxBuy { get; set; }
         /// <summary>
-        /// Max sell quantity in number of contracts
+        /// ["<c>maxSell</c>"] Max sell quantity in number of contracts
         /// </summary>
         [JsonPropertyName("maxSell")]
         public int MaxSell { get; set; }

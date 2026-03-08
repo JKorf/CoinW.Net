@@ -1,4 +1,4 @@
-﻿using CoinW.Net.Enums;
+using CoinW.Net.Enums;
 using System.Text.Json.Serialization;
 
 namespace CoinW.Net.Objects.Models
@@ -9,12 +9,12 @@ namespace CoinW.Net.Objects.Models
     public record CoinWMarginInfo
     {
         /// <summary>
-        /// Position combine type
+        /// ["<c>layout</c>"] Position combine type
         /// </summary>
         [JsonPropertyName("layout")]
         public PositionCombineType PositionCombineType { get; set; }
         /// <summary>
-        /// MarginType
+        /// ["<c>positionModel</c>"] MarginType
         /// </summary>
         [JsonPropertyName("positionModel")]
         public MarginType MarginType { get; set; }

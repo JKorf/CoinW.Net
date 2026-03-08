@@ -1,4 +1,4 @@
-﻿using CoinW.Net.Enums;
+using CoinW.Net.Enums;
 using System;
 using System.Text.Json.Serialization;
 
@@ -10,22 +10,22 @@ namespace CoinW.Net.Objects.Models
     public record CoinWFuturesTransactionPage
     {
         /// <summary>
-        /// Next id
+        /// ["<c>nextId</c>"] Next id
         /// </summary>
         [JsonPropertyName("nextId")]
         public long NextId { get; set; }
         /// <summary>
-        /// Prev id
+        /// ["<c>prevId</c>"] Prev id
         /// </summary>
         [JsonPropertyName("prevId")]
         public long PrevId { get; set; }
         /// <summary>
-        /// Rows
+        /// ["<c>rows</c>"] Rows
         /// </summary>
         [JsonPropertyName("rows")]
         public CoinWFuturesTransaction[] Rows { get; set; } = [];
         /// <summary>
-        /// Total number of results
+        /// ["<c>total</c>"] Total number of results
         /// </summary>
         [JsonPropertyName("total")]
         public decimal Total { get; set; }
@@ -37,187 +37,187 @@ namespace CoinW.Net.Objects.Models
     public record CoinWFuturesTransaction
     {
         /// <summary>
-        /// Quantity in base asset
+        /// ["<c>baseSize</c>"] Quantity in base asset
         /// </summary>
         [JsonPropertyName("baseSize")]
         public decimal BaseQuantity { get; set; }
         /// <summary>
-        /// Price at which the position was closed
+        /// ["<c>closePrice</c>"] Price at which the position was closed
         /// </summary>
         [JsonPropertyName("closePrice")]
         public decimal? ClosePrice { get; set; }
         /// <summary>
-        /// Closed number of contracts
+        /// ["<c>closedPiece</c>"] Closed number of contracts
         /// </summary>
         [JsonPropertyName("closedPiece")]
         public decimal QuantityClosed { get; set; }
         /// <summary>
-        /// Contract type
+        /// ["<c>contractType</c>"] Contract type
         /// </summary>
         [JsonPropertyName("contractType")]
         public ContractType ContractType { get; set; }
         /// <summary>
-        /// Created time
+        /// ["<c>createdDate</c>"] Created time
         /// </summary>
         [JsonPropertyName("createdDate")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Open quantity in number of contracts
+        /// ["<c>currentPiece</c>"] Open quantity in number of contracts
         /// </summary>
         [JsonPropertyName("currentPiece")]
         public decimal QuantityOpen { get; set; }
         /// <summary>
-        /// Position side
+        /// ["<c>direction</c>"] Position side
         /// </summary>
         [JsonPropertyName("direction")]
         public PositionSide PositionSide { get; set; }
         /// <summary>
-        /// Fee
+        /// ["<c>fee</c>"] Fee
         /// </summary>
         [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
         /// <summary>
-        /// Fee rate
+        /// ["<c>feeRate</c>"] Fee rate
         /// </summary>
         [JsonPropertyName("feeRate")]
         public decimal FeeRate { get; set; }
         /// <summary>
-        /// Funding fee
+        /// ["<c>fundingFee</c>"] Funding fee
         /// </summary>
         [JsonPropertyName("fundingFee")]
         public decimal FundingFee { get; set; }
         /// <summary>
-        /// Funding settled
+        /// ["<c>fundingSettle</c>"] Funding settled
         /// </summary>
         [JsonPropertyName("fundingSettle")]
         public decimal FundingSettled { get; set; }
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Symbol name
+        /// ["<c>instrument</c>"] Symbol name
         /// </summary>
         [JsonPropertyName("instrument")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Leverage
+        /// ["<c>leverage</c>"] Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
         public int Leverage { get; set; }
         /// <summary>
-        /// Liquidate by
+        /// ["<c>liquidateBy</c>"] Liquidate by
         /// </summary>
         [JsonPropertyName("liquidateBy")]
         public string LiquidateBy { get; set; } = string.Empty;
         /// <summary>
-        /// Margin
+        /// ["<c>margin</c>"] Margin
         /// </summary>
         [JsonPropertyName("margin")]
         public decimal Margin { get; set; }
         /// <summary>
-        /// Realized net profit and loss
+        /// ["<c>netProfit</c>"] Realized net profit and loss
         /// </summary>
         [JsonPropertyName("netProfit")]
         public decimal RealizedPnl { get; set; }
         /// <summary>
-        /// Position id
+        /// ["<c>openId</c>"] Position id
         /// </summary>
         [JsonPropertyName("openId")]
         public long PositionId { get; set; }
         /// <summary>
-        /// Open price
+        /// ["<c>openPrice</c>"] Open price
         /// </summary>
         [JsonPropertyName("openPrice")]
         public decimal? OpenPrice { get; set; }
         /// <summary>
-        /// Order id
+        /// ["<c>orderId</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderId")]
         public long OrderId { get; set; }
         /// <summary>
-        /// Order price
+        /// ["<c>orderPrice</c>"] Order price
         /// </summary>
         [JsonPropertyName("orderPrice")]
         public decimal OrderPrice { get; set; }
         /// <summary>
-        /// Order status
+        /// ["<c>orderStatus</c>"] Order status
         /// </summary>
         [JsonPropertyName("orderStatus")]
         public FuturesOrderStatus OrderStatus { get; set; }
         /// <summary>
-        /// Original order type
+        /// ["<c>originalType</c>"] Original order type
         /// </summary>
         [JsonPropertyName("originalType")]
         public FuturesOrderType OriginalOrderType { get; set; }
         /// <summary>
-        /// Position margin
+        /// ["<c>positionMargin</c>"] Position margin
         /// </summary>
         [JsonPropertyName("positionMargin")]
         public decimal PositionMargin { get; set; }
         /// <summary>
-        /// Margin type
+        /// ["<c>positionModel</c>"] Margin type
         /// </summary>
         [JsonPropertyName("positionModel")]
         public decimal MarginType { get; set; }
         /// <summary>
-        /// Process status
+        /// ["<c>processStatus</c>"] Process status
         /// </summary>
         [JsonPropertyName("processStatus")]
         public ProcessingStatus ProcessStatus { get; set; }
         /// <summary>
-        /// Order quantity in QuantityUnit
+        /// ["<c>quantity</c>"] Order quantity in QuantityUnit
         /// </summary>
         [JsonPropertyName("quantity")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Quantity unit
+        /// ["<c>quantityUnit</c>"] Quantity unit
         /// </summary>
         [JsonPropertyName("quantityUnit")]
         public QuantityUnit QuantityUnit { get; set; }
         /// <summary>
-        /// Source
+        /// ["<c>source</c>"] Source
         /// </summary>
         [JsonPropertyName("source")]
         public string Source { get; set; } = string.Empty;
         /// <summary>
-        /// Status
+        /// ["<c>status</c>"] Status
         /// </summary>
         [JsonPropertyName("status")]
         public TrailingOrderStatus Status { get; set; }
         /// <summary>
-        /// Trade role
+        /// ["<c>takerMaker</c>"] Trade role
         /// </summary>
         [JsonPropertyName("takerMaker")]
         public Role Role { get; set; }
         /// <summary>
-        /// Client order id
+        /// ["<c>thirdOrderId</c>"] Client order id
         /// </summary>
         [JsonPropertyName("thirdOrderId")]
         public string ClientOrderId { get; set; } = string.Empty;
         /// <summary>
-        /// Total quantity in contracts
+        /// ["<c>totalPiece</c>"] Total quantity in contracts
         /// </summary>
         [JsonPropertyName("totalPiece")]
         public decimal TotalQuantity { get; set; }
         /// <summary>
-        /// Trigger price
+        /// ["<c>triggerPrice</c>"] Trigger price
         /// </summary>
         [JsonPropertyName("triggerPrice")]
         public decimal? TriggerPrice { get; set; }
         /// <summary>
-        /// Trigger type
+        /// ["<c>triggerType</c>"] Trigger type
         /// </summary>
         [JsonPropertyName("triggerType")]
         public TriggerOrderType? TriggerType { get; set; }
         /// <summary>
-        /// Update time
+        /// ["<c>updatedDate</c>"] Update time
         /// </summary>
         [JsonPropertyName("updatedDate")]
         public DateTime UpdateTime { get; set; }
         /// <summary>
-        /// User id
+        /// ["<c>userId</c>"] User id
         /// </summary>
         [JsonPropertyName("userId")]
         public long UserId { get; set; }

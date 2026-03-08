@@ -1,11 +1,11 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace CoinW.Net.Objects.Models
 {
     internal record CoinWMarginRequirementWrapper
     {
         /// <summary>
-        /// Ladder config
+        /// ["<c>ladderConfig</c>"] Ladder config
         /// </summary>
         [JsonPropertyName("ladderConfig")]
         public CoinWMarginRequirement[] LadderConfig { get; set; } = [];
@@ -17,12 +17,12 @@ namespace CoinW.Net.Objects.Models
     public record CoinWMarginRequirement
     {
         /// <summary>
-        /// Symbol
+        /// ["<c>name</c>"] Symbol
         /// </summary>
         [JsonPropertyName("name")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Ladder list
+        /// ["<c>ladderList</c>"] Ladder list
         /// </summary>
         [JsonPropertyName("ladderList")]
         public CoinWMarginRequirementTier[] Tiers { get; set; } = [];
@@ -34,42 +34,42 @@ namespace CoinW.Net.Objects.Models
     public record CoinWMarginRequirementTier
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Symbol
+        /// ["<c>instrument</c>"] Symbol
         /// </summary>
         [JsonPropertyName("instrument")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Tier
+        /// ["<c>ladder</c>"] Tier
         /// </summary>
         [JsonPropertyName("ladder")]
         public decimal Tier { get; set; }
         /// <summary>
-        /// Last tier
+        /// ["<c>lastLadder</c>"] Last tier
         /// </summary>
         [JsonPropertyName("lastLadder")]
         public bool IsLastTier { get; set; }
         /// <summary>
-        /// Margin keep rate
+        /// ["<c>marginKeepRate</c>"] Margin keep rate
         /// </summary>
         [JsonPropertyName("marginKeepRate")]
         public decimal MarginKeepRate { get; set; }
         /// <summary>
-        /// Maintenance margin rate
+        /// ["<c>marginStartRate</c>"] Maintenance margin rate
         /// </summary>
         [JsonPropertyName("marginStartRate")]
         public decimal MaintenanceMarginRate { get; set; }
         /// <summary>
-        /// Max leverage
+        /// ["<c>maxLeverage</c>"] Max leverage
         /// </summary>
         [JsonPropertyName("maxLeverage")]
         public decimal MaxLeverage { get; set; }
         /// <summary>
-        /// Max position size
+        /// ["<c>maxPiece</c>"] Max position size
         /// </summary>
         [JsonPropertyName("maxPiece")]
         public decimal MaxPositionSize { get; set; }

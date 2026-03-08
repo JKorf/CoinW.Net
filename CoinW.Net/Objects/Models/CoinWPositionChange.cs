@@ -1,4 +1,4 @@
-﻿using CoinW.Net.Enums;
+using CoinW.Net.Enums;
 using System;
 using System.Text.Json.Serialization;
 
@@ -10,182 +10,182 @@ namespace CoinW.Net.Objects.Models
     public record CoinWPositionChange
     {
         /// <summary>
-        /// Current position size in contracts
+        /// ["<c>currentPiece</c>"] Current position size in contracts
         /// </summary>
         [JsonPropertyName("currentPiece")]
         public decimal PositionSize { get; set; }
         /// <summary>
-        /// Is profession
+        /// ["<c>isProfession</c>"] Is profession
         /// </summary>
         [JsonPropertyName("isProfession")]
         public int IsProfession { get; set; }
         /// <summary>
-        /// Leverage
+        /// ["<c>leverage</c>"] Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
         public int Leverage { get; set; }
         /// <summary>
-        /// Original order type
+        /// ["<c>originalType</c>"] Original order type
         /// </summary>
         [JsonPropertyName("originalType")]
         public FuturesOrderType OriginalOrderType { get; set; }
         /// <summary>
-        /// Order id
+        /// ["<c>orderId</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderId")]
         public long OrderId { get; set; }
         /// <summary>
-        /// Contract type
+        /// ["<c>contractType</c>"] Contract type
         /// </summary>
         [JsonPropertyName("contractType")]
         public ContractType ContractType { get; set; }
         /// <summary>
-        /// Position id
+        /// ["<c>openId</c>"] Position id
         /// </summary>
         [JsonPropertyName("openId")]
         public long PositionId { get; set; }
         /// <summary>
-        /// Fee
+        /// ["<c>fee</c>"] Fee
         /// </summary>
         [JsonPropertyName("fee")]
         public decimal Fee { get; set; }
         /// <summary>
-        /// Open price
+        /// ["<c>openPrice</c>"] Open price
         /// </summary>
         [JsonPropertyName("openPrice")]
         public decimal OpenPrice { get; set; }
         /// <summary>
-        /// Order status
+        /// ["<c>orderStatus</c>"] Order status
         /// </summary>
         [JsonPropertyName("orderStatus")]
         public FuturesOrderStatus OrderStatus { get; set; }
         /// <summary>
-        /// Symbol name
+        /// ["<c>instrument</c>"] Symbol name
         /// </summary>
         [JsonPropertyName("instrument")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Quantity unit
+        /// ["<c>quantityUnit</c>"] Quantity unit
         /// </summary>
         [JsonPropertyName("quantityUnit")]
         public QuantityUnit QuantityUnit { get; set; }
         /// <summary>
-        /// Source
+        /// ["<c>source</c>"] Source
         /// </summary>
         [JsonPropertyName("source")]
         public string Source { get; set; } = string.Empty;
         /// <summary>
-        /// Update time
+        /// ["<c>updatedDate</c>"] Update time
         /// </summary>
         [JsonPropertyName("updatedDate")]
         public DateTime UpdateTime { get; set; }
         /// <summary>
-        /// Marin type
+        /// ["<c>positionModel</c>"] Marin type
         /// </summary>
         [JsonPropertyName("positionModel")]
         public MarginType MarginType { get; set; }
         /// <summary>
-        /// Fee rate
+        /// ["<c>feeRate</c>"] Fee rate
         /// </summary>
         [JsonPropertyName("feeRate")]
         public decimal FeeRate { get; set; }
         /// <summary>
-        /// Realized net profit and loss
+        /// ["<c>netProfit</c>"] Realized net profit and loss
         /// </summary>
         [JsonPropertyName("netProfit")]
         public decimal RealizedPnl { get; set; }
         /// <summary>
-        /// Quantity in base asset
+        /// ["<c>baseSize</c>"] Quantity in base asset
         /// </summary>
         [JsonPropertyName("baseSize")]
         public decimal BaseQuantity { get; set; }
         /// <summary>
-        /// Liquidate by
+        /// ["<c>liquidateBy</c>"] Liquidate by
         /// </summary>
         [JsonPropertyName("liquidateBy")]
         public string LiquidateBy { get; set; } = string.Empty;
         /// <summary>
-        /// Total quantity in contracts
+        /// ["<c>totalPiece</c>"] Total quantity in contracts
         /// </summary>
         [JsonPropertyName("totalPiece")]
         public decimal TotalQuantity { get; set; }
         /// <summary>
-        /// Order price
+        /// ["<c>orderPrice</c>"] Order price
         /// </summary>
         [JsonPropertyName("orderPrice")]
         public decimal OrderPrice { get; set; }
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Funding settled
+        /// ["<c>fundingSettle</c>"] Funding settled
         /// </summary>
         [JsonPropertyName("fundingSettle")]
         public decimal FundingSettled { get; set; }
         /// <summary>
-        /// Position side
+        /// ["<c>direction</c>"] Position side
         /// </summary>
         [JsonPropertyName("direction")]
         public PositionSide PositionSide { get; set; }
         /// <summary>
-        /// Margin
+        /// ["<c>margin</c>"] Margin
         /// </summary>
         [JsonPropertyName("margin")]
         public decimal Margin { get; set; }
         /// <summary>
-        /// Taker of maker
+        /// ["<c>takerMaker</c>"] Taker of maker
         /// </summary>
         [JsonPropertyName("takerMaker")]
         public Role Role { get; set; }
         /// <summary>
-        /// Index price
+        /// ["<c>indexPrice</c>"] Index price
         /// </summary>
         [JsonPropertyName("indexPrice")]
         public decimal IndexPrice { get; set; }
         /// <summary>
-        /// Quantity in QuantityUnit
+        /// ["<c>quantity</c>"] Quantity in QuantityUnit
         /// </summary>
         [JsonPropertyName("quantity")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// User id
+        /// ["<c>userId</c>"] User id
         /// </summary>
         [JsonPropertyName("userId")]
         public long UserId { get; set; }
         /// <summary>
-        /// Number of contracts that have been closed.
+        /// ["<c>closedPiece</c>"] Number of contracts that have been closed.
         /// </summary>
         [JsonPropertyName("closedPiece")]
         public decimal QuantityClosed { get; set; }
         /// <summary>
-        /// Create time
+        /// ["<c>createdDate</c>"] Create time
         /// </summary>
         [JsonPropertyName("createdDate")]
         public DateTime CreateTime { get; set; }
         /// <summary>
-        /// Hedge id
+        /// ["<c>hedgeId</c>"] Hedge id
         /// </summary>
         [JsonPropertyName("hedgeId")]
         public string HedgeId { get; set; } = string.Empty;
         /// <summary>
-        /// Close price
+        /// ["<c>closePrice</c>"] Close price
         /// </summary>
         [JsonPropertyName("closePrice")]
         public decimal? ClosePrice { get; set; }
         /// <summary>
-        /// Position margin
+        /// ["<c>positionMargin</c>"] Position margin
         /// </summary>
         [JsonPropertyName("positionMargin")]
         public decimal PositionMargin { get; set; }
         /// <summary>
-        /// Real price
+        /// ["<c>realPrice</c>"] Real price
         /// </summary>
         [JsonPropertyName("realPrice")]
         public decimal RealPrice { get; set; }
         /// <summary>
-        /// Status
+        /// ["<c>status</c>"] Status
         /// </summary>
         [JsonPropertyName("status")]
         public OpenStatus Status { get; set; }

@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Converters;
+using CryptoExchange.Net.Converters;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CryptoExchange.Net.Interfaces;
 using System.Text.Json.Serialization;
@@ -11,12 +11,12 @@ namespace CoinW.Net.Objects.Models
     public record CoinWOrderBook
     {
         /// <summary>
-        /// Asks
+        /// ["<c>asks</c>"] Asks
         /// </summary>
         [JsonPropertyName("asks")]
         public CoinWOrderBookEntry[] Asks { get; set; } = [];
         /// <summary>
-        /// Bids
+        /// ["<c>bids</c>"] Bids
         /// </summary>
         [JsonPropertyName("bids")]
         public CoinWOrderBookEntry[] Bids { get; set; } = [];

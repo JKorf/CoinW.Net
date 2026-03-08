@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace CoinW.Net.Objects.Models
 {
@@ -8,23 +8,23 @@ namespace CoinW.Net.Objects.Models
     public record CoinWOrderBookUpdate
     {
         /// <summary>
-        /// Start sequence
+        /// ["<c>startSeq</c>"] Start sequence
         /// </summary>
         [JsonPropertyName("startSeq")]
         public long StartSequence { get; set; }
         /// <summary>
-        /// End sequence
+        /// ["<c>endSeq</c>"] End sequence
         /// </summary>
         [JsonPropertyName("endSeq")]
         public long EndSequence { get; set; }
 
         /// <summary>
-        /// Asks
+        /// ["<c>asks</c>"] Asks
         /// </summary>
         [JsonPropertyName("asks")]
         public CoinWOrderBookEntry[] Asks { get; set; } = [];
         /// <summary>
-        /// Bids
+        /// ["<c>bids</c>"] Bids
         /// </summary>
         [JsonPropertyName("bids")]
         public CoinWOrderBookEntry[] Bids { get; set; } = [];

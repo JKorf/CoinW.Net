@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace CoinW.Net.Objects.Models
 {
@@ -8,37 +8,37 @@ namespace CoinW.Net.Objects.Models
     public record CoinWSymbolUpdate
     {
         /// <summary>
-        /// Percentage change
+        /// ["<c>rose</c>"] Percentage change
         /// </summary>
         [JsonPropertyName("rose")]
         public decimal PercentageChange { get; set; }
         /// <summary>
-        /// Highest price in last 24h
+        /// ["<c>oneDayHighest</c>"] Highest price in last 24h
         /// </summary>
         [JsonPropertyName("oneDayHighest")]
         public decimal HighPrice { get; set; }
         /// <summary>
-        /// Last trade price
+        /// ["<c>price</c>"] Last trade price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal LastPrice { get; set; }
         /// <summary>
-        /// Lowest price in last 24h
+        /// ["<c>oneDayLowest</c>"] Lowest price in last 24h
         /// </summary>
         [JsonPropertyName("oneDayLowest")]
         public decimal LowPrice { get; set; }
         /// <summary>
-        /// Volume in base asset
+        /// ["<c>oneDayTotal</c>"] Volume in base asset
         /// </summary>
         [JsonPropertyName("oneDayTotal")]
         public decimal Volume { get; set; }
         /// <summary>
-        /// Volume in quote asset
+        /// ["<c>currencyVol</c>"] Volume in quote asset
         /// </summary>
         [JsonPropertyName("currencyVol")]
         public decimal QuoteVolume { get; set; }
         /// <summary>
-        /// Base asset
+        /// ["<c>leftCoinName</c>"] Base asset
         /// </summary>
         [JsonPropertyName("leftCoinName")]
         public string BaseAsset { get; set; } = string.Empty;
@@ -48,27 +48,27 @@ namespace CoinW.Net.Objects.Models
         [JsonIgnore]
         public string Symbol => BaseAsset + "_" + QuoteAsset;
         /// <summary>
-        /// Quote asset
+        /// ["<c>rightCoinName</c>"] Quote asset
         /// </summary>
         [JsonPropertyName("rightCoinName")]
         public string QuoteAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Base asset img url
+        /// ["<c>leftCoinUrl</c>"] Base asset img url
         /// </summary>
         [JsonPropertyName("leftCoinUrl")]
         public string BaseAssetImg { get; set; } = string.Empty;
         /// <summary>
-        /// Symbol id
+        /// ["<c>tmId</c>"] Symbol id
         /// </summary>
         [JsonPropertyName("tmId")]
         public int SymbolId { get; set; }
         /// <summary>
-        /// Rank when sorting assets by 'hot'
+        /// ["<c>hotCoinSort</c>"] Rank when sorting assets by 'hot'
         /// </summary>
         [JsonPropertyName("hotCoinSort")]
         public int RankHotSort { get; set; }
         /// <summary>
-        /// Rank when sorting assets by 'new'
+        /// ["<c>newCoinSort</c>"] Rank when sorting assets by 'new'
         /// </summary>
         [JsonPropertyName("newCoinSort")]
         public int RankNewSort { get; set; }

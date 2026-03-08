@@ -1,4 +1,4 @@
-﻿using CoinW.Net.Enums;
+using CoinW.Net.Enums;
 using System;
 using System.Text.Json.Serialization;
 
@@ -10,32 +10,32 @@ namespace CoinW.Net.Objects.Models
     public record CoinWTrade
     {
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }
         /// <summary>
-        /// Side
+        /// ["<c>type</c>"] Side
         /// </summary>
         [JsonPropertyName("type")]
         public OrderSide Side { get; set; }
         /// <summary>
-        /// Price
+        /// ["<c>price</c>"] Price
         /// </summary>
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>amount</c>"] Quantity
         /// </summary>
         [JsonPropertyName("amount")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Value
+        /// ["<c>total</c>"] Value
         /// </summary>
         [JsonPropertyName("total")]
         public decimal Value { get; set; }
         /// <summary>
-        /// Trade time
+        /// ["<c>time</c>"] Trade time
         /// </summary>
         [JsonPropertyName("time")]
         public DateTime Time { get; set; }

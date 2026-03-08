@@ -1,4 +1,4 @@
-﻿using CoinW.Net.Enums;
+using CoinW.Net.Enums;
 using System;
 using System.Text.Json.Serialization;
 
@@ -10,22 +10,22 @@ namespace CoinW.Net.Objects.Models
     public record CoinWTradeHistory
     {
         /// <summary>
-        /// Next id
+        /// ["<c>nextId</c>"] Next id
         /// </summary>
         [JsonPropertyName("nextId")]
         public long? NextId { get; set; }
         /// <summary>
-        /// Prev id
+        /// ["<c>prevId</c>"] Prev id
         /// </summary>
         [JsonPropertyName("prevId")]
         public long? PrevId { get; set; }
         /// <summary>
-        /// Rows
+        /// ["<c>rows</c>"] Rows
         /// </summary>
         [JsonPropertyName("rows")]
         public CoinWHistoryTrade[] Rows { get; set; } = [];
         /// <summary>
-        /// Total number of results
+        /// ["<c>total</c>"] Total number of results
         /// </summary>
         [JsonPropertyName("total")]
         public decimal Total { get; set; }
@@ -37,27 +37,27 @@ namespace CoinW.Net.Objects.Models
     public record CoinWHistoryTrade
     {
         /// <summary>
-        /// Trade quantity in contracts
+        /// ["<c>closedPiece</c>"] Trade quantity in contracts
         /// </summary>
         [JsonPropertyName("closedPiece")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Timestamp
+        /// ["<c>createdDate</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("createdDate")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Trade price
+        /// ["<c>dealPrice</c>"] Trade price
         /// </summary>
         [JsonPropertyName("dealPrice")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Position side
+        /// ["<c>direction</c>"] Position side
         /// </summary>
         [JsonPropertyName("direction")]
         public PositionSide PositionSide { get; set; }
         /// <summary>
-        /// Id
+        /// ["<c>id</c>"] Id
         /// </summary>
         [JsonPropertyName("id")]
         public long Id { get; set; }

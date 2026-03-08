@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace CoinW.Net.Objects.Models
 {
@@ -8,57 +8,57 @@ namespace CoinW.Net.Objects.Models
     public record CoinWFuturesBalanceUpdate
     {
         /// <summary>
-        /// Margin
+        /// ["<c>margin</c>"] Margin
         /// </summary>
         [JsonPropertyName("margin")]
         public decimal Margin { get; set; }
         /// <summary>
-        /// Unrealized profit and loss
+        /// ["<c>profitUnreal</c>"] Unrealized profit and loss
         /// </summary>
         [JsonPropertyName("profitUnreal")]
         public decimal UnrealizedPnl { get; set; }
         /// <summary>
-        /// Frozen quantity
+        /// ["<c>freeze</c>"] Frozen quantity
         /// </summary>
         [JsonPropertyName("freeze")]
         public decimal Frozen { get; set; }
         /// <summary>
-        /// Quantity
+        /// ["<c>size</c>"] Quantity
         /// </summary>
         [JsonPropertyName("size")]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Available
+        /// ["<c>available</c>"] Available
         /// </summary>
         [JsonPropertyName("available")]
         public decimal Available { get; set; }
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Mega coupon balance
+        /// ["<c>almightyGold</c>"] Mega coupon balance
         /// </summary>
         [JsonPropertyName("almightyGold")]
         public decimal MegaCouponBalance { get; set; }
         /// <summary>
-        /// Transfer available
+        /// ["<c>transferAvailable</c>"] Transfer available
         /// </summary>
         [JsonPropertyName("transferAvailable")]
         public decimal TransferAvailable { get; set; }
         /// <summary>
-        /// User id
+        /// ["<c>userId</c>"] User id
         /// </summary>
         [JsonPropertyName("userId")]
         public long UserId { get; set; }
         /// <summary>
-        /// Available margin
+        /// ["<c>availableMargin</c>"] Available margin
         /// </summary>
         [JsonPropertyName("availableMargin")]
         public decimal AvailableMargin { get; set; }
         /// <summary>
-        /// In holding quantity
+        /// ["<c>hold</c>"] In holding quantity
         /// </summary>
         [JsonPropertyName("hold")]
         public decimal Holding { get; set; }

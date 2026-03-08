@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace CoinW.Net.Objects.Models
 {
@@ -8,7 +8,7 @@ namespace CoinW.Net.Objects.Models
     public record CoinWOrderId
     {
         /// <summary>
-        /// Order id
+        /// ["<c>value</c>"] Order id
         /// </summary>
         [JsonPropertyName("value")]
         public long OrderId { get; set; }

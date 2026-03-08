@@ -8,7 +8,7 @@ namespace CoinW.Net.Objects.Models
     public record CoinWOrderResult
     {
         /// <summary>
-        /// Order id
+        /// ["<c>orderNumber</c>"] Order id
         /// </summary>
         [JsonPropertyName("orderNumber")]
         public long OrderId { get; set; }

@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace CoinW.Net.Objects.Models
 {
@@ -8,7 +8,7 @@ namespace CoinW.Net.Objects.Models
     public record CoinWTicker
     {
         /// <summary>
-        /// Symbol id
+        /// ["<c>id</c>"] Symbol id
         /// </summary>
         [JsonPropertyName("id")]
         public int Id { get; set; }
@@ -18,43 +18,43 @@ namespace CoinW.Net.Objects.Models
         [JsonIgnore]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Is frozen
+        /// ["<c>isFrozen</c>"] Is frozen
         /// </summary>
         [JsonPropertyName("isFrozen")]
         public bool IsFrozen { get; set; }
 
         /// <summary>
-        /// Percentage change
+        /// ["<c>percentChange</c>"] Percentage change
         /// </summary>
         [JsonPropertyName("percentChange")]
         public decimal PercentageChange { get; set; }
         /// <summary>
-        /// Highest price in last 24h
+        /// ["<c>high24hr</c>"] Highest price in last 24h
         /// </summary>
         [JsonPropertyName("high24hr")]
         public decimal HighPrice { get; set; }
         /// <summary>
-        /// Last trade price
+        /// ["<c>last</c>"] Last trade price
         /// </summary>
         [JsonPropertyName("last")]
         public decimal LastPrice { get; set; }
         /// <summary>
-        /// Lowest price in last 24h
+        /// ["<c>low24hr</c>"] Lowest price in last 24h
         /// </summary>
         [JsonPropertyName("low24hr")]
         public decimal LowPrice { get; set; }
         /// <summary>
-        /// Best bid price
+        /// ["<c>highestBid</c>"] Best bid price
         /// </summary>
         [JsonPropertyName("highestBid")]
         public decimal BestBidPrice { get; set; }
         /// <summary>
-        /// Best ask price
+        /// ["<c>lowestAsk</c>"] Best ask price
         /// </summary>
         [JsonPropertyName("lowestAsk")]
         public decimal BestAskPrice { get; set; }
         /// <summary>
-        /// Volume in quote asset
+        /// ["<c>baseVolume</c>"] Volume in quote asset
         /// </summary>
         [JsonPropertyName("baseVolume")]
         public decimal Volume { get; set; }

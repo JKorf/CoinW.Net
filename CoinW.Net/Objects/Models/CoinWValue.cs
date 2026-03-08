@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace CoinW.Net.Objects.Models
 {
@@ -8,7 +8,7 @@ namespace CoinW.Net.Objects.Models
     public record CoinWValue
     {
         /// <summary>
-        /// Value
+        /// ["<c>value</c>"] Value
         /// </summary>
         [JsonPropertyName("value")]
         public decimal Value { get; set; }

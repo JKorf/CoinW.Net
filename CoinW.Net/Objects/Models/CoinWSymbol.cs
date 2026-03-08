@@ -1,4 +1,4 @@
-﻿using CoinW.Net.Enums;
+using CoinW.Net.Enums;
 using System.Text.Json.Serialization;
 
 namespace CoinW.Net.Objects.Models
@@ -9,62 +9,62 @@ namespace CoinW.Net.Objects.Models
     public record CoinWSymbol
     {
         /// <summary>
-        /// Base asset
+        /// ["<c>currencyBase</c>"] Base asset
         /// </summary>
         [JsonPropertyName("currencyBase")]
         public string BaseAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Max order quantity
+        /// ["<c>maxBuyCount</c>"] Max order quantity
         /// </summary>
         [JsonPropertyName("maxBuyCount")]
         public decimal MaxOrderQuantity { get; set; }
         /// <summary>
-        /// Price precision
+        /// ["<c>pricePrecision</c>"] Price precision
         /// </summary>
         [JsonPropertyName("pricePrecision")]
         public int PriceDecimalPlaces { get; set; }
         /// <summary>
-        /// Min order price
+        /// ["<c>minBuyPrice</c>"] Min order price
         /// </summary>
         [JsonPropertyName("minBuyPrice")]
         public decimal MinOrderPrice { get; set; }
         /// <summary>
-        /// Symbol name
+        /// ["<c>currencyPair</c>"] Symbol name
         /// </summary>
         [JsonPropertyName("currencyPair")]
         public string Name { get; set; } = string.Empty;
         /// <summary>
-        /// Min order value
+        /// ["<c>minBuyAmount</c>"] Min order value
         /// </summary>
         [JsonPropertyName("minBuyAmount")]
         public decimal MinOrderValue { get; set; }
         /// <summary>
-        /// Max order price
+        /// ["<c>maxBuyPrice</c>"] Max order price
         /// </summary>
         [JsonPropertyName("maxBuyPrice")]
         public decimal MaxOrderPrice { get; set; }
         /// <summary>
-        /// Quote asset
+        /// ["<c>currencyQuote</c>"] Quote asset
         /// </summary>
         [JsonPropertyName("currencyQuote")]
         public string QuoteAsset { get; set; } = string.Empty;
         /// <summary>
-        /// Quantity precision
+        /// ["<c>countPrecision</c>"] Quantity precision
         /// </summary>
         [JsonPropertyName("countPrecision")]
         public int QuantityDecimalPlaces { get; set; }
         /// <summary>
-        /// Min order quantity
+        /// ["<c>minBuyCount</c>"] Min order quantity
         /// </summary>
         [JsonPropertyName("minBuyCount")]
         public decimal MinOrderQuantity { get; set; }
         /// <summary>
-        /// Symbol status
+        /// ["<c>state</c>"] Symbol status
         /// </summary>
         [JsonPropertyName("state")]
         public SymbolStatus Status { get; set; }
         /// <summary>
-        /// Max order value
+        /// ["<c>maxBuyAmount</c>"] Max order value
         /// </summary>
         [JsonPropertyName("maxBuyAmount")]
         public decimal MaxOrderValue { get; set; }

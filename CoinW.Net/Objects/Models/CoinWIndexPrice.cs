@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace CoinW.Net.Objects.Models
 {
@@ -8,12 +8,12 @@ namespace CoinW.Net.Objects.Models
     public record CoinWPrice
     {
         /// <summary>
-        /// Price
+        /// ["<c>p</c>"] Price
         /// </summary>
         [JsonPropertyName("p")]
         public decimal Price { get; set; }
         /// <summary>
-        /// Symbol name
+        /// ["<c>n</c>"] Symbol name
         /// </summary>
         [JsonPropertyName("n")]
         public string Symbol { get; set; } = string.Empty;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text.Json.Serialization;
 
 namespace CoinW.Net.Objects.Models
@@ -9,27 +9,27 @@ namespace CoinW.Net.Objects.Models
     public record CoinWBalanceUpdate
     {
         /// <summary>
-        /// Asset
+        /// ["<c>currency</c>"] Asset
         /// </summary>
         [JsonPropertyName("currency")]
         public string Asset { get; set; } = string.Empty;
         /// <summary>
-        /// Timestamp
+        /// ["<c>time</c>"] Timestamp
         /// </summary>
         [JsonPropertyName("time")]
         public DateTime Timestamp { get; set; }
         /// <summary>
-        /// Ledger id
+        /// ["<c>ledger_id</c>"] Ledger id
         /// </summary>
         [JsonPropertyName("ledger_id")]
         public long LedgerId { get; set; }
         /// <summary>
-        /// Available balance
+        /// ["<c>available</c>"] Available balance
         /// </summary>
         [JsonPropertyName("available")]
         public decimal Available { get; set; }
         /// <summary>
-        /// In hold
+        /// ["<c>hold</c>"] In hold
         /// </summary>
         [JsonPropertyName("hold")]
         public decimal Hold { get; set; }

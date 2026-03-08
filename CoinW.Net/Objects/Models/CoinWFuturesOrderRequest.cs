@@ -1,4 +1,4 @@
-﻿using CoinW.Net.Enums;
+using CoinW.Net.Enums;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using System.Text.Json.Serialization;
 
@@ -10,22 +10,22 @@ namespace CoinW.Net.Objects.Models
     public record CoinWFuturesOrderRequest
     {
         /// <summary>
-        /// Symbol name
+        /// ["<c>instrument</c>"] Symbol name
         /// </summary>
         [JsonPropertyName("instrument")]
         public string Symbol { get; set; } = string.Empty;
         /// <summary>
-        /// Position side
+        /// ["<c>direction</c>"] Position side
         /// </summary>
         [JsonPropertyName("direction")]
         public PositionSide Side { get; set; }
         /// <summary>
-        /// Leverage
+        /// ["<c>leverage</c>"] Leverage
         /// </summary>
         [JsonPropertyName("leverage")]
         public int Leverage { get; set; }
         /// <summary>
-        /// Quantity unit
+        /// ["<c>quantityUnit</c>"] Quantity unit
         /// </summary>
         [JsonPropertyName("quantityUnit")]
         public QuantityUnit QuantityUnit { get; set; }
@@ -35,12 +35,12 @@ namespace CoinW.Net.Objects.Models
         [JsonPropertyName("quantity"), JsonConverter(typeof(DecimalStringWriterConverter))]
         public decimal Quantity { get; set; }
         /// <summary>
-        /// Margin type
+        /// ["<c>positionModel</c>"] Margin type
         /// </summary>
         [JsonPropertyName("positionModel")]
         public MarginType MarginType { get; set; }
         /// <summary>
-        /// Order type
+        /// ["<c>positionType</c>"] Order type
         /// </summary>
         [JsonPropertyName("positionType")]
         public FuturesOrderType OrderType { get; set; }

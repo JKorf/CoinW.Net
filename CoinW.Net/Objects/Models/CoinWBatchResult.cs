@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace CoinW.Net.Objects.Models
 {
@@ -8,17 +8,17 @@ namespace CoinW.Net.Objects.Models
     public record CoinWBatchResult
     {
         /// <summary>
-        /// Result code
+        /// ["<c>msgCode</c>"] Result code
         /// </summary>
         [JsonPropertyName("msgCode")]
         public int Code { get; set; }
         /// <summary>
-        /// Order id
+        /// ["<c>openId</c>"] Order id
         /// </summary>
         [JsonPropertyName("openId")]
         public long OrderId { get; set; }
         /// <summary>
-        /// Client order id
+        /// ["<c>thirdOrderId</c>"] Client order id
         /// </summary>
         [JsonPropertyName("thirdOrderId")]
         public string? ClientOrderId { get; set; }
