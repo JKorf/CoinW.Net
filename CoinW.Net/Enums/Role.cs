@@ -11,12 +11,12 @@ namespace CoinW.Net.Enums
     public enum Role
     {
         /// <summary>
-        /// Taker
+        /// ["<c>1</c>"] Taker
         /// </summary>
         [Map("1")]
         Taker,
         /// <summary>
-        /// Maker
+        /// ["<c>2</c>"] Maker
         /// </summary>
         [Map("2")]
         Maker

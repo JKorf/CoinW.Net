@@ -11,17 +11,17 @@ namespace CoinW.Net.Enums
     public enum TriggerStatus
     {
         /// <summary>
-        /// Not triggered
+        /// ["<c>0</c>"] Not triggered
         /// </summary>
         [Map("0")]
         NotTriggered,
         /// <summary>
-        /// Triggered
+        /// ["<c>1</c>"] Triggered
         /// </summary>
         [Map("1")]
         Triggered,
         /// <summary>
-        /// Canceled
+        /// ["<c>2</c>"] Canceled
         /// </summary>
         [Map("2")]
         Canceled

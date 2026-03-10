@@ -11,17 +11,17 @@ namespace CoinW.Net.Enums
     public enum PriceType
     {
         /// <summary>
-        /// Index price
+        /// ["<c>1</c>"] Index price
         /// </summary>
         [Map("1")]
         IndexPrice,
         /// <summary>
-        /// Last trade price
+        /// ["<c>2</c>"] Last trade price
         /// </summary>
         [Map("2")]
         LastPrice,
         /// <summary>
-        /// Mark price
+        /// ["<c>3</c>"] Mark price
         /// </summary>
         [Map("3")]
         MarkPrice

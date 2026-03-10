@@ -11,17 +11,17 @@ namespace CoinW.Net.Enums
     public enum QuantityUnit
     {
         /// <summary>
-        /// Quantity in quote asset
+        /// ["<c>0</c>"] Quantity in quote asset
         /// </summary>
         [Map("0")]
         QuoteAsset,
         /// <summary>
-        /// Quantity in number of contracts
+        /// ["<c>1</c>"] Quantity in number of contracts
         /// </summary>
         [Map("1")]
         Contracts,
         /// <summary>
-        /// Quantity in base asset
+        /// ["<c>2</c>"] Quantity in base asset
         /// </summary>
         [Map("2")]
         BaseAsset

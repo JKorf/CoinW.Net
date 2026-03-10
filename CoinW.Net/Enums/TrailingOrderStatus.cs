@@ -11,17 +11,17 @@ namespace CoinW.Net.Enums
     public enum TrailingOrderStatus
     {
         /// <summary>
-        /// Open
+        /// ["<c>open</c>"] Open
         /// </summary>
         [Map("open")]
         Open,
         /// <summary>
-        /// Closed
+        /// ["<c>closed</c>"] Closed
         /// </summary>
         [Map("closed", "close")]
         Closed,
         /// <summary>
-        /// Canceled
+        /// ["<c>cancel</c>"] Canceled
         /// </summary>
         [Map("cancel")]
         Canceled

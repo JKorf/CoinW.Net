@@ -11,7 +11,7 @@ namespace CoinW.Net.Enums
     public enum ContractType
     {
         /// <summary>
-        /// Perp linear
+        /// ["<c>1</c>"] Perp linear
         /// </summary>
         [Map("1")]
         PerpetualLinear

@@ -11,12 +11,12 @@ namespace CoinW.Net.Enums
     public enum MovementType
     {
         /// <summary>
-        /// Deposit
+        /// ["<c>1</c>"] Deposit
         /// </summary>
         [Map("1")]
         Deposit,
         /// <summary>
-        /// Withdrawal
+        /// ["<c>2</c>"] Withdrawal
         /// </summary>
         [Map("2")]
         Withdrawal

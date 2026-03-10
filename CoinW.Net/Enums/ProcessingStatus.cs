@@ -11,22 +11,22 @@ namespace CoinW.Net.Enums
     public enum ProcessingStatus
     {
         /// <summary>
-        /// Waiting
+        /// ["<c>0</c>"] Waiting
         /// </summary>
         [Map("0")]
         Waiting,
         /// <summary>
-        /// Processing
+        /// ["<c>1</c>"] Processing
         /// </summary>
         [Map("1")]
         Processing,
         /// <summary>
-        /// Success
+        /// ["<c>2</c>"] Success
         /// </summary>
         [Map("2")]
         Success,
         /// <summary>
-        /// Failure
+        /// ["<c>3</c>"] Failure
         /// </summary>
         [Map("3")]
         Failure

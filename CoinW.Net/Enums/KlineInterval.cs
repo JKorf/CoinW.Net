@@ -11,47 +11,47 @@ namespace CoinW.Net.Enums
     public enum KlineInterval
     {
         /// <summary>
-        /// One minute
+        /// ["<c>60</c>"] One minute
         /// </summary>
         [Map("60")]
         OneMinute = 60,
         /// <summary>
-        /// Three minutes
+        /// ["<c>180</c>"] Three minutes
         /// </summary>
         [Map("180")]
         ThreeMinutes = 60 * 3,
         /// <summary>
-        /// Five minutes
+        /// ["<c>300</c>"] Five minutes
         /// </summary>
         [Map("300")]
         FiveMinutes = 60 * 5,
         /// <summary>
-        /// Fifteen minutes
+        /// ["<c>900</c>"] Fifteen minutes
         /// </summary>
         [Map("900")]
         FifteenMinutes = 60 * 15,
         /// <summary>
-        /// Thirty minutes
+        /// ["<c>1800</c>"] Thirty minutes
         /// </summary>
         [Map("1800")]
         ThirtyMinutes = 60 * 30,
         /// <summary>
-        /// One hour
+        /// ["<c>3600</c>"] One hour
         /// </summary>
         [Map("3600")]
         OneHour = 60 * 60,
         /// <summary>
-        /// Two hours
+        /// ["<c>7200</c>"] Two hours
         /// </summary>
         [Map("7200")]
         TwoHours = 60 * 60 *2,
         /// <summary>
-        /// Four hours
+        /// ["<c>14400</c>"] Four hours
         /// </summary>
         [Map("14400")]
         FourHours = 60 * 60 * 4,
         /// <summary>
-        /// Four hours
+        /// ["<c>86400</c>"] Four hours
         /// </summary>
         [Map("86400")]
         OneDay = 60 * 60 * 24,

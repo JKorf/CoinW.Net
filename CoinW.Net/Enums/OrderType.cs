@@ -11,12 +11,12 @@ namespace CoinW.Net.Enums
     public enum OrderType
     {
         /// <summary>
-        /// Limit
+        /// ["<c>LIMIT</c>"] Limit
         /// </summary>
         [Map("LIMIT", "0")]
         Limit,
         /// <summary>
-        /// Market
+        /// ["<c>MARKET</c>"] Market
         /// </summary>
         [Map("MARKET", "1")]
         Market

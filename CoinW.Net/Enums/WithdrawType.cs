@@ -11,12 +11,12 @@ namespace CoinW.Net.Enums
     public enum WithdrawType
     {
         /// <summary>
-        /// On chain withdraw
+        /// ["<c>ordinary_withdraw</c>"] On chain withdraw
         /// </summary>
         [Map("ordinary_withdraw")]
         OnChain,
         /// <summary>
-        /// Internal transfer
+        /// ["<c>internal_transfer</c>"] Internal transfer
         /// </summary>
         [Map("internal_transfer")]
         Internal

@@ -11,12 +11,12 @@ namespace CoinW.Net.Enums
     public enum PositionCombineType
     {
         /// <summary>
-        /// Positions in same direction will be merged
+        /// ["<c>0</c>"] Positions in same direction will be merged
         /// </summary>
         [Map("0")]
         Merged,
         /// <summary>
-        /// Positions in same direction will remain separate
+        /// ["<c>1</c>"] Positions in same direction will remain separate
         /// </summary>
         [Map("1")]
         Split

@@ -11,12 +11,12 @@ namespace CoinW.Net.Enums
     public enum MarginType
     {
         /// <summary>
-        /// Isolated margin
+        /// ["<c>0</c>"] Isolated margin
         /// </summary>
         [Map("0")]
         IsolatedMargin,
         /// <summary>
-        /// Cross margin
+        /// ["<c>1</c>"] Cross margin
         /// </summary>
         [Map("1")]
         CrossMargin

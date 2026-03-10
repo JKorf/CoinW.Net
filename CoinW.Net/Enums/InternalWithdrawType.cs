@@ -11,17 +11,17 @@ namespace CoinW.Net.Enums
     public enum InternalWithdrawType
     {
         /// <summary>
-        /// User id
+        /// ["<c>1</c>"] User id
         /// </summary>
         [Map("1")]
         UserId,
         /// <summary>
-        /// Mobile
+        /// ["<c>2</c>"] Mobile
         /// </summary>
         [Map("2")]
         Mobile,
         /// <summary>
-        /// Email
+        /// ["<c>3</c>"] Email
         /// </summary>
         [Map("3")]
         Email

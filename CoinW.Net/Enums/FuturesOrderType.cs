@@ -11,22 +11,22 @@ namespace CoinW.Net.Enums
     public enum FuturesOrderType
     {
         /// <summary>
-        /// Market
+        /// ["<c>execute</c>"] Market
         /// </summary>
         [Map("execute", "2")]
         Market,
         /// <summary>
-        /// Plan order (also for limit orders)
+        /// ["<c>plan</c>"] Plan order (also for limit orders)
         /// </summary>
         [Map("plan", "1")]
         Plan,
         /// <summary>
-        /// Planned trigger order
+        /// ["<c>planTrigger</c>"] Planned trigger order
         /// </summary>
         [Map("planTrigger", "3")]
         PlanTrigger,
         /// <summary>
-        /// Trailing stop order
+        /// ["<c>moveStopProfitLoss</c>"] Trailing stop order
         /// </summary>
         [Map("moveStopProfitLoss")]
         TrailingStop

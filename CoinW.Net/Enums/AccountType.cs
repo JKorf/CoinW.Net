@@ -11,12 +11,12 @@ namespace CoinW.Net.Enums
     public enum AccountType
     {
         /// <summary>
-        /// Funding account
+        /// ["<c>WEALTH</c>"] Funding account
         /// </summary>
         [Map("WEALTH")]
         Funding,
         /// <summary>
-        /// Spot account
+        /// ["<c>SPOT</c>"] Spot account
         /// </summary>
         [Map("SPOT")]
         Spot

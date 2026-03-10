@@ -11,12 +11,12 @@ namespace CoinW.Net.Enums
     public enum MovementStatus
     {
         /// <summary>
-        /// Waiting
+        /// ["<c>1</c>"] Waiting
         /// </summary>
         [Map("1")]
         Waiting,
         /// <summary>
-        /// Success
+        /// ["<c>3</c>"] Success
         /// </summary>
         [Map("3")]
         Success

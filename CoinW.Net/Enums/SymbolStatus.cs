@@ -11,12 +11,12 @@ namespace CoinW.Net.Enums
     public enum SymbolStatus
     {
         /// <summary>
-        /// Normal
+        /// ["<c>1</c>"] Normal
         /// </summary>
         [Map("1")]
         Normal,
         /// <summary>
-        /// Canceled
+        /// ["<c>2</c>"] Canceled
         /// </summary>
         [Map("2")]
         Canceled

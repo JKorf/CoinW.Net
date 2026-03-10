@@ -11,17 +11,17 @@ namespace CoinW.Net.Enums
     public enum OrderEventReason
     {
         /// <summary>
-        /// Canceled
+        /// ["<c>CANCELLED</c>"] Canceled
         /// </summary>
         [Map("CANCELLED")]
         Canceled,
         /// <summary>
-        /// Filled
+        /// ["<c>FILLED</c>"] Filled
         /// </summary>
         [Map("FILLED")]
         Filled,
         /// <summary>
-        /// Rejected
+        /// ["<c>REJECTED</c>"] Rejected
         /// </summary>
         [Map("REJECTED")]
         Rejected

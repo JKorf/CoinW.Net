@@ -11,52 +11,52 @@ namespace CoinW.Net.Enums
     public enum FuturesKlineIntervalStream
     {
         /// <summary>
-        /// One minute
+        /// ["<c>1m</c>"] One minute
         /// </summary>
         [Map("1m")]
         OneMinute = 60,
         /// <summary>
-        /// Three minutes
+        /// ["<c>3</c>"] Three minutes
         /// </summary>
         [Map("3")]
         ThreeMinutes = 60 * 3,
         /// <summary>
-        /// Five minutes
+        /// ["<c>5</c>"] Five minutes
         /// </summary>
         [Map("5")]
         FiveMinutes = 60 * 5,
         /// <summary>
-        /// Fifteen minutes
+        /// ["<c>15</c>"] Fifteen minutes
         /// </summary>
         [Map("15")]
         FifteenMinutes = 60 * 15,
         /// <summary>
-        /// Thirty minutes
+        /// ["<c>30</c>"] Thirty minutes
         /// </summary>
         [Map("30")]
         ThirtyMinutes = 60 * 30,
         /// <summary>
-        /// One hour
+        /// ["<c>1H</c>"] One hour
         /// </summary>
         [Map("1H")]
         OneHour = 60 * 60,
         /// <summary>
-        /// Four hours
+        /// ["<c>4H</c>"] Four hours
         /// </summary>
         [Map("4H")]
         FourHours = 60 * 60 * 4,
         /// <summary>
-        /// One day
+        /// ["<c>1D</c>"] One day
         /// </summary>
         [Map("1D")]
         OneDay = 60 * 60 * 24,
         /// <summary>
-        /// One week
+        /// ["<c>1W</c>"] One week
         /// </summary>
         [Map("1W")]
         OneWeek = 60 * 60 * 24 * 7,
         /// <summary>
-        /// One month
+        /// ["<c>1M</c>"] One month
         /// </summary>
         [Map("1M")]
         OneMonth = 60 * 60 * 24 * 30

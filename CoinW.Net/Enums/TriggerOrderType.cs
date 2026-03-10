@@ -11,12 +11,12 @@ namespace CoinW.Net.Enums
     public enum TriggerOrderType
     {
         /// <summary>
-        /// Limit order
+        /// ["<c>0</c>"] Limit order
         /// </summary>
         [Map("0")]
         Limit,
         /// <summary>
-        /// Market order
+        /// ["<c>1</c>"] Market order
         /// </summary>
         [Map("1")]
         Market

@@ -11,12 +11,12 @@ namespace CoinW.Net.Enums
     public enum OpenStatus
     {
         /// <summary>
-        /// Open
+        /// ["<c>open</c>"] Open
         /// </summary>
         [Map("open")]
         Open,
         /// <summary>
-        /// Close
+        /// ["<c>closed</c>"] Close
         /// </summary>
         [Map("closed", "close")]
         Close

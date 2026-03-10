@@ -11,27 +11,27 @@ namespace CoinW.Net.Enums
     public enum FuturesSymbolStatus
     {
         /// <summary>
-        /// Online
+        /// ["<c>online</c>"] Online
         /// </summary>
         [Map("online")]
         Online,
         /// <summary>
-        /// Offline
+        /// ["<c>offline</c>"] Offline
         /// </summary>
         [Map("offline")]
         Offline,
         /// <summary>
-        /// Pre-test
+        /// ["<c>pretest</c>"] Pre-test
         /// </summary>
         [Map("pretest")]
         PreTest,
         /// <summary>
-        /// Settling
+        /// ["<c>settlement</c>"] Settling
         /// </summary>
         [Map("settlement")]
         Settling,
         /// <summary>
-        /// Pre-offline
+        /// ["<c>preOffline</c>"] Pre-offline
         /// </summary>
         [Map("preOffline")]
         PreOffline

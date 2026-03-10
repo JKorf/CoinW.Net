@@ -11,12 +11,12 @@ namespace CoinW.Net.Enums
     public enum OrderEventType
     {
         /// <summary>
-        /// Received
+        /// ["<c>RECEIVED</c>"] Received
         /// </summary>
         [Map("RECEIVED")]
         Received,
         /// <summary>
-        /// Done
+        /// ["<c>DONE</c>"] Done
         /// </summary>
         [Map("DONE")]
         Done

@@ -11,27 +11,27 @@ namespace CoinW.Net.Enums
     public enum FuturesOrderStatus
     {
         /// <summary>
-        /// Unfilled
+        /// ["<c>unFinish</c>"] Unfilled
         /// </summary>
         [Map("unFinish")]
         Open,
         /// <summary>
-        /// Partially filled
+        /// ["<c>part</c>"] Partially filled
         /// </summary>
         [Map("part")]
         PartiallyFilled,
         /// <summary>
-        /// Filled
+        /// ["<c>Finish</c>"] Filled
         /// </summary>
         [Map("Finish")]
         Filled,
         /// <summary>
-        /// Canceled
+        /// ["<c>Cancel</c>"] Canceled
         /// </summary>
         [Map("Cancel", "cancelAll")]
         Canceled,
         /// <summary>
-        /// Marker change
+        /// ["<c>markerChange</c>"] Marker change
         /// </summary>
         [Map("markerChange")]
         MarkerChange

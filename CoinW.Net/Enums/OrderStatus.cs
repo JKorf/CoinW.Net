@@ -11,22 +11,22 @@ namespace CoinW.Net.Enums
     public enum OrderStatus
     {
         /// <summary>
-        /// Open
+        /// ["<c>1</c>"] Open
         /// </summary>
         [Map("1")]
         Open,
         /// <summary>
-        /// Partially filled
+        /// ["<c>2</c>"] Partially filled
         /// </summary>
         [Map("2")]
         PartiallyFilled,
         /// <summary>
-        /// Filled
+        /// ["<c>3</c>"] Filled
         /// </summary>
         [Map("3")]
         Filled,
         /// <summary>
-        /// Canceled
+        /// ["<c>4</c>"] Canceled
         /// </summary>
         [Map("4")]
         Canceled
