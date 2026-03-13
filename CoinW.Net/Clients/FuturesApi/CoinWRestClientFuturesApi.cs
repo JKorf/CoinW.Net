@@ -21,7 +21,7 @@ using CryptoExchange.Net.Converters.MessageParsing.DynamicConverters;
 namespace CoinW.Net.Clients.FuturesApi
 {
     /// <inheritdoc cref="ICoinWRestClientFuturesApi" />
-    internal partial class CoinWRestClientFuturesApi : RestApiClient, ICoinWRestClientFuturesApi
+    internal partial class CoinWRestClientFuturesApi : RestApiClient<CoinWEnvironment, CoinWFuturesAuthenticationProvider, CoinWCredentials>, ICoinWRestClientFuturesApi
     {
         #region fields 
         protected override IRestMessageHandler MessageHandler => new CoinWRestMessageHandler(CoinWErrors.FuturesErrors);
@@ -54,7 +54,7 @@ namespace CoinW.Net.Clients.FuturesApi
 
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override CoinWFuturesAuthenticationProvider CreateAuthenticationProvider(CoinWCredentials credentials)
             => new CoinWFuturesAuthenticationProvider(credentials);
 
 

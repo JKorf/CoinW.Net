@@ -40,7 +40,7 @@ namespace CoinW.Net.UnitTests
             var client = new CoinWSocketClient(Options.Create(new Objects.Options.CoinWSocketOptions
             {
                 OutputOriginalData = true,
-                ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456")
+                ApiCredentials = new CoinWCredentials("123", "456")
             }), loggerFact);
             var tester = new SocketSubscriptionValidator<CoinWSocketClient>(client, "Subscriptions/Spot", "wss://ws.futurescw.com");
             await tester.ValidateAsync<CoinWTickerUpdate>((client, handler) => client.SpotApi.SubscribeToTickerUpdatesAsync("UnitTest", handler), "Ticker", nestedJsonProperty: "data");
@@ -62,7 +62,7 @@ namespace CoinW.Net.UnitTests
             var client = new CoinWSocketClient(Options.Create(new Objects.Options.CoinWSocketOptions
             {
                 OutputOriginalData = true,
-                ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456")
+                ApiCredentials = new CoinWCredentials("123", "456")
             }), loggerFact);
             var tester = new SocketSubscriptionValidator<CoinWSocketClient>(client, "Subscriptions/Futures", "wss://ws.futurescw.com");
             await tester.ValidateAsync<CoinWFuturesTickerUpdate>((client, handler) => client.FuturesApi.SubscribeToTickerUpdatesAsync("ETH", handler), "Ticker", nestedJsonProperty: "data");

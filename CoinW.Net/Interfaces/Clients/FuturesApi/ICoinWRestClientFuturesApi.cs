@@ -6,7 +6,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
     /// <summary>
     /// CoinW Futures API endpoints
     /// </summary>
-    public interface ICoinWRestClientFuturesApi : IRestApiClient, IDisposable
+    public interface ICoinWRestClientFuturesApi : IRestApiClient<CoinWCredentials>, IDisposable
     {
         /// <summary>
         /// Endpoints related to account settings, info or actions

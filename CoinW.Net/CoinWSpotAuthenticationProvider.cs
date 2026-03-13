@@ -10,11 +10,11 @@ using System.Linq;
 
 namespace CoinW.Net
 {
-    internal class CoinWSpotAuthenticationProvider : AuthenticationProvider
+    internal class CoinWSpotAuthenticationProvider : AuthenticationProvider<CoinWCredentials, HMACCredential>
     {
         public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac];
 
-        public CoinWSpotAuthenticationProvider(ApiCredentials credentials) : base(credentials)
+        public CoinWSpotAuthenticationProvider(CoinWCredentials credentials) : base(credentials)
         {
         }
 
@@ -24,10 +24,10 @@ namespace CoinW.Net
                 return;
 
             request.QueryParameters ??= new Dictionary<string, object>();
-            request.QueryParameters.Add("api_key", ApiKey);
+            request.QueryParameters.Add("api_key", Credential.PublicKey);
             var signParameters = request.QueryParameters.Where(x => x.Key != "command").OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
             var queryString = signParameters.CreateParamString(false, request.ArraySerialization);
-            var signParams = (queryString + "&secret_key=" + _credentials.Secret).TrimStart('&');
+            var signParams = (queryString + "&secret_key=" + Credential.Secret).TrimStart('&');
 
             var sign = SignMD5(signParams, SignOutputType.Hex).ToUpperInvariant();
             request.QueryParameters.Add("sign", sign);
@@ -40,7 +40,7 @@ namespace CoinW.Net
 
         public override Query? GetAuthenticationQuery(SocketApiClient apiClient, SocketConnection connection, Dictionary<string, object?>? context = null)
         {
-            return new CoinWLoginQuery(apiClient, ApiKey, _credentials.Secret);
+            return new CoinWLoginQuery(apiClient, Credential.PublicKey, Credential.Secret);
         }
     }
 }

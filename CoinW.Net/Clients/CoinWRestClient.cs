@@ -15,7 +15,7 @@ using CoinW.Net.Clients.SpotApi;
 namespace CoinW.Net.Clients
 {
     /// <inheritdoc cref="ICoinWRestClient" />
-    public class CoinWRestClient : BaseRestClient, ICoinWRestClient
+    public class CoinWRestClient : BaseRestClient<CoinWEnvironment, CoinWCredentials>, ICoinWRestClient
     {
         #region Api clients
                 
@@ -54,13 +54,6 @@ namespace CoinW.Net.Clients
 
         #endregion
 
-        /// <inheritdoc />
-        public void SetOptions(UpdateOptions options)
-        {
-            SpotApi.SetOptions(options);
-            FuturesApi.SetOptions(options);
-        }
-
         /// <summary>
         /// Set the default options to be used when creating new clients
         /// </summary>
@@ -68,13 +61,6 @@ namespace CoinW.Net.Clients
         public static void SetDefaultOptions(Action<CoinWRestOptions> optionsDelegate)
         {
             CoinWRestOptions.Default = ApplyOptionsDelegate(optionsDelegate);
-        }
-
-        /// <inheritdoc />
-        public void SetApiCredentials(ApiCredentials credentials)
-        {
-            FuturesApi.SetApiCredentials(credentials);
-            SpotApi.SetApiCredentials(credentials);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace CoinW.Net.Clients.SpotApi
     /// <summary>
     /// Client providing access to the CoinW Spot websocket Api
     /// </summary>
-    internal partial class CoinWSocketClientSpotApi : SocketApiClient, ICoinWSocketClientSpotApi
+    internal partial class CoinWSocketClientSpotApi : SocketApiClient<CoinWEnvironment, CoinWSpotAuthenticationProvider, CoinWCredentials>, ICoinWSocketClientSpotApi
     {
         #region fields
         private ICoinWRestClient _restClient;
@@ -73,7 +73,7 @@ namespace CoinW.Net.Clients.SpotApi
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new CoinWSocketSpotMessageHandler();
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override CoinWSpotAuthenticationProvider CreateAuthenticationProvider(CoinWCredentials credentials)
             => new CoinWSpotAuthenticationProvider(credentials);
 
         /// <inheritdoc />

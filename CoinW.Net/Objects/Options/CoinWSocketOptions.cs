@@ -5,7 +5,7 @@ namespace CoinW.Net.Objects.Options
     /// <summary>
     /// Options for the CoinWSocketClient
     /// </summary>
-    public class CoinWSocketOptions : SocketExchangeOptions<CoinWEnvironment>
+    public class CoinWSocketOptions : SocketExchangeOptions<CoinWEnvironment, CoinWCredentials>
     {
         /// <summary>
         /// Default options for new clients
@@ -24,28 +24,23 @@ namespace CoinW.Net.Objects.Options
         {
             Default?.Set(this);
         }
-
-
-        
-         /// <summary>
+                
+        /// <summary>
         /// Futures API options
         /// </summary>
-        public SocketApiOptions FuturesOptions { get; private set; } = new SocketApiOptions();
+        public SocketApiOptions<CoinWCredentials> FuturesOptions { get; private set; } = new SocketApiOptions<CoinWCredentials>();
 
-         /// <summary>
+        /// <summary>
         /// Spot API options
         /// </summary>
-        public SocketApiOptions SpotOptions { get; private set; } = new SocketApiOptions();
+        public SocketApiOptions<CoinWCredentials> SpotOptions { get; private set; } = new SocketApiOptions<CoinWCredentials>();
 
 
         internal CoinWSocketOptions Set(CoinWSocketOptions targetOptions)
         {
-            targetOptions = base.Set<CoinWSocketOptions>(targetOptions);
-            
+            targetOptions = base.Set<CoinWSocketOptions>(targetOptions);            
             targetOptions.FuturesOptions = FuturesOptions.Set(targetOptions.FuturesOptions);
-
             targetOptions.SpotOptions = SpotOptions.Set(targetOptions.SpotOptions);
-
             return targetOptions;
         }
     }

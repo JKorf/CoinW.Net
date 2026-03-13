@@ -10,12 +10,12 @@ using System.Collections.Generic;
 
 namespace CoinW.Net
 {
-    internal class CoinWFuturesAuthenticationProvider : AuthenticationProvider
+    internal class CoinWFuturesAuthenticationProvider : AuthenticationProvider<CoinWCredentials, HMACCredential>
     {
         private readonly IStringMessageSerializer _serializer = new SystemTextJsonMessageSerializer(CoinWExchange._serializerContext);
 
         public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac];
-        public CoinWFuturesAuthenticationProvider(ApiCredentials credentials) : base(credentials)
+        public CoinWFuturesAuthenticationProvider(CoinWCredentials credentials) : base(credentials)
         {
         }
 
@@ -35,7 +35,7 @@ namespace CoinW.Net
 
             request.Headers ??= new Dictionary<string, string>();
             request.Headers.Add("sign", signature);
-            request.Headers.Add("api_key", ApiKey);
+            request.Headers.Add("api_key", Credential.PublicKey);
             request.Headers.Add("timestamp", time);
 
             request.SetQueryString(queryParams);
@@ -44,7 +44,7 @@ namespace CoinW.Net
 
         public override Query? GetAuthenticationQuery(SocketApiClient apiClient, SocketConnection connection, Dictionary<string, object?>? context = null)
         {
-            return new CoinWLoginQuery(apiClient, ApiKey, _credentials.Secret);
+            return new CoinWLoginQuery(apiClient, Credential.PublicKey, Credential.Secret);
         }
     }
 }

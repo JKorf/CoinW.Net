@@ -6,7 +6,7 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
     /// <summary>
     /// CoinW Spot API endpoints
     /// </summary>
-    public interface ICoinWRestClientSpotApi : IRestApiClient, IDisposable
+    public interface ICoinWRestClientSpotApi : IRestApiClient<CoinWCredentials>, IDisposable
     {
         /// <summary>
         /// Endpoints related to account settings, info or actions

@@ -12,7 +12,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
     /// <summary>
     /// CoinW Futures streams
     /// </summary>
-    public interface ICoinWSocketClientFuturesApi : ISocketApiClient, IDisposable
+    public interface ICoinWSocketClientFuturesApi : ISocketApiClient<CoinWCredentials>, IDisposable
     {
         /// <summary>
         /// Subscribe to ticker updates

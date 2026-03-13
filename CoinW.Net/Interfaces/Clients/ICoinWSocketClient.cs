@@ -8,7 +8,7 @@ namespace CoinW.Net.Interfaces.Clients
     /// <summary>
     /// Client for accessing the CoinW websocket API
     /// </summary>
-    public interface ICoinWSocketClient : ISocketClient
+    public interface ICoinWSocketClient : ISocketClient<CoinWCredentials>
     {        
         /// <summary>
         /// Futures API endpoints
@@ -21,11 +21,5 @@ namespace CoinW.Net.Interfaces.Clients
         /// </summary>
         /// <see cref="ICoinWSocketClientSpotApi"/>
         public ICoinWSocketClientSpotApi SpotApi { get; }
-
-        /// <summary>
-        /// Set the API credentials for this client. All Api clients in this client will use the new credentials, regardless of earlier set options.
-        /// </summary>
-        /// <param name="credentials">The credentials to set</param>
-        void SetApiCredentials(ApiCredentials credentials);
     }
 }

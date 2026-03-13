@@ -49,7 +49,7 @@ namespace CoinW.Net.Clients
         }
 
         /// <inheritdoc />
-        public void InitializeUserClient(string userIdentifier, ApiCredentials credentials, CoinWEnvironment? environment = null)
+        public void InitializeUserClient(string userIdentifier, CoinWCredentials credentials, CoinWEnvironment? environment = null)
         {
             CreateRestClient(userIdentifier, credentials, environment);
             CreateSocketClient(userIdentifier, credentials, environment);
@@ -63,7 +63,7 @@ namespace CoinW.Net.Clients
         }
 
         /// <inheritdoc />
-        public ICoinWRestClient GetRestClient(string userIdentifier, ApiCredentials? credentials = null, CoinWEnvironment? environment = null)
+        public ICoinWRestClient GetRestClient(string userIdentifier, CoinWCredentials? credentials = null, CoinWEnvironment? environment = null)
         {
             if (!_restClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
                 client = CreateRestClient(userIdentifier, credentials, environment);
@@ -72,7 +72,7 @@ namespace CoinW.Net.Clients
         }
 
         /// <inheritdoc />
-        public ICoinWSocketClient GetSocketClient(string userIdentifier, ApiCredentials? credentials = null, CoinWEnvironment? environment = null)
+        public ICoinWSocketClient GetSocketClient(string userIdentifier, CoinWCredentials? credentials = null, CoinWEnvironment? environment = null)
         {
             if (!_socketClients.TryGetValue(userIdentifier, out var client) || client.Disposed)
                 client = CreateSocketClient(userIdentifier, credentials, environment);
@@ -80,7 +80,7 @@ namespace CoinW.Net.Clients
             return client;
         }
 
-        private ICoinWRestClient CreateRestClient(string userIdentifier, ApiCredentials? credentials, CoinWEnvironment? environment)
+        private ICoinWRestClient CreateRestClient(string userIdentifier, CoinWCredentials? credentials, CoinWEnvironment? environment)
         {
             var clientRestOptions = SetRestEnvironment(environment);
             var client = new CoinWRestClient(_httpClient, _loggerFactory, clientRestOptions);
@@ -92,7 +92,7 @@ namespace CoinW.Net.Clients
             return client;
         }
 
-        private ICoinWSocketClient CreateSocketClient(string userIdentifier, ApiCredentials? credentials, CoinWEnvironment? environment)
+        private ICoinWSocketClient CreateSocketClient(string userIdentifier, CoinWCredentials? credentials, CoinWEnvironment? environment)
         {
             var clientSocketOptions = SetSocketEnvironment(environment);
             var client = new CoinWSocketClient(clientSocketOptions!, _loggerFactory);

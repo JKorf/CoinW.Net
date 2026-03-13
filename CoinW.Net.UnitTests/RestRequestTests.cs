@@ -21,7 +21,7 @@ namespace CoinW.Net.UnitTests
             var client = new CoinWRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
+                opts.ApiCredentials = new CoinWCredentials("123", "456");
             });
             var tester = new RestRequestValidator<CoinWRestClient>(client, "Endpoints/Spot/Account", "https://api.coinw.com", IsAuthenticated);
             await tester.ValidateAsync(client => client.SpotApi.Account.GetDepositWithdrawalHistoryAsync("123", 123), "GetDepositWithdrawalHistory", nestedJsonProperty: "data");
@@ -37,7 +37,7 @@ namespace CoinW.Net.UnitTests
             var client = new CoinWRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
+                opts.ApiCredentials = new CoinWCredentials("123", "456");
             });
             var tester = new RestRequestValidator<CoinWRestClient>(client, "Endpoints/Spot/ExchangeData", "https://api.coinw.com", IsAuthenticated);
             await tester.ValidateAsync(client => client.SpotApi.ExchangeData.GetAssetsAsync(), "GetAssets", nestedJsonProperty: "data", skipResponseValidation: true);
@@ -53,7 +53,7 @@ namespace CoinW.Net.UnitTests
             var client = new CoinWRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
+                opts.ApiCredentials = new CoinWCredentials("123", "456");
             });
             var tester = new RestRequestValidator<CoinWRestClient>(client, "Endpoints/Spot/Trading", "https://api.coinw.com", IsAuthenticated);
             await tester.ValidateAsync(client => client.SpotApi.Trading.PlaceOrderAsync("123", OrderSide.Buy, OrderType.Limit, 0.1m, 0.1m, 0.1m), "PlaceOrder", nestedJsonProperty: "data");
@@ -72,7 +72,7 @@ namespace CoinW.Net.UnitTests
             var client = new CoinWRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
+                opts.ApiCredentials = new CoinWCredentials("123", "456");
             });
             var tester = new RestRequestValidator<CoinWRestClient>(client, "Endpoints/Futures/Account", "https://api.coinw.com", IsAuthenticatedFutures);
             await tester.ValidateAsync(client => client.FuturesApi.Account.GetLeverageAsync(123), "GetLeverage", nestedJsonProperty: "data");
@@ -93,7 +93,7 @@ namespace CoinW.Net.UnitTests
             var client = new CoinWRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
+                opts.ApiCredentials = new CoinWCredentials("123", "456");
             });
             var tester = new RestRequestValidator<CoinWRestClient>(client, "Endpoints/Futures/ExchangeData", "https://api.coinw.com", IsAuthenticatedFutures);
             await tester.ValidateAsync(client => client.FuturesApi.ExchangeData.GetSymbolsAsync(), "GetSymbols", nestedJsonProperty: "data", ignoreProperties: ["depthPrecision", "selected"]);
@@ -110,7 +110,7 @@ namespace CoinW.Net.UnitTests
             var client = new CoinWRestClient(opts =>
             {
                 opts.AutoTimestamp = false;
-                opts.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials("123", "456");
+                opts.ApiCredentials = new CoinWCredentials("123", "456");
             });
             var tester = new RestRequestValidator<CoinWRestClient>(client, "Endpoints/Futures/Trading", "https://api.coinw.com", IsAuthenticatedFutures); 
             await tester.ValidateAsync(client => client.FuturesApi.Trading.PlaceOrderAsync("123", PositionSide.Long, FuturesOrderType.Market, 0.1m, 123), "PlaceOrder", nestedJsonProperty: "data");

@@ -14,7 +14,7 @@ using CoinW.Net.Clients.FuturesApi;
 namespace CoinW.Net.Clients
 {
     /// <inheritdoc cref="ICoinWSocketClient" />
-    public class CoinWSocketClient : BaseSocketClient, ICoinWSocketClient
+    public class CoinWSocketClient : BaseSocketClient<CoinWEnvironment, CoinWCredentials>, ICoinWSocketClient
     {
         #region fields
         #endregion
@@ -54,13 +54,6 @@ namespace CoinW.Net.Clients
         }
         #endregion
 
-        /// <inheritdoc />
-        public void SetOptions(UpdateOptions options)
-        {
-            FuturesApi.SetOptions(options);
-            SpotApi.SetOptions(options);
-        }
-
         /// <summary>
         /// Set the default options to be used when creating new clients
         /// </summary>
@@ -68,13 +61,6 @@ namespace CoinW.Net.Clients
         public static void SetDefaultOptions(Action<CoinWSocketOptions> optionsDelegate)
         {
             CoinWSocketOptions.Default = ApplyOptionsDelegate(optionsDelegate);
-        }
-
-        /// <inheritdoc />
-        public void SetApiCredentials(ApiCredentials credentials)
-        {            
-            FuturesApi.SetApiCredentials(credentials);
-            SpotApi.SetApiCredentials(credentials);
         }
     }
 }
