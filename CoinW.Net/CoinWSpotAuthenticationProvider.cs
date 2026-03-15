@@ -24,7 +24,7 @@ namespace CoinW.Net
                 return;
 
             request.QueryParameters ??= new Dictionary<string, object>();
-            request.QueryParameters.Add("api_key", Credential.PublicKey);
+            request.QueryParameters.Add("api_key", Credential.Key);
             var signParameters = request.QueryParameters.Where(x => x.Key != "command").OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
             var queryString = signParameters.CreateParamString(false, request.ArraySerialization);
             var signParams = (queryString + "&secret_key=" + Credential.Secret).TrimStart('&');
@@ -40,7 +40,7 @@ namespace CoinW.Net
 
         public override Query? GetAuthenticationQuery(SocketApiClient apiClient, SocketConnection connection, Dictionary<string, object?>? context = null)
         {
-            return new CoinWLoginQuery(apiClient, Credential.PublicKey, Credential.Secret);
+            return new CoinWLoginQuery(apiClient, Credential.Key, Credential.Secret);
         }
     }
 }

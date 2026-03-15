@@ -35,7 +35,7 @@ namespace CoinW.Net
 
             request.Headers ??= new Dictionary<string, string>();
             request.Headers.Add("sign", signature);
-            request.Headers.Add("api_key", Credential.PublicKey);
+            request.Headers.Add("api_key", Credential.Key);
             request.Headers.Add("timestamp", time);
 
             request.SetQueryString(queryParams);
@@ -44,7 +44,7 @@ namespace CoinW.Net
 
         public override Query? GetAuthenticationQuery(SocketApiClient apiClient, SocketConnection connection, Dictionary<string, object?>? context = null)
         {
-            return new CoinWLoginQuery(apiClient, Credential.PublicKey, Credential.Secret);
+            return new CoinWLoginQuery(apiClient, Credential.Key, Credential.Secret);
         }
     }
 }
