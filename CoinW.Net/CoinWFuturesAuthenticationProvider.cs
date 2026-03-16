@@ -14,7 +14,7 @@ namespace CoinW.Net
     {
         private readonly IStringMessageSerializer _serializer = new SystemTextJsonMessageSerializer(CoinWExchange._serializerContext);
 
-        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.Hmac];
+        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.HMAC];
         public CoinWFuturesAuthenticationProvider(CoinWCredentials credentials) : base(credentials)
         {
         }
