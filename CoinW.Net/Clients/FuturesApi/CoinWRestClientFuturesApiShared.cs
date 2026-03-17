@@ -658,11 +658,18 @@ namespace CoinW.Net.Clients.FuturesApi
             return result.AsExchangeResult(Exchange, request.TradingMode, new SharedId(result.Data.OrderId.ToString()));
         }
 
-        private SharedOrderStatus ParseOrderStatus(FuturesOrderStatus status)
+        private SharedOrderStatus ParseOrderStatus(FuturesOrderStatus orderStatus)
         {
-            if (status == FuturesOrderStatus.Open || status == FuturesOrderStatus.PartiallyFilled) return SharedOrderStatus.Open;
-            if (status == FuturesOrderStatus.Canceled) return SharedOrderStatus.Canceled;
-            return SharedOrderStatus.Filled;
+            if (orderStatus == FuturesOrderStatus.Open || orderStatus == FuturesOrderStatus.PartiallyFilled)
+                return SharedOrderStatus.Open;
+
+            if (orderStatus == FuturesOrderStatus.Canceled)
+                return SharedOrderStatus.Canceled;
+
+            if (orderStatus == FuturesOrderStatus.Filled)
+                return SharedOrderStatus.Filled;
+
+            return SharedOrderStatus.Unknown;
         }
 
         private SharedOrderType ParseOrderType(FuturesOrderType type)

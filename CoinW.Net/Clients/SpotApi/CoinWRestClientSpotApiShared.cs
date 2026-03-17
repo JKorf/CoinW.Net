@@ -155,15 +155,23 @@ namespace CoinW.Net.Clients.SpotApi
                         x.Quantity,
                         x.Status == Enums.MovementStatus.Success,
                         x.Timestamp,
-                        x.Status == MovementStatus.Success ? SharedTransferStatus.Completed
-                        : x.Status == MovementStatus.Waiting ? SharedTransferStatus.InProgress
-                        : SharedTransferStatus.Failed)
+                        GetTransferStatus(x.Status))
                     {
                         Network = x.Network,
                         TransactionId = x.TransactionId,
                         Confirmations = x.Confirmations,
                         Id = x.Id.ToString()
                     }).ToArray());
+        }
+
+        private SharedTransferStatus GetTransferStatus(MovementStatus status)
+        {
+            if (status == MovementStatus.Success)
+                return SharedTransferStatus.Completed;
+            if (status == MovementStatus.Waiting)
+                return SharedTransferStatus.InProgress;
+
+            return SharedTransferStatus.Unknown;
         }
 
         #endregion
@@ -724,7 +732,9 @@ namespace CoinW.Net.Clients.SpotApi
         {
             if (status == OrderStatus.Open || status == OrderStatus.PartiallyFilled) return SharedOrderStatus.Open;
             if (status == OrderStatus.Canceled) return SharedOrderStatus.Canceled;
-            return SharedOrderStatus.Filled;
+            if (status == OrderStatus.Filled) return SharedOrderStatus.Filled;
+
+            return SharedOrderStatus.Unknown;
         }
 
         #endregion
