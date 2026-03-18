@@ -10,11 +10,9 @@ using System.Linq;
 
 namespace CoinW.Net
 {
-    internal class CoinWSpotAuthenticationProvider : AuthenticationProvider<CoinWCredentials, HMACCredential>
+    internal class CoinWSpotAuthenticationProvider : AuthenticationProvider<CoinWCredentials, CoinWCredentials>
     {
-        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.HMAC];
-
-        public CoinWSpotAuthenticationProvider(CoinWCredentials credentials) : base(credentials)
+        public CoinWSpotAuthenticationProvider(CoinWCredentials credentials) : base(credentials, credentials)
         {
         }
 

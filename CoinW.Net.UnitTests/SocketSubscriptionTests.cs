@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using CryptoExchange.Net.Objects;
 using Microsoft.Extensions.Options;
 using CoinW.Net.Objects.Options;
+using CryptoExchange.Net.Authentication;
 
 namespace CoinW.Net.UnitTests
 {

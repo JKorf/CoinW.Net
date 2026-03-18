@@ -9,6 +9,7 @@ using NUnit.Framework.Constraints;
 using CoinW.Net.Enums;
 using System.Drawing;
 using System.Linq;
+using CryptoExchange.Net.Authentication;
 
 namespace CoinW.Net.UnitTests
 {

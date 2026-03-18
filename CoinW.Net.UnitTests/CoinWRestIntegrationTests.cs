@@ -8,6 +8,7 @@ using CoinW.Net.Clients;
 using CoinW.Net.Objects.Options;
 using System.Threading;
 using CryptoExchange.Net.Objects.Errors;
+using CryptoExchange.Net.Authentication;
 
 namespace CoinW.Net.UnitTests
 {

@@ -10,12 +10,11 @@ using System.Collections.Generic;
 
 namespace CoinW.Net
 {
-    internal class CoinWFuturesAuthenticationProvider : AuthenticationProvider<CoinWCredentials, HMACCredential>
+    internal class CoinWFuturesAuthenticationProvider : AuthenticationProvider<CoinWCredentials, CoinWCredentials>
     {
         private readonly IStringMessageSerializer _serializer = new SystemTextJsonMessageSerializer(CoinWExchange._serializerContext);
 
-        public override ApiCredentialsType[] SupportedCredentialTypes => [ApiCredentialsType.HMAC];
-        public CoinWFuturesAuthenticationProvider(CoinWCredentials credentials) : base(credentials)
+        public CoinWFuturesAuthenticationProvider(CoinWCredentials credentials) : base(credentials, credentials)
         {
         }
 

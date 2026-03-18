@@ -6,6 +6,7 @@ using CryptoExchange.Net.Objects.Sockets;
 using CoinW.Net.Objects.Models;
 using CoinW.Net.Enums;
 using CryptoExchange.Net.Interfaces.Clients;
+using CryptoExchange.Net.Authentication;
 
 namespace CoinW.Net.Interfaces.Clients.FuturesApi
 {

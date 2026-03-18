@@ -1,3 +1,4 @@
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects.Options;
 
 namespace CoinW.Net.Objects.Options
@@ -28,12 +29,12 @@ namespace CoinW.Net.Objects.Options
         /// <summary>
         /// Futures API options
         /// </summary>
-        public SocketApiOptions<CoinWCredentials> FuturesOptions { get; private set; } = new SocketApiOptions<CoinWCredentials>();
+        public SocketApiOptions FuturesOptions { get; private set; } = new SocketApiOptions();
 
         /// <summary>
         /// Spot API options
         /// </summary>
-        public SocketApiOptions<CoinWCredentials> SpotOptions { get; private set; } = new SocketApiOptions<CoinWCredentials>();
+        public SocketApiOptions SpotOptions { get; private set; } = new SocketApiOptions();
 
 
         internal CoinWSocketOptions Set(CoinWSocketOptions targetOptions)
