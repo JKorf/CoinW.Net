@@ -108,8 +108,6 @@ namespace Microsoft.Extensions.DependencyInjection
             }).SetHandlerLifetime(Timeout.InfiniteTimeSpan);
             services.Add(new ServiceDescriptor(typeof(ICoinWSocketClient), x => { return new CoinWSocketClient(x.GetRequiredService<IOptions<CoinWSocketOptions>>(), x.GetRequiredService<ILoggerFactory>()); }, socketClientLifeTime ?? ServiceLifetime.Singleton));
 
-            services.AddTransient<ICryptoRestClient, CryptoRestClient>();
-            services.AddSingleton<ICryptoSocketClient, CryptoSocketClient>();
             services.AddTransient<ICoinWOrderBookFactory, CoinWOrderBookFactory>();
             services.AddTransient<ICoinWTrackerFactory, CoinWTrackerFactory>();
             services.AddTransient<ITrackerFactory, CoinWTrackerFactory>();
