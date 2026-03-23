@@ -31,7 +31,7 @@ namespace CoinW.Net.Clients.FuturesApi
     /// <summary>
     /// Client providing access to the CoinW Futures websocket Api
     /// </summary>
-    internal partial class CoinWSocketClientFuturesApi : SocketApiClient, ICoinWSocketClientFuturesApi
+    internal partial class CoinWSocketClientFuturesApi : SocketApiClient<CoinWEnvironment, CoinWFuturesAuthenticationProvider, CoinWCredentials>, ICoinWSocketClientFuturesApi
     {
         #region constructor/destructor
 
@@ -63,8 +63,8 @@ namespace CoinW.Net.Clients.FuturesApi
         public override ISocketMessageHandler CreateMessageConverter(WebSocketMessageType messageType) => new CoinWSocketFuturesMessageHandler();
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-            => new CoinWSpotAuthenticationProvider(credentials);
+        protected override CoinWFuturesAuthenticationProvider CreateAuthenticationProvider(CoinWCredentials credentials)
+            => new CoinWFuturesAuthenticationProvider(credentials);
 
         /// <inheritdoc />
         public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<CoinWFuturesTickerUpdate>> onMessage, CancellationToken ct = default)

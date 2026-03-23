@@ -174,16 +174,22 @@ namespace CoinW.Net.Clients.SpotApi
 
         private SharedOrderStatus ParseOrderStatus(CoinWOrderUpdate data)
         {
-            if (data.Reason == Enums.OrderEventReason.Canceled)
+            if (data.Reason == Enums.OrderEventReason.Canceled
+                || data.Reason == Enums.OrderEventReason.Rejected)
+            {
                 return SharedOrderStatus.Canceled;
-
-            if (data.EventType == Enums.OrderEventType.Received)
-                return SharedOrderStatus.Open;
+            }
 
             if (data.EventType == Enums.OrderEventType.Done)
                 return SharedOrderStatus.Filled;
 
-            return SharedOrderStatus.Open;
+            if (data.EventType == Enums.OrderEventType.Received)
+                return SharedOrderStatus.Open;
+
+            if (data.Reason == Enums.OrderEventReason.Filled)
+                return SharedOrderStatus.Open; // Filled but not done?
+
+            return SharedOrderStatus.Unknown;
         }
         #endregion
     }

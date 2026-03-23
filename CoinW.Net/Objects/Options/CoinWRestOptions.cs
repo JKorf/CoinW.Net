@@ -1,3 +1,4 @@
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects.Options;
 
 namespace CoinW.Net.Objects.Options
@@ -5,7 +6,7 @@ namespace CoinW.Net.Objects.Options
     /// <summary>
     /// Options for the CoinWRestClient
     /// </summary>
-    public class CoinWRestOptions : RestExchangeOptions<CoinWEnvironment>
+    public class CoinWRestOptions : RestExchangeOptions<CoinWEnvironment, CoinWCredentials>
     {
         /// <summary>
         /// Default options for new clients
@@ -22,8 +23,7 @@ namespace CoinW.Net.Objects.Options
         {
             Default?.Set(this);
         }
-
-        
+                
          /// <summary>
         /// Futures API options
         /// </summary>
@@ -33,7 +33,6 @@ namespace CoinW.Net.Objects.Options
         /// Spot API options
         /// </summary>
         public RestApiOptions SpotOptions { get; private set; } = new RestApiOptions();
-
 
         internal CoinWRestOptions Set(CoinWRestOptions targetOptions)
         {

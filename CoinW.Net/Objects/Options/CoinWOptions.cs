@@ -6,7 +6,7 @@ namespace CoinW.Net.Objects.Options
     /// <summary>
     /// CoinW options
     /// </summary>
-    public class CoinWOptions : LibraryOptions<CoinWRestOptions, CoinWSocketOptions, ApiCredentials, CoinWEnvironment>
+    public class CoinWOptions : LibraryOptions<CoinWRestOptions, CoinWSocketOptions, CoinWCredentials, CoinWEnvironment>
     {
     }
 }

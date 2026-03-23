@@ -6,13 +6,14 @@ using CryptoExchange.Net.Objects.Sockets;
 using CoinW.Net.Objects.Models;
 using CoinW.Net.Enums;
 using CryptoExchange.Net.Interfaces.Clients;
+using CryptoExchange.Net.Authentication;
 
 namespace CoinW.Net.Interfaces.Clients.FuturesApi
 {
     /// <summary>
     /// CoinW Futures streams
     /// </summary>
-    public interface ICoinWSocketClientFuturesApi : ISocketApiClient, IDisposable
+    public interface ICoinWSocketClientFuturesApi : ISocketApiClient<CoinWCredentials>, IDisposable
     {
         /// <summary>
         /// Subscribe to ticker updates

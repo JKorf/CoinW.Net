@@ -120,7 +120,7 @@ namespace CoinW.Net
         }
 
         /// <inheritdoc />
-        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, ApiCredentials credentials, SpotUserDataTrackerConfig? config = null, CoinWEnvironment? environment = null)
+        public IUserSpotDataTracker CreateUserSpotDataTracker(string userIdentifier, CoinWCredentials credentials, SpotUserDataTrackerConfig? config = null, CoinWEnvironment? environment = null)
         {
             var clientProvider = _serviceProvider?.GetRequiredService<ICoinWUserClientProvider>() ?? new CoinWUserClientProvider();
             var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);
@@ -149,7 +149,7 @@ namespace CoinW.Net
         }
 
         /// <inheritdoc />
-        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, ApiCredentials credentials, FuturesUserDataTrackerConfig? config = null, CoinWEnvironment? environment = null)
+        public IUserFuturesDataTracker CreateUserFuturesDataTracker(string userIdentifier, CoinWCredentials credentials, FuturesUserDataTrackerConfig? config = null, CoinWEnvironment? environment = null)
         {
             var clientProvider = _serviceProvider?.GetRequiredService<ICoinWUserClientProvider>() ?? new CoinWUserClientProvider();
             var restClient = clientProvider.GetRestClient(userIdentifier, credentials, environment);

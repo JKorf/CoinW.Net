@@ -22,7 +22,7 @@ using CoinW.Net.Clients.MessageHandlers;
 namespace CoinW.Net.Clients.SpotApi
 {
     /// <inheritdoc cref="ICoinWRestClientSpotApi" />
-    internal partial class CoinWRestClientSpotApi : RestApiClient, ICoinWRestClientSpotApi
+    internal partial class CoinWRestClientSpotApi : RestApiClient<CoinWEnvironment, CoinWSpotAuthenticationProvider, CoinWCredentials>, ICoinWRestClientSpotApi
     {
         #region fields 
         protected override ErrorMapping ErrorMapping => CoinWErrors.SpotErrors;
@@ -63,7 +63,7 @@ namespace CoinW.Net.Clients.SpotApi
 
 
         /// <inheritdoc />
-        protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
+        protected override CoinWSpotAuthenticationProvider CreateAuthenticationProvider(CoinWCredentials credentials)
             => new CoinWSpotAuthenticationProvider(credentials);
 
         internal Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)

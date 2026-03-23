@@ -8,6 +8,7 @@ using CoinW.Net.Clients;
 using CoinW.Net.Objects.Options;
 using System.Threading;
 using CryptoExchange.Net.Objects.Errors;
+using CryptoExchange.Net.Authentication;
 
 namespace CoinW.Net.UnitTests
 {
@@ -26,7 +27,7 @@ namespace CoinW.Net.UnitTests
             {
                 AutoTimestamp = false,
                 OutputOriginalData = true,
-                ApiCredentials = Authenticated ? new CryptoExchange.Net.Authentication.ApiCredentials(key, sec) : null
+                ApiCredentials = Authenticated ? new CoinWCredentials(key, sec) : null
             }));
         }
 

@@ -6,13 +6,14 @@ using CryptoExchange.Net.Objects.Sockets;
 using CoinW.Net.Objects.Models;
 using CoinW.Net.Enums;
 using CryptoExchange.Net.Interfaces.Clients;
+using CryptoExchange.Net.Authentication;
 
 namespace CoinW.Net.Interfaces.Clients.SpotApi
 {
     /// <summary>
     /// CoinW Spot streams
     /// </summary>
-    public interface ICoinWSocketClientSpotApi : ISocketApiClient, IDisposable
+    public interface ICoinWSocketClientSpotApi : ISocketApiClient<CoinWCredentials>, IDisposable
     {
         /// <summary>
         /// Subscribe to ticker updates for a symbol

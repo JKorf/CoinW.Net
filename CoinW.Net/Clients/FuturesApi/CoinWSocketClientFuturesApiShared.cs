@@ -160,7 +160,10 @@ namespace CoinW.Net.Clients.FuturesApi
             if (orderStatus == FuturesOrderStatus.Canceled)
                 return SharedOrderStatus.Canceled;
 
-            return SharedOrderStatus.Filled;
+            if (orderStatus == FuturesOrderStatus.Filled)
+                return SharedOrderStatus.Filled;
+
+            return SharedOrderStatus.Unknown;
         }
 
         private SharedOrderType ParseOrderType(FuturesOrderType type)
