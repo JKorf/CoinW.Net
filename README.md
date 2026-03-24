@@ -46,22 +46,39 @@ CoinW.Net is available on [GitHub packages](https://github.com/JKorf/CoinW.Net/p
 The NuGet package files are added along side the source with the latest GitHub release which can found [here](https://github.com/JKorf/CoinW.Net/releases).
 
 ## How to use
-* REST Endpoints
-	```csharp
-	// Get the ETH/USDT ticker via rest request
-	var restClient = new CoinWRestClient();
-	var tickerResult = await restClient.SpotApi.ExchangeData.GetTickersAsync();
-	var lastPrice = tickerResult.Data.Single(x => x.Symbol == "ETH_USDT").LastPrice;
-	```
-* Websocket streams
-	```csharp
-	// Subscribe to ETH/USDT ticker updates via the websocket API
-	var socketClient = new CoinWSocketClient();
-	var tickerSubscriptionResult = socketClient.SpotApi.SubscribeToTickerUpdatesAsync("ETH_USDT", (update) => 
-	{
-	  var lastPrice = update.Data.LastPrice;
-	});
-	```
+*Basic request:*
+```csharp
+// Get the ETH/USDT ticker via rest request
+var restClient = new CoinWRestClient();
+var tickerResult = await restClient.SpotApi.ExchangeData.GetTickersAsync();
+var lastPrice = tickerResult.Data.Single(x => x.Symbol == "ETH_USDT").LastPrice;
+```
+
+*Place order:*
+```csharp
+var restClient = new CoinWRestClient(opts => {
+	opts.ApiCredentials = new CoinWCredentials("APIKEY", "APISECRET");
+});
+
+// Place Limit order to go long for 0.1 ETH at 2000
+var orderResult = await restClient.FuturesApi.Trading.PlaceOrderAsync(
+    "ETHUSDT",
+    PositionSide.Long,
+    FuturesOrderType.Plan,
+    0.1m,
+    1,
+    price: 2000);
+```
+
+*WebSocket subscription:*
+```csharp
+// Subscribe to ETH/USDT ticker updates via the websocket API
+var socketClient = new CoinWSocketClient();
+var tickerSubscriptionResult = socketClient.SpotApi.SubscribeToTickerUpdatesAsync("ETH_USDT", (update) => 
+{
+  var lastPrice = update.Data.LastPrice;
+});
+```
 
 For information on the clients, dependency injection, response processing and more see the [documentation](https://cryptoexchange.jkorf.dev/client-libs/getting-started), or have a look at the examples [here](https://github.com/JKorf/CoinW.Net/tree/main/Examples) or [here](https://github.com/JKorf/CryptoExchange.Net/tree/master/Examples).
 
