@@ -43,5 +43,8 @@ namespace CoinW.Net
             Secret = secret;
             return this;
         }
+
+        /// <inheritdoc />
+        public override ApiCredentials Copy() => new CoinWCredentials(this);
     }
 }
