@@ -23,12 +23,12 @@ namespace CoinW.Net.Enums
         /// <summary>
         /// ["<c>Finish</c>"] Filled
         /// </summary>
-        [Map("Finish")]
+        [Map("Finish", "finish")]
         Filled,
         /// <summary>
         /// ["<c>Cancel</c>"] Canceled
         /// </summary>
-        [Map("Cancel", "cancelAll")]
+        [Map("Cancel", "cancelAll", "cancel")]
         Canceled,
         /// <summary>
         /// ["<c>markerChange</c>"] Marker change

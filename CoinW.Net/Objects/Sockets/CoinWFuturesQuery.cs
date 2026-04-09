@@ -4,6 +4,7 @@ using CoinW.Net.Objects.Internal;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using System;
 using CryptoExchange.Net.Sockets.Default;
+using CryptoExchange.Net.Sockets.Default.Routing;
 
 namespace CoinW.Net.Objects.Sockets
 {

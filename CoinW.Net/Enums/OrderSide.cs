@@ -13,12 +13,12 @@ namespace CoinW.Net.Enums
         /// <summary>
         /// ["<c>0</c>"] Buy
         /// </summary>
-        [Map("0", "BUY")]
+        [Map("0", "BUY", "buy")]
         Buy,
         /// <summary>
         /// ["<c>1</c>"] Sell
         /// </summary>
-        [Map("1", "SELL")]
+        [Map("1", "SELL", "sell")]
         Sell
     }
 }

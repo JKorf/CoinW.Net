@@ -7,6 +7,7 @@ using CoinW.Net.Objects.Internal;
 using CryptoExchange.Net.Converters.SystemTextJson;
 using CoinW.Net.Enums;
 using CryptoExchange.Net.Sockets.Default;
+using CryptoExchange.Net.Sockets.Default.Routing;
 
 namespace CoinW.Net.Objects.Sockets.Subscriptions
 {
