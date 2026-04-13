@@ -74,7 +74,7 @@ namespace CoinW.Net.SymbolOrderBooks
             var result = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
             if (!result)
             {
-                _ = subResult.Data.CloseAsync();
+                await subResult.Data.CloseAsync().ConfigureAwait(false);
                 return result.AsError<UpdateSubscription>(result.Error!);
             }
 
