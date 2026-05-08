@@ -1,0 +1,100 @@
+---
+description: Conventions for using CoinW.Net when working with the CoinW cryptocurrency exchange in C#/.NET. Apply when generating code that interacts with CoinW APIs.
+globs:
+  - "**/*.cs"
+  - "**/*.csproj"
+alwaysApply: false
+---
+
+# CoinW.Net Conventions
+
+This codebase uses **CoinW.Net** for CoinW cryptocurrency exchange access. Do not write raw `HttpClient` calls to CoinW endpoints.
+
+## Client Setup Pattern
+
+```csharp
+using CoinW.Net;
+using CoinW.Net.Clients;
+
+var restClient = new CoinWRestClient(options =>
+{
+    options.ApiCredentials = new CoinWCredentials("API_KEY", "API_SECRET");
+});
+```
+
+For public market data only, no credentials are needed: `new CoinWRestClient()`.
+
+## Result Pattern
+
+Methods return `WebCallResult<T>` or `CallResult<T>`. Always check `.Success` before reading `.Data`:
+
+```csharp
+var tickers = await restClient.SpotApi.ExchangeData.GetTickersAsync();
+if (!tickers.Success) { Console.WriteLine(tickers.Error); return; }
+var price = tickers.Data.Single(x => x.Symbol == "BTC_USDT").LastPrice;
+```
+
+## API Surface
+
+- `restClient.SpotApi.{ExchangeData|Account|Trading}`
+- `restClient.FuturesApi.{ExchangeData|Account|Trading}`
+- `socketClient.SpotApi` for spot WebSocket streams
+- `socketClient.FuturesApi` for futures WebSocket streams
+- `.SharedClient` on Spot and Futures APIs for `CryptoExchange.Net.SharedApis`
+
+## Symbol Formatting
+
+Use `BTC_USDT` for CoinW spot symbols. Use symbols such as `BTC` or `ETH` for CoinW USDT futures. Do not copy Binance symbol formatting unless you are using SharedApis and `SharedSymbol`.
+
+## Order Placement
+
+```csharp
+var spotOrder = await restClient.SpotApi.Trading.PlaceOrderAsync(
+    "BTC_USDT", OrderSide.Buy, OrderType.Limit,
+    quantity: 0.001m, price: 50000m);
+
+var futuresOrder = await restClient.FuturesApi.Trading.PlaceOrderAsync(
+    "ETH", PositionSide.Long, FuturesOrderType.Market, 1m, 5,
+    quantityUnit: QuantityUnit.Contracts,
+    marginType: MarginType.IsolatedMargin);
+```
+
+## WebSocket Pattern
+
+```csharp
+var socketClient = new CoinWSocketClient();
+var sub = await socketClient.SpotApi.SubscribeToTickerUpdatesAsync(
+    "BTC_USDT",
+    update => Console.WriteLine(update.Data.LastPrice));
+if (!sub.Success) { Console.WriteLine(sub.Error); return; }
+
+await socketClient.UnsubscribeAsync(sub.Data);
+```
+
+## Multi-Exchange Code
+
+For exchange-agnostic code, use `CryptoExchange.Net.SharedApis`:
+
+```csharp
+using CryptoExchange.Net.SharedApis;
+
+var shared = new CoinWRestClient().SpotApi.SharedClient;
+var ticker = await shared.GetSpotTickerAsync(
+    new GetTickerRequest(new SharedSymbol(TradingMode.Spot, "BTC", "USDT")));
+```
+
+## Hard Rules
+
+- Never write raw `HttpClient` calls to CoinW endpoints.
+- Never use `.Result` or `.Wait()`.
+- Never instantiate clients per request in production code.
+- Never skip checking `WebCallResult.Success` or `CallResult.Success`.
+- Never invent Binance-style `UsdFuturesApi` or `CoinFuturesApi` properties.
+- Always use `CoinWCredentials("key", "secret")` for credentials.
+- Always store WebSocket subscriptions and unsubscribe on shutdown.
+
+## Reference
+
+- Skill: `CLAUDE.md` in the repository root has fuller examples.
+- LLM context: `llms.txt` and `llms-full.txt` in the repository root.
+- Examples: `Examples/ai-friendly/`.
