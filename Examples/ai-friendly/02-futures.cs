@@ -32,7 +32,7 @@ Console.WriteLine($"{symbol} futures last price: {ticker.Data.LastPrice}");
 // the user's account strategy before placing real orders.
 var marginMode = await client.FuturesApi.Account.SetMarginModeAsync(
     MarginType.IsolatedMargin,
-    PositionCombineType.Separate);
+    PositionCombineType.Split);
 
 if (!marginMode.Success)
 {

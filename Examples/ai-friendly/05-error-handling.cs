@@ -86,7 +86,7 @@ if (!tickers.Success)
 // ---- 4. SYMBOL FORMATTING ----
 // CoinW spot and futures symbol formats differ. Use helpers or SharedApis when possible.
 var spotSymbol = CoinWExchange.FormatSymbol("BTC", "USDT", TradingMode.Spot);
-var futuresSymbol = CoinWExchange.FormatSymbol("BTC", "USDT", TradingMode.Futures);
+var futuresSymbol = CoinWExchange.FormatSymbol("BTC", "USDT", TradingMode.PerpetualLinear);
 
 Console.WriteLine($"Spot symbol: {spotSymbol}");
 Console.WriteLine($"Futures symbol: {futuresSymbol}");
