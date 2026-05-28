@@ -1,6 +1,7 @@
 # ![CoinW.Net](https://raw.githubusercontent.com/JKorf/CoinW.Net/main/CoinW.Net/Icon/icon.png) CoinW.Net  
 
 [![.NET](https://img.shields.io/github/actions/workflow/status/JKorf/CoinW.Net/dotnet.yml?style=for-the-badge)](https://github.com/JKorf/CoinW.Net/actions/workflows/dotnet.yml) ![License](https://img.shields.io/github/license/JKorf/CoinW.Net?style=for-the-badge)
+![Since](https://img.shields.io/badge/since-2025-brightgreen?style=for-the-badge)
 
 CoinW.Net is a client library for accessing the [CoinW REST and Websocket API](CoinW). 
 
