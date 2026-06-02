@@ -5,6 +5,12 @@ using System.Linq;
 // REST
 var restClient = new CoinWRestClient();
 var ticker = await restClient.SpotApi.ExchangeData.GetTickersAsync();
+if (!ticker.Success)
+{
+    Console.WriteLine($"Failed to get ticker: {ticker.Error}");
+    return;
+}
+
 Console.WriteLine($"Rest client ticker price for ETH_USDT: {ticker.Data.Single(x => x.Symbol == "ETH_USDT").LastPrice}");
 
 Console.WriteLine();
@@ -17,5 +23,11 @@ var subscription = await socketClient.SpotApi.SubscribeToTickerUpdatesAsync("ETH
 {
     Console.WriteLine($"Websocket client ticker price for ETH_USDT: {update.Data.LastPrice}");
 });
+
+if (!subscription.Success)
+{
+    Console.WriteLine($"Failed to subscribe to ticker updates: {subscription.Error}");
+    return;
+}
 
 Console.ReadLine();

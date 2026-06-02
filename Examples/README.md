@@ -1,13 +1,11 @@
 # Examples
 
-### CoinW.Examples.Api
-A minimal API showing how to integrate CoinW.Net in a web API project
+| Project | Topic |
+|---|---|
+| `CoinW.Examples.Api` | Minimal ASP.NET Core API integration, dependency injection, public ticker endpoint, private balances endpoint |
+| `CoinW.Examples.Console` | Basic REST ticker request and WebSocket ticker subscription |
+| `CoinW.Examples.OrderPlacement` | Spot and futures order placement, order status lookup, and cancellation |
+| `CoinW.Examples.OrderBook` | Client-side order book implementation with live console display |
+| `CoinW.Examples.Tracker` | Trade tracker with rolling market statistics |
 
-### CoinW.Examples.Console
-A simple console client demonstrating basic usage
-
-### CoinW.Examples.OrderBook
-Example of using the client side order book implementation
-
-### CoinW.Examples.Tracker
-Example of using the trade tracker
+The `ai-friendly` folder contains standalone copy/paste examples intended for quick onboarding and AI coding assistant context.

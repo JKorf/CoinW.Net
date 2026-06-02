@@ -1,3 +1,4 @@
+using CoinW.Net;
 using CoinW.Net.Interfaces.Clients;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +14,7 @@ builder.Services.AddCoinW();
 /*
 builder.Services.AddCoinW(options =>
 {
-    options.ApiCredentials = new ApiCredentials("<APIKEY>", "<APISECRET>");
+    options.ApiCredentials = new CoinWCredentials("<APIKEY>", "<APISECRET>");
     options.Rest.RequestTimeout = TimeSpan.FromSeconds(5);
 });
 */
@@ -27,7 +28,9 @@ app.UseHttpsRedirection();
 app.MapGet("/{Symbol}", async ([FromServices] ICoinWRestClient client, string symbol) =>
 {
     var result = await client.SpotApi.ExchangeData.GetTickersAsync();
-    return result.Data.Single(x => x.Symbol == symbol)?.LastPrice;
+    return result.Success
+        ? Results.Ok(result.Data.Single(x => x.Symbol == symbol).LastPrice)
+        : Results.Problem(result.Error?.Message, statusCode: 502);
 })
 .WithOpenApi();
 
@@ -35,7 +38,9 @@ app.MapGet("/{Symbol}", async ([FromServices] ICoinWRestClient client, string sy
 app.MapGet("/Balances", async ([FromServices] ICoinWRestClient client) =>
 {
     var result = await client.SpotApi.Account.GetBalancesAsync();
-    return (object)(result.Success ? result.Data : result.Error!);
+    return result.Success
+        ? Results.Ok(result.Data)
+        : Results.Problem(result.Error?.Message, statusCode: 502);
 })
 .WithOpenApi();
 
