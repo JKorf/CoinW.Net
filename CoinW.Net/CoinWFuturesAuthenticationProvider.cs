@@ -20,7 +20,7 @@ namespace CoinW.Net
 
         public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration request)
         {
-            if (!request.Authenticated)
+            if (!request.RequestDefinition.Authenticated)
                 return;
 
             var time = GetMillisecondTimestamp(apiClient);
@@ -29,7 +29,7 @@ namespace CoinW.Net
                 queryParams = $"?{queryParams}";
 
             var body = request.BodyParameters?.Count > 0 ? GetSerializedBody(_serializer, request.BodyParameters) : string.Empty;
-            var signStr = $"{time}{request.Method}{request.Path}{queryParams}{body}";
+            var signStr = $"{time}{request.RequestDefinition.Method}{request.RequestDefinition.Path}{queryParams}{body}";
             var signature = SignHMACSHA256(signStr, SignOutputType.Base64);
 
             request.Headers ??= new Dictionary<string, string>();

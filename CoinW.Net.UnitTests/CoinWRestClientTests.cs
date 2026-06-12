@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using CoinW.Net.Clients;
 using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Objects;
 
 namespace CoinW.Net.UnitTests
 {
@@ -27,12 +28,11 @@ namespace CoinW.Net.UnitTests
                     return uriParams["sign"].ToString();
                 },
                 "AD26D501953EC615636AC668146268B4",
-                new Dictionary<string, object>
+                new Parameters(CoinWExchange._parameterSerializationSettings)
                 {
                     { "symbol", "LTCBTC" },
                 },
                 DateTimeConverter.ParseFromDouble(1499827320559),
-                true,
                 false);
         }
 

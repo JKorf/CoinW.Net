@@ -45,7 +45,7 @@ namespace CoinW.Net.Clients.SpotApi
 
         #region constructor/destructor
         internal CoinWRestClientSpotApi(ICoinWRestClient baseClient, ILogger logger, HttpClient? httpClient, CoinWRestOptions options)
-            : base(logger, httpClient, options.Environment.RestClientAddress, options, options.SpotOptions)
+            : base(logger, CoinWExchange.Metadata.Id, httpClient, options.Environment.RestClientAddress, options, options.SpotOptions)
         {
             BaseClient = baseClient;
 
@@ -66,56 +66,32 @@ namespace CoinW.Net.Clients.SpotApi
         protected override CoinWSpotAuthenticationProvider CreateAuthenticationProvider(CoinWCredentials credentials)
             => new CoinWSpotAuthenticationProvider(credentials);
 
-        internal Task<WebCallResult> SendAsync(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
-            => SendToAddressAsync(BaseAddress, definition, parameters, cancellationToken, weight);
-
-        internal async Task<WebCallResult> SendToAddressAsync(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null)
+        internal async Task<HttpResult> SendAsync(RequestDefinition definition, Parameters? parameters, CancellationToken cancellationToken, int? weight = null)
         {
-            var result = await base.SendAsync<CoinWResponse>(baseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
-
-            if (!result)
-                return result.AsDataless();
+            var result = await base.SendAsync<CoinWResponse>( definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
+            if (!result.Success)
+                return result;
 
             if (!result.Data.Success)
-                return result.AsDatalessError(new ServerError(result.Data.Code!.Value, GetErrorInfo(result.Data.Code!.Value, result.Data.Message!)));
+                return HttpResult.Fail(result, new ServerError(result.Data.Code!.Value, GetErrorInfo(result.Data.Code!.Value, result.Data.Message!)));
 
-            return result.AsDataless();
+            return result;
         }
 
-        internal Task<WebCallResult<T>> SendAsync<T>(RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null) where T : class
-            => SendToAddressAsync<T>(BaseAddress, definition, parameters, cancellationToken, weight);
-
-        internal async Task<WebCallResult<T>> SendToAddressAsync<T>(string baseAddress, RequestDefinition definition, ParameterCollection? parameters, CancellationToken cancellationToken, int? weight = null) where T : class
+        internal async Task<HttpResult<T>> SendAsync<T>(RequestDefinition definition, Parameters? parameters, CancellationToken cancellationToken, int? weight = null) where T : class
         {
-            var result = await base.SendAsync<CoinWResponse<T>>(baseAddress, definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
-
-            if (!result)
-                return result.As<T>(default);
+            var result = await base.SendAsync<CoinWResponse<T>>(definition, parameters, cancellationToken, null, weight).ConfigureAwait(false);
+            if (!result.Success)
+                return HttpResult.Fail<T>(result);
 
             if (!result.Data.Success)
-                return result.AsError<T>(new ServerError(result.Data.Code!.Value, GetErrorInfo(result.Data.Code.Value, result.Data.Message!)));
+                return HttpResult.Fail<T>(result, new ServerError(result.Data.Code!.Value, GetErrorInfo(result.Data.Code.Value, result.Data.Message!)));
 
-            return result.As(result.Data.Data);
-        }
-
-        internal Task<WebCallResult<T>> SendAsync<T>(RequestDefinition definition, ParameterCollection? uriParameters, ParameterCollection? bodyParameters, CancellationToken cancellationToken, int? weight = null) where T : class
-            => SendToAddressAsync<T>(BaseAddress, definition, uriParameters, bodyParameters, cancellationToken, weight);
-
-        internal async Task<WebCallResult<T>> SendToAddressAsync<T>(string baseAddress, RequestDefinition definition, ParameterCollection? uriParameters, ParameterCollection? bodyParameters, CancellationToken cancellationToken, int? weight = null) where T : class
-        {
-            var result = await base.SendAsync<CoinWResponse<T>>(baseAddress, definition, uriParameters, bodyParameters, cancellationToken, null, weight).ConfigureAwait(false);
-
-            if (!result)
-                return result.As<T>(default);
-
-            if (!result.Data.Success)
-                return result.AsError<T>(new ServerError(result.Data.Code!.Value, GetErrorInfo(result.Data.Code.Value, result.Data.Message!)));
-
-            return result.As(result.Data.Data);
+            return HttpResult.Ok(result, result.Data.Data);
         }
 
         /// <inheritdoc />
-        protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
+        protected override Task<HttpResult<DateTime>> GetServerTimestampAsync()
             => throw new NotImplementedException();
 
         /// <inheritdoc />

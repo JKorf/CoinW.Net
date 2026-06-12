@@ -15,12 +15,12 @@ namespace CoinW.Net.Objects.Sockets
         }, false, 1)
         {
             RequestTimeout = TimeSpan.FromSeconds(5);
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<CoinWSocketResponse<CoinWSubscriptionResponse>>("pong", HandleMessage);
+            MessageRouter = MessageRouter.CreateForQuery<CoinWSocketResponse<CoinWSubscriptionResponse>>("pong", HandleMessage);
         }
 
         public CallResult<CoinWSocketResponse<CoinWSubscriptionResponse>> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, CoinWSocketResponse<CoinWSubscriptionResponse> message)
         {
-            return new CallResult<CoinWSocketResponse<CoinWSubscriptionResponse>>(message, originalData, null);
+            return CallResult<CoinWSocketResponse<CoinWSubscriptionResponse>>.Ok(message, originalData);
         }
     }
 }

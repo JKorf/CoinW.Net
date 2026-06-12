@@ -23,7 +23,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["name"] Filter by symbol name, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWFuturesSymbol[]>> GetSymbolsAsync(string? symbol = null, CancellationToken ct = default);
+        Task<HttpResult<CoinWFuturesSymbol[]>> GetSymbolsAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get price ticker info
@@ -36,7 +36,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["instrument"] The symbol, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWFuturesTicker>> GetTickerAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<CoinWFuturesTicker>> GetTickerAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get price ticker info
@@ -48,7 +48,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWFuturesTicker[]>> GetTickersAsync(CancellationToken ct = default);
+        Task<HttpResult<CoinWFuturesTicker[]>> GetTickersAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get kline info
@@ -65,7 +65,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// <param name="startTime">["sinceStr"] Filter by start time</param>
         /// <param name="endTime">["sinceEndStr"] Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWFuturesKline[]>> GetKlinesAsync(
+        Task<HttpResult<CoinWFuturesKline[]>> GetKlinesAsync(
             string symbol,
             FuturesKlineInterval interval,
             DateTime? startTime = null,
@@ -84,7 +84,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["instrument"] The symbol, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWValue>> GetLastFundingRateAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<CoinWValue>> GetLastFundingRateAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get order book
@@ -97,7 +97,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["base"] The symbol, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWFuturesOrderBook>> GetOrderBookAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<CoinWFuturesOrderBook>> GetOrderBookAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get recent trades
@@ -110,7 +110,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["base"] The symbol, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWFuturesTrade[]>> GetRecentTradesAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<CoinWFuturesTrade[]>> GetRecentTradesAsync(string symbol, CancellationToken ct = default);
 
         /// <summary>
         /// Get margin requirements
@@ -122,7 +122,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWMarginRequirement[]>> GetMarginRequirementsAsync(CancellationToken ct = default);
+        Task<HttpResult<CoinWMarginRequirement[]>> GetMarginRequirementsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get trade history
@@ -137,7 +137,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// <param name="page">["page"] Page number</param>
         /// <param name="pageSize">["pageSize"] Page size, max 500</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWTradeHistory>> GetTradeHistoryAsync(string symbol, int? page = null, int? pageSize = null, CancellationToken ct = default);
+        Task<HttpResult<CoinWTradeHistory>> GetTradeHistoryAsync(string symbol, int? page = null, int? pageSize = null, CancellationToken ct = default);
 
     }
 }

@@ -34,15 +34,15 @@ namespace CoinW.Net
                 var envName = ((CoinWRestOptions)client.ClientOptions).Environment.Name;
                 _lastSpotSymbolUpdateTime.TryGetValue(envName, out var lastUpdateTime);
                 if (DateTime.UtcNow - lastUpdateTime < TimeSpan.FromHours(1))
-                    return CallResult.SuccessResult;
+                    return CallResult.Ok();
 
                 var symbolInfo = await client.SpotApi.ExchangeData.GetTickersAsync().ConfigureAwait(false);
-                if (!symbolInfo)
-                    return symbolInfo.AsDataless();
+                if (!symbolInfo.Success)
+                    return CallResult.Fail(symbolInfo.Error);
 
                 _spotSymbolInfo[envName] = symbolInfo.Data;
                 _lastSpotSymbolUpdateTime[envName] = DateTime.UtcNow;
-                return CallResult.SuccessResult;
+                return CallResult.Ok();
             }
             finally
             {
@@ -61,15 +61,15 @@ namespace CoinW.Net
                 var envName = ((CoinWRestOptions)client.ClientOptions).Environment.Name;
                 _lastSpotAssetUpdateTime.TryGetValue(envName, out var lastUpdateTime);
                 if (DateTime.UtcNow - lastUpdateTime < TimeSpan.FromHours(1))
-                    return CallResult.SuccessResult;
+                    return CallResult.Ok();
 
                 var assetInfo = await client.SpotApi.ExchangeData.GetAssetsAsync().ConfigureAwait(false);
-                if (!assetInfo)
-                    return assetInfo.AsDataless();
+                if (!assetInfo.Success)
+                    return CallResult.Fail(assetInfo.Error);
 
                 _spotAssetInfo[envName] = assetInfo.Data;
                 _lastSpotAssetUpdateTime[envName] = DateTime.UtcNow;
-                return CallResult.SuccessResult;
+                return CallResult.Ok();
             }
             finally
             {
@@ -86,18 +86,18 @@ namespace CoinW.Net
         public static async Task<CallResult<int>> GetSymbolIdFromNameAsync(ICoinWRestClient client, string symbolName)
         {
             if (symbolName == "UnitTest")
-                return new CallResult<int>(1);
+                return CallResult.Ok<int>(1);
 
             var update = await UpdateSpotSymbolInfoAsync(client).ConfigureAwait(false);
-            if (!update)
-                return new CallResult<int>(update.Error!);
+            if (!update.Success)
+                return CallResult.Fail<int>(update.Error!);
 
             var envName = ((CoinWRestOptions)client.ClientOptions).Environment.Name;
             var symbol = _spotSymbolInfo[envName].SingleOrDefault(x => string.Equals(x.Symbol, symbolName, StringComparison.InvariantCultureIgnoreCase));
             if (symbol == null)
-                return new CallResult<int>(new ServerError(new ErrorInfo(ErrorType.UnknownSymbol, "Symbol not found")));
+                return CallResult.Fail<int>(new ServerError(new ErrorInfo(ErrorType.UnknownSymbol, "Symbol not found")));
 
-            return new CallResult<int>(symbol.Id);
+            return CallResult.Ok<int>(symbol.Id);
         }
 
         /// <summary>
@@ -109,18 +109,18 @@ namespace CoinW.Net
         public static async Task<CallResult<int>> GetAssetIdFromNameAsync(ICoinWRestClient client, string assetName)
         {
             if (assetName == "UnitTest")
-                return new CallResult<int>(1);
+                return CallResult.Ok<int>(1);
 
             var update = await UpdateSpotAssetInfoAsync(client).ConfigureAwait(false);
-            if (!update)
-                return new CallResult<int>(update.Error!);
+            if (!update.Success)
+                return CallResult.Fail<int>(update.Error!);
 
             var envName = ((CoinWRestOptions)client.ClientOptions).Environment.Name;
             var symbol = _spotAssetInfo[envName].SingleOrDefault(x => string.Equals(x.Asset, assetName, StringComparison.InvariantCultureIgnoreCase));
             if (symbol == null)
-                return new CallResult<int>(new ServerError(new ErrorInfo(ErrorType.UnknownAsset, "Asset not found")));
+                return CallResult.Fail<int>(new ServerError(new ErrorInfo(ErrorType.UnknownAsset, "Asset not found")));
 
-            return new CallResult<int>(symbol.Id);
+            return CallResult.Ok<int>(symbol.Id);
         }
     }
 }

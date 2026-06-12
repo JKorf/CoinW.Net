@@ -63,6 +63,10 @@ namespace CoinW.Net
         public static ExchangeType Type { get; } = ExchangeType.CEX;
 
         internal static JsonSerializerOptions _serializerContext = SerializerOptions.WithConverters(JsonSerializerContextCache.GetOrCreate<CoinWSourceGenerationContext>());
+        internal static ParameterSerializationSettings _parameterSerializationSettings = new ParameterSerializationSettings
+        {
+            Decimal = DecimalSerialization.String,
+        };
 
         /// <summary>
         /// Aliases for CoinW assets

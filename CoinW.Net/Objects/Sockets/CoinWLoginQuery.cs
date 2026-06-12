@@ -23,15 +23,15 @@ namespace CoinW.Net.Objects.Sockets
         }, false, 1)
         {
             _client = client;
-            MessageRouter = MessageRouter.CreateWithoutTopicFilter<CoinWSocketResponse<CoinWSubscriptionResponse>>("login", HandleMessage);
+            MessageRouter = MessageRouter.CreateForQuery<CoinWSocketResponse<CoinWSubscriptionResponse>>("login", HandleMessage);
         }
 
         public CallResult<CoinWSocketResponse<CoinWSubscriptionResponse>> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, CoinWSocketResponse<CoinWSubscriptionResponse> message)
         {
             if (!message.Data.Success)
-                return new CallResult<CoinWSocketResponse<CoinWSubscriptionResponse>>(new ServerError(message.Data.ErrorCode!.Value, _client.GetErrorInfo(message.Data.ErrorCode!.Value, message.Data.ErrorMessage!)));
+                return CallResult<CoinWSocketResponse<CoinWSubscriptionResponse>>.Fail(new ServerError(message.Data.ErrorCode!.Value, _client.GetErrorInfo(message.Data.ErrorCode!.Value, message.Data.ErrorMessage!)), originalData);
 
-            return new CallResult<CoinWSocketResponse<CoinWSubscriptionResponse>>(message, originalData, null);
+            return CallResult<CoinWSocketResponse<CoinWSubscriptionResponse>>.Ok(message, originalData);
         }
     }
 }

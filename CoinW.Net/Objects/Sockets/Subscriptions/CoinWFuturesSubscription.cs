@@ -39,9 +39,9 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
             _interval = interval;
 
             if (_typesWithoutSymbol.Contains(_topic))
-                MessageRouter = MessageRouter.CreateWithoutTopicFilter<CoinWSocketResponse<T>>(topic, DoHandleMessage);
+                MessageRouter = MessageRouter.CreateForEvent<CoinWSocketResponse<T>>(topic, DoHandleMessage);
             else
-                MessageRouter = MessageRouter.CreateWithTopicFilter<CoinWSocketResponse<T>>(topic, _topic + _pairCode?.ToLowerInvariant() + EnumConverter.GetString(interval), DoHandleMessage);
+                MessageRouter = MessageRouter.CreateForEvent<CoinWSocketResponse<T>>(topic, _topic + _pairCode?.ToLowerInvariant() + EnumConverter.GetString(interval), DoHandleMessage);
         }
 
         /// <inheritdoc />
@@ -80,7 +80,7 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, CoinWSocketResponse<T> message)
         {
             _handler.Invoke(receiveTime, originalData, message);
-            return new CallResult(null);
+            return CallResult.Ok();
         }
     }
 }

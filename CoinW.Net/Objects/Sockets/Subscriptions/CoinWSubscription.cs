@@ -31,7 +31,7 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
             _interval = interval;
 
             var routerFilter = pairCode + interval + EnumConverter.GetString(interval);
-            MessageRouter = MessageRouter.CreateWithOptionalTopicFilter<CoinWSocketResponse<T>>(topic, string.IsNullOrEmpty(routerFilter) ? null : routerFilter, DoHandleMessage);
+            MessageRouter = MessageRouter.CreateForEvent<CoinWSocketResponse<T>>(topic, string.IsNullOrEmpty(routerFilter) ? null : routerFilter, DoHandleMessage);
         }
 
         /// <inheritdoc />
@@ -70,7 +70,7 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
         public CallResult DoHandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, CoinWSocketResponse<T> message)
         {
             _handler.Invoke(receiveTime, originalData, message);
-            return new CallResult(null);
+            return CallResult.Ok();
         }
     }
 }

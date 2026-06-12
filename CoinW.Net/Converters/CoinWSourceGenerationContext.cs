@@ -1,11 +1,13 @@
 using CoinW.Net.Objects.Internal;
 using CoinW.Net.Objects.Models;
+using CryptoExchange.Net.Objects;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace CoinW.Net.Converters
 {
+    [JsonSerializable(typeof(Parameters))]
     [JsonSerializable(typeof(CoinWResponse<Dictionary<string, CoinWTicker>>))]
     [JsonSerializable(typeof(CoinWResponse<Dictionary<string, CoinWAsset>>))]
     [JsonSerializable(typeof(CoinWResponse<CoinWSymbol[]>))]

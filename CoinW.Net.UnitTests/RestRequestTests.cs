@@ -135,12 +135,12 @@ namespace CoinW.Net.UnitTests
             await tester.ValidateAsync(client => client.FuturesApi.Trading.GetTransactionHistory3DaysAsync("123", OrderType.Market, MarginType.CrossMargin, 123, 123), "GetTransactionHistory3Days", nestedJsonProperty: "data", ignoreProperties: ["isProfession"]);
         }
 
-        private bool IsAuthenticated(WebCallResult result)
+        private bool IsAuthenticated(IHttpResult result)
         {
             return result.RequestUrl?.Contains("sign") == true;
         }
 
-        private bool IsAuthenticatedFutures(WebCallResult result)
+        private bool IsAuthenticatedFutures(IHttpResult result)
         {
             return result.RequestHeaders?.Any(x => x.Key == "sign") == true;
         }

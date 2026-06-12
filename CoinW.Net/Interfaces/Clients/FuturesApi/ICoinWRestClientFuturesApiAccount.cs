@@ -23,7 +23,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// <param name="positionId">["positionId"] Position id, either this or orderId should be provided</param>
         /// <param name="orderId">["orderId"] Order id, either this or positionId should be provided</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWValue>> GetLeverageAsync(long? positionId = null, long? orderId = null, CancellationToken ct = default);
+        Task<HttpResult<CoinWValue>> GetLeverageAsync(long? positionId = null, long? orderId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get margin rate for an open position
@@ -36,7 +36,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="positionId">["positionId"] Required for isolated positions, leave empty for cross margin</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWValue>> GetMarginRateAsync(long positionId, CancellationToken ct = default);
+        Task<HttpResult<CoinWValue>> GetMarginRateAsync(long positionId, CancellationToken ct = default);
 
         /// <summary>
         /// Get max buy/sell size
@@ -52,7 +52,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// <param name="marginType">["positionModel"] Margin type</param>
         /// <param name="orderPrice">["orderPrice"] Order price to use for calculation</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWMaxTrade>> GetMaxTradeSizeAsync(string symbol, int leverage, MarginType marginType, decimal orderPrice, CancellationToken ct = default);
+        Task<HttpResult<CoinWMaxTrade>> GetMaxTradeSizeAsync(string symbol, int leverage, MarginType marginType, decimal orderPrice, CancellationToken ct = default);
 
         /// <summary>
         /// Get max transferable quantity
@@ -64,7 +64,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWValue>> GetMaxTransferableAsync(CancellationToken ct = default);
+        Task<HttpResult<CoinWValue>> GetMaxTransferableAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get balances
@@ -76,7 +76,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWFuturesBalance>> GetBalancesAsync(CancellationToken ct = default);
+        Task<HttpResult<CoinWFuturesBalance>> GetBalancesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get trading fees
@@ -88,7 +88,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWFees>> GetFeesAsync(CancellationToken ct = default);
+        Task<HttpResult<CoinWFees>> GetFeesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get margin configuration
@@ -100,7 +100,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWMarginInfo>> GetMarginModeAsync(CancellationToken ct = default);
+        Task<HttpResult<CoinWMarginInfo>> GetMarginModeAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Set margin mode
@@ -114,7 +114,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// <param name="marginType">["positionModel"] Margin type</param>
         /// <param name="positionCombineType">["layout"] Position combine type</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> SetMarginModeAsync(MarginType marginType, PositionCombineType positionCombineType, CancellationToken ct = default);
+        Task<HttpResult> SetMarginModeAsync(MarginType marginType, PositionCombineType positionCombineType, CancellationToken ct = default);
 
         /// <summary>
         /// Enable or disable mega coupon usage
@@ -127,7 +127,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="enabled">["status"] Whether to use mega coupon</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> ToggleMegaCouponAsync(bool enabled, CancellationToken ct = default);
+        Task<HttpResult> ToggleMegaCouponAsync(bool enabled, CancellationToken ct = default);
 
         /// <summary>
         /// Get max position size
@@ -140,7 +140,7 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         /// </summary>
         /// <param name="symbol">["instrument"] The symbol, for example `ETH`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWMaxPosition>> GetMaxPositionSizeAsync(string symbol, CancellationToken ct = default);
+        Task<HttpResult<CoinWMaxPosition>> GetMaxPositionSizeAsync(string symbol, CancellationToken ct = default);
 
     }
 }
