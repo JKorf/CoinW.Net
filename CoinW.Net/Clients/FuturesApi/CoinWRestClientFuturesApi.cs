@@ -40,12 +40,12 @@ namespace CoinW.Net.Clients.FuturesApi
         #endregion
 
         #region constructor/destructor
-        internal CoinWRestClientFuturesApi(ILogger logger, HttpClient? httpClient, CoinWRestOptions options)
-            : base(logger, CoinWExchange.Metadata.Id, httpClient, options.Environment.RestClientAddress, options, options.FuturesOptions)
+        internal CoinWRestClientFuturesApi(ILoggerFactory? loggerFactory, HttpClient? httpClient, CoinWRestOptions options)
+            : base(loggerFactory, CoinWExchange.Metadata.Id, httpClient, options.Environment.RestClientAddress, options, options.FuturesOptions)
         {
             Account = new CoinWRestClientFuturesApiAccount(this);
-            ExchangeData = new CoinWRestClientFuturesApiExchangeData(logger, this);
-            Trading = new CoinWRestClientFuturesApiTrading(logger, this);
+            ExchangeData = new CoinWRestClientFuturesApiExchangeData(_logger, this);
+            Trading = new CoinWRestClientFuturesApiTrading(_logger, this);
         }
         #endregion
 

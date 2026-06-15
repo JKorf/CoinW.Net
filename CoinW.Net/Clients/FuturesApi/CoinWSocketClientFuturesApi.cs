@@ -38,8 +38,8 @@ namespace CoinW.Net.Clients.FuturesApi
         /// <summary>
         /// ctor
         /// </summary>
-        internal CoinWSocketClientFuturesApi(ILogger logger, CoinWSocketOptions options) :
-            base(logger, CoinWExchange.Metadata.Id, options.Environment.SocketClientAddress!, options, options.FuturesOptions)
+        internal CoinWSocketClientFuturesApi(ILoggerFactory? loggerFactory, CoinWSocketOptions options) :
+            base(loggerFactory, CoinWExchange.Metadata.Id, options.Environment.SocketClientAddress!, options, options.FuturesOptions)
         {
             RegisterPeriodicQuery(
                 "ping",

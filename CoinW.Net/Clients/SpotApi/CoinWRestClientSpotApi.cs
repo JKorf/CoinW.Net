@@ -44,14 +44,14 @@ namespace CoinW.Net.Clients.SpotApi
         #endregion
 
         #region constructor/destructor
-        internal CoinWRestClientSpotApi(ICoinWRestClient baseClient, ILogger logger, HttpClient? httpClient, CoinWRestOptions options)
-            : base(logger, CoinWExchange.Metadata.Id, httpClient, options.Environment.RestClientAddress, options, options.SpotOptions)
+        internal CoinWRestClientSpotApi(ICoinWRestClient baseClient, ILoggerFactory? loggerFactory, HttpClient? httpClient, CoinWRestOptions options)
+            : base(loggerFactory, CoinWExchange.Metadata.Id, httpClient, options.Environment.RestClientAddress, options, options.SpotOptions)
         {
             BaseClient = baseClient;
 
             Account = new CoinWRestClientSpotApiAccount(this);
-            ExchangeData = new CoinWRestClientSpotApiExchangeData(logger, this);
-            Trading = new CoinWRestClientSpotApiTrading(logger, this);
+            ExchangeData = new CoinWRestClientSpotApiExchangeData(_logger, this);
+            Trading = new CoinWRestClientSpotApiTrading(_logger, this);
 
             RequestBodyEmptyContent = "";
             ParameterPositions[HttpMethod.Post] = HttpMethodParameterPosition.InUri;

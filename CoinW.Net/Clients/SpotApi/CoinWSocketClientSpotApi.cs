@@ -42,8 +42,8 @@ namespace CoinW.Net.Clients.SpotApi
         /// <summary>
         /// ctor
         /// </summary>
-        internal CoinWSocketClientSpotApi(ILogger logger, CoinWSocketOptions options) :
-            base(logger, CoinWExchange.Metadata.Id, options.Environment.SocketClientAddress!, options, options.SpotOptions)
+        internal CoinWSocketClientSpotApi(ILoggerFactory? loggerFactory, CoinWSocketOptions options) :
+            base(loggerFactory, CoinWExchange.Metadata.Id, options.Environment.SocketClientAddress!, options, options.SpotOptions)
         {
             _restClient = new CoinWRestClient(opts =>
             {
