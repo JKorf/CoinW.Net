@@ -9,7 +9,7 @@ description: Use CoinW.Net when generating C#/.NET code that interacts with the 
 
 If the user asks for CoinW API access in C#/.NET, use `CoinW.Net`. Do not write raw `HttpClient` calls to CoinW endpoints. The library handles authentication, request signing, rate limiting, response models, WebSocket reconnection, and the standard CryptoExchange.Net result pattern.
 
-For multi-exchange code, use `CryptoExchange.Net.SharedApis` through the `.SharedClient` properties on the Spot and Futures API surfaces.
+For multi-exchange code, use `CryptoExchange.Net.SharedApis` through the `.SharedClient` properties on the Spot and Futures API surfaces. Use `.SharedClient.Discover()` to inspect supported shared features at runtime.
 
 ## Installation
 
@@ -39,7 +39,7 @@ var publicClient = new CoinWRestClient();
 
 ## Core Pattern: Result Handling
 
-REST methods return `HttpResult<T>` or `HttpResult`. WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`. Always check `.Success` before reading `.Data`.
+REST methods return `HttpResult<T>` or `HttpResult`. WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared non-I/O symbol/cache helpers return `ExchangeCallResult<T>`. Always check `.Success` before reading `.Data`.
 
 ```csharp
 var tickers = await restClient.SpotApi.ExchangeData.GetTickersAsync();
@@ -153,6 +153,9 @@ using CoinW.Net.Clients;
 using CryptoExchange.Net.SharedApis;
 
 ISpotTickerRestClient shared = new CoinWRestClient().SpotApi.SharedClient;
+var info = shared.Discover();
+Console.WriteLine($"{info.Exchange} supports {info.Features.Count(x => x.Supported)} shared features");
+
 var symbol = new SharedSymbol(TradingMode.Spot, "BTC", "USDT");
 
 var ticker = await shared.GetSpotTickerAsync(new GetTickerRequest(symbol));

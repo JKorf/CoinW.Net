@@ -2,7 +2,7 @@
 
 > Strongly typed .NET client library for the CoinW REST and WebSocket APIs. Supports Spot and Futures trading, account data, market data, order placement, order books, WebSocket streams, and CryptoExchange.Net SharedApis for multi-exchange code.
 
-CoinW.Net is part of the CryptoExchange.Net ecosystem. It uses `HttpResult<T>` / `WebSocketResult<T>` result objects, typed request and response models, automatic WebSocket reconnection, client-side rate limiting, local order book support, dependency injection, and Native AOT support. Current version: 2.9.3. Targets netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
+CoinW.Net is part of the CryptoExchange.Net ecosystem. REST methods return `HttpResult<T>` / `HttpResult`, WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`, and shared symbol/cache helpers return `ExchangeCallResult<T>`. It also provides typed request and response models, automatic WebSocket reconnection, client-side rate limiting, local order book support, dependency injection, and Native AOT support. Current version: 2.9.3. Targets netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
 
 ## Documentation
 
@@ -18,8 +18,8 @@ CoinW.Net is part of the CryptoExchange.Net ecosystem. It uses `HttpResult<T>` /
 - [Spot Quickstart](https://github.com/JKorf/CoinW.Net/blob/main/Examples/ai-friendly/01-spot-quickstart.cs): Client setup, ticker lookup, balances, limit order placement, order status
 - [Futures Trading](https://github.com/JKorf/CoinW.Net/blob/main/Examples/ai-friendly/02-futures.cs): Futures ticker, margin mode, market order, positions, close position
 - [WebSocket Streams](https://github.com/JKorf/CoinW.Net/blob/main/Examples/ai-friendly/03-websocket.cs): Spot ticker, kline, user streams, futures streams, teardown
-- [Multi-Exchange Pattern](https://github.com/JKorf/CoinW.Net/blob/main/Examples/ai-friendly/04-multi-exchange.cs): CryptoExchange.Net SharedApis for exchange-agnostic code
-- [Error Handling](https://github.com/JKorf/CoinW.Net/blob/main/Examples/ai-friendly/05-error-handling.cs): HttpResult pattern, retry logic, common errors
+- [Multi-Exchange Pattern](https://github.com/JKorf/CoinW.Net/blob/main/Examples/ai-friendly/04-multi-exchange.cs): CryptoExchange.Net SharedApis, capability discovery, and shared subscriptions
+- [Error Handling](https://github.com/JKorf/CoinW.Net/blob/main/Examples/ai-friendly/05-error-handling.cs): HttpResult, WebSocketResult, and ExchangeCallResult patterns
 - [Full Examples Repository](https://github.com/JKorf/CoinW.Net/tree/main/Examples): Console, API, order book, and tracker examples
 
 ## Reference
