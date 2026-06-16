@@ -277,7 +277,12 @@ namespace CoinW.Net.Clients.FuturesApi
 
         string IFuturesOrderRestClient.GenerateClientOrderId() => ExchangeHelpers.RandomString(32);
 
-        PlaceFuturesOrderOptions IFuturesOrderRestClient.PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions(_exchangeName, true);
+        PlaceFuturesOrderOptions IFuturesOrderRestClient.PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions(_exchangeName, true)
+        {
+            OptionalExchangeParameters = [            
+                new ParameterDescription(["PositionId", "id"], typeof(long),  "Id of the position to close", "Required for closing positions"),
+            ]
+        };
         async Task<HttpResult<SharedId>> IFuturesOrderRestClient.PlaceFuturesOrderAsync(PlaceFuturesOrderRequest request, CancellationToken ct)
         {
             var validationError = SharedClient.PlaceFuturesOrderOptions.ValidateRequest(request, this);
@@ -315,7 +320,7 @@ namespace CoinW.Net.Clients.FuturesApi
             else
             {
                 // Closing position needs a separate endpoint
-                var positionId = ExchangeParameters.GetValue<long?>(request.ExchangeParameters, Exchange, "PositionId");
+                var positionId = request.GetParamValue<long?>(Exchange, "PositionId", "id");
                 if (positionId == null)
                     return HttpResult.Fail<SharedId>(Exchange, ArgumentError.Missing("PositionId", "Required parameter `PositionId` missing for PlaceFuturesOrderAsync. `PositionId` is required for closing positions."));
 
@@ -627,7 +632,7 @@ namespace CoinW.Net.Clients.FuturesApi
         {
             RequiredExchangeParameters = new List<ParameterDescription>
             {
-                new ParameterDescription("PositionId", typeof(long), "The id of the position to close", 123L),
+                new ParameterDescription(["PositionId", "id"], typeof(long), "The id of the position to close", 123L),
             }
         };
         async Task<HttpResult<SharedId>> IFuturesOrderRestClient.ClosePositionAsync(ClosePositionRequest request, CancellationToken ct)
@@ -636,7 +641,7 @@ namespace CoinW.Net.Clients.FuturesApi
             if (validationError != null)
                 return HttpResult.Fail<SharedId>(Exchange, validationError);
 
-            var positionId = ExchangeParameters.GetValue<long>(request.ExchangeParameters, Exchange, "PositionId");
+            var positionId = request.GetParamValue<long>(Exchange, "PositionId", "id");
             var result = await Trading.ClosePositionAsync(positionId, quantityToClose: request.Quantity, ct: ct).ConfigureAwait(false);
             if (!result.Success)
                 return HttpResult.Fail<SharedId>(result);

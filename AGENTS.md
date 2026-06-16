@@ -39,7 +39,7 @@ var publicClient = new CoinWRestClient();
 
 ## Core Pattern: Result Handling
 
-REST methods return `WebCallResult<T>` or `WebCallResult`. WebSocket subscriptions return `CallResult<UpdateSubscription>`. Always check `.Success` before reading `.Data`.
+REST methods return `HttpResult<T>` or `HttpResult`. WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`. Always check `.Success` before reading `.Data`.
 
 ```csharp
 var tickers = await restClient.SpotApi.ExchangeData.GetTickersAsync();

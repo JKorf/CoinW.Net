@@ -1,6 +1,6 @@
 // 05-error-handling.cs
 //
-// Demonstrates: WebCallResult patterns, retry logic, and common CoinW error scenarios.
+// Demonstrates: HttpResult patterns, retry logic, and common CoinW error scenarios.
 //
 // Setup: dotnet add package CoinW.Net
 
@@ -16,7 +16,7 @@ var client = new CoinWRestClient(options =>
 });
 
 // ---- 1. THE BASIC PATTERN ----
-// Every REST method returns WebCallResult<T> or WebCallResult.
+// Every REST method returns HttpResult<T> or HttpResult.
 // .Success is true/false. .Data is valid only when .Success is true.
 // .Error contains structured error info when .Success is false.
 
@@ -38,11 +38,11 @@ else
 // Retry only on transient errors such as rate limits, network blips, or server overload.
 // Do not retry validation errors, bad credentials, or insufficient balance.
 
-async Task<WebCallResult<T>> WithRetry<T>(
-    Func<Task<WebCallResult<T>>> call,
+async Task<HttpResult<T>> WithRetry<T>(
+    Func<Task<HttpResult<T>>> call,
     int maxAttempts = 3)
 {
-    WebCallResult<T> last = default!;
+    HttpResult<T> last = default!;
     for (var attempt = 1; attempt <= maxAttempts; attempt++)
     {
         last = await call();
@@ -111,7 +111,7 @@ if (!order.Success)
 Console.WriteLine($"Placed order {order.Data.OrderId}");
 
 // ---- 6. EXCEPTIONS VS ERROR RESULTS ----
-// CoinW.Net returns API failures via WebCallResult.Error, not thrown exceptions.
+// CoinW.Net returns API failures via HttpResult.Error, not thrown exceptions.
 // Exceptions are reserved for misconfiguration, disposal, cancellation, or programming errors.
 
 // Common variations:
