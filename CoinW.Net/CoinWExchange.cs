@@ -103,7 +103,7 @@ namespace CoinW.Net
         /// <summary>
         /// Rate limiter configuration for the CoinW API
         /// </summary>
-        public static CoinWRateLimiters RateLimiter { get; } = new CoinWRateLimiters();
+        public static CoinWRateLimiters RateLimiter { get; set; } = new CoinWRateLimiters();
     }
 
     /// <summary>
@@ -121,13 +121,19 @@ namespace CoinW.Net
         public event Action<RateLimitUpdateEvent> RateLimitUpdated;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        internal CoinWRateLimiters()
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public CoinWRateLimiters()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             Initialize();
         }
 
-        private void Initialize()
+        /// <summary>
+        /// Initialize the rate limits
+        /// </summary>
+        protected virtual void Initialize()
         {
             CoinW = new RateLimitGate("CoinW");
             CoinW.RateLimitTriggered += (x) => RateLimitTriggered?.Invoke(x);
