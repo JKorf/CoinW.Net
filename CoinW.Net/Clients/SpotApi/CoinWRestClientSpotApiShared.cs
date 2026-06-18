@@ -9,6 +9,7 @@ using CryptoExchange.Net.Objects;
 using CryptoExchange.Net;
 using CoinW.Net.Enums;
 using CryptoExchange.Net.Objects.Errors;
+using CoinW.Net.Objects.Models;
 
 namespace CoinW.Net.Clients.SpotApi
 {
@@ -288,7 +289,13 @@ namespace CoinW.Net.Clients.SpotApi
 
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.Timestamp, request.StartTime, request.EndTime, request.Direction ?? DataDirection.Ascending)
                 .Select(x => 
-                    new SharedWithdrawal(x.Asset, x.Address, x.Quantity, x.Status == Enums.MovementStatus.Success, x.Timestamp)
+                    new SharedWithdrawal(
+                        x.Asset, 
+                        x.Address,
+                        x.Quantity,
+                        x.Status == Enums.MovementStatus.Success,
+                        x.Timestamp,
+                        GetWithdrawalStatus(x))
                     {
                         Network = x.Network,
                         TransactionId = x.TransactionId,
@@ -297,6 +304,16 @@ namespace CoinW.Net.Clients.SpotApi
                     }).ToArray());
         }
 
+        private SharedTransferStatus GetWithdrawalStatus(CoinWDepositWithdrawal x)
+        {
+            if (x.Status == MovementStatus.Success)
+                return SharedTransferStatus.Completed;
+
+            if (x.Status == MovementStatus.Waiting)
+                return SharedTransferStatus.InProgress;
+
+            return SharedTransferStatus.Unknown;
+        }
         #endregion
 
         #region Withdraw client
