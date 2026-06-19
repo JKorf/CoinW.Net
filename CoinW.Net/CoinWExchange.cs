@@ -27,7 +27,8 @@ namespace CoinW.Net
                 "https://www.coinw.com/",
                 ["https://www.coinw.com/api-doc/en/common/introduction"],
                 PlatformType.CryptoCurrencyExchange,
-                CentralizationType.Centralized
+                CentralizationType.Centralized,
+                CoinWEnvironment.All
                 );
 
         /// <summary>
