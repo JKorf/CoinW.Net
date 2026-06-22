@@ -94,7 +94,12 @@ namespace CoinW.Net.Clients.SpotApi
             if (!result.Success)
                 return HttpResult.Fail<SharedBalance[]>(result);
 
-            return HttpResult.Ok(result, result.Data.Select(x => new SharedBalance(x.Key, x.Value.Available, x.Value.Available + x.Value.OnOrders)).ToArray());
+            return HttpResult.Ok(result, result.Data.Select(x => 
+                new SharedBalance(
+                    SupportedTradingModes, 
+                    x.Key, 
+                    x.Value.Available,
+                    x.Value.Available + x.Value.OnOrders)).ToArray());
         }
 
         #endregion

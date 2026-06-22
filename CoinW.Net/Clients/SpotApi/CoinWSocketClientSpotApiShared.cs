@@ -32,7 +32,12 @@ namespace CoinW.Net.Clients.SpotApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var result = await SubscribeToBalanceUpdatesAsync(
-                update => handler(update.ToType<SharedBalance[]>([new SharedBalance(update.Data.Asset, update.Data.Available, update.Data.Available + update.Data.Hold)])),
+                update => handler(update.ToType<SharedBalance[]>([
+                    new SharedBalance(
+                        SupportedTradingModes,
+                        update.Data.Asset, 
+                        update.Data.Available,
+                        update.Data.Available + update.Data.Hold)])),
                 ct: ct).ConfigureAwait(false);
 
             return result;

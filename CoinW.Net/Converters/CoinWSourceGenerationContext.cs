@@ -8,6 +8,7 @@ using System.Text.Json.Serialization;
 namespace CoinW.Net.Converters
 {
     [JsonSerializable(typeof(Parameters))]
+    [JsonSerializable(typeof(Parameters[]))]
     [JsonSerializable(typeof(CoinWResponse<Dictionary<string, CoinWTicker>>))]
     [JsonSerializable(typeof(CoinWResponse<Dictionary<string, CoinWAsset>>))]
     [JsonSerializable(typeof(CoinWResponse<CoinWSymbol[]>))]

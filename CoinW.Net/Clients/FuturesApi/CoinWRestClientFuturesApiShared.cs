@@ -37,7 +37,12 @@ namespace CoinW.Net.Clients.FuturesApi
             if (!result.Success)
                 return HttpResult.Fail<SharedBalance[]>(result);
 
-            return HttpResult.Ok<SharedBalance[]>(result, [new SharedBalance("USDT", result.Data.AvailableUsdt, result.Data.AvailableUsdt + result.Data.Holding + result.Data.Frozen)]);
+            return HttpResult.Ok<SharedBalance[]>(result, [
+                new SharedBalance(
+                    SupportedTradingModes,
+                    "USDT", 
+                    result.Data.AvailableUsdt, 
+                    result.Data.AvailableUsdt + result.Data.Holding + result.Data.Frozen)]);
         }
 
         #endregion
