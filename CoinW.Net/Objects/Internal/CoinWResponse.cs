@@ -6,7 +6,7 @@ namespace CoinW.Net.Objects.Internal
     {
         [JsonPropertyName("code")]
         public int? Code { get; set; }
-        [JsonPropertyName("message")]
+        [JsonPropertyName("msg")]
         public string? Message { get; set; }
         [JsonPropertyName("success")]
         public bool Success { get; set; }
