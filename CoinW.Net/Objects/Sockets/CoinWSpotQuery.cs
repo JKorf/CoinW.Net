@@ -14,12 +14,12 @@ namespace CoinW.Net.Objects.Sockets
         {
             var topic = $"{request.Parameters.Type}{(request.Parameters.PairCode == null ? "" : ("-" + request.Parameters.PairCode.ToLowerInvariant()))}{(request.Parameters.Interval == null ? "" : ("-" + EnumConverter.GetString(request.Parameters.Interval)))}";
             
-            MessageRouter = MessageRouter.CreateWithTopicFilter<CoinWSocketResponse<T>>("SubResponse", request.Parameters.Type + request.Parameters.PairCode?.ToLowerInvariant() + EnumConverter.GetString(request.Parameters.Interval), HandleMessage);
+            MessageRouter = MessageRouter.CreateForQuery<CoinWSocketResponse<T>, T>("SubResponse", request.Parameters.Type + request.Parameters.PairCode?.ToLowerInvariant() + EnumConverter.GetString(request.Parameters.Interval), HandleMessage);
         }
 
         public CallResult<T> HandleMessage(SocketConnection connection, DateTime receiveTime, string? originalData, CoinWSocketResponse<T> message)
         {
-            return new CallResult<T>(message.Data, originalData, null);
+            return CallResult<T>.Ok(message.Data, originalData);
         }
     }
 }

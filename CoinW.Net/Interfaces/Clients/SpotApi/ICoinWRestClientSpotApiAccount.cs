@@ -22,7 +22,7 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<Dictionary<string, decimal>>> GetBalancesAsync(CancellationToken ct = default);
+        Task<HttpResult<Dictionary<string, decimal>>> GetBalancesAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get account balances with details
@@ -34,7 +34,7 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<Dictionary<string, CoinWBalance>>> GetBalancesDetailsAsync(CancellationToken ct = default);
+        Task<HttpResult<Dictionary<string, CoinWBalance>>> GetBalancesDetailsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get deposit/withdrawal history
@@ -48,7 +48,7 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">Filter by asset</param>
         /// <param name="id">["id"] Filter by id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWDepositWithdrawal[]>> GetDepositWithdrawalHistoryAsync(string asset, long? id = null, CancellationToken ct = default);
+        Task<HttpResult<CoinWDepositWithdrawal[]>> GetDepositWithdrawalHistoryAsync(string asset, long? id = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get deposit/withdrawal history
@@ -57,7 +57,7 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         /// <param name="assets">["symbol"] Filter by assets, max 20 per request</param>
         /// <param name="id">["id"] Filter by id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWDepositWithdrawal[]>> GetDepositWithdrawalHistoryAsync(IEnumerable<string> assets, long? id = null, CancellationToken ct = default);
+        Task<HttpResult<CoinWDepositWithdrawal[]>> GetDepositWithdrawalHistoryAsync(IEnumerable<string> assets, long? id = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get deposit addresses for an asset
@@ -71,7 +71,7 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">The asset, for example `ETH`</param>
         /// <param name="network">["chain"] The network</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWDepositAddress[]>> GetDepositAddressesAsync(string asset, string network, CancellationToken ct = default);
+        Task<HttpResult<CoinWDepositAddress[]>> GetDepositAddressesAsync(string asset, string network, CancellationToken ct = default);
 
         /// <summary>
         /// Withdraw funds
@@ -90,7 +90,7 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         /// <param name="type">["type"] Withdraw type</param>
         /// <param name="internalWithdrawType">["innerToType"] Inner withdraw type</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWWithdrawResult>> WithdrawAsync(string asset, decimal quantity, string address, string network, string? memo = null, WithdrawType? type = null, InternalWithdrawType? internalWithdrawType = null, CancellationToken ct = default);
+        Task<HttpResult<CoinWWithdrawResult>> WithdrawAsync(string asset, decimal quantity, string address, string network, string? memo = null, WithdrawType? type = null, InternalWithdrawType? internalWithdrawType = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel a pending withdrawal
@@ -103,7 +103,7 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="withdrawalId">["id"] Id to cancel</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> CancelWithdrawalAsync(long withdrawalId, CancellationToken ct = default);
+        Task<HttpResult> CancelWithdrawalAsync(long withdrawalId, CancellationToken ct = default);
 
         /// <summary>
         /// Transfer between account types
@@ -119,7 +119,7 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         /// <param name="asset">["coinCode"] The asset, for example `ETH`</param>
         /// <param name="quantity">["amount"] Quantity to transfer</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> TransferAsync(AccountType fromAccount, AccountType toAccount, string asset, decimal quantity, CancellationToken ct = default);
+        Task<HttpResult> TransferAsync(AccountType fromAccount, AccountType toAccount, string asset, decimal quantity, CancellationToken ct = default);
 
     }
 }

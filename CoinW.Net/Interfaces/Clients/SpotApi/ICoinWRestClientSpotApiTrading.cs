@@ -29,7 +29,7 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         /// <param name="quoteQuantity">["funds"] Order quantity in quote asset (only valid for market orders)</param>
         /// <param name="clientOrderId">["out_trade_no"] Client order id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWOrderResult>> PlaceOrderAsync(string symbol, OrderSide side, OrderType type, decimal? quantity = null, decimal? quoteQuantity = null, decimal? price = null, string? clientOrderId = null, CancellationToken ct = default);
+        Task<HttpResult<CoinWOrderResult>> PlaceOrderAsync(string symbol, OrderSide side, OrderType type, decimal? quantity = null, decimal? quoteQuantity = null, decimal? price = null, string? clientOrderId = null, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel an open order
@@ -42,7 +42,7 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="orderId">["orderNumber"] Order id to cancel</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> CancelOrderAsync(long orderId, CancellationToken ct = default);
+        Task<HttpResult> CancelOrderAsync(long orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Cancel all open orders
@@ -55,7 +55,7 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="symbol">["currencyPair"] Filter by symbol, for example `ETH_USDT`</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult> CancelAllOrdersAsync(string? symbol = null, CancellationToken ct = default);
+        Task<HttpResult> CancelAllOrdersAsync(string? symbol = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get open orders
@@ -70,7 +70,7 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         /// <param name="startTime">["startAt"] Filter by start time</param>
         /// <param name="endTime">["endAT"] Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWOrder[]>> GetOpenOrdersAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
+        Task<HttpResult<CoinWOrder[]>> GetOpenOrdersAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get order details
@@ -83,7 +83,7 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         /// </summary>
         /// <param name="orderId">["orderNumber"] Order id</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWOrderDetails>> GetOrderAsync(long orderId, CancellationToken ct = default);
+        Task<HttpResult<CoinWOrderDetails>> GetOrderAsync(long orderId, CancellationToken ct = default);
 
         /// <summary>
         /// Get user order transaction history
@@ -98,7 +98,7 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         /// <param name="startTime">["startAt"] Filter by start time</param>
         /// <param name="endTime">["endAt"] Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWOrderTransaction[]>> GetOrderTransactionHistoryAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
+        Task<HttpResult<CoinWOrderTransaction[]>> GetOrderTransactionHistoryAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get user trades
@@ -116,7 +116,7 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         /// <param name="endTime">["endAt"] Filter by end time</param>
         /// <param name="limit">["limit"] Max number of results</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWUserTrade[]>> GetUserTradesAsync(string? symbol = null, long? fromId = null, long? toId = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<CoinWUserTrade[]>> GetUserTradesAsync(string? symbol = null, long? fromId = null, long? toId = null, DateTime? startTime = null, DateTime? endTime = null, int? limit = null, CancellationToken ct = default);
 
     }
 }

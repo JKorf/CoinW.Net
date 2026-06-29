@@ -18,10 +18,10 @@ namespace CoinW.Net
 
         public override void ProcessRequest(RestApiClient apiClient, RestRequestConfiguration request)
         {
-            if (!request.Authenticated)
+            if (!request.RequestDefinition.Authenticated)
                 return;
 
-            request.QueryParameters ??= new Dictionary<string, object>();
+            request.QueryParameters ??= new Parameters(CoinWExchange._parameterSerializationSettings);
             request.QueryParameters.Add("api_key", Credential.Key);
             var signParameters = request.QueryParameters.Where(x => x.Key != "command").OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
             var queryString = signParameters.CreateParamString(false, request.ArraySerialization);

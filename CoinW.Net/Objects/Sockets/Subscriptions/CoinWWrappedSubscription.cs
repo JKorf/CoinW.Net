@@ -32,7 +32,7 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
             _pairCode = pairCode;
             _interval = interval;
 
-            MessageRouter = MessageRouter.CreateWithTopicFilter<CoinWSocketResponse<string>>(topic, _topic + _pairCode?.ToLowerInvariant() + EnumConverter.GetString(interval), DoHandleMessage);
+            MessageRouter = MessageRouter.CreateForEvent<CoinWSocketResponse<string>>(topic, _topic + _pairCode?.ToLowerInvariant() + EnumConverter.GetString(interval), DoHandleMessage);
         }
 
         /// <inheritdoc />
@@ -76,7 +76,7 @@ namespace CoinW.Net.Objects.Sockets.Subscriptions
 #pragma warning restore IL3050 // Calling members annotated with 'RequiresDynamicCodeAttribute' may break functionality when AOT compiling.
 #pragma warning restore IL2026 // Members annotated with 'RequiresUnreferencedCodeAttribute' require dynamic access otherwise can break functionality when trimming application code
             _handler.Invoke(receiveTime, originalData, updateData, message.Time);
-            return new CallResult(null);
+            return CallResult.Ok();
         }
     }
 }

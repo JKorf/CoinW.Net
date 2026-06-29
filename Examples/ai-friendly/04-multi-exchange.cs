@@ -17,7 +17,14 @@ using CryptoExchange.Net.SharedApis;
 // SharedClient implements common interfaces such as ISpotTickerRestClient and
 // ISpotOrderRestClient so higher-level code can avoid per-exchange branches.
 
-ISpotTickerRestClient coinwShared = new CoinWRestClient().SpotApi.SharedClient;
+var coinwRest = new CoinWRestClient();
+ISpotTickerRestClient coinwShared = coinwRest.SpotApi.SharedClient;
+
+var sharedInfo = coinwRest.SpotApi.SharedClient.Discover();
+var supportedFeatures = sharedInfo.Features
+    .Where(x => x.Supported)
+    .Select(x => x.EndpointName);
+Console.WriteLine($"{sharedInfo.Exchange} {sharedInfo.TypeName}: {string.Join(", ", supportedFeatures)}");
 
 // To add OKX or Bybit, install the package and use the equivalent SharedClient:
 //   ISpotTickerRestClient okxShared = new OKXRestClient().UnifiedApi.SharedClient;
@@ -78,4 +85,5 @@ await coinwSocket.UnsubscribeAsync(sub.Data);
 //   Multi-exchange arbitrage: loop over List<ISpotTickerRestClient>, find max bid / min ask
 //   Cross-exchange order book: IOrderBookSocketClient on each exchange, merge into a composite book
 //   Futures routing: use IFuturesOrderRestClient from each exchange's futures SharedClient
+//   Capability checks: call SharedClient.Discover() before routing optional shared features
 //   Symbol formatting: use SharedSymbol instead of hard-coded exchange symbols

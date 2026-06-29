@@ -66,27 +66,27 @@ namespace CoinW.Net.SymbolOrderBooks
         protected override async Task<CallResult<UpdateSubscription>> DoStartAsync(CancellationToken ct)
         {
             var subResult = await _socketClient.SpotApi.SubscribeToOrderBookUpdatesAsync(Symbol, HandleUpdate).ConfigureAwait(false);
-            if (!subResult)
-                return new CallResult<UpdateSubscription>(subResult.Error!);
+            if (!subResult.Success)
+                return CallResult.Fail<UpdateSubscription>(subResult.Error!);
 
             if (ct.IsCancellationRequested)
             {
                 await subResult.Data.CloseAsync().ConfigureAwait(false);
-                return subResult.AsError<UpdateSubscription>(new CancellationRequestedError());
+                return CallResult.Fail<UpdateSubscription>(new CancellationRequestedError());
             }
 
             Status = OrderBookStatus.Syncing;
 
             var bookResult = await _restClient.SpotApi.ExchangeData.GetOrderBookAsync(Symbol, Levels ?? 5000).ConfigureAwait(false);
-            if (!bookResult)
+            if (!bookResult.Success)
             {
                 _logger.Log(LogLevel.Debug, $"{Api} order book {Symbol} failed to retrieve initial order book");
                 await _socketClient.UnsubscribeAsync(subResult.Data).ConfigureAwait(false);
-                return new CallResult<UpdateSubscription>(bookResult.Error!);
+                return CallResult.Fail<UpdateSubscription>(bookResult.Error!);
             }
 
             SetSnapshot(null, bookResult.Data.Bids, bookResult.Data.Asks);
-            return new CallResult<UpdateSubscription>(subResult.Data);
+            return CallResult.Ok(subResult.Data);
         }
 
         private void HandleUpdate(DataEvent<CoinWOrderBookUpdate> data)
@@ -102,14 +102,14 @@ namespace CoinW.Net.SymbolOrderBooks
         }
 
         /// <inheritdoc />
-        protected override async Task<CallResult<bool>> DoResyncAsync(CancellationToken ct)
+        protected override async Task<CallResult> DoResyncAsync(CancellationToken ct)
         {
             var bookResult = await _restClient.SpotApi.ExchangeData.GetOrderBookAsync(Symbol, Levels ?? 5000).ConfigureAwait(false);
-            if (!bookResult)
-                return new CallResult<bool>(bookResult.Error!);
+            if (!bookResult.Success)
+                return CallResult.Fail(bookResult.Error!);
 
             SetSnapshot(null, bookResult.Data.Bids, bookResult.Data.Asks);
-            return new CallResult<bool>(true);
+            return CallResult.Ok();
         }
 
         /// <inheritdoc />

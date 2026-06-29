@@ -42,8 +42,8 @@ namespace CoinW.Net.Clients.SpotApi
         /// <summary>
         /// ctor
         /// </summary>
-        internal CoinWSocketClientSpotApi(ILogger logger, CoinWSocketOptions options) :
-            base(logger, options.Environment.SocketClientAddress!, options, options.SpotOptions)
+        internal CoinWSocketClientSpotApi(ILoggerFactory? loggerFactory, CoinWSocketOptions options) :
+            base(loggerFactory, CoinWExchange.Metadata.Id, options.Environment.SocketClientAddress!, options, options.SpotOptions)
         {
             _restClient = new CoinWRestClient(opts =>
             {
@@ -77,11 +77,11 @@ namespace CoinW.Net.Clients.SpotApi
             => new CoinWSpotAuthenticationProvider(credentials);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<CoinWTickerUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<CoinWTickerUpdate>> onMessage, CancellationToken ct = default)
         {
             var result = await CoinWUtils.GetSymbolIdFromNameAsync(_restClient, symbol).ConfigureAwait(false);
-            if (!result)
-                return result.As<UpdateSubscription>(default);
+            if (!result.Success)
+                return WebSocketResult.Fail<UpdateSubscription>(Exchange, result.Error);
 
             var internalHandler = new Action<DateTime, string?, CoinWTickerUpdate, long>((receiveTime, originalData, data, seq) =>
             {
@@ -98,7 +98,7 @@ namespace CoinW.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToAllTickerUpdatesAsync(Action<DataEvent<CoinWSymbolUpdate[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToAllTickerUpdatesAsync(Action<DataEvent<CoinWSymbolUpdate[]>> onMessage, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, CoinWSymbolUpdate[], long>((receiveTime, originalData, data, seq) =>
             {
@@ -114,11 +114,11 @@ namespace CoinW.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<CoinWOrderBookUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<CoinWOrderBookUpdate>> onMessage, CancellationToken ct = default)
         {
             var result = await CoinWUtils.GetSymbolIdFromNameAsync(_restClient, symbol).ConfigureAwait(false);
-            if (!result)
-                return result.As<UpdateSubscription>(default);
+            if (!result.Success)
+                return WebSocketResult.Fail<UpdateSubscription>(Exchange, result.Error);
 
             var internalHandler = new Action<DateTime, string?, CoinWOrderBookUpdate, long>((receiveTime, originalData, data, seq) =>
             {
@@ -136,11 +136,11 @@ namespace CoinW.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(string symbol, Action<DataEvent<CoinWOrderBook>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToPartialOrderBookUpdatesAsync(string symbol, Action<DataEvent<CoinWOrderBook>> onMessage, CancellationToken ct = default)
         {
             var result = await CoinWUtils.GetSymbolIdFromNameAsync(_restClient, symbol).ConfigureAwait(false);
-            if (!result)
-                return result.As<UpdateSubscription>(default);
+            if (!result.Success)
+                return WebSocketResult.Fail<UpdateSubscription>(Exchange, result.Error);
 
             var internalHandler = new Action<DateTime, string?, CoinWOrderBook, long>((receiveTime, originalData, data, seq) =>
             {
@@ -158,11 +158,11 @@ namespace CoinW.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KlineIntervalStream interval, Action<DataEvent<CoinWKlineUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, KlineIntervalStream interval, Action<DataEvent<CoinWKlineUpdate>> onMessage, CancellationToken ct = default)
         {
             var result = await CoinWUtils.GetSymbolIdFromNameAsync(_restClient, symbol).ConfigureAwait(false);
-            if (!result)
-                return result.As<UpdateSubscription>(default);
+            if (!result.Success)
+                return WebSocketResult.Fail<UpdateSubscription>(Exchange, result.Error);
 
             var internalHandler = new Action<DateTime, string?, CoinWKlineUpdate, long>((receiveTime, originalData, data, seq) =>
             {
@@ -178,11 +178,11 @@ namespace CoinW.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<CoinWTradeUpdate[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<CoinWTradeUpdate[]>> onMessage, CancellationToken ct = default)
         {
             var result = await CoinWUtils.GetSymbolIdFromNameAsync(_restClient, symbol).ConfigureAwait(false);
-            if (!result)
-                return result.As<UpdateSubscription>(default);
+            if (!result.Success)
+                return WebSocketResult.Fail<UpdateSubscription>(Exchange, result.Error);
 
             var internalHandler = new Action<DateTime, string?, CoinWTradeUpdate[], long>((receiveTime, originalData, data, seq) =>
             {
@@ -203,7 +203,7 @@ namespace CoinW.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<CoinWBalanceUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<CoinWBalanceUpdate>> onMessage, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWBalanceUpdate>>((receiveTime, originalData, data) =>
             {
@@ -222,7 +222,7 @@ namespace CoinW.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<CoinWOrderUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<CoinWOrderUpdate>> onMessage, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWOrderUpdate>>((receiveTime, originalData, data) =>
             {

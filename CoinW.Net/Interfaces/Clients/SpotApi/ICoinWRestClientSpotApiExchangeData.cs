@@ -22,7 +22,7 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWTicker[]>> GetTickersAsync(CancellationToken ct = default);
+        Task<HttpResult<CoinWTicker[]>> GetTickersAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get asset and network info
@@ -34,7 +34,7 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWAsset[]>> GetAssetsAsync(CancellationToken ct = default);
+        Task<HttpResult<CoinWAsset[]>> GetAssetsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get symbol information
@@ -46,7 +46,7 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         /// </para>
         /// </summary>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWSymbol[]>> GetSymbolsAsync(CancellationToken ct = default);
+        Task<HttpResult<CoinWSymbol[]>> GetSymbolsAsync(CancellationToken ct = default);
 
         /// <summary>
         /// Get order book snapshot
@@ -60,7 +60,7 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         /// <param name="symbol">["symbol"] The symbol, for example `ETH_USDT`</param>
         /// <param name="limit">["size"] Number of rows, either 5 or 20</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWOrderBook>> GetOrderBookAsync(string symbol, int? limit = null, CancellationToken ct = default);
+        Task<HttpResult<CoinWOrderBook>> GetOrderBookAsync(string symbol, int? limit = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get the most recent trades for a symbol
@@ -75,7 +75,7 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         /// <param name="startTime">["start"] Filter by start time</param>
         /// <param name="endTime">["end"] Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWTrade[]>> GetRecentTradesAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
+        Task<HttpResult<CoinWTrade[]>> GetRecentTradesAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
 
         /// <summary>
         /// Get kline data
@@ -91,7 +91,7 @@ namespace CoinW.Net.Interfaces.Clients.SpotApi
         /// <param name="startTime">["start"] Filter by start time</param>
         /// <param name="endTime">["end"] Filter by end time</param>
         /// <param name="ct">Cancellation token</param>
-        Task<WebCallResult<CoinWKline[]>> GetKlinesAsync( string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
+        Task<HttpResult<CoinWKline[]>> GetKlinesAsync( string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default);
 
     }
 }

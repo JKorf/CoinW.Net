@@ -135,11 +135,14 @@ Use SharedApis for exchange-agnostic code across CoinW, Binance, Bybit, OKX, Kra
 | Shared futures REST client | `new CoinWRestClient().FuturesApi.SharedClient` |
 | Shared spot socket client | `new CoinWSocketClient().SpotApi.SharedClient` |
 | Shared futures socket client | `new CoinWSocketClient().FuturesApi.SharedClient` |
+| Discover shared capabilities | `client.SpotApi.SharedClient.Discover()` / `client.FuturesApi.SharedClient.Discover()` |
 | Shared spot ticker REST | `ISpotTickerRestClient.GetSpotTickerAsync(new GetTickerRequest(symbol))` |
 | Shared spot order REST | `ISpotOrderRestClient.PlaceSpotOrderAsync(...)` |
 | Shared futures order REST | `IFuturesOrderRestClient.PlaceFuturesOrderAsync(...)` |
 | Shared ticker socket | `ITickerSocketClient.SubscribeToTickerUpdatesAsync(...)` |
 | Shared order book socket | `IOrderBookSocketClient.SubscribeToOrderBookUpdatesAsync(...)` |
+
+Shared REST calls return `HttpResult<T>` / `HttpResult`. Shared socket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared non-I/O symbol/cache helpers such as symbol support checks return `ExchangeCallResult<T>`.
 
 For shared socket subscriptions, keep the concrete socket client and unsubscribe with `await socketClient.UnsubscribeAsync(subscription.Data)`.
 
@@ -148,8 +151,9 @@ For shared socket subscriptions, keep the concrete socket client and unsubscribe
 | Situation | Pattern |
 |---|---|
 | REST success check | `if (!result.Success) { Console.WriteLine(result.Error); return; }` |
-| Socket subscription success check | `if (!sub.Success) { Console.WriteLine(sub.Error); return; }` |
+| Socket subscription success check | `WebSocketResult<UpdateSubscription> sub = await ...; if (!sub.Success) { Console.WriteLine(sub.Error); return; }` |
 | Read REST data | Read `result.Data` only after `result.Success` |
+| Shared helper data | Read `ExchangeCallResult<T>.Data` only after `result.Success` |
 | Retry decision | Retry only when `result.Error?.IsTransient == true` |
 | Cancellation | Pass `ct: cancellationToken` |
 

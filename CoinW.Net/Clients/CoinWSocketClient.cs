@@ -49,8 +49,8 @@ namespace CoinW.Net.Clients
         {
             Initialize(options.Value);
             
-            FuturesApi = AddApiClient(new CoinWSocketClientFuturesApi(_logger, options.Value));
-            SpotApi = AddApiClient(new CoinWSocketClientSpotApi(_logger, options.Value));
+            FuturesApi = AddApiClient(new CoinWSocketClientFuturesApi(loggerFactory, options.Value));
+            SpotApi = AddApiClient(new CoinWSocketClientSpotApi(loggerFactory, options.Value));
         }
         #endregion
 

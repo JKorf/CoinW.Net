@@ -22,8 +22,9 @@ Primary documentation:
 - Use `CoinWCredentials`, not generic `ApiCredentials`, for API key setup.
 - Include `using CoinW.Net;` when using `CoinWCredentials`, `CoinWEnvironment`, or dependency injection options.
 - Always check `.Success` before reading `.Data`.
-- REST methods return `WebCallResult<T>` or `WebCallResult`.
-- WebSocket subscriptions return `CallResult<UpdateSubscription>`.
+- REST methods return `HttpResult<T>` or `HttpResult`.
+- WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`.
+- Shared non-I/O symbol/cache helpers return `ExchangeCallResult<T>`.
 - Reuse clients. Do not instantiate REST or socket clients per request in production code.
 - Prefer dependency injection for long-running services.
 - Store WebSocket subscriptions and unsubscribe during shutdown.
@@ -31,7 +32,7 @@ Primary documentation:
 - Do not invent endpoint names. If unsure, inspect `CoinW.Net/Interfaces/Clients/**`.
 - Do not invent Binance API branches. CoinW has `SpotApi` and `FuturesApi`, not `UsdFuturesApi`, `CoinFuturesApi`, or `GeneralApi`.
 - Use CoinW symbol formats: spot `BTC_USDT`, futures `BTC` for USDT perpetuals.
-- For multi-exchange code, use `CryptoExchange.Net.SharedApis` interfaces from each exchange's `.SharedClient`.
+- For multi-exchange code, use `CryptoExchange.Net.SharedApis` interfaces from each exchange's `.SharedClient` and call `.Discover()` to inspect supported shared features.
 
 ## Installation
 
@@ -157,9 +158,9 @@ var price = result.Data.LastPrice;
 For retry logic, only retry transient errors:
 
 ```csharp
-async Task<WebCallResult<T>> WithRetry<T>(Func<Task<WebCallResult<T>>> call, int maxAttempts = 3)
+async Task<HttpResult<T>> WithRetry<T>(Func<Task<HttpResult<T>>> call, int maxAttempts = 3)
 {
-    WebCallResult<T> last = default!;
+    HttpResult<T> last = default!;
 
     for (var attempt = 1; attempt <= maxAttempts; attempt++)
     {
@@ -353,6 +354,10 @@ using CoinW.Net.Clients;
 using CryptoExchange.Net.SharedApis;
 
 ISpotTickerRestClient tickerClient = new CoinWRestClient().SpotApi.SharedClient;
+var info = tickerClient.Discover();
+var supported = info.Features.Where(x => x.Supported).Select(x => x.EndpointName);
+Console.WriteLine($"{info.Exchange} {info.TypeName}: {string.Join(", ", supported)}");
+
 var symbol = new SharedSymbol(TradingMode.Spot, "BTC", "USDT");
 
 var ticker = await tickerClient.GetSpotTickerAsync(new GetTickerRequest(symbol));
@@ -397,7 +402,7 @@ var spotSymbol = CoinWExchange.FormatSymbol("BTC", "USDT", TradingMode.Spot);
 var futuresSymbol = CoinWExchange.FormatSymbol("BTC", "USDT", TradingMode.Futures);
 ```
 
-Do not manually concatenate symbols in cross-exchange code. Use `SharedSymbol` with `.SharedClient`.
+Do not manually concatenate symbols in cross-exchange code. Use `SharedSymbol` with `.SharedClient`. Use `.Discover()` before routing optional shared features across exchanges.
 
 ## Error Handling Notes
 
@@ -429,10 +434,10 @@ Examples/ai-friendly/03-websocket.cs
   Public spot ticker stream, spot kline stream, authenticated spot user streams, futures stream, teardown.
 
 Examples/ai-friendly/04-multi-exchange.cs
-  CryptoExchange.Net.SharedApis REST and socket patterns.
+  CryptoExchange.Net.SharedApis REST/socket patterns plus capability discovery.
 
 Examples/ai-friendly/05-error-handling.cs
-  WebCallResult pattern, transient retry, CoinW error examples, symbol formatting.
+  HttpResult, WebSocketResult, ExchangeCallResult, transient retry, CoinW error examples, symbol formatting.
 ```
 
 These files are intended to be copied into a console `Program.cs` after `dotnet add package CoinW.Net`.

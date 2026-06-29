@@ -27,20 +27,20 @@ namespace CoinW.Net.Clients.SpotApi
         #region Get Tickers
 
         /// <inheritdoc />
-        public async Task<WebCallResult<CoinWTicker[]>> GetTickersAsync(CancellationToken ct = default)
+        public async Task<HttpResult<CoinWTicker[]>> GetTickersAsync(CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection() { { "command", "returnTicker" } };
+            var parameters = new Parameters(CoinWExchange._parameterSerializationSettings) { { "command", "returnTicker" } };
 
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "api/v1/public", CoinWExchange.RateLimiter.CoinW, 1, false
-                , limitGuard: new SingleLimitGuard(80, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: (def, host, key) => "returnTicker"));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "api/v1/public", CoinWExchange.RateLimiter.CoinW, 1, false
+                , limitGuard: new SingleLimitGuard(80, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: (def, key) => "returnTicker"));
             var result = await _baseClient.SendAsync<Dictionary<string, CoinWTicker>>(request, parameters, ct).ConfigureAwait(false);
-            if (!result)
-                return result.As<CoinWTicker[]>(default);
+            if (!result.Success)
+                return HttpResult.Fail<CoinWTicker[]>(result);
 
             foreach (var kvp in result.Data)
                 kvp.Value.Symbol = kvp.Key;
 
-            return result.As(result.Data.Values.ToArray());
+            return HttpResult.Ok(result, result.Data.Values.ToArray());
         }
 
         #endregion
@@ -48,17 +48,17 @@ namespace CoinW.Net.Clients.SpotApi
         #region Get Assets
 
         /// <inheritdoc />
-        public async Task<WebCallResult<CoinWAsset[]>> GetAssetsAsync(CancellationToken ct = default)
+        public async Task<HttpResult<CoinWAsset[]>> GetAssetsAsync(CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(CoinWExchange._parameterSerializationSettings);
             parameters.Add("command", "returnCurrencies");
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/public", CoinWExchange.RateLimiter.CoinW, 1, false
-                , limitGuard: new SingleLimitGuard(80, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: (def, host, key) => "returnCurrencies"));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v1/public", CoinWExchange.RateLimiter.CoinW, 1, false
+                , limitGuard: new SingleLimitGuard(80, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: (def, key) => "returnCurrencies"));
             var result = await _baseClient.SendAsync<Dictionary<string, CoinWAsset>>(request, parameters, ct).ConfigureAwait(false);
-            if (!result)
-                return result.As<CoinWAsset[]>(default);
+            if (!result.Success)
+                return HttpResult.Fail<CoinWAsset[]>(result);
 
-            return result.As(result.Data.Values.ToArray());
+            return HttpResult.Ok(result, result.Data.Values.ToArray());
         }
 
         #endregion
@@ -66,12 +66,12 @@ namespace CoinW.Net.Clients.SpotApi
         #region Get Symbols
 
         /// <inheritdoc />
-        public async Task<WebCallResult<CoinWSymbol[]>> GetSymbolsAsync(CancellationToken ct = default)
+        public async Task<HttpResult<CoinWSymbol[]>> GetSymbolsAsync(CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(CoinWExchange._parameterSerializationSettings);
             parameters.Add("command", "returnSymbol");
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/public", CoinWExchange.RateLimiter.CoinW, 1, false,
-                limitGuard: new SingleLimitGuard(80, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: (def, host, key) => "returnSymbol"));
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v1/public", CoinWExchange.RateLimiter.CoinW, 1, false,
+                limitGuard: new SingleLimitGuard(80, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: (def, key) => "returnSymbol"));
             var result = await _baseClient.SendAsync<CoinWSymbol[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -81,14 +81,14 @@ namespace CoinW.Net.Clients.SpotApi
         #region Get Order Book
 
         /// <inheritdoc />
-        public async Task<WebCallResult<CoinWOrderBook>> GetOrderBookAsync(string symbol, int? limit = null, CancellationToken ct = default)
+        public async Task<HttpResult<CoinWOrderBook>> GetOrderBookAsync(string symbol, int? limit = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(CoinWExchange._parameterSerializationSettings);
             parameters.Add("command", "returnOrderBook");
             parameters.Add("symbol", symbol);
-            parameters.AddOptional("size", limit);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/public", CoinWExchange.RateLimiter.CoinW, 1, false,
-                limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: (def, host, key) => "returnOrderBook"));
+            parameters.Add("size", limit);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v1/public", CoinWExchange.RateLimiter.CoinW, 1, false,
+                limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: (def, key) => "returnOrderBook"));
             var result = await _baseClient.SendAsync<CoinWOrderBook>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }
@@ -98,15 +98,15 @@ namespace CoinW.Net.Clients.SpotApi
         #region Get Recent Trades
 
         /// <inheritdoc />
-        public async Task<WebCallResult<CoinWTrade[]>> GetRecentTradesAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default)
+        public async Task<HttpResult<CoinWTrade[]>> GetRecentTradesAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(CoinWExchange._parameterSerializationSettings);
             parameters.Add("command", "returnTradeHistory");
             parameters.Add("symbol", symbol);
-            parameters.AddOptionalMillisecondsString("start", startTime);
-            parameters.AddOptionalMillisecondsString("end", endTime);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/public", CoinWExchange.RateLimiter.CoinW, 1, false,
-                limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: (def, host, key) => "returnTradeHistory"));
+            parameters.Add("start", startTime);
+            parameters.Add("end", endTime);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v1/public", CoinWExchange.RateLimiter.CoinW, 1, false,
+                limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: (def, key) => "returnTradeHistory"));
             var result = await _baseClient.SendAsync<CoinWTrade[]>(request, parameters, ct).ConfigureAwait(false);
             if (result.Success)
             {
@@ -126,16 +126,16 @@ namespace CoinW.Net.Clients.SpotApi
         #region Get Klines
 
         /// <inheritdoc />
-        public async Task<WebCallResult<CoinWKline[]>> GetKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default)
+        public async Task<HttpResult<CoinWKline[]>> GetKlinesAsync(string symbol, KlineInterval interval, DateTime? startTime = null, DateTime? endTime = null, CancellationToken ct = default)
         {
-            var parameters = new ParameterCollection();
+            var parameters = new Parameters(CoinWExchange._parameterSerializationSettings);
             parameters.Add("command", "returnChartData");
             parameters.Add("currencyPair", symbol);
-            parameters.AddEnum("period", interval);
-            parameters.AddOptionalMillisecondsString("start", startTime);
-            parameters.AddOptionalMillisecondsString("end", endTime);
-            var request = _definitions.GetOrCreate(HttpMethod.Get, "/api/v1/public", CoinWExchange.RateLimiter.CoinW, 1, false,
-                limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: (def, host, key) => "returnChartData"));
+            parameters.Add("period", interval);
+            parameters.Add("start", startTime);
+            parameters.Add("end", endTime);
+            var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/api/v1/public", CoinWExchange.RateLimiter.CoinW, 1, false,
+                limitGuard: new SingleLimitGuard(10, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding, keySelector: (def, key) => "returnChartData"));
             var result = await _baseClient.SendAsync<CoinWKline[]>(request, parameters, ct).ConfigureAwait(false);
             return result;
         }

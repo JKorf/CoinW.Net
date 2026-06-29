@@ -66,19 +66,19 @@ namespace CoinW.Net.SymbolOrderBooks
         protected override async Task<CallResult<UpdateSubscription>> DoStartAsync(CancellationToken ct)
         {
             var subResult = await _socketClient.FuturesApi.SubscribeToOrderBookUpdatesAsync(Symbol, HandleUpdate).ConfigureAwait(false);
-            if (!subResult)
-                return new CallResult<UpdateSubscription>(subResult.Error!);
+            if (!subResult.Success)
+                return CallResult.Fail<UpdateSubscription>(subResult.Error!);
 
             Status = OrderBookStatus.Syncing;
 
             var result = await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
-            if (!result)
+            if (!result.Success)
             {
                 await subResult.Data.CloseAsync().ConfigureAwait(false);
-                return result.AsError<UpdateSubscription>(result.Error!);
+                return CallResult.Fail<UpdateSubscription>(result.Error!);
             }
 
-            return result.As(subResult.Data);
+            return CallResult.Ok(subResult.Data);
         }
 
         private void HandleUpdate(DataEvent<CoinWFuturesOrderBook> @event)
@@ -93,7 +93,7 @@ namespace CoinW.Net.SymbolOrderBooks
         }
 
         /// <inheritdoc />
-        protected override async Task<CallResult<bool>> DoResyncAsync(CancellationToken ct)
+        protected override async Task<CallResult> DoResyncAsync(CancellationToken ct)
         {
             return await WaitForSetOrderBookAsync(_initialDataTimeout, ct).ConfigureAwait(false);
         }

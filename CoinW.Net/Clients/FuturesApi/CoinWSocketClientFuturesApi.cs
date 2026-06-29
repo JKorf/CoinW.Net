@@ -38,8 +38,8 @@ namespace CoinW.Net.Clients.FuturesApi
         /// <summary>
         /// ctor
         /// </summary>
-        internal CoinWSocketClientFuturesApi(ILogger logger, CoinWSocketOptions options) :
-            base(logger, options.Environment.SocketClientAddress!, options, options.FuturesOptions)
+        internal CoinWSocketClientFuturesApi(ILoggerFactory? loggerFactory, CoinWSocketOptions options) :
+            base(loggerFactory, CoinWExchange.Metadata.Id, options.Environment.SocketClientAddress!, options, options.FuturesOptions)
         {
             RegisterPeriodicQuery(
                 "ping",
@@ -67,7 +67,7 @@ namespace CoinW.Net.Clients.FuturesApi
             => new CoinWFuturesAuthenticationProvider(credentials);
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<CoinWFuturesTickerUpdate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTickerUpdatesAsync(string symbol, Action<DataEvent<CoinWFuturesTickerUpdate>> onMessage, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWFuturesTickerUpdate>>((receiveTime, originalData, data) =>
             {
@@ -84,7 +84,7 @@ namespace CoinW.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<CoinWFuturesOrderBook>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(string symbol, Action<DataEvent<CoinWFuturesOrderBook>> onMessage, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWFuturesOrderBook>>((receiveTime, originalData, data) =>
             {
@@ -102,7 +102,7 @@ namespace CoinW.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<CoinWFuturesTrade[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToTradeUpdatesAsync(string symbol, Action<DataEvent<CoinWFuturesTrade[]>> onMessage, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWFuturesTrade[]>>((receiveTime, originalData, data) =>
             {
@@ -123,7 +123,7 @@ namespace CoinW.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, FuturesKlineIntervalStream interval, Action<DataEvent<CoinWFuturesStreamKline>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol, FuturesKlineIntervalStream interval, Action<DataEvent<CoinWFuturesStreamKline>> onMessage, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWFuturesStreamKline>>((receiveTime, originalData, data) =>
             {
@@ -140,7 +140,7 @@ namespace CoinW.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToIndexPriceUpdatesAsync(string symbol, Action<DataEvent<CoinWPrice>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToIndexPriceUpdatesAsync(string symbol, Action<DataEvent<CoinWPrice>> onMessage, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWPrice>>((receiveTime, originalData, data) =>
             {
@@ -157,7 +157,7 @@ namespace CoinW.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(string symbol, Action<DataEvent<CoinWPrice>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToMarkPriceUpdatesAsync(string symbol, Action<DataEvent<CoinWPrice>> onMessage, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWPrice>>((receiveTime, originalData, data) =>
             {
@@ -174,7 +174,7 @@ namespace CoinW.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(string symbol, Action<DataEvent<CoinWFundingRate>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToFundingRateUpdatesAsync(string symbol, Action<DataEvent<CoinWFundingRate>> onMessage, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWFundingRate>>((receiveTime, originalData, data) =>
             {
@@ -191,7 +191,7 @@ namespace CoinW.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<CoinWFuturesOrder[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderUpdatesAsync(Action<DataEvent<CoinWFuturesOrder[]>> onMessage, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWFuturesOrder[]>>((receiveTime, originalData, data) =>
             {
@@ -216,7 +216,7 @@ namespace CoinW.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<DataEvent<CoinWPosition[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(Action<DataEvent<CoinWPosition[]>> onMessage, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWPosition[]>>((receiveTime, originalData, data) =>
             {
@@ -241,7 +241,7 @@ namespace CoinW.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToPositionDetailUpdatesAsync(Action<DataEvent<CoinWPositionChange[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToPositionDetailUpdatesAsync(Action<DataEvent<CoinWPositionChange[]>> onMessage, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWPositionChange[]>>((receiveTime, originalData, data) =>
             {
@@ -266,7 +266,7 @@ namespace CoinW.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<CoinWFuturesBalanceUpdate[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(Action<DataEvent<CoinWFuturesBalanceUpdate[]>> onMessage, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWFuturesBalanceUpdate[]>>((receiveTime, originalData, data) =>
             {
@@ -282,7 +282,7 @@ namespace CoinW.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public async Task<CallResult<UpdateSubscription>> SubscribeToMarginConfigUpdatesAsync(Action<DataEvent<CoinWMarginInfo[]>> onMessage, CancellationToken ct = default)
+        public async Task<WebSocketResult<UpdateSubscription>> SubscribeToMarginConfigUpdatesAsync(Action<DataEvent<CoinWMarginInfo[]>> onMessage, CancellationToken ct = default)
         {
             var internalHandler = new Action<DateTime, string?, CoinWSocketResponse<CoinWMarginInfo[]>>((receiveTime, originalData, data) =>
             {
