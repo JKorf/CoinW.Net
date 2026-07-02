@@ -38,6 +38,11 @@ namespace CoinW.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("date")]
         public DateTime OpenTime { get; set; }
+        /// <summary>
+        /// ["<c>pair</c>"] Symbol
+        /// </summary>
+        [JsonPropertyName("pair")]
+        public string Symbol { get; set; } = string.Empty;
     }
 
 

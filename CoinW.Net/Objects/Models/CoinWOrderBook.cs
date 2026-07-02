@@ -20,6 +20,11 @@ namespace CoinW.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("bids")]
         public CoinWOrderBookEntry[] Bids { get; set; } = [];
+        /// <summary>
+        /// ["<c>pair</c>"] Symbol
+        /// </summary>
+        [JsonPropertyName("pair")]
+        public string Symbol { get; set; } = string.Empty;
     }
 
     /// <summary>
