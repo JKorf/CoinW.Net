@@ -1,4 +1,5 @@
 using CryptoExchange.Net.Interfaces;
+using System;
 using System.Text.Json.Serialization;
 
 namespace CoinW.Net.Objects.Models
@@ -23,6 +24,11 @@ namespace CoinW.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("n")]
         public string Symbol { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>t</c>"] Data timestamp
+        /// </summary>
+        [JsonPropertyName("t")]
+        public DateTime Timestamp { get; set; }
     }
 
     /// <summary>

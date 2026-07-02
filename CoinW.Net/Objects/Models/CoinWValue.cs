@@ -1,3 +1,4 @@
+using System;
 using System.Text.Json.Serialization;
 
 namespace CoinW.Net.Objects.Models
@@ -12,6 +13,12 @@ namespace CoinW.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("value")]
         public decimal Value { get; set; }
+
+        /// <summary>
+        /// ["<c>ts</c>"] Data timestamp
+        /// </summary>
+        [JsonPropertyName("ts")]
+        public DateTime? Timestamp { get; set; }
     }
 
 
