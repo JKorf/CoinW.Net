@@ -180,6 +180,41 @@ namespace CoinW.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("updatedDate")]
         public DateTime UpdateTime { get; set; }
+        /// <summary>
+        /// ["<c>depthPrecision</c>"] Comma separated depth precision
+        /// </summary>
+        [JsonPropertyName("depthPrecision")]
+        public string DepthPrecisions { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>orderLimitMaxRate</c>"] Limit order max rate
+        /// </summary>
+        [JsonPropertyName("orderLimitMaxRate")]
+        public decimal LimitOrderMaxRate { get; set; }
+        /// <summary>
+        /// ["<c>orderLimitMinRate</c>"] Limit order min rate
+        /// </summary>
+        [JsonPropertyName("orderLimitMinRate")]
+        public decimal LimitOrderMinRate { get; set; }
+        /// <summary>
+        /// ["<c>orderMarketLimitAmount</c>"] Max quantity for limit order
+        /// </summary>
+        [JsonPropertyName("orderMarketLimitAmount")]
+        public decimal MarketOrderMaxQuantity { get; set; }
+        /// <summary>
+        /// ["<c>orderPlanLimitAmount</c>"] Max quantity for plan limit order
+        /// </summary>
+        [JsonPropertyName("orderPlanLimitAmount")]
+        public decimal PlanLimitOrderMaxQuantity { get; set; }
+        /// <summary>
+        /// ["<c>closeTime</c>"] Close time
+        /// </summary>
+        [JsonPropertyName("closeTime")]
+        public DateTime? CloseTime { get; set; }
+        /// <summary>
+        /// ["<c>openTime</c>"] Open time
+        /// </summary>
+        [JsonPropertyName("openTime")]
+        public DateTime? OpenTime { get; set; }
     }
 
     /// <summary>
