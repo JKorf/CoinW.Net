@@ -140,5 +140,45 @@ namespace CoinW.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("userId")]
         public string UserId { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>avgClosePrice</c>"] Average close price
+        /// </summary>
+        [JsonPropertyName("avgClosePrice")]
+        public decimal AverageClosePrice { get; set; }
+        /// <summary>
+        /// ["<c>avgPrice</c>"] Average price
+        /// </summary>
+        [JsonPropertyName("avgPrice")]
+        public decimal AveragePrice { get; set; }
+        /// <summary>
+        /// ["<c>base</c>"] Base asset
+        /// </summary>
+        [JsonPropertyName("base")]
+        public string BaseAsset { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>quote</c>"] Quote asset
+        /// </summary>
+        [JsonPropertyName("quote")]
+        public string QuoteAsset { get; set; } = string.Empty;
+        /// <summary>
+        /// ["<c>isMultiCurrency</c>"] Is multi-asset
+        /// </summary>
+        [JsonPropertyName("isMultiCurrency")]
+        public bool IsMultiAsset { get; set; }
+        /// <summary>
+        /// ["<c>netProfit</c>"] Net profit
+        /// </summary>
+        [JsonPropertyName("netProfit")]
+        public decimal NetProfit { get; set; }
+        /// <summary>
+        /// ["<c>profitRate</c>"] Profit rate
+        /// </summary>
+        [JsonPropertyName("profitRate")]
+        public string? ProfitRate { get; set; }
+        /// <summary>
+        /// ["<c>stopProfitPrice</c>"] Stop take profit price
+        /// </summary>
+        [JsonPropertyName("stopProfitPrice")]
+        public decimal? StopProfitPrice { get; set; }
     }
 }
