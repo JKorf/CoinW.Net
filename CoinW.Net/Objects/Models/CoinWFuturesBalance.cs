@@ -43,6 +43,11 @@ namespace CoinW.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("userId")]
         public long UserId { get; set; }
+        /// <summary>
+        /// ["<c>crossUnPnl</c>"] Cross unrealized profit and loss
+        /// </summary>
+        [JsonPropertyName("crossUnPnl")]
+        public decimal CrossUnrealizedPnl { get; set; }
     }
 
 
