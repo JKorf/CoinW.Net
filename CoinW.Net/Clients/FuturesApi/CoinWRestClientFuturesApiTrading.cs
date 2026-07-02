@@ -342,6 +342,9 @@ namespace CoinW.Net.Clients.FuturesApi
             var request = _definitions.GetOrCreate(HttpMethod.Get, _baseClient.BaseAddress, "/v1/perpum/moveTPSL", CoinWExchange.RateLimiter.CoinW, 1, true, 
                 limitGuard: new SingleLimitGuard(5, TimeSpan.FromSeconds(1), RateLimitWindowType.Sliding));
             var result = await _baseClient.SendAsync<CoinWTrailingTpSl[]>(request, parameters, ct).ConfigureAwait(false);
+            if (result.Success && result.Data == null)
+                return HttpResult.Ok<CoinWTrailingTpSl[]>(result, []);
+
             return result;
         }
 
