@@ -189,6 +189,15 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 3.1.0 - 09 Jul 2026
+    * Updated CryptoExchange.Net to v12.1.0
+    * Added Timestamp property to CoinWFees, CoinWFuturesOrderBook, CoinWFuturesTicker and CoinWValue models
+    * Added Symbol property to CoinWKline, CoinWOrderBook and CoinWTrade models
+    * Added CrossUnrealizedPnl to CoinWFuturesBalance model
+    * Added DepthPrecisions, LimitOrderMaxRate, LimtiOrderMinRate, MarketOrderMaxRate, PlanLimitOrderMaxQuantity, CloseTime and OpenTime to CoinWFuturesSymbol model
+    * Added AverageClosePrice, AveragePrice, BaseAsset, QuoteAsset, IsMultiAsset, NetProfit, ProfitRate and StopProfitPrice to CoinWPositionHistory model
+    * Updated GetTrailingTpSlAsync to return empty array instead of null if there are no results
+
 * Version 3.0.0 - 29 Jun 2026
     * Result types:
       * (Web)CallResult types are replaced by HttpResult, WebSocketResult and QueryResult with the same logic
