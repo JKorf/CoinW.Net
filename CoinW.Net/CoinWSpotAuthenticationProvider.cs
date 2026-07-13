@@ -23,12 +23,12 @@ namespace CoinW.Net
 
             request.QueryParameters ??= new Parameters(CoinWExchange._parameterSerializationSettings);
             request.QueryParameters.Add("api_key", Credential.Key);
-            var signParameters = request.QueryParameters.Where(x => x.Key != "command").OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
+            var signParameters = request.QueryParameters.Where(x => x.Key != "command" && x.Key != "sign").OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
             var queryString = signParameters.CreateParamString(false, request.ArraySerialization);
             var signParams = (queryString + "&secret_key=" + Credential.Secret).TrimStart('&');
 
             var sign = SignMD5(signParams, SignOutputType.Hex).ToUpperInvariant();
-            request.QueryParameters.Add("sign", sign);
+            request.QueryParameters["sign"] = sign;
 
             if (request.QueryParameters.TryGetValue("command", out var command))
                 request.SetQueryString($"command={command}&{queryString}&sign={sign}");
