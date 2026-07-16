@@ -1,4 +1,5 @@
 using CoinW.Net.Enums;
+using CryptoExchange.Net.Converters.SystemTextJson;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
@@ -124,7 +125,8 @@ namespace CoinW.Net.Objects.Models
         /// ["<c>partitionIds</c>"] Partition ids
         /// </summary>
         [JsonPropertyName("partitionIds")]
-        public string PartitionIds { get; set; } = string.Empty;
+        [JsonConverter(typeof(CommaSplitStringConverter))]
+        public string[] PartitionIds { get; set; } = [];
         /// <summary>
         /// ["<c>pricePrecision</c>"] Price decimal places
         /// </summary>

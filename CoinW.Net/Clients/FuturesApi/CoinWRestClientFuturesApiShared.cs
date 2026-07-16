@@ -24,6 +24,8 @@ namespace CoinW.Net.Clients.FuturesApi
         public void ResetDefaultExchangeParameters() => ExchangeParameters.ResetStaticParameters();
         public SharedClientInfo Discover() => SharedUtils.GetClientInfo(CoinWExchange.Metadata, this);
 
+        private static readonly HashSet<string> _cryptoPartitions = ["2012", "2013", "2029"];
+
         #region Balance Client
         GetBalancesOptions IBalanceRestClient.GetBalancesOptions { get; } = new GetBalancesOptions(_exchangeName, AccountTypeFilter.Futures);
 
@@ -157,6 +159,7 @@ namespace CoinW.Net.Clients.FuturesApi
 
         #region Futures Symbol client
 
+        SharedSymbolCatalog? IFuturesSymbolRestClient.FuturesSymbolCatalog => ExchangeSymbolCache.GetSymbolCatalog(_topicId, EnvironmentName, null);
         GetFuturesSymbolsOptions IFuturesSymbolRestClient.GetFuturesSymbolsOptions { get; } = new GetFuturesSymbolsOptions(_exchangeName, false);
         async Task<HttpResult<SharedFuturesSymbol[]>> IFuturesSymbolRestClient.GetFuturesSymbolsAsync(GetSymbolsRequest request, CancellationToken ct)
         {
@@ -167,24 +170,55 @@ namespace CoinW.Net.Clients.FuturesApi
             var result = await ExchangeData.GetSymbolsAsync(ct: ct).ConfigureAwait(false);
             if (!result.Success)
                 return HttpResult.Fail<SharedFuturesSymbol[]>(result);
-            
-            var resultData = HttpResult.Ok(result, result.Data.Select(s =>
-            new SharedFuturesSymbol(TradingMode.PerpetualLinear,
-            s.BaseAsset,
-            s.QuoteAsset,
-            s.Name,
-            s.Status == Enums.FuturesSymbolStatus.Online)
+
+            var data = result.Data
+               .Select(x => ParseSymbol(x))
+               .ToArray();
+
+            ExchangeSymbolCache.UpdateSymbolInfo(_topicId, EnvironmentName, null, data);
+            return HttpResult.Ok(result, SharedUtils.ApplySymbolFilter(data, request));
+        }
+
+        private SharedFuturesSymbol ParseSymbol(CoinWFuturesSymbol s)
+        {
+            var result = new SharedFuturesSymbol(TradingMode.PerpetualLinear,
+                s.BaseAsset,
+                s.QuoteAsset,
+                s.Name,
+                s.Status == Enums.FuturesSymbolStatus.Online)
             {
                 MinTradeQuantity = s.MinPositionQuantity,
                 ContractSize = s.LotSize,
                 MaxLongLeverage = s.MaxLeverage,
                 MaxShortLeverage = s.MaxLeverage,
                 MaxTradeQuantity = s.MaxPositionQuantity,
-                PriceDecimals = s.PriceDecimals
-            }).ToArray());
+                PriceDecimals = s.PriceDecimals,
+                QuoteAssetType = SharedAssetType.Crypto,
+                QuoteAssetSubType = SharedAssetSubType.StableCoin
+            };
 
-            ExchangeSymbolCache.UpdateSymbolInfo(_topicId, EnvironmentName, null, resultData.Data!);
-            return resultData;
+            // We can only filter some crypto symbols which we know are not tradfi
+            if (s.PartitionIds.Any(x => _cryptoPartitions.Contains(x)))
+            {
+                result.BaseAssetType = SharedAssetType.Crypto;
+                if (LibraryHelpers.IsStableCoin(result.BaseAsset))
+                    result.BaseAssetSubType = SharedAssetSubType.StableCoin;
+            }
+            else
+            {
+                // Check for known commodities
+                if (LibraryHelpers.IsCommodity(s.BaseAsset))
+                {
+                    result.BaseAssetType = SharedAssetType.TradFi;
+                    result.BaseAssetSubType = SharedAssetSubType.Commodity;
+                }
+
+                // Check for known cryptocurrencies
+                if (LibraryHelpers.IsCryptoCurrency(s.BaseAsset))
+                    result.BaseAssetType = SharedAssetType.Crypto;
+            }
+
+            return result;
         }
 
         async Task<ExchangeCallResult<SharedSymbol[]>> IFuturesSymbolRestClient.GetFuturesSymbolsForBaseAssetAsync(string baseAsset)
