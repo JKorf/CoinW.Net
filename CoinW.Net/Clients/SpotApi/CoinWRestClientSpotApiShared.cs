@@ -440,6 +440,7 @@ namespace CoinW.Net.Clients.SpotApi
                 MinNotionalValue = s.MinOrderValue,
                 PriceDecimals = s.PriceDecimalPlaces,
                 QuantityDecimals = s.QuantityDecimalPlaces,
+                DisplayName = s.Name,
                 BaseAssetType = SharedAssetType.Crypto,
                 QuoteAssetType = SharedAssetType.Crypto
             };

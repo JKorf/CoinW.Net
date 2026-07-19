@@ -193,6 +193,7 @@ namespace CoinW.Net.Clients.FuturesApi
                 MaxShortLeverage = s.MaxLeverage,
                 MaxTradeQuantity = s.MaxPositionQuantity,
                 PriceDecimals = s.PriceDecimals,
+                DisplayName = s.Name,
                 QuoteAssetType = SharedAssetType.Crypto,
                 QuoteAssetSubType = SharedAssetSubType.StableCoin
             };
@@ -212,10 +213,15 @@ namespace CoinW.Net.Clients.FuturesApi
                     result.BaseAssetType = SharedAssetType.TradFi;
                     result.BaseAssetSubType = SharedAssetSubType.Commodity;
                 }
-
-                // Check for known cryptocurrencies
-                if (LibraryHelpers.IsCryptoCurrency(s.BaseAsset))
+                else if (LibraryHelpers.IsEquity(s.BaseAsset))
+                {
+                    result.BaseAssetType = SharedAssetType.TradFi;
+                    result.BaseAssetSubType = SharedAssetSubType.Equity;
+                }
+                else
+                {
                     result.BaseAssetType = SharedAssetType.Crypto;
+                }
             }
 
             return result;
