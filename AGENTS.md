@@ -168,6 +168,8 @@ if (!ticker.Success)
 
 Shared REST and socket interfaces make CoinW code reusable with other CryptoExchange.Net exchange libraries.
 
+Shared spot and futures symbol clients expose symbol catalogs and apply `GetSymbolsRequest` filters. Their symbol results include `DisplayName`, `BaseAssetType`, `QuoteAssetType`, and applicable asset subtypes for exchange-agnostic asset filtering. 
+
 ## Dependency Injection
 
 ```csharp

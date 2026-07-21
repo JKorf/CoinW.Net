@@ -4,8 +4,8 @@
 
 CoinW.Net is a strongly typed .NET client library for the CoinW REST and WebSocket APIs. It is part of the CryptoExchange.Net ecosystem and uses the same result, shared API, logging, rate limiting, and socket patterns as the other JKorf exchange libraries.
 
-Current package version in this repository: 2.9.3.
-CryptoExchange.Net dependency: 11.1.0.
+Current package version in this repository: 3.2.0.
+CryptoExchange.Net dependency: 12.2.0.
 Target frameworks: netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
 Native AOT: supported on compatible .NET targets.
 
@@ -33,6 +33,7 @@ Primary documentation:
 - Do not invent Binance API branches. CoinW has `SpotApi` and `FuturesApi`, not `UsdFuturesApi`, `CoinFuturesApi`, or `GeneralApi`.
 - Use CoinW symbol formats: spot `BTC_USDT`, futures `BTC` for USDT perpetuals.
 - For multi-exchange code, use `CryptoExchange.Net.SharedApis` interfaces from each exchange's `.SharedClient` and call `.Discover()` to inspect supported shared features.
+- Shared spot and futures symbol clients expose symbol catalogs, apply `GetSymbolsRequest` filters, and populate display names plus asset type/subtype metadata.
 
 ## Installation
 
@@ -370,6 +371,8 @@ if (!ticker.Success)
 Console.WriteLine(ticker.Data.LastPrice);
 ```
 
+Shared symbol responses classify spot assets as crypto and mark stablecoins with `SharedAssetSubType.StableCoin`. Futures quote assets are crypto stablecoins; known commodity and equity base assets are classified as `SharedAssetType.TradFi` with the corresponding subtype. Other futures base assets are classified as crypto.
+
 For shared socket subscriptions, keep the concrete socket client for teardown:
 
 ```csharp
@@ -394,6 +397,8 @@ await socketClient.UnsubscribeAsync(sub.Data);
 ## Symbol And Quantity Handling
 
 For spot endpoints, CoinW symbols use an underscore (`BTC_USDT`). For futures USDT perpetuals, use base symbols (`BTC`, `ETH`) unless the interface or exchange data indicates otherwise.
+
+For exchange-agnostic symbol discovery and asset filtering, use the shared spot or futures symbol client; returned symbols include `DisplayName`, `BaseAssetType`, `QuoteAssetType`, and applicable subtypes.
 
 When writing generic code, use:
 
