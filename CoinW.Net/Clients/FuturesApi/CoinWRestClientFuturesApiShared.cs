@@ -107,7 +107,15 @@ namespace CoinW.Net.Clients.FuturesApi
 
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.OpenTime, request.StartTime, request.EndTime, direction)
                    .Select(x =>
-                        new SharedKline(request.Symbol, symbol, x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume))
+                        new SharedKline(
+                            request.Symbol,
+                            symbol,
+                            x.OpenTime, 
+                            x.ClosePrice,
+                            x.HighPrice, 
+                            x.LowPrice,
+                            x.OpenPrice,
+                            new SharedOrderQuantity(x.Volume)))
                    .ToArray(), nextPageRequest);
         }
 
@@ -149,7 +157,7 @@ namespace CoinW.Net.Clients.FuturesApi
                 return HttpResult.Fail<SharedTrade[]>(result);
 
             return HttpResult.Ok(result, result.Data.Select(x => 
-            new SharedTrade(request.Symbol, symbol, x.QuantityBase, x.Price, x.Timestamp)
+            new SharedTrade(request.Symbol, symbol, new SharedOrderQuantity(x.QuantityBase, null, x.Quantity), x.Price, x.Timestamp)
             {
                 Side = x.Direction == Enums.PositionSide.Short ? SharedOrderSide.Sell : SharedOrderSide.Buy
             }).ToArray());
@@ -281,7 +289,13 @@ namespace CoinW.Net.Clients.FuturesApi
                 return HttpResult.Fail<SharedFuturesTicker>(resultTicker);
 
             return HttpResult.Ok(resultTicker, new SharedFuturesTicker(
-                ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, resultTicker.Data.Symbol), resultTicker.Data.Symbol, resultTicker.Data.LastPrice, resultTicker.Data.HighPrice, resultTicker.Data.LowPrice, resultTicker.Data.Volume, resultTicker.Data.PriceChangePercentage * 100)
+                ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, resultTicker.Data.Symbol), 
+                resultTicker.Data.Symbol,
+                resultTicker.Data.LastPrice,
+                resultTicker.Data.HighPrice,
+                resultTicker.Data.LowPrice,
+                new SharedOrderQuantity(resultTicker.Data.Volume),
+                resultTicker.Data.PriceChangePercentage * 100)
             {
             });
         }
@@ -299,7 +313,14 @@ namespace CoinW.Net.Clients.FuturesApi
 
             return HttpResult.Ok(resultTickers, resultTickers.Data.Select(x =>
             {
-                return new SharedFuturesTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), x.Symbol, x.LastPrice, x.HighPrice, x.LowPrice, x.Volume, x.PriceChangePercentage * 100)
+                return new SharedFuturesTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol),
+                    x.Symbol, 
+                    x.LastPrice, 
+                    x.HighPrice, 
+                    x.LowPrice,
+                    new SharedOrderQuantity(x.Volume), 
+                    x.PriceChangePercentage * 100)
                 {
                 };
             }).ToArray());

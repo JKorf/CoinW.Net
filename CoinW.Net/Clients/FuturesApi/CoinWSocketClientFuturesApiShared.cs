@@ -56,7 +56,15 @@ namespace CoinW.Net.Clients.FuturesApi
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await SubscribeToKlineUpdatesAsync(symbol, interval, update => handler(update.ToType(
-                new SharedKline(request.Symbol, symbol, update.Data.OpenTime, update.Data.ClosePrice, update.Data.HighPrice, update.Data.LowPrice, update.Data.OpenPrice, update.Data.Volume))), ct).ConfigureAwait(false);
+                new SharedKline(
+                    request.Symbol,
+                    symbol, 
+                    update.Data.OpenTime,
+                    update.Data.ClosePrice, 
+                    update.Data.HighPrice,
+                    update.Data.LowPrice, 
+                    update.Data.OpenPrice,
+                    new SharedOrderQuantity(update.Data.Volume)))), ct).ConfigureAwait(false);
 
             return result;
         }
@@ -87,9 +95,15 @@ namespace CoinW.Net.Clients.FuturesApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
-            var result = await SubscribeToTickerUpdatesAsync(symbol, update => handler(update.ToType(new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol), symbol, update.Data.LastPrice, update.Data.HighPrice, update.Data.LowPrice, update.Data.Volume, update.Data.PercentageChange * 100)
+            var result = await SubscribeToTickerUpdatesAsync(symbol, update => handler(update.ToType(new SharedSpotTicker(
+                ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, update.Data.Symbol),
+                symbol,
+                update.Data.LastPrice, 
+                update.Data.HighPrice, 
+                update.Data.LowPrice,
+                new SharedOrderQuantity(update.Data.Volume, update.Data.VolumeUsdt),
+                update.Data.PercentageChange * 100)
             {
-                QuoteVolume = update.Data.VolumeUsdt
             })), ct: ct).ConfigureAwait(false);
 
             return result;
@@ -108,7 +122,7 @@ namespace CoinW.Net.Clients.FuturesApi
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await SubscribeToTradeUpdatesAsync(symbol, update => handler(update.ToType(update.Data.Select(x => 
-            new SharedTrade(request.Symbol, symbol, x.Quantity, x.Price, x.Timestamp)
+            new SharedTrade(request.Symbol, symbol, new SharedOrderQuantity(x.QuantityBase, null, x.Quantity), x.Price, x.Timestamp)
             {
                 Side = x.Direction == Enums.PositionSide.Long ? SharedOrderSide.Buy : SharedOrderSide.Sell,
             } ).ToArray())), ct: ct).ConfigureAwait(false);

@@ -57,7 +57,16 @@ namespace CoinW.Net.Clients.SpotApi
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await SubscribeToKlineUpdatesAsync(symbol, interval, update => {
-                handler(update.ToType(new SharedKline(request.Symbol, symbol, update.Data.OpenTime, update.Data.ClosePrice, update.Data.HighPrice, update.Data.LowPrice, update.Data.OpenPrice, update.Data.Volume)));
+                handler(update.ToType(
+                    new SharedKline(
+                        request.Symbol,
+                        symbol,
+                        update.Data.OpenTime,
+                        update.Data.ClosePrice,
+                        update.Data.HighPrice,
+                        update.Data.LowPrice, 
+                        update.Data.OpenPrice,
+                        new SharedOrderQuantity(update.Data.Volume, update.Data.QuoteVolume))));
             }, ct).ConfigureAwait(false);
 
             return result;
@@ -88,9 +97,16 @@ namespace CoinW.Net.Clients.SpotApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
-            var result = await SubscribeToTickerUpdatesAsync(symbol, update => handler(update.ToType(new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol), symbol, update.Data.LastPrice, update.Data.HighPrice, update.Data.LowPrice, update.Data.Volume, update.Data.PercentageChange * 100)
+            var result = await SubscribeToTickerUpdatesAsync(symbol, update => handler(update.ToType(
+                new SharedSpotTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, symbol),
+                    symbol,
+                    update.Data.LastPrice,
+                    update.Data.HighPrice,
+                    update.Data.LowPrice,
+                    new SharedOrderQuantity(update.Data.Volume, update.Data.QuoteVolume),
+                    update.Data.PercentageChange * 100)
             {
-                QuoteVolume = update.Data.QuoteVolume
             })), ct).ConfigureAwait(false);
 
             return result;
@@ -106,10 +122,17 @@ namespace CoinW.Net.Clients.SpotApi
             if (validationError != null)
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
-            var result = await SubscribeToAllTickerUpdatesAsync(update => handler(update.ToType(update.Data.Select(x => new SharedSpotTicker(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), x.Symbol, x.LastPrice, x.HighPrice, x.LowPrice, x.Volume, x.PercentageChange * 100)
-            {
-                QuoteVolume = x.QuoteVolume
-            }).ToArray())), ct).ConfigureAwait(false);
+            var result = await SubscribeToAllTickerUpdatesAsync(update => handler(update.ToType(update.Data.Select(x => 
+                new SharedSpotTicker(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol),
+                    x.Symbol,
+                    x.LastPrice,
+                    x.HighPrice,
+                    x.LowPrice,
+                    new SharedOrderQuantity(x.Volume, x.QuoteVolume),
+                    x.PercentageChange * 100)
+                {
+                }).ToArray())), ct).ConfigureAwait(false);
 
             return result;
         }
@@ -127,7 +150,7 @@ namespace CoinW.Net.Clients.SpotApi
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
             var result = await SubscribeToTradeUpdatesAsync(symbol, update => handler(update.ToType(update.Data.Select(x =>
-            new SharedTrade(request.Symbol, symbol, x.Quantity, x.Price, x.Timestamp)
+            new SharedTrade(request.Symbol, symbol, new SharedOrderQuantity(x.Quantity), x.Price, x.Timestamp)
             {
                 Side = x.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell
             }).ToArray())), ct).ConfigureAwait(false);

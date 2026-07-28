@@ -218,7 +218,15 @@ namespace CoinW.Net.Clients.SpotApi
 
             return HttpResult.Ok(result, ExchangeHelpers.ApplyFilter(result.Data, x => x.OpenTime, request.StartTime, request.EndTime, direction)
                    .Select(x =>
-                        new SharedKline(request.Symbol, symbol, x.OpenTime, x.ClosePrice, x.HighPrice, x.LowPrice, x.OpenPrice, x.Volume))
+                        new SharedKline(
+                            request.Symbol,
+                            symbol,
+                            x.OpenTime,
+                            x.ClosePrice,
+                            x.HighPrice,
+                            x.LowPrice,
+                            x.OpenPrice,
+                            new SharedOrderQuantity(x.Volume)))
                    .ToArray(), nextPageRequest);
         }
 
@@ -263,7 +271,7 @@ namespace CoinW.Net.Clients.SpotApi
 
             // Return
             return HttpResult.Ok(result, result.Data.Select(x => 
-            new SharedTrade(request.Symbol, symbol, x.Quantity, x.Price, x.Time)
+            new SharedTrade(request.Symbol, symbol, new SharedOrderQuantity(x.Quantity, x.Value), x.Price, x.Time)
             {
                 Side = x.Side == Enums.OrderSide.Buy ? SharedOrderSide.Buy : SharedOrderSide.Sell,
             }).ToArray());
@@ -375,10 +383,9 @@ namespace CoinW.Net.Clients.SpotApi
                 ticker.LastPrice,
                 ticker.HighPrice,
                 ticker.LowPrice,
-                0,
+                new SharedOrderQuantity(null, ticker.Volume),
                 ticker.PercentageChange * 100)
             {
-                QuoteVolume = ticker.Volume
             });
         }
 
@@ -399,11 +406,10 @@ namespace CoinW.Net.Clients.SpotApi
                     x.Symbol,
                     x.LastPrice,
                     x.HighPrice, 
-                    x.LowPrice, 
-                    0, 
+                    x.LowPrice,
+                    new SharedOrderQuantity(null, x.Volume), 
                     x.PercentageChange * 100)
                 {
-                    QuoteVolume = x.Volume
                 }).ToArray());
         }
 
