@@ -25,7 +25,7 @@ namespace CoinW.Net.Clients.SpotApi
         public SharedClientInfo Discover() => SharedUtils.GetClientInfo(CoinWExchange.Metadata, this);
 
         #region Asset client
-        GetAssetsOptions IAssetsRestClient.GetAssetsOptions { get; } = new GetAssetsOptions(_exchangeName, true);
+        GetAssetsOptions IAssetsRestClient.GetAssetsOptions { get; } = new GetAssetsOptions(_exchangeName, false);
 
         async Task<HttpResult<SharedAsset[]>> IAssetsRestClient.GetAssetsAsync(GetAssetsRequest request, CancellationToken ct)
         {
