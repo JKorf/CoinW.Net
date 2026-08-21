@@ -79,7 +79,9 @@ namespace CoinW.Net.Clients.FuturesApi
                 return WebSocketResult.Fail<UpdateSubscription>(_exchangeName, validationError);
 
             var symbol = request.Symbol!.GetSymbol(FormatSymbol);
-            var result = await SubscribeToOrderBookUpdatesAsync(symbol, update => handler(update.ToType(new SharedOrderBook(update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
+            var result = await SubscribeToOrderBookUpdatesAsync(symbol, update => handler(
+                update.ToType(
+                    new SharedOrderBook(SharedQuantityType.Contracts, update.Data.Asks, update.Data.Bids))), ct).ConfigureAwait(false);
 
             return result;
         }
@@ -208,15 +210,19 @@ namespace CoinW.Net.Clients.FuturesApi
                 update => {
                     handler(update.ToType(update.Data
                         .Where(x => x.OrderStatus != FuturesOrderStatus.MarkerChange)
-                        .Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), x.Symbol, x.PositionSize, x.CreateTime)
-                        {
-                            Id = x.PositionId.ToString(),
-                            AverageOpenPrice = x.OpenPrice,
-                            PositionMode = SharedPositionMode.HedgeMode,
-                            PositionSide = x.PositionSide == Enums.PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long,
-                            Leverage = x.Leverage,
-                            UpdateTime = x.UpdateTime
-                    }).ToArray()));
+                        .Select(x => new SharedPosition(
+                            ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol),
+                            x.Symbol,
+                            new SharedOrderQuantity(contractQuantity: x.PositionSize),
+                            x.CreateTime)
+                            {
+                                Id = x.PositionId.ToString(),
+                                AverageOpenPrice = x.OpenPrice,
+                                PositionMode = SharedPositionMode.HedgeMode,
+                                PositionSide = x.PositionSide == Enums.PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long,
+                                Leverage = x.Leverage,
+                                UpdateTime = x.UpdateTime
+                            }).ToArray()));
                 },
                 ct: ct).ConfigureAwait(false);
 

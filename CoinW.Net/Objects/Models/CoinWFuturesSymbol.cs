@@ -217,6 +217,11 @@ namespace CoinW.Net.Objects.Models
         /// </summary>
         [JsonPropertyName("openTime")]
         public DateTime? OpenTime { get; set; }
+        /// <summary>
+        /// ["<c>tradfiTag</c>"] Tradfi tag
+        /// </summary>
+        [JsonPropertyName("tradfiTag")]
+        public string? TradfiTag { get; set; }
     }
 
     /// <summary>

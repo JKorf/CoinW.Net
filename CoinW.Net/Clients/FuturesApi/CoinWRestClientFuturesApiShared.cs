@@ -135,7 +135,7 @@ namespace CoinW.Net.Clients.FuturesApi
             if (!result.Success)
                 return HttpResult.Fail<SharedOrderBook>(result);
 
-            return HttpResult.Ok(result, new SharedOrderBook(result.Data.Asks, result.Data.Bids));
+            return HttpResult.Ok(result, new SharedOrderBook(SharedQuantityType.Contracts, result.Data.Asks, result.Data.Bids));
         }
 
         #endregion
@@ -203,7 +203,9 @@ namespace CoinW.Net.Clients.FuturesApi
                 PriceDecimals = s.PriceDecimals,
                 DisplayName = s.Name,
                 QuoteAssetType = SharedAssetType.Crypto,
-                QuoteAssetSubType = SharedAssetSubType.StableCoin
+                QuoteAssetSubType = SharedAssetSubType.StableCoin,
+                MakerFeePercentage = s.MakerFee * 100,
+                TakerFeePercentage = s.TakerFee * 100,
             };
 
             // We can only filter some crypto symbols which we know are not tradfi
@@ -294,7 +296,7 @@ namespace CoinW.Net.Clients.FuturesApi
                 resultTicker.Data.LastPrice,
                 resultTicker.Data.HighPrice,
                 resultTicker.Data.LowPrice,
-                new SharedOrderQuantity(resultTicker.Data.Volume),
+                new SharedOrderQuantity(), // Volume is of the last trade, not the 24h volume
                 resultTicker.Data.PriceChangePercentage * 100)
             {
             });
@@ -319,7 +321,7 @@ namespace CoinW.Net.Clients.FuturesApi
                     x.LastPrice, 
                     x.HighPrice, 
                     x.LowPrice,
-                    new SharedOrderQuantity(x.Volume), 
+                    new SharedOrderQuantity(), // Volume is of the last trade, not the 24h volume
                     x.PriceChangePercentage * 100)
                 {
                 };
@@ -583,7 +585,7 @@ namespace CoinW.Net.Clients.FuturesApi
                 x.OrderId.ToString(),
                 x.Id.ToString(),
                 (x.PositionSide == PositionSide.Long && x.Status == TrailingOrderStatus.Open || x.PositionSide == PositionSide.Short && x.Status == TrailingOrderStatus.Closed) ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                x.QuantityOpen,
+                new SharedOrderQuantity(contractQuantity: x.QuantityOpen),
                 x.ClosePrice ?? x.OpenPrice ?? 0,
                 x.CreateTime)
             {
@@ -634,7 +636,7 @@ namespace CoinW.Net.Clients.FuturesApi
                             x.OrderId.ToString(),
                             x.Id.ToString(),
                             (x.PositionSide == PositionSide.Long && x.Status == TrailingOrderStatus.Open || x.PositionSide == PositionSide.Short && x.Status == TrailingOrderStatus.Closed) ? SharedOrderSide.Buy : SharedOrderSide.Sell,
-                            x.QuantityOpen,
+                            new SharedOrderQuantity(contractQuantity: x.QuantityOpen),
                             x.ClosePrice ?? x.OpenPrice ?? 0,
                             x.CreateTime)
                         {
@@ -679,19 +681,24 @@ namespace CoinW.Net.Clients.FuturesApi
                 return HttpResult.Fail<SharedPosition[]>(result);
 
             var resultTypes = request.Symbol == null && request.TradingMode == null ? SupportedTradingModes : request.Symbol != null ? new[] { request.Symbol.TradingMode } : new[] { request.TradingMode!.Value };
-            return HttpResult.Ok(result, result.Data.Select(x => new SharedPosition(ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol), x.Symbol, Math.Abs(x.PositionSize), x.UpdateTime)
-            {
-                Id = x.Id.ToString(),
-                UnrealizedPnl = x.UnrealizedPnl,
-                LiquidationPrice = x.LiquidationPrice == 0 ? null : x.LiquidationPrice,
-                Leverage = x.Leverage,
-                AverageOpenPrice = x.OpenPrice,
-                PositionMode = SharedPositionMode.HedgeMode,
-                PositionSide = x.PositionSide == PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long,
-                UpdateTime = x.UpdateTime,
-                StopLossPrice = x.StopLossPrice,
-                TakeProfitPrice = x.TakeProfitPrice
-            }).ToArray());
+            return HttpResult.Ok(result, result.Data.Select(x => 
+                new SharedPosition(
+                    ExchangeSymbolCache.ParseSymbol(_topicId, EnvironmentName, null, x.Symbol),
+                    x.Symbol,
+                    new SharedOrderQuantity(contractQuantity: Math.Abs(x.PositionSize)),
+                    x.UpdateTime)
+                {
+                    Id = x.Id.ToString(),
+                    UnrealizedPnl = x.UnrealizedPnl,
+                    LiquidationPrice = x.LiquidationPrice == 0 ? null : x.LiquidationPrice,
+                    Leverage = x.Leverage,
+                    AverageOpenPrice = x.OpenPrice,
+                    PositionMode = SharedPositionMode.HedgeMode,
+                    PositionSide = x.PositionSide == PositionSide.Short ? SharedPositionSide.Short : SharedPositionSide.Long,
+                    UpdateTime = x.UpdateTime,
+                    StopLossPrice = x.StopLossPrice,
+                    TakeProfitPrice = x.TakeProfitPrice
+                }).ToArray());
         }
 
         ClosePositionOptions IFuturesOrderRestClient.ClosePositionOptions { get; } = new ClosePositionOptions(_exchangeName, true)
