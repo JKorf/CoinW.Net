@@ -2,7 +2,7 @@
 
 > Strongly typed .NET client library for the CoinW REST and WebSocket APIs. Supports Spot and Futures trading, account data, market data, order placement, order books, WebSocket streams, and CryptoExchange.Net SharedApis for multi-exchange code.
 
-CoinW.Net is part of the CryptoExchange.Net ecosystem. REST methods return `HttpResult<T>` / `HttpResult`, WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`, and shared symbol/cache helpers return `ExchangeCallResult<T>`. Shared spot and futures symbols expose catalogs, request filtering, display names, and crypto/TradFi asset classification with applicable stablecoin, commodity, or equity subtypes. It also provides typed request and response models, automatic WebSocket reconnection, client-side rate limiting, local order book support, dependency injection, and Native AOT support. Current version: 3.3.0. Targets netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
+CoinW.Net is part of the CryptoExchange.Net ecosystem. REST methods return `HttpResult<T>` / `HttpResult`, WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`, and shared symbol/cache helpers return `ExchangeCallResult<T>`. Shared spot and futures symbols expose catalogs, request filtering, display names, and crypto/TradFi asset classification with applicable stablecoin, commodity, or equity subtypes. It also provides typed request and response models, automatic WebSocket reconnection, client-side rate limiting, local order book support, dependency injection, and Native AOT support. Current version: 3.4.0. Targets netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
 
 ## Documentation
 

@@ -4,8 +4,8 @@
 
 CoinW.Net is a strongly typed .NET client library for the CoinW REST and WebSocket APIs. It is part of the CryptoExchange.Net ecosystem and uses the same result, shared API, logging, rate limiting, and socket patterns as the other JKorf exchange libraries.
 
-Current package version in this repository: 3.3.0.
-CryptoExchange.Net dependency: 12.2.0.
+Current package version in this repository: 3.4.0.
+CryptoExchange.Net dependency: 12.5.0.
 Target frameworks: netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
 Native AOT: supported on compatible .NET targets.
 
@@ -399,6 +399,8 @@ await socketClient.UnsubscribeAsync(sub.Data);
 For spot endpoints, CoinW symbols use an underscore (`BTC_USDT`). For futures USDT perpetuals, use base symbols (`BTC`, `ETH`) unless the interface or exchange data indicates otherwise.
 
 For exchange-agnostic symbol discovery and asset filtering, use the shared spot or futures symbol client; returned symbols include `DisplayName`, `BaseAssetType`, `QuoteAssetType`, and applicable subtypes.
+
+Shared quantity units are explicit: spot order books and user trades use base-asset quantities; futures order books, user trades, and positions use contract quantities. Do not interpret a missing shared futures ticker `Volume` as zero: CoinW exposes last-trade volume, not the 24-hour volume required by the shared ticker model, so CoinW.Net leaves it unset.
 
 When writing generic code, use:
 
