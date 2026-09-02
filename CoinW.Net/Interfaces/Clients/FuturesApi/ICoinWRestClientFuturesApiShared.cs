@@ -17,4 +17,31 @@ namespace CoinW.Net.Interfaces.Clients.FuturesApi
         IBalanceRestClient
     {
     }
+
+    /// <summary>
+    /// Shared API interface. Shared APIs provide a common,
+    /// exchange-independent contract for accessing functionality across different
+    /// exchange client libraries.
+    /// </summary>
+    public interface ICoinWRestClientFuturesSharedApi :
+        IGetFeesRest,
+        IGetKlinesRest,
+        IGetOrderBookRest,
+        IGetRecentTradesRest,
+        IGetFuturesSymbolsRest,
+        IGetFuturesTickerRest,
+        IGetAllFuturesTickersRest,
+        IPlaceFuturesOrderRest,
+        IGetFuturesOrderRest,
+        IGetOpenFuturesOrdersRest,
+        IGetClosedFuturesOrdersRest,
+        IGetFuturesOrderTradesRest,
+        IGetFuturesUserTradeHistoryRest,
+        ICancelFuturesOrderRest,
+        IGetPositionsRest,
+        IClosePositionRest,
+        ISetFuturesTpSlRest,
+        ICancelFuturesTpSlRest,
+        IGetBalancesRest
+    { }
 }

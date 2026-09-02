@@ -1,11 +1,12 @@
+using CoinW.Net.Clients;
 using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Converters.SystemTextJson;
+using CryptoExchange.Net.Objects;
+using CryptoExchange.Net.Testing;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Net.Http;
-using CoinW.Net.Clients;
-using CryptoExchange.Net.Converters.SystemTextJson;
-using CryptoExchange.Net.Objects;
 
 namespace CoinW.Net.UnitTests
 {
@@ -41,6 +42,42 @@ namespace CoinW.Net.UnitTests
         {
             CryptoExchange.Net.Testing.TestHelpers.CheckForMissingRestInterfaces<CoinWRestClient>();
             CryptoExchange.Net.Testing.TestHelpers.CheckForMissingSocketInterfaces<CoinWSocketClient>();
+        }
+
+        [Test]
+        public void TestSpotRestSharedApiDiscoveryMatchesAggregate()
+        {
+            var (missingOptions, missingInterfaces) = TestHelpers.ValidateSharedApi(new CoinWRestClient().SpotApi.SharedApi);
+
+            Assert.That(missingOptions, Is.Empty);
+            Assert.That(missingInterfaces, Is.Empty);
+        }
+
+        [Test]
+        public void TestSpotSocketSharedApiDiscoveryMatchesAggregate()
+        {
+            var (missingOptions, missingInterfaces) = TestHelpers.ValidateSharedApi(new CoinWSocketClient().SpotApi.SharedApi);
+
+            Assert.That(missingOptions, Is.Empty);
+            Assert.That(missingInterfaces, Is.Empty);
+        }
+
+        [Test]
+        public void TestFuturesRestSharedApiDiscoveryMatchesAggregate()
+        {
+            var (missingOptions, missingInterfaces) = TestHelpers.ValidateSharedApi(new CoinWRestClient().FuturesApi.SharedApi);
+
+            Assert.That(missingOptions, Is.Empty);
+            Assert.That(missingInterfaces, Is.Empty);
+        }
+
+        [Test]
+        public void TestFuturesSocketSharedApiDiscoveryMatchesAggregate()
+        {
+            var (missingOptions, missingInterfaces) = TestHelpers.ValidateSharedApi(new CoinWSocketClient().FuturesApi.SharedApi);
+
+            Assert.That(missingOptions, Is.Empty);
+            Assert.That(missingInterfaces, Is.Empty);
         }
     }
 }

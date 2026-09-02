@@ -34,6 +34,8 @@ namespace CoinW.Net.Clients.SpotApi
     internal partial class CoinWSocketClientSpotApi : SocketApiClient<CoinWEnvironment, CoinWSpotAuthenticationProvider, CoinWCredentials>, ICoinWSocketClientSpotApi
     {
         #region fields
+        private readonly CoinWSocketClientSpotSharedApi _sharedApi;
+
         private ICoinWRestClient _restClient;
         #endregion
 
@@ -50,6 +52,8 @@ namespace CoinW.Net.Clients.SpotApi
                 opts.Environment = options.Environment;
                 opts.Proxy = options.Proxy;
             });
+
+            _sharedApi = new CoinWSocketClientSpotSharedApi(this);
 
             RegisterPeriodicQuery(
                 "ping",
@@ -241,7 +245,9 @@ namespace CoinW.Net.Clients.SpotApi
         }
 
         /// <inheritdoc />
-        public ICoinWSocketClientSpotApiShared SharedClient => this;
+        public ICoinWSocketClientSpotApiShared SharedClient => _sharedApi;
+        /// <inheritdoc />
+        public ICoinWSocketClientSpotSharedApi SharedApi => _sharedApi;
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverDate = null)

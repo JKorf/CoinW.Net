@@ -24,6 +24,8 @@ namespace CoinW.Net.Clients.FuturesApi
     internal partial class CoinWRestClientFuturesApi : RestApiClient<CoinWEnvironment, CoinWFuturesAuthenticationProvider, CoinWCredentials>, ICoinWRestClientFuturesApi
     {
         #region fields 
+        private readonly CoinWRestClientFuturesSharedApi _sharedApi;
+
         protected override IRestMessageHandler MessageHandler => new CoinWRestMessageHandler(CoinWErrors.FuturesErrors);
         internal static ErrorMapping RestErrorMapping => CoinWErrors.FuturesErrors;
         #endregion
@@ -46,6 +48,8 @@ namespace CoinW.Net.Clients.FuturesApi
             Account = new CoinWRestClientFuturesApiAccount(this);
             ExchangeData = new CoinWRestClientFuturesApiExchangeData(_logger, this);
             Trading = new CoinWRestClientFuturesApiTrading(_logger, this);
+
+            _sharedApi = new CoinWRestClientFuturesSharedApi(this);
         }
         #endregion
 
@@ -84,7 +88,9 @@ namespace CoinW.Net.Clients.FuturesApi
             => CoinWExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverDate);
 
         /// <inheritdoc />
-        public ICoinWRestClientFuturesApiShared SharedClient => this;
+        public ICoinWRestClientFuturesApiShared SharedClient => _sharedApi;
+        /// <inheritdoc />
+        public ICoinWRestClientFuturesSharedApi SharedApi => _sharedApi;
 
     }
 }

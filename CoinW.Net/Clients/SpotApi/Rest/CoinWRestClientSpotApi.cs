@@ -25,6 +25,8 @@ namespace CoinW.Net.Clients.SpotApi
     internal partial class CoinWRestClientSpotApi : RestApiClient<CoinWEnvironment, CoinWSpotAuthenticationProvider, CoinWCredentials>, ICoinWRestClientSpotApi
     {
         #region fields 
+        private readonly CoinWRestClientSpotSharedApi _sharedApi;
+
         protected override ErrorMapping ErrorMapping => CoinWErrors.SpotErrors;
 
         protected override IRestMessageHandler MessageHandler => new CoinWRestMessageHandler(CoinWErrors.SpotErrors);
@@ -52,6 +54,8 @@ namespace CoinW.Net.Clients.SpotApi
             Account = new CoinWRestClientSpotApiAccount(this);
             ExchangeData = new CoinWRestClientSpotApiExchangeData(_logger, this);
             Trading = new CoinWRestClientSpotApiTrading(_logger, this);
+
+            _sharedApi = new CoinWRestClientSpotSharedApi(this);
 
             RequestBodyEmptyContent = "";
             ParameterPositions[HttpMethod.Post] = HttpMethodParameterPosition.InUri;
@@ -99,7 +103,9 @@ namespace CoinW.Net.Clients.SpotApi
             => CoinWExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode, deliverDate);
 
         /// <inheritdoc />
-        public ICoinWRestClientSpotApiShared SharedClient => this;
+        public ICoinWRestClientSpotApiShared SharedClient => _sharedApi;
+        /// <inheritdoc />
+        public ICoinWRestClientSpotSharedApi SharedApi => _sharedApi;
 
     }
 }
