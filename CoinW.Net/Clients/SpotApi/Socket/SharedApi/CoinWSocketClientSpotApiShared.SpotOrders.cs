@@ -14,7 +14,8 @@ namespace CoinW.Net.Clients.SpotApi
 {
     internal partial class CoinWSocketClientSpotSharedApi
     {
-        #region Spot Order client
+
+        #region Subscribe To Spot Order Updates
 
         async Task<WebSocketResult<UpdateSubscription>> ISpotOrderSocketClient.SubscribeToSpotOrderUpdatesAsync(SubscribeSpotOrderRequest request, Action<DataEvent<SharedSpotOrder[]>> handler, CancellationToken ct)
             => await SubscribeToSpotOrderUpdatesAsync(request, x => handler(x.ToType<SharedSpotOrder[]>(x.Data)), ct).ConfigureAwait(false);
@@ -58,6 +59,8 @@ namespace CoinW.Net.Clients.SpotApi
             return result;
         }
 
+        #endregion
+
         private SharedOrderStatus ParseOrderStatus(CoinWOrderUpdate data)
         {
             if (data.Reason == Enums.OrderEventReason.Canceled
@@ -77,6 +80,5 @@ namespace CoinW.Net.Clients.SpotApi
 
             return SharedOrderStatus.Unknown;
         }
-        #endregion
     }
 }

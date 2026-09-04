@@ -13,8 +13,9 @@ namespace CoinW.Net.Clients.FuturesApi
 {
     internal partial class CoinWSocketClientFuturesSharedApi
     {
-        #region Kline client
         public SubscribeKlineOptions SubscribeKlineOptions { get; } = new SubscribeKlineOptions(_exchangeName, false);
+        #region Subscribe To Kline Updates
+
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(SubscribeKlineRequest request, Action<DataEvent<SharedKline>> handler, CancellationToken ct)
         {
             var interval = (Enums.FuturesKlineIntervalStream)request.Interval;
@@ -37,6 +38,7 @@ namespace CoinW.Net.Clients.FuturesApi
 
             return result;
         }
+
         #endregion
     }
 }

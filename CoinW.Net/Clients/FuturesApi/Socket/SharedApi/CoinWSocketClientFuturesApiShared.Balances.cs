@@ -13,8 +13,9 @@ namespace CoinW.Net.Clients.FuturesApi
 {
     internal partial class CoinWSocketClientFuturesSharedApi
     {
-        #region Balance client
         public SubscribeBalanceOptions SubscribeBalanceOptions { get; } = new SubscribeBalanceOptions(_exchangeName, false);
+        #region Subscribe To Balance Updates
+
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToBalanceUpdatesAsync(SubscribeBalancesRequest request, Action<DataEvent<SharedBalance[]>> handler, CancellationToken ct)
         {
             var validationError = SubscribeBalanceOptions.ValidateRequest(request, this);
@@ -34,5 +35,6 @@ namespace CoinW.Net.Clients.FuturesApi
         }
 
         #endregion
+
     }
 }

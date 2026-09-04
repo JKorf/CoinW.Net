@@ -15,7 +15,11 @@ namespace CoinW.Net.Clients.FuturesApi
 {
     internal partial class CoinWRestClientFuturesSharedApi
     {
-        #region Klines client
+
+        #region Get Klines
+
+        async Task<ICallResult<SharedKline[]>> IGetKlines.GetKlinesAsync(GetKlinesRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetKlinesAsync(request, pageRequest, ct).ConfigureAwait(false);
 
         public GetKlinesOptions GetKlinesOptions { get; } = new GetKlinesOptions(_exchangeName, true, false, true, 1500, false);
 
@@ -66,5 +70,6 @@ namespace CoinW.Net.Clients.FuturesApi
         }
 
         #endregion
+
     }
 }

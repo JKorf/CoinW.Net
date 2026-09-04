@@ -14,7 +14,8 @@ namespace CoinW.Net.Clients.SpotApi
 {
     internal partial class CoinWSocketClientSpotSharedApi
     {
-        #region Ticker client
+        #region Subscribe To Ticker Updates
+
         async Task<WebSocketResult<UpdateSubscription>> ISubscribeTickerSocket.SubscribeToTickerUpdatesAsync(SubscribeTickerRequest request, Action<DataEvent<SharedTicker>> handler, CancellationToken ct)
             => await SubscribeToTickerUpdatesAsync(request, x => handler(x.ToType<SharedTicker>(x.Data)), ct).ConfigureAwait(false);
 
@@ -43,7 +44,9 @@ namespace CoinW.Net.Clients.SpotApi
 
         #endregion
 
-        #region Tickers client
+
+        #region Subscribe To All Tickers Updates
+
         async Task<WebSocketResult<UpdateSubscription>> ISubscribeAllTickersSocket.SubscribeToAllTickersUpdatesAsync(SubscribeAllTickersRequest request, Action<DataEvent<SharedTicker[]>> handler, CancellationToken ct)
             => await SubscribeToAllTickersUpdatesAsync(request, x => handler(x.ToType<SharedTicker[]>(x.Data)), ct).ConfigureAwait(false);
 
@@ -70,5 +73,6 @@ namespace CoinW.Net.Clients.SpotApi
         }
 
         #endregion
+
     }
 }

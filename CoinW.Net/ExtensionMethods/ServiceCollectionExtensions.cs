@@ -114,9 +114,16 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<ICoinWUserClientProvider, CoinWUserClientProvider>(x =>
                 new CoinWUserClientProvider(
                 x.GetRequiredService<IHttpClientFactory>().CreateClient(typeof(ICoinWRestClient).Name),
-                    x.GetRequiredService<ILoggerFactory>(),
+                x.GetRequiredService<ILoggerFactory>(),
                     x.GetRequiredService<IOptions<CoinWRestOptions>>(),
                     x.GetRequiredService<IOptions<CoinWSocketOptions>>()));
+
+            services.AddTransient<ICoinWSharedApiClient, CoinWSharedApiClient>();
+
+            services.RegisterSharedApi(x => x.GetRequiredService<ICoinWRestClient>().SpotApi.SharedApi);
+            services.RegisterSharedApi(x => x.GetRequiredService<ICoinWSocketClient>().SpotApi.SharedApi);
+            services.RegisterSharedApi(x => x.GetRequiredService<ICoinWRestClient>().FuturesApi.SharedApi);
+            services.RegisterSharedApi(x => x.GetRequiredService<ICoinWSocketClient>().FuturesApi.SharedApi);
 
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<ICoinWRestClient>().SpotApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<ICoinWSocketClient>().SpotApi.SharedClient);

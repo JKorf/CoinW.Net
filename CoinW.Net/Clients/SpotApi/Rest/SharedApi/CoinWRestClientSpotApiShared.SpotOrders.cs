@@ -16,7 +16,6 @@ namespace CoinW.Net.Clients.SpotApi
 {
     internal partial class CoinWRestClientSpotSharedApi
     {
-        #region Spot Order Client
         public SharedFeeDeductionType SpotFeeDeductionType => SharedFeeDeductionType.AddToCost;
         public SharedFeeAssetType SpotFeeAssetType => SharedFeeAssetType.QuoteAsset;
         public SharedOrderType[] SpotSupportedOrderTypes { get; } = new[] { SharedOrderType.Limit, SharedOrderType.Market };
@@ -28,6 +27,8 @@ namespace CoinW.Net.Clients.SpotApi
                 SharedQuantityType.BaseAndQuoteAsset);
 
         public string GenerateClientOrderId() => ExchangeHelpers.RandomString(32);
+
+        #region Place Spot Order
 
         async Task<ICallResult<SharedId>> IPlaceSpotOrder.PlaceSpotOrderAsync(PlaceSpotOrderRequest request, CancellationToken ct)
             => await PlaceSpotOrderAsync(request, ct).ConfigureAwait(false);
@@ -54,6 +55,13 @@ namespace CoinW.Net.Clients.SpotApi
 
             return HttpResult.Ok(result, new SharedId(result.Data.OrderId.ToString()));
         }
+
+        #endregion
+
+        #region Get Spot Order
+
+        async Task<ICallResult<SharedSpotOrder>> IGetSpotOrder.GetSpotOrderAsync(GetOrderRequest request, CancellationToken ct)
+            => await GetSpotOrderAsync(request, ct).ConfigureAwait(false);
 
         public GetSpotOrderOptions GetSpotOrderOptions { get; } = new GetSpotOrderOptions(_exchangeName, true);
         public async Task<HttpResult<SharedSpotOrder>> GetSpotOrderAsync(GetOrderRequest request, CancellationToken ct)
@@ -82,6 +90,13 @@ namespace CoinW.Net.Clients.SpotApi
                 QuantityFilled = new SharedOrderQuantity(order.Data.QuantityFilled, order.Data.QuoteQuantityFilled)
             });
         }
+
+        #endregion
+
+        #region Get Open Spot Orders
+
+        async Task<ICallResult<SharedSpotOrder[]>> IGetOpenSpotOrders.GetOpenSpotOrdersAsync(GetOpenOrdersRequest request, CancellationToken ct)
+            => await GetOpenSpotOrdersAsync(request, ct).ConfigureAwait(false);
 
         public GetOpenSpotOrdersOptions GetOpenSpotOrdersOptions { get; } = new GetOpenSpotOrdersOptions(_exchangeName, true)
         {
@@ -115,6 +130,13 @@ namespace CoinW.Net.Clients.SpotApi
                 QuantityFilled = new SharedOrderQuantity(x.QuantityFilled, x.QuoteQuantityFilled),
             }).ToArray());
         }
+
+        #endregion
+
+        #region Get Closed Spot Orders
+
+        async Task<ICallResult<SharedSpotOrder[]>> IGetClosedSpotOrders.GetClosedSpotOrdersAsync(GetClosedOrdersRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetClosedSpotOrdersAsync(request, pageRequest, ct).ConfigureAwait(false);
 
         public GetSpotClosedOrdersOptions GetClosedSpotOrdersOptions { get; } = new GetSpotClosedOrdersOptions(_exchangeName, false, true, true, 1000)
         {
@@ -170,6 +192,13 @@ namespace CoinW.Net.Clients.SpotApi
                         }).ToArray(), nextPageRequest);
         }
 
+        #endregion
+
+        #region Get Spot Order Trades
+
+        async Task<ICallResult<SharedUserTrade[]>> IGetSpotOrderTrades.GetSpotOrderTradesAsync(GetOrderTradesRequest request, CancellationToken ct)
+            => await GetSpotOrderTradesAsync(request, ct).ConfigureAwait(false);
+
         public GetSpotOrderTradesOptions GetSpotOrderTradesOptions { get; } = new GetSpotOrderTradesOptions(_exchangeName, true)
         {
             RequestNotes = "The API does not support filtering by order id, trades will only be returned if they're in the most recent 100 trades"
@@ -205,6 +234,13 @@ namespace CoinW.Net.Clients.SpotApi
                 Fee = x.Fee
             }).ToArray());
         }
+
+        #endregion
+
+        #region Get Spot User Trade History
+
+        async Task<ICallResult<SharedUserTrade[]>> IGetSpotUserTradeHistory.GetSpotUserTradeHistoryAsync(GetUserTradesRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetSpotUserTradeHistoryAsync(request, pageRequest, ct).ConfigureAwait(false);
 
         Task<HttpResult<SharedUserTrade[]>> ISpotOrderRestClient.GetSpotUserTradesAsync(GetUserTradesRequest request, PageRequest? pageRequest, CancellationToken ct)
             => GetSpotUserTradeHistoryAsync(request, pageRequest, ct);
@@ -258,6 +294,13 @@ namespace CoinW.Net.Clients.SpotApi
                         }).ToArray(), nextPageRequest);
         }
 
+        #endregion
+
+        #region Cancel Spot Order
+
+        async Task<ICallResult<SharedId>> ICancelSpotOrder.CancelSpotOrderAsync(CancelOrderRequest request, CancellationToken ct)
+            => await CancelSpotOrderAsync(request, ct).ConfigureAwait(false);
+
         public CancelSpotOrderOptions CancelSpotOrderOptions { get; } = new CancelSpotOrderOptions(_exchangeName, true);
         public async Task<HttpResult<SharedId>> CancelSpotOrderAsync(CancelOrderRequest request, CancellationToken ct)
         {
@@ -275,6 +318,8 @@ namespace CoinW.Net.Clients.SpotApi
             return HttpResult.Ok(order, new SharedId(request.OrderId));
         }
 
+        #endregion
+
         private SharedOrderStatus ParseOrderStatus(OrderStatus status)
         {
             if (status == OrderStatus.Open || status == OrderStatus.PartiallyFilled) return SharedOrderStatus.Open;
@@ -284,6 +329,5 @@ namespace CoinW.Net.Clients.SpotApi
             return SharedOrderStatus.Unknown;
         }
 
-        #endregion
     }
 }

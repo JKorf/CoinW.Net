@@ -15,7 +15,11 @@ namespace CoinW.Net.Clients.FuturesApi
 {
     internal partial class CoinWRestClientFuturesSharedApi
     {
-        #region Tp/SL Client
+        #region Set Futures Tp Sl
+
+        async Task<ICallResult<SharedId>> ISetFuturesTpSl.SetFuturesTpSlAsync(SetTpSlRequest request, CancellationToken ct)
+            => await SetFuturesTpSlAsync(request, ct).ConfigureAwait(false);
+
         public SetFuturesTpSlOptions SetFuturesTpSlOptions { get; } = new SetFuturesTpSlOptions(_exchangeName, true);
         public async Task<HttpResult<SharedId>> SetFuturesTpSlAsync(SetTpSlRequest request, CancellationToken ct)
         {
@@ -45,6 +49,13 @@ namespace CoinW.Net.Clients.FuturesApi
             // Return
             return HttpResult.Ok(result, new SharedId(position.Id.ToString()));
         }
+
+        #endregion
+
+        #region Cancel Futures Tp Sl
+
+        async Task<ICallResult<bool>> ICancelFuturesTpSl.CancelFuturesTpSlAsync(CancelTpSlRequest request, CancellationToken ct)
+            => await CancelFuturesTpSlAsync(request, ct).ConfigureAwait(false);
 
         public CancelFuturesTpSlOptions CancelFuturesTpSlOptions { get; } = new CancelFuturesTpSlOptions(_exchangeName, true);
         public async Task<HttpResult<bool>> CancelFuturesTpSlAsync(CancelTpSlRequest request, CancellationToken ct)
@@ -76,5 +87,6 @@ namespace CoinW.Net.Clients.FuturesApi
         }
 
         #endregion
+
     }
 }

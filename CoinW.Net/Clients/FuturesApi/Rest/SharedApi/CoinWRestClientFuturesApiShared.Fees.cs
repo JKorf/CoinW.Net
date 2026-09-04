@@ -15,8 +15,12 @@ namespace CoinW.Net.Clients.FuturesApi
 {
     internal partial class CoinWRestClientFuturesSharedApi
     {
-        #region Fee Client
         public GetFeeOptions GetFeeOptions { get; } = new GetFeeOptions(_exchangeName, true);
+
+        #region Get Fees
+
+        async Task<ICallResult<SharedFee>> IGetFees.GetFeesAsync(GetFeeRequest request, CancellationToken ct)
+            => await GetFeesAsync(request, ct).ConfigureAwait(false);
 
         public async Task<HttpResult<SharedFee>> GetFeesAsync(GetFeeRequest request, CancellationToken ct)
         {
@@ -33,6 +37,7 @@ namespace CoinW.Net.Clients.FuturesApi
             // Return
             return HttpResult.Ok(result, new SharedFee(result.Data.MakerFee * 100, result.Data.TakerFee * 100));
         }
+
         #endregion
     }
 }

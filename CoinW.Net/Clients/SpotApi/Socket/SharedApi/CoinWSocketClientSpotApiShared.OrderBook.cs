@@ -14,8 +14,9 @@ namespace CoinW.Net.Clients.SpotApi
 {
     internal partial class CoinWSocketClientSpotSharedApi
     {
-        #region Order Book client
         public SubscribeOrderBookOptions SubscribeOrderBookOptions { get; } = new SubscribeOrderBookOptions(_exchangeName, false, new[] { 100 });
+        #region Subscribe To Order Book Updates
+
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToOrderBookUpdatesAsync(SubscribeOrderBookRequest request, Action<DataEvent<SharedOrderBook>> handler, CancellationToken ct)
         {
             var validationError = SubscribeOrderBookOptions.ValidateRequest(request, this);
@@ -29,6 +30,7 @@ namespace CoinW.Net.Clients.SpotApi
 
             return result;
         }
+
         #endregion
     }
 }

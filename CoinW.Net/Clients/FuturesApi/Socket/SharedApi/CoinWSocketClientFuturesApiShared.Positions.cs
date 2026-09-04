@@ -13,8 +13,9 @@ namespace CoinW.Net.Clients.FuturesApi
 {
     internal partial class CoinWSocketClientFuturesSharedApi
     {
-        #region Position client
         public SubscribePositionOptions SubscribePositionOptions { get; } = new SubscribePositionOptions(_exchangeName, false);
+        #region Subscribe To Position Updates
+
         public async Task<WebSocketResult<UpdateSubscription>> SubscribeToPositionUpdatesAsync(SubscribePositionRequest request, Action<DataEvent<SharedPosition[]>> handler, CancellationToken ct)
         {
             var validationError = SubscribePositionOptions.ValidateRequest(request, this);
@@ -45,5 +46,6 @@ namespace CoinW.Net.Clients.FuturesApi
         }
 
         #endregion
+
     }
 }

@@ -16,7 +16,11 @@ namespace CoinW.Net.Clients.SpotApi
 {
     internal partial class CoinWRestClientSpotSharedApi
     {
-        #region Deposit client
+
+        #region Get Deposit Addresses
+
+        async Task<ICallResult<SharedDepositAddress[]>> IGetDepositAddresses.GetDepositAddressesAsync(GetDepositAddressesRequest request, CancellationToken ct)
+            => await GetDepositAddressesAsync(request, ct).ConfigureAwait(false);
 
         Task<HttpResult<SharedDeposit[]>> IDepositRestClient.GetDepositsAsync(GetDepositsRequest request, PageRequest? pageRequest, CancellationToken ct)
             => GetDepositHistoryAsync(request, pageRequest, ct);
@@ -46,6 +50,13 @@ namespace CoinW.Net.Clients.SpotApi
             }
             });
         }
+
+        #endregion
+
+        #region Get Deposit History
+
+        async Task<ICallResult<SharedDeposit[]>> IGetDepositHistory.GetDepositHistoryAsync(GetDepositsRequest request, PageRequest? pageRequest, CancellationToken ct)
+            => await GetDepositHistoryAsync(request, pageRequest, ct).ConfigureAwait(false);
 
         public GetDepositHistoryOptions GetDepositHistoryOptions { get; } = new GetDepositHistoryOptions(_exchangeName, true, true, false, 1000)
         {
@@ -84,6 +95,8 @@ namespace CoinW.Net.Clients.SpotApi
                     }).ToArray());
         }
 
+        #endregion
+
         private SharedTransferStatus GetTransferStatus(MovementStatus status)
         {
             if (status == MovementStatus.Success)
@@ -94,6 +107,5 @@ namespace CoinW.Net.Clients.SpotApi
             return SharedTransferStatus.Unknown;
         }
 
-        #endregion
     }
 }
