@@ -28,10 +28,9 @@ namespace CoinW.Net.Clients.SpotApi
 
         public GetWithdrawalHistoryOptions GetWithdrawalHistoryOptions { get; } = new GetWithdrawalHistoryOptions(_exchangeName, true, true, false, 1000)
         {
-            RequiredRequestParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription(nameof(GetWithdrawalsRequest.Asset), typeof(string), "Asset name", "ETH")
-            }
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<GetWithdrawalsRequest>.Required(x => x.Asset)
+            ]
         };
         public async Task<HttpResult<SharedWithdrawal[]>> GetWithdrawalHistoryAsync(GetWithdrawalsRequest request, PageRequest? pageToken, CancellationToken ct)
         {
@@ -84,10 +83,9 @@ namespace CoinW.Net.Clients.SpotApi
 
         public WithdrawOptions WithdrawOptions { get; } = new WithdrawOptions(_exchangeName)
         {
-            RequiredRequestParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription(nameof(WithdrawRequest.Network), typeof(string), "Network name", "ETH")
-            }
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<WithdrawRequest>.Required(x => x.Network)
+            ]
         };
         public async Task<HttpResult<SharedId>> WithdrawAsync(WithdrawRequest request, CancellationToken ct)
         {

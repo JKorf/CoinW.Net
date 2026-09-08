@@ -17,15 +17,26 @@ namespace CoinW.Net.Clients.SpotApi
     internal partial class CoinWRestClientSpotSharedApi
     {
 
-        #region Get Spot Ticker
+        #region Get Ticker
 
-        async Task<ICallResult<SharedSpotTicker>> IGetSpotTicker.GetSpotTickerAsync(GetTickerRequest request, CancellationToken ct)
-            => await GetSpotTickerAsync(request, ct).ConfigureAwait(false);
+        async Task<ICallResult<SharedTicker>> IGetTicker.GetTickerAsync(GetTickerRequest request, CancellationToken ct)
+            => await ((IGetTickerRest)this).GetTickerAsync(request, ct).ConfigureAwait(false);
 
-        public GetSpotTickerOptions GetSpotTickerOptions { get; } = new GetSpotTickerOptions(_exchangeName);
+        async Task<HttpResult<SharedTicker>> IGetTickerRest.GetTickerAsync(GetTickerRequest request, CancellationToken ct)
+        {
+            var result = await GetSpotTickerAsync(request, ct).ConfigureAwait(false);
+            if (!result.Success)
+                return HttpResult.Fail<SharedTicker>(result);
+
+            return HttpResult.Ok<SharedTicker>(result, result.Data);
+        }
+
+        GetTickerOptions ISpotTickerRestClient.GetSpotTickerOptions => GetTickerOptions;
+
+        public GetTickerOptions GetTickerOptions { get; } = new GetTickerOptions(_exchangeName);
         public async Task<HttpResult<SharedSpotTicker>> GetSpotTickerAsync(GetTickerRequest request, CancellationToken ct)
         {
-            var validationError = GetSpotTickerOptions.ValidateRequest(request, this);
+            var validationError = GetTickerOptions.ValidateRequest(request, this);
             if (validationError != null)
                 return HttpResult.Fail<SharedSpotTicker>(Exchange, validationError);
 
@@ -51,19 +62,28 @@ namespace CoinW.Net.Clients.SpotApi
 
         #endregion
 
-        #region Get All Spot Tickers
+        #region Get All Tickers
 
-        async Task<ICallResult<SharedSpotTicker[]>> IGetAllSpotTickers.GetAllSpotTickersAsync(GetTickersRequest request, CancellationToken ct)
-            => await GetAllSpotTickersAsync(request, ct).ConfigureAwait(false);
+        async Task<ICallResult<SharedTicker[]>> IGetAllTickers.GetAllTickersAsync(GetTickersRequest request, CancellationToken ct)
+            => await ((IGetAllTickersRest)this).GetAllTickersAsync(request, ct).ConfigureAwait(false);
+
+        async Task<HttpResult<SharedTicker[]>> IGetAllTickersRest.GetAllTickersAsync(GetTickersRequest request, CancellationToken ct)
+        {
+            var result = await GetAllSpotTickersAsync(request, ct).ConfigureAwait(false);
+            if (!result.Success)
+                return HttpResult.Fail<SharedTicker[]>(result);
+
+            return HttpResult.Ok<SharedTicker[]>(result, result.Data);
+        }
 
         Task<HttpResult<SharedSpotTicker[]>> ISpotTickerRestClient.GetSpotTickersAsync(GetTickersRequest request, CancellationToken ct)
             => GetAllSpotTickersAsync(request, ct);
-        GetAllSpotTickersOptions ISpotTickerRestClient.GetSpotTickersOptions => GetAllSpotTickersOptions;
+        GetAllTickersOptions ISpotTickerRestClient.GetSpotTickersOptions => GetAllTickersOptions;
 
-        public GetAllSpotTickersOptions GetAllSpotTickersOptions { get; } = new GetAllSpotTickersOptions(_exchangeName);
+        public GetAllTickersOptions GetAllTickersOptions { get; } = new GetAllTickersOptions(_exchangeName);
         public async Task<HttpResult<SharedSpotTicker[]>> GetAllSpotTickersAsync(GetTickersRequest request, CancellationToken ct)
         {
-            var validationError = GetAllSpotTickersOptions.ValidateRequest(request, this);
+            var validationError = GetAllTickersOptions.ValidateRequest(request, this);
             if (validationError != null)
                 return HttpResult.Fail<SharedSpotTicker[]>(Exchange, validationError);
 
@@ -76,9 +96,9 @@ namespace CoinW.Net.Clients.SpotApi
                     ExchangeSymbolCache.ParseSymbol(_topicId, _api.EnvironmentName, null, x.Symbol),
                     x.Symbol,
                     x.LastPrice,
-                    x.HighPrice, 
+                    x.HighPrice,
                     x.LowPrice,
-                    new SharedOrderQuantity(null, x.Volume), 
+                    new SharedOrderQuantity(null, x.Volume),
                     x.PercentageChange * 100)
                 {
                 }).ToArray());

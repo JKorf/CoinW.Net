@@ -13,7 +13,7 @@ using CryptoExchange.Net.Objects.Errors;
 
 namespace CoinW.Net.Clients.FuturesApi
 {
-    internal partial class CoinWRestClientFuturesSharedApi : 
+    internal partial class CoinWRestClientFuturesSharedApi :
         SharedApiBase,
         ICoinWRestClientFuturesApiShared,
         ICoinWRestClientFuturesSharedApi
@@ -51,10 +51,10 @@ namespace CoinW.Net.Clients.FuturesApi
                 GetFuturesUserTradeHistoryOptions,
                 CancelFuturesOrderOptions,
                 GetPositionsOptions,
-                ClosePositionOptions,
+                CloseFullPositionOptions,
                 GetFuturesSymbolsOptions,
-                GetFuturesTickerOptions,
-                GetAllFuturesTickersOptions,
+                GetTickerOptions,
+                GetAllTickersOptions,
                 SetFuturesTpSlOptions,
                 CancelFuturesTpSlOptions
                 );

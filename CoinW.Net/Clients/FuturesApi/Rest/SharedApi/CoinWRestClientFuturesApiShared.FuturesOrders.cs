@@ -36,8 +36,8 @@ namespace CoinW.Net.Clients.FuturesApi
 
         public PlaceFuturesOrderOptions PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions(_exchangeName, true)
         {
-            OptionalExchangeParameters = [            
-                new ParameterDescription(["PositionId", "id"], typeof(long),  "Id of the position to close", "Required for closing positions"),
+            ExchangeParameterRules = [            
+                ExchangeParameterRule.Optional("PositionId", "Id of the position to close", "Required for closing positions", aliases: ["id"])
             ]
         };
         public async Task<HttpResult<SharedId>> PlaceFuturesOrderAsync(PlaceFuturesOrderRequest request, CancellationToken ct)
@@ -451,15 +451,11 @@ namespace CoinW.Net.Clients.FuturesApi
 
         #region Close Position
 
-        async Task<ICallResult<SharedId>> IClosePosition.ClosePositionAsync(ClosePositionRequest request, CancellationToken ct)
-            => await ClosePositionAsync(request, ct).ConfigureAwait(false);
-
         public ClosePositionOptions ClosePositionOptions { get; } = new ClosePositionOptions(_exchangeName, true)
         {
-            RequiredExchangeParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription(["PositionId", "id"], typeof(long), "The id of the position to close", 123L),
-            }
+            ExchangeParameterRules = [
+                ExchangeParameterRule.Required("PositionId", "The id of the position to close", 123L)
+            ]
         };
         public async Task<HttpResult<SharedId>> ClosePositionAsync(ClosePositionRequest request, CancellationToken ct)
         {
@@ -469,6 +465,32 @@ namespace CoinW.Net.Clients.FuturesApi
 
             var positionId = request.GetParamValue<long>(Exchange, "PositionId", "id");
             var result = await _api.Trading.ClosePositionAsync(positionId, quantityToClose: request.Quantity, ct: ct).ConfigureAwait(false);
+            if (!result.Success)
+                return HttpResult.Fail<SharedId>(result);
+
+            return HttpResult.Ok(result, new SharedId(result.Data.OrderId.ToString()));
+        }
+
+
+        async Task<ICallResult<SharedId>> ICloseFullPosition.CloseFullPositionAsync(CloseFullPositionRequest request, CancellationToken ct)
+            => await CloseFullPositionAsync(request, ct).ConfigureAwait(false);
+
+        public CloseFullPositionOptions CloseFullPositionOptions { get; } = new CloseFullPositionOptions(_exchangeName, true)
+        {
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<CloseFullPositionRequest>.Required(x => x.PositionId)
+            ]
+        };
+        public async Task<HttpResult<SharedId>> CloseFullPositionAsync(CloseFullPositionRequest request, CancellationToken ct)
+        {
+            var validationError = CloseFullPositionOptions.ValidateRequest(request, this);
+            if (validationError != null)
+                return HttpResult.Fail<SharedId>(Exchange, validationError);
+
+            if (!long.TryParse(request.PositionId, out var positionId))
+                return HttpResult.Fail<SharedId>(Exchange, ArgumentError.Invalid(nameof(CloseFullPositionRequest.PositionId), "Invalid position id"));
+
+            var result = await _api.Trading.ClosePositionAsync(positionId, factorToClose: 1, ct: ct).ConfigureAwait(false);
             if (!result.Success)
                 return HttpResult.Fail<SharedId>(result);
 

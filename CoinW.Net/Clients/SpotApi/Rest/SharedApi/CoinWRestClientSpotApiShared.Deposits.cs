@@ -28,10 +28,9 @@ namespace CoinW.Net.Clients.SpotApi
 
         public GetDepositAddressesOptions GetDepositAddressesOptions { get; } = new GetDepositAddressesOptions(_exchangeName, true)
         {
-            RequiredRequestParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription(nameof(GetDepositAddressesRequest.Network), typeof(string), "Network to use", "ETH")
-            }
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<GetDepositAddressesRequest>.Required(x => x.Network)
+            ]
         };
         public async Task<HttpResult<SharedDepositAddress[]>> GetDepositAddressesAsync(GetDepositAddressesRequest request, CancellationToken ct)
         {
@@ -60,10 +59,9 @@ namespace CoinW.Net.Clients.SpotApi
 
         public GetDepositHistoryOptions GetDepositHistoryOptions { get; } = new GetDepositHistoryOptions(_exchangeName, true, true, false, 1000)
         {
-            RequiredRequestParameters = new List<ParameterDescription>
-            {
-                new ParameterDescription(nameof(GetDepositsRequest.Asset), typeof(string), "Asset name", "ETH")
-            }
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<GetDepositsRequest>.Required(x => x.Asset)
+            ]
         };
         public async Task<HttpResult<SharedDeposit[]>> GetDepositHistoryAsync(GetDepositsRequest request, PageRequest? pageRequest, CancellationToken ct)
         {
