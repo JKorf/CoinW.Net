@@ -329,7 +329,11 @@ namespace CoinW.Net.Clients.FuturesApi
 
         public GetFuturesUserTradeHistoryOptions GetFuturesUserTradeHistoryOptions { get; } = new GetFuturesUserTradeHistoryOptions(_exchangeName, false, true, false, 100)
         {
-            MaxAge = TimeSpan.FromDays(3)
+            MaxAge = TimeSpan.FromDays(3),
+            ParameterRuleOverwrites = [
+                RequestParameterRuleOverride<GetUserTradesRequest>.NotSupported(x => x.StartTime),
+                RequestParameterRuleOverride<GetUserTradesRequest>.NotSupported(x => x.EndTime),
+                ]
         };
         public async Task<HttpResult<SharedUserTrade[]>> GetFuturesUserTradeHistoryAsync(GetUserTradesRequest request, PageRequest? pageRequest, CancellationToken ct)
         {

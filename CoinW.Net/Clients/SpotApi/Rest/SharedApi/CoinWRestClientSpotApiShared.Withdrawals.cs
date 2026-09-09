@@ -29,7 +29,9 @@ namespace CoinW.Net.Clients.SpotApi
         public GetWithdrawalHistoryOptions GetWithdrawalHistoryOptions { get; } = new GetWithdrawalHistoryOptions(_exchangeName, true, true, false, 1000)
         {
             ParameterRuleOverwrites = [
-                RequestParameterRuleOverride<GetWithdrawalsRequest>.Required(x => x.Asset)
+                RequestParameterRuleOverride<GetWithdrawalsRequest>.Required(x => x.Asset),
+                RequestParameterRuleOverride<GetWithdrawalsRequest>.NotSupported(x => x.StartTime),
+                RequestParameterRuleOverride<GetWithdrawalsRequest>.NotSupported(x => x.EndTime),
             ]
         };
         public async Task<HttpResult<SharedWithdrawal[]>> GetWithdrawalHistoryAsync(GetWithdrawalsRequest request, PageRequest? pageToken, CancellationToken ct)
