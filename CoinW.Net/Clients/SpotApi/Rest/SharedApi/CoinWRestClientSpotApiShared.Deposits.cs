@@ -28,7 +28,7 @@ namespace CoinW.Net.Clients.SpotApi
 
         public GetDepositAddressesOptions GetDepositAddressesOptions { get; } = new GetDepositAddressesOptions(_exchangeName, true)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<GetDepositAddressesRequest>.Required(x => x.Network)
             ]
         };
@@ -59,7 +59,7 @@ namespace CoinW.Net.Clients.SpotApi
 
         public GetDepositHistoryOptions GetDepositHistoryOptions { get; } = new GetDepositHistoryOptions(_exchangeName, true, true, false, 1000)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<GetDepositsRequest>.Required(x => x.Asset)
             ]
         };

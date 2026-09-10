@@ -28,7 +28,7 @@ namespace CoinW.Net.Clients.SpotApi
 
         public GetWithdrawalHistoryOptions GetWithdrawalHistoryOptions { get; } = new GetWithdrawalHistoryOptions(_exchangeName, true, true, false, 1000)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<GetWithdrawalsRequest>.Required(x => x.Asset),
                 RequestParameterRuleOverride<GetWithdrawalsRequest>.NotSupported(x => x.StartTime),
                 RequestParameterRuleOverride<GetWithdrawalsRequest>.NotSupported(x => x.EndTime),
@@ -85,7 +85,7 @@ namespace CoinW.Net.Clients.SpotApi
 
         public WithdrawOptions WithdrawOptions { get; } = new WithdrawOptions(_exchangeName)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<WithdrawRequest>.Required(x => x.Network)
             ]
         };

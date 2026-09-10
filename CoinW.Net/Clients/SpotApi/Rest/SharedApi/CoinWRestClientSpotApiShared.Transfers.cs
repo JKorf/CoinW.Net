@@ -27,7 +27,7 @@ namespace CoinW.Net.Clients.SpotApi
             SharedAccountType.Spot
             ])
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<TransferRequest>.NotSupported(x => x.FromSymbol),
                 RequestParameterRuleOverride<TransferRequest>.NotSupported(x => x.ToSymbol),
                 ]

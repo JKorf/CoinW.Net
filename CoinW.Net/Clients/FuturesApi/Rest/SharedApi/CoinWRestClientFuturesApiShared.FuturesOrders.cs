@@ -330,7 +330,7 @@ namespace CoinW.Net.Clients.FuturesApi
         public GetFuturesUserTradeHistoryOptions GetFuturesUserTradeHistoryOptions { get; } = new GetFuturesUserTradeHistoryOptions(_exchangeName, false, true, false, 100)
         {
             MaxAge = TimeSpan.FromDays(3),
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<GetUserTradesRequest>.NotSupported(x => x.StartTime),
                 RequestParameterRuleOverride<GetUserTradesRequest>.NotSupported(x => x.EndTime),
                 ]
@@ -481,7 +481,7 @@ namespace CoinW.Net.Clients.FuturesApi
 
         public CloseFullPositionOptions CloseFullPositionOptions { get; } = new CloseFullPositionOptions(_exchangeName, true)
         {
-            ParameterRuleOverwrites = [
+            ParameterRuleOverrides = [
                 RequestParameterRuleOverride<CloseFullPositionRequest>.Required(x => x.PositionId)
             ]
         };
