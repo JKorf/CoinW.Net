@@ -1,18 +1,19 @@
-using CryptoExchange.Net;
-using CryptoExchange.Net.Clients;
-using CryptoExchange.Net.Interfaces;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using System;
-using System.Net.Http;
 using CoinW.Net;
 using CoinW.Net.Clients;
 using CoinW.Net.Interfaces;
 using CoinW.Net.Interfaces.Clients;
 using CoinW.Net.Objects.Options;
 using CoinW.Net.SymbolOrderBooks;
+using CryptoExchange.Net;
+using CryptoExchange.Net.Clients;
+using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Interfaces.Clients;
+using CryptoExchange.Net.SharedApis;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using System;
+using System.Net.Http;
 using System.Threading;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -119,20 +120,19 @@ namespace Microsoft.Extensions.DependencyInjection
                     x.GetRequiredService<IOptions<CoinWRestOptions>>(),
                     x.GetRequiredService<IOptions<CoinWSocketOptions>>()));
 
-            services.AddTransient<ICoinWSharedApiClient, CoinWSharedApiClient>();
-
-            services.RegisterSharedApi(x => x.GetRequiredService<ICoinWRestClient>().SpotApi.SharedApi);
-            services.RegisterSharedApi(x => x.GetRequiredService<ICoinWSocketClient>().SpotApi.SharedApi);
-            services.RegisterSharedApi(x => x.GetRequiredService<ICoinWRestClient>().FuturesApi.SharedApi);
-            services.RegisterSharedApi(x => x.GetRequiredService<ICoinWSocketClient>().FuturesApi.SharedApi);
-
-            services.RegisterSharedApiClientCapabilities<ICoinWSharedApiClient>();
-
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<ICoinWRestClient>().SpotApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<ICoinWSocketClient>().SpotApi.SharedClient);
             services.RegisterSharedRestInterfaces(x => x.GetRequiredService<ICoinWRestClient>().FuturesApi.SharedClient);
             services.RegisterSharedSocketInterfaces(x => x.GetRequiredService<ICoinWSocketClient>().FuturesApi.SharedClient);
 
+            services.RegisterSharedApiClient<
+                ICoinWSharedApiClient,
+                CoinWSharedApiClient>(sharedApis => sharedApis
+                    .Add(client => client.SpotRest)
+                    .Add(client => client.SpotSocket)
+                    .Add(client => client.FuturesRest)
+                    .Add(client => client.FuturesSocket)
+                    );
             return services;
         }
     }
