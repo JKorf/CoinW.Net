@@ -26,7 +26,7 @@ namespace CoinW.Net.Clients.FuturesApi
         public CoinWSocketClientFuturesSharedApi(CoinWSocketClientFuturesApi api)
             : base(
                   SharedTransport.Socket,
-                  api.Exchange,
+                  api,
                   [TradingMode.PerpetualLinear],
                   () => api.Authenticated,
                   api.FormatSymbol)

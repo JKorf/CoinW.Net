@@ -17,7 +17,7 @@ namespace CoinW.Net.Clients.FuturesApi
     {
         #region Set Futures Tp Sl
 
-        async Task<ICallResult<SharedId>> ISetFuturesTpSl.SetFuturesTpSlAsync(SetTpSlRequest request, CancellationToken ct)
+        async Task<IExchangeCallResult<SharedId>> ISetFuturesTpSl.SetFuturesTpSlAsync(SetTpSlRequest request, CancellationToken ct)
             => await SetFuturesTpSlAsync(request, ct).ConfigureAwait(false);
 
         public SetFuturesTpSlOptions SetFuturesTpSlOptions { get; } = new SetFuturesTpSlOptions(_exchangeName, true);
@@ -54,7 +54,7 @@ namespace CoinW.Net.Clients.FuturesApi
 
         #region Cancel Futures Tp Sl
 
-        async Task<ICallResult<bool>> ICancelFuturesTpSl.CancelFuturesTpSlAsync(CancelTpSlRequest request, CancellationToken ct)
+        async Task<IExchangeCallResult<bool>> ICancelFuturesTpSl.CancelFuturesTpSlAsync(CancelTpSlRequest request, CancellationToken ct)
             => await CancelFuturesTpSlAsync(request, ct).ConfigureAwait(false);
 
         public CancelFuturesTpSlOptions CancelFuturesTpSlOptions { get; } = new CancelFuturesTpSlOptions(_exchangeName, true);

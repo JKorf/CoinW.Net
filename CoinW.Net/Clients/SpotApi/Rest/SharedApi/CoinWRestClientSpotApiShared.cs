@@ -29,7 +29,7 @@ namespace CoinW.Net.Clients.SpotApi
         public CoinWRestClientSpotSharedApi(CoinWRestClientSpotApi api)
             : base(
                   SharedTransport.Rest,
-                  api.Exchange,
+                  api,
                   [TradingMode.Spot],
                   () => api.Authenticated,
                   api.FormatSymbol)

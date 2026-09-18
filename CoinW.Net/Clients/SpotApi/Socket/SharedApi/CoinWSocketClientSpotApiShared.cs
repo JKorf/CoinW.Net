@@ -27,7 +27,7 @@ namespace CoinW.Net.Clients.SpotApi
         public CoinWSocketClientSpotSharedApi(CoinWSocketClientSpotApi api)
             : base(
                   SharedTransport.Socket,
-                  api.Exchange,
+                  api,
                   [TradingMode.Spot],
                   () => api.Authenticated,
                   api.FormatSymbol)

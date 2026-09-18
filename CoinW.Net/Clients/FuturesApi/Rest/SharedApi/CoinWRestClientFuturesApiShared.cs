@@ -30,7 +30,7 @@ namespace CoinW.Net.Clients.FuturesApi
         public CoinWRestClientFuturesSharedApi(CoinWRestClientFuturesApi api)
             : base(
                   SharedTransport.Rest,
-                  api.Exchange,
+                  api,
                   [TradingMode.PerpetualLinear],
                   () => api.Authenticated,
                   api.FormatSymbol)
