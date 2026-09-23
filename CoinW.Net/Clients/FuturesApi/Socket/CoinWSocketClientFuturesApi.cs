@@ -33,6 +33,8 @@ namespace CoinW.Net.Clients.FuturesApi
     /// </summary>
     internal partial class CoinWSocketClientFuturesApi : SocketApiClient<CoinWEnvironment, CoinWFuturesAuthenticationProvider, CoinWCredentials>, ICoinWSocketClientFuturesApi
     {
+        private readonly CoinWSocketClientFuturesSharedApi _sharedApi;
+
         #region constructor/destructor
 
         /// <summary>
@@ -41,6 +43,8 @@ namespace CoinW.Net.Clients.FuturesApi
         internal CoinWSocketClientFuturesApi(ILoggerFactory? loggerFactory, CoinWSocketOptions options) :
             base(loggerFactory, CoinWExchange.Metadata.Id, options.Environment.SocketClientAddress!, options, options.FuturesOptions)
         {
+            _sharedApi = new CoinWSocketClientFuturesSharedApi(this);
+
             RegisterPeriodicQuery(
                 "ping",
                 TimeSpan.FromSeconds(5),
@@ -298,7 +302,9 @@ namespace CoinW.Net.Clients.FuturesApi
         }
 
         /// <inheritdoc />
-        public ICoinWSocketClientFuturesApiShared SharedClient => this;
+        public ICoinWSocketClientFuturesApiShared SharedClient => _sharedApi;
+        /// <inheritdoc />
+        public ICoinWSocketClientFuturesSharedApi SharedApi => _sharedApi;
 
         /// <inheritdoc />
         public override string FormatSymbol(string baseAsset, string quoteAsset, TradingMode tradingMode, DateTime? deliverDate = null)

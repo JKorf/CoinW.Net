@@ -76,7 +76,7 @@ await socketClient.UnsubscribeAsync(sub.Data);
 
 ## Cross-Exchange
 
-For code that needs to work across multiple exchanges, use `CryptoExchange.Net.SharedApis` interfaces (`ISpotTickerRestClient`, `ISpotOrderRestClient`, `IFuturesOrderRestClient`, etc.) accessed via `.SharedClient`.
+For code that needs to work across multiple exchanges, use `CryptoExchange.Net.SharedApis` interfaces (`IGetTickerRest`, `IPlaceSpotOrderRest`, `IPlaceFuturesOrderRest`, etc.) accessed via `.SharedApi`.
 
 Shared spot and futures symbol clients expose symbol catalogs, apply `GetSymbolsRequest` filters, and populate display names and asset type metadata. Spot assets are crypto with stablecoin subtypes where applicable; futures also classify known commodities and equities as TradFi.
 

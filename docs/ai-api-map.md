@@ -131,16 +131,16 @@ Use SharedApis for exchange-agnostic code across CoinW, Binance, Bybit, OKX, Kra
 
 | User intent | CoinW.Net member or interface |
 |---|---|
-| Shared spot REST client | `new CoinWRestClient().SpotApi.SharedClient` |
-| Shared futures REST client | `new CoinWRestClient().FuturesApi.SharedClient` |
-| Shared spot socket client | `new CoinWSocketClient().SpotApi.SharedClient` |
-| Shared futures socket client | `new CoinWSocketClient().FuturesApi.SharedClient` |
-| Discover shared capabilities | `client.SpotApi.SharedClient.Discover()` / `client.FuturesApi.SharedClient.Discover()` |
-| Shared spot ticker REST | `ISpotTickerRestClient.GetSpotTickerAsync(new GetTickerRequest(symbol))` |
-| Shared spot order REST | `ISpotOrderRestClient.PlaceSpotOrderAsync(...)` |
-| Shared futures order REST | `IFuturesOrderRestClient.PlaceFuturesOrderAsync(...)` |
-| Shared ticker socket | `ITickerSocketClient.SubscribeToTickerUpdatesAsync(...)` |
-| Shared order book socket | `IOrderBookSocketClient.SubscribeToOrderBookUpdatesAsync(...)` |
+| Shared spot REST client | `new CoinWRestClient().SpotApi.SharedApi` |
+| Shared futures REST client | `new CoinWRestClient().FuturesApi.SharedApi` |
+| Shared spot socket client | `new CoinWSocketClient().SpotApi.SharedApi` |
+| Shared futures socket client | `new CoinWSocketClient().FuturesApi.SharedApi` |
+| Resolve a runtime-selected Shared API capability | `ICoinWSharedApiClient.GetCapability(...)` |
+| Shared spot ticker REST | `IGetTickerRest.GetTickerAsync(new GetTickerRequest(symbol))` |
+| Shared spot order REST | `IPlaceSpotOrderRest.PlaceSpotOrderAsync(...)` |
+| Shared futures order REST | `IPlaceFuturesOrderRest.PlaceFuturesOrderAsync(...)` |
+| Shared ticker socket | `ISubscribeTickerSocket.SubscribeToTickerUpdatesAsync(...)` |
+| Shared order book socket | `ISubscribeOrderBookSocket.SubscribeToOrderBookUpdatesAsync(...)` |
 
 Shared REST calls return `HttpResult<T>` / `HttpResult`. Shared socket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared non-I/O symbol/cache helpers such as symbol support checks return `ExchangeCallResult<T>`.
 
