@@ -40,7 +40,7 @@ var price = tickers.Data.Single(x => x.Symbol == "BTC_USDT").LastPrice;
 - `restClient.FuturesApi.{ExchangeData|Account|Trading}`
 - `socketClient.SpotApi` for spot WebSocket streams
 - `socketClient.FuturesApi` for futures WebSocket streams
-- `.SharedClient` on Spot and Futures APIs for `CryptoExchange.Net.SharedApis`
+- `.SharedApi` on Spot and Futures APIs for `CryptoExchange.Net.SharedApis`
 
 ## Symbol Formatting
 
@@ -78,8 +78,8 @@ For exchange-agnostic code, use `CryptoExchange.Net.SharedApis`:
 ```csharp
 using CryptoExchange.Net.SharedApis;
 
-var shared = new CoinWRestClient().SpotApi.SharedClient;
-var ticker = await shared.GetSpotTickerAsync(
+var shared = new CoinWRestClient().SpotApi.SharedApi;
+var ticker = await shared.GetTickerAsync(
     new GetTickerRequest(new SharedSymbol(TradingMode.Spot, "BTC", "USDT")));
 ```
 

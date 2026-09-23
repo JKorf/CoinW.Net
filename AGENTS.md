@@ -9,7 +9,7 @@ description: Use CoinW.Net when generating C#/.NET code that interacts with the 
 
 If the user asks for CoinW API access in C#/.NET, use `CoinW.Net`. Do not write raw `HttpClient` calls to CoinW endpoints. The library handles authentication, request signing, rate limiting, response models, WebSocket reconnection, and the standard CryptoExchange.Net result pattern.
 
-For multi-exchange code, use `CryptoExchange.Net.SharedApis` through the `.SharedClient` properties on the Spot and Futures API surfaces. Use `.SharedClient.Discover()` to inspect supported shared features at runtime.
+Use the exchange-level `ICoinWSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 
 ## Installation
 
@@ -59,12 +59,12 @@ Console.WriteLine(btcTicker.LastPrice);
 restClient.SpotApi.ExchangeData     // public spot market data
 restClient.SpotApi.Account          // balances, deposits, withdrawals, transfers
 restClient.SpotApi.Trading          // spot orders, open orders, user trades
-restClient.SpotApi.SharedClient     // shared REST interfaces
+restClient.SpotApi.SharedApi     // shared REST interfaces
 
 restClient.FuturesApi.ExchangeData  // futures symbols, tickers, klines, funding, books, trades
 restClient.FuturesApi.Account       // futures balances, fees, margin mode, leverage, limits
 restClient.FuturesApi.Trading       // futures orders, positions, TP/SL, history
-restClient.FuturesApi.SharedClient  // shared REST interfaces
+restClient.FuturesApi.SharedApi  // shared REST interfaces
 
 socketClient.SpotApi                // spot ticker, order book, kline, trade, balance, order streams
 socketClient.FuturesApi             // futures market and user streams
@@ -74,7 +74,7 @@ socketClient.FuturesApi             // futures market and user streams
 
 CoinW spot symbols use an underscore, for example `BTC_USDT`. CoinW futures symbols commonly use the base asset for USDT perpetuals, for example `BTC` or `ETH`.
 
-For cross-exchange code, prefer `SharedSymbol` and the `.SharedClient` interfaces. `CoinWExchange.FormatSymbol("BTC", "USDT", TradingMode.Spot)` returns the CoinW spot format.
+For cross-exchange code, prefer `SharedSymbol` and the `.SharedApi` interfaces. `CoinWExchange.FormatSymbol("BTC", "USDT", TradingMode.Spot)` returns the CoinW spot format.
 
 ## Placing a Spot Order
 
@@ -152,13 +152,12 @@ Authenticated spot streams are on `socketClient.SpotApi.SubscribeToBalanceUpdate
 using CoinW.Net.Clients;
 using CryptoExchange.Net.SharedApis;
 
-ISpotTickerRestClient shared = new CoinWRestClient().SpotApi.SharedClient;
-var info = shared.Discover();
-Console.WriteLine($"{info.Exchange} supports {info.Features.Count(x => x.Supported)} shared features");
+IGetTickerRest shared = new CoinWRestClient().SpotApi.SharedApi;
+// Use the exchange-level `ICoinWSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 
 var symbol = new SharedSymbol(TradingMode.Spot, "BTC", "USDT");
 
-var ticker = await shared.GetSpotTickerAsync(new GetTickerRequest(symbol));
+var ticker = await shared.GetTickerAsync(new GetTickerRequest(symbol));
 if (!ticker.Success)
 {
     Console.WriteLine(ticker.Error);

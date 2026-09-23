@@ -32,7 +32,7 @@ Primary documentation:
 - Do not invent endpoint names. If unsure, inspect `CoinW.Net/Interfaces/Clients/**`.
 - Do not invent Binance API branches. CoinW has `SpotApi` and `FuturesApi`, not `UsdFuturesApi`, `CoinFuturesApi`, or `GeneralApi`.
 - Use CoinW symbol formats: spot `BTC_USDT`, futures `BTC` for USDT perpetuals.
-- For multi-exchange code, use `CryptoExchange.Net.SharedApis` interfaces from each exchange's `.SharedClient` and call `.Discover()` to inspect supported shared features.
+- Use the exchange-level `ICoinWSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 - Shared spot and futures symbol clients expose symbol catalogs, apply `GetSymbolsRequest` filters, and populate display names plus asset type/subtype metadata.
 
 ## Installation
@@ -189,12 +189,12 @@ CoinWRestClient
     .ExchangeData
     .Account
     .Trading
-    .SharedClient
+    .SharedApi
   .FuturesApi
     .ExchangeData
     .Account
     .Trading
-    .SharedClient
+    .SharedApi
 ```
 
 WebSocket:
@@ -210,7 +210,7 @@ CoinWSocketClient
     SubscribeToTradeUpdatesAsync
     SubscribeToBalanceUpdatesAsync
     SubscribeToOrderUpdatesAsync
-    .SharedClient
+    .SharedApi
   .FuturesApi
     SubscribeToTickerUpdatesAsync
     SubscribeToOrderBookUpdatesAsync
@@ -224,7 +224,7 @@ CoinWSocketClient
     SubscribeToPositionDetailUpdatesAsync
     SubscribeToBalanceUpdatesAsync
     SubscribeToMarginConfigUpdatesAsync
-    .SharedClient
+    .SharedApi
 ```
 
 ## Intent To Method Map
@@ -354,14 +354,12 @@ await socketClient.UnsubscribeAsync(tickerSub.Data);
 using CoinW.Net.Clients;
 using CryptoExchange.Net.SharedApis;
 
-ISpotTickerRestClient tickerClient = new CoinWRestClient().SpotApi.SharedClient;
-var info = tickerClient.Discover();
-var supported = info.Features.Where(x => x.Supported).Select(x => x.EndpointName);
-Console.WriteLine($"{info.Exchange} {info.TypeName}: {string.Join(", ", supported)}");
+IGetTickerRest tickerClient = new CoinWRestClient().SpotApi.SharedApi;
+// Use the exchange-level `ICoinWSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 
 var symbol = new SharedSymbol(TradingMode.Spot, "BTC", "USDT");
 
-var ticker = await tickerClient.GetSpotTickerAsync(new GetTickerRequest(symbol));
+var ticker = await tickerClient.GetTickerAsync(new GetTickerRequest(symbol));
 if (!ticker.Success)
 {
     Console.WriteLine(ticker.Error);
@@ -377,7 +375,7 @@ For shared socket subscriptions, keep the concrete socket client for teardown:
 
 ```csharp
 var socketClient = new CoinWSocketClient();
-ITickerSocketClient tickerSocket = socketClient.SpotApi.SharedClient;
+ISubscribeTickerSocket tickerSocket = socketClient.SpotApi.SharedApi;
 
 var sub = await tickerSocket.SubscribeToTickerUpdatesAsync(
     new SubscribeTickerRequest(new SharedSymbol(TradingMode.Spot, "BTC", "USDT")),
@@ -409,7 +407,7 @@ var spotSymbol = CoinWExchange.FormatSymbol("BTC", "USDT", TradingMode.Spot);
 var futuresSymbol = CoinWExchange.FormatSymbol("BTC", "USDT", TradingMode.Futures);
 ```
 
-Do not manually concatenate symbols in cross-exchange code. Use `SharedSymbol` with `.SharedClient`. Use `.Discover()` before routing optional shared features across exchanges.
+Use the exchange-level `ICoinWSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
 
 ## Error Handling Notes
 
