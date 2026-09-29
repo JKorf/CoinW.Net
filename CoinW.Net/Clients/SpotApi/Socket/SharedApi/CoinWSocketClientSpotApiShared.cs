@@ -44,5 +44,8 @@ namespace CoinW.Net.Clients.SpotApi
                 SubscribeSpotOrderOptions
                 );
         }
+
+        /// <inheritdoc />
+        public Task UnsubscribeAllAsync() => _api.UnsubscribeAllAsync();
     }
 }
