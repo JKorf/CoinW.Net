@@ -212,6 +212,7 @@ namespace CoinW.Net.Clients.FuturesApi
         public async Task<HttpResult<CoinWEditResult>> EditOrderAsync(long orderId, string symbol, PositionSide side, FuturesOrderType orderType, decimal quantity, int leverage, decimal? price = null, QuantityUnit? quantityUnit = null, MarginType? marginType = null, decimal? stopLossPrice = null, decimal? takeProfitPrice = null, decimal? triggerPrice = null, TriggerOrderType? triggerOrderType = null, int? goldenId = null, string? clientOrderId = null, bool? useMegaCoupon = null, CancellationToken ct = default)
         {
             var parameters = new Parameters(CoinWExchange._parameterSerializationSettings);
+            parameters.Add("id", orderId);
             parameters.Add("instrument", symbol);
             parameters.Add("direction", side);
             parameters.Add("positionType", orderType);
