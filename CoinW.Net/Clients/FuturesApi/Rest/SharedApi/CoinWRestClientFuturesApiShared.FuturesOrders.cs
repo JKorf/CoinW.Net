@@ -36,7 +36,10 @@ namespace CoinW.Net.Clients.FuturesApi
 
         public PlaceFuturesOrderOptions PlaceFuturesOrderOptions { get; } = new PlaceFuturesOrderOptions(_exchangeName, true)
         {
-            ExchangeParameterRules = [            
+            ParameterRuleOverrides = [
+                RequestParameterRuleOverride<PlaceFuturesOrderRequest>.Required(x => x.PositionSide)
+            ],
+            ExchangeParameterRules = [
                 ExchangeParameterRule.Optional("PositionId", "Id of the position to close", "Required for closing positions", aliases: ["id"])
             ]
         };
@@ -116,20 +119,23 @@ namespace CoinW.Net.Clients.FuturesApi
             if (!long.TryParse(request.OrderId, out var orderId))
                 return HttpResult.Fail<SharedFuturesOrder>(Exchange, ArgumentError.Invalid(nameof(GetOrderRequest.OrderId), "Invalid order id"));
 
-            var orderResult = await _api.Trading.GetOpenOrdersAsync(FuturesOrderType.Market, orderIds: [orderId], ct: ct).ConfigureAwait(false);
+            var orderResult = await _api.Trading.GetOpenOrdersAsync(FuturesOrderType.Plan, orderIds: [orderId], ct: ct).ConfigureAwait(false);
             if (!orderResult.Success)
                 return HttpResult.Fail<SharedFuturesOrder>(orderResult);
 
             if (orderResult.Data.Length == 0)
             {
-                var closedOrders = await _api.Trading.GetOrderHistory7DaysAsync(request.Symbol!.GetSymbol(FormatSymbol)).ConfigureAwait(false);
+                var closedOrders = await _api.Trading.GetOrderHistory7DaysAsync(request.Symbol!.GetSymbol(FormatSymbol), ct: ct).ConfigureAwait(false);
                 if(!closedOrders.Success)
                     return HttpResult.Fail<SharedFuturesOrder>(closedOrders);
 
                 if (closedOrders.Data.Rows.Length == 0)
                     return HttpResult.Fail<SharedFuturesOrder>(Exchange, new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Order not found")));
 
-                var order = closedOrders.Data.Rows[0];
+                var order = closedOrders.Data.Rows.SingleOrDefault(x => x.Id == orderId);
+                if (order == null)
+                    return HttpResult.Fail<SharedFuturesOrder>(Exchange, new ServerError(new ErrorInfo(ErrorType.UnknownOrder, "Order not found")));
+
                 return HttpResult.Ok(closedOrders, new SharedFuturesOrder(
                     ExchangeSymbolCache.ParseSymbol(_topicId, _api.EnvironmentName, null, order.Symbol), order.Symbol,
                     order.Id.ToString(),
