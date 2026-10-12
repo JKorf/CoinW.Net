@@ -233,6 +233,10 @@ Make a one time donation in a crypto currency of your choice. If you prefer to d
 Alternatively, sponsor me on Github using [Github Sponsors](https://github.com/sponsors/JKorf). 
 
 ## Release notes
+* Version 3.6.2 - 12 Oct 2026
+    * Added PositionSide as required parameter for Shared API PlaceFuturesOrderAsync
+    * Fixed Shared API GetFuturesOrderAsync logic
+
 * Version 3.6.1 - 06 Oct 2026
     * Fixed id parameter not send on restClient.FuturesApi.Trading.EditOrderAsync
 
