@@ -1,29 +1,13 @@
-# AI-Friendly Examples
+# CoinW.Net examples
 
-These examples are optimized for AI coding assistants and quick onboarding. Each file is:
+See [usage](../../.claude/skills/coinw-net/references/usage.md), [API routing](../../.claude/skills/coinw-net/references/api-surfaces.md), and [operational considerations](../../.claude/skills/coinw-net/references/safety.md) for maintained consumer guidance.
 
-- **Compilable**: drop into a console project with `dotnet add package CoinW.Net` and it builds.
-- **Self-contained**: single file, no external setup, no shared helpers.
-- **Commented**: explains why the calls are made and where CoinW differs from Binance-style APIs.
-- **Idiomatic**: follows current CoinW.Net 2.x and CryptoExchange.Net patterns.
+- [Spot quickstart](01-spot-quickstart.cs)
+- [Futures](02-futures.cs)
+- [WebSockets](03-websocket.cs)
+- [Shared API V2](04-multi-exchange.cs)
+- [Error handling](05-error-handling.cs)
 
-## Files
+The documentation test compiles these files as independent console programs without executing exchange operations. Running them can contact CoinW and execute illustrated orders, position changes, and account configuration. Review credentials and operations before running them.
 
-| File | What it shows |
-|---|---|
-| `01-spot-quickstart.cs` | Client setup, public ticker lookup, authenticated balances, place limit order, query order status |
-| `02-futures.cs` | Futures: ticker, margin mode, market order, position lookup, close position |
-| `03-websocket.cs` | Subscribe to spot ticker, spot klines, spot user streams, and futures ticker streams with teardown |
-| `04-multi-exchange.cs` | `CryptoExchange.Net.SharedApis` pattern, capability discovery, and shared subscriptions |
-| `05-error-handling.cs` | `HttpResult`, `WebSocketResult`, and `ExchangeCallResult` patterns, retry, common CoinW errors |
-
-## Running
-
-```bash
-dotnet new console -n MyCoinWApp
-cd MyCoinWApp
-dotnet add package CoinW.Net
-# Copy the example .cs file content into Program.cs
-# Replace API_KEY / API_SECRET placeholders with your own for private endpoints
-dotnet run
-```
+See [repository instructions](../../AGENTS.md) for build and test commands.

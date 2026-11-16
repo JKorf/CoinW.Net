@@ -1,0 +1,4 @@
+interface:
+  display_name: "CoinW.Net"
+  short_description: "Build C# CoinW spot and futures integrations."
+  default_prompt: "Use $coinw-net to implement a CoinW.Net REST, websocket, account, or trading workflow."

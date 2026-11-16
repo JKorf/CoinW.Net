@@ -1,36 +1,18 @@
 # CoinW.Net
 
-> Strongly typed .NET client library for the CoinW REST and WebSocket APIs. Supports Spot and Futures trading, account data, market data, order placement, order books, WebSocket streams, and CryptoExchange.Net SharedApis for multi-exchange code.
+> A .NET client library for CoinW spot and derivatives REST and WebSocket APIs.
 
-CoinW.Net is part of the CryptoExchange.Net ecosystem. REST methods return `HttpResult<T>` / `HttpResult`, WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`, and shared symbol/cache helpers return `ExchangeCallResult<T>`. Shared spot and futures symbols expose catalogs, request filtering, display names, and crypto/TradFi asset classification with applicable stablecoin, commodity, or equity subtypes. It also provides typed request and response models, automatic WebSocket reconnection, client-side rate limiting, local order book support, dependency injection, and Native AOT support. Current version: 3.6.2. Targets netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0.
+## Library usage
 
-## Documentation
+- [CoinW.Net skill](.claude/skills/coinw-net/SKILL.md): Consumer conventions and task-specific guidance.
+- [API surfaces](.claude/skills/coinw-net/references/api-surfaces.md): Client roots, intent-to-method routing, and Shared APIs.
+- [Usage examples](.claude/skills/coinw-net/references/usage.md): Authentication, REST, WebSockets, and dependency injection.
+- [Operational considerations](.claude/skills/coinw-net/references/safety.md): Credentials, order handling, and retry decisions.
 
-- [README](https://github.com/JKorf/CoinW.Net/blob/main/README.md): Overview, installation, supported features, basic usage examples, release notes
-- [Documentation Site](https://cryptoexchange.jkorf.dev/CoinW.Net/): Full documentation hub and client reference
-- [AI API Quick Map](https://github.com/JKorf/CoinW.Net/blob/main/docs/ai-api-map.md): Intent-to-method map for routing common user requests to the correct client member
-- [Full LLM Context](https://github.com/JKorf/CoinW.Net/blob/main/llms-full.txt): Detailed AI/LLM guide with code patterns, endpoint map, common mistakes, and anti-hallucination rules
-- [Claude/Codex Skill](https://github.com/JKorf/CoinW.Net/blob/main/CLAUDE.md): Compact generation rules and examples
+## Repository and reference
 
-## Examples
-
-- [AI-friendly examples directory](https://github.com/JKorf/CoinW.Net/tree/main/Examples/ai-friendly): Compact, compilable examples optimized for AI assistants and quick onboarding
-- [Spot Quickstart](https://github.com/JKorf/CoinW.Net/blob/main/Examples/ai-friendly/01-spot-quickstart.cs): Client setup, ticker lookup, balances, limit order placement, order status
-- [Futures Trading](https://github.com/JKorf/CoinW.Net/blob/main/Examples/ai-friendly/02-futures.cs): Futures ticker, margin mode, market order, positions, close position
-- [WebSocket Streams](https://github.com/JKorf/CoinW.Net/blob/main/Examples/ai-friendly/03-websocket.cs): Spot ticker, kline, user streams, futures streams, teardown
-- [Multi-Exchange Pattern](https://github.com/JKorf/CoinW.Net/blob/main/Examples/ai-friendly/04-multi-exchange.cs): CryptoExchange.Net SharedApis, capability discovery, and shared subscriptions
-- [Error Handling](https://github.com/JKorf/CoinW.Net/blob/main/Examples/ai-friendly/05-error-handling.cs): HttpResult, WebSocketResult, and ExchangeCallResult patterns
-- [Full Examples Repository](https://github.com/JKorf/CoinW.Net/tree/main/Examples): Console, API, order book, and tracker examples
-
-## Reference
-
-- [CryptoExchange.Net base library](https://github.com/JKorf/CryptoExchange.Net): Base abstractions used by CoinW.Net and other exchange libraries
-- [CryptoClients.Net](https://github.com/JKorf/CryptoClients.Net): Bundle package providing unified access to exchange libraries
-- [NuGet Package](https://www.nuget.org/packages/CoinW.Net): Latest stable release on NuGet
-- [CoinW API Docs](https://www.coinw.com/api-doc/en/common/introduction): Upstream exchange API reference
-
-## Optional
-
-- [Discord Community](https://discord.gg/MSpeEtSY8t): Maintainer-supported Discord for questions and discussion
-- [GitHub Issues](https://github.com/JKorf/CoinW.Net/issues): Bug reports and feature requests
-- [GitHub Sponsors](https://github.com/sponsors/JKorf): Support the maintainer
+- [README](README.md): Overview, installation, release notes, and documentation site link.
+- [Repository instructions](AGENTS.md): Development workflow and documentation ownership.
+- [Client interfaces](CoinW.Net/Interfaces/Clients/): Exact endpoint signatures and XML documentation.
+- [Library project](CoinW.Net/CoinW.Net.csproj): Package version, dependencies, and target frameworks.
+- [AI-friendly examples](Examples/ai-friendly/): Complete programs compiled by the documentation test.

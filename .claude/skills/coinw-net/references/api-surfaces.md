@@ -1,19 +1,12 @@
-# CoinW.Net AI API Quick Map
+# API surfaces
 
-Use this file to route common user intents to the correct CoinW.Net client member. If a method name or parameter is not listed here, inspect `CoinW.Net/Interfaces/Clients/**` before generating code.
+## Client roots and symbols
 
-## Client Roots
+`client` below is a `CoinWRestClient`; `socketClient` is a `CoinWSocketClient`. Both expose `SpotApi` and `FuturesApi`. Each REST root has `ExchangeData`, `Account`, and `Trading` groups. Socket methods live directly on the product root.
 
-| Intent | Use |
-|---|---|
-| REST calls | `new CoinWRestClient()` |
-| WebSocket streams | `new CoinWSocketClient()` |
-| API key authentication | `options.ApiCredentials = new CoinWCredentials("key", "secret")` |
-| Live environment | `CoinWEnvironment.Live` |
-| Custom environment | `CoinWEnvironment.CreateCustom(...)` |
-| Dependency injection | `services.AddCoinW(options => { ... })` |
-| Spot symbol format | `"BTC_USDT"` |
-| USDT futures symbol format | `"BTC"` / `"ETH"` |
+Spot product IDs use underscores, for example `BTC_USDT`; USDT perpetual futures commonly use `BTC` or `ETH`. Query the selected API's symbol metadata. `CoinWExchange.FormatSymbol(baseAsset, quoteAsset, tradingMode)` provides native formatting when shared requests are not used.
+
+Spot REST candles use `KlineInterval`, spot socket candles use `KlineIntervalStream`, futures REST uses `FuturesKlineInterval`, and futures sockets use `FuturesKlineIntervalStream`.
 
 ## Spot REST
 
@@ -125,48 +118,33 @@ Use this file to route common user intents to the correct CoinW.Net client membe
 | Subscribe futures balance updates | `socketClient.FuturesApi.SubscribeToBalanceUpdatesAsync(handler)` |
 | Subscribe futures margin config updates | `socketClient.FuturesApi.SubscribeToMarginConfigUpdatesAsync(handler)` |
 
-## SharedApis
+## Shared API V2
 
-Use SharedApis for exchange-agnostic code across CoinW, Binance, Bybit, OKX, Kraken, and other CryptoExchange.Net libraries.
+Use `client.SpotApi.SharedApi`, `client.FuturesApi.SharedApi`, `socketClient.SpotApi.SharedApi`, and `socketClient.FuturesApi.SharedApi`. The DI aggregate `ICoinWSharedApiClient` exposes `SpotRest`, `FuturesRest`, `SpotSocket`, and `FuturesSocket`.
 
-| User intent | CoinW.Net member or interface |
-|---|---|
-| Shared spot REST client | `new CoinWRestClient().SpotApi.SharedApi` |
-| Shared futures REST client | `new CoinWRestClient().FuturesApi.SharedApi` |
-| Shared spot socket client | `new CoinWSocketClient().SpotApi.SharedApi` |
-| Shared futures socket client | `new CoinWSocketClient().FuturesApi.SharedApi` |
-| Resolve a runtime-selected Shared API capability | `ICoinWSharedApiClient.GetCapability(...)` |
-| Shared spot ticker REST | `IGetTickerRest.GetTickerAsync(new GetTickerRequest(symbol))` |
-| Shared spot order REST | `IPlaceSpotOrderRest.PlaceSpotOrderAsync(...)` |
-| Shared futures order REST | `IPlaceFuturesOrderRest.PlaceFuturesOrderAsync(...)` |
-| Shared ticker socket | `ISubscribeTickerSocket.SubscribeToTickerUpdatesAsync(...)` |
-| Shared order book socket | `ISubscribeOrderBookSocket.SubscribeToOrderBookUpdatesAsync(...)` |
+| Surface | Representative capabilities |
+| --- | --- |
+| Spot REST | `IGetSpotSymbolsRest`, `IGetTickerRest`, `IGetAllTickersRest`, `IGetBalancesRest`, `IGetAssetRest`, `IGetAllAssetsRest`, deposits/withdrawals, `ITransferRest`, `IPlaceSpotOrderRest`, order lifecycle and trades |
+| Futures REST | `IGetFuturesSymbolsRest`, `IGetTickerRest`, `IGetAllTickersRest`, `IGetFeesRest`, `IGetBalancesRest`, `IPlaceFuturesOrderRest`, order lifecycle and trades, `IGetPositionsRest`, `ICloseFullPositionRest`, `ISetFuturesTpSlRest`, `ICancelFuturesTpSlRest` |
+| Spot socket | `ISubscribeBalancesSocket`, `ISubscribeKlinesSocket`, `ISubscribeOrderBookSocket`, `ISubscribeTickerSocket`, `ISubscribeAllTickersSocket`, `ISubscribeTradesSocket`, `ISubscribeSpotOrdersSocket` |
+| Futures socket | `ISubscribeBalancesSocket`, `ISubscribeKlinesSocket`, `ISubscribeOrderBookSocket`, `ISubscribeTickerSocket`, `ISubscribeTradesSocket`, `ISubscribeFuturesOrdersSocket`, `ISubscribePositionsSocket` |
 
-Shared REST calls return `HttpResult<T>` / `HttpResult`. Shared socket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared non-I/O symbol/cache helpers such as symbol support checks return `ExchangeCallResult<T>`.
+Both REST surfaces provide candles, order books, and recent trades. Native futures leverage/configuration and funding endpoints are broader than the shared capability interface; do not infer shared support from the native method alone.
 
-For shared socket subscriptions, keep the concrete socket client and unsubscribe with `await socketClient.UnsubscribeAsync(subscription.Data)`.
+For dynamic selection, call the aggregate's `GetCapability` with a descriptor such as `SharedCapabilities.Tickers.GetTicker.Rest` and the required trading mode. Check for a missing match before accessing `Capability` and `Options`. `GetCapabilities` enumerates implementations and `Discover()` describes supported operations. With multiple exchanges registered, resolve `IEnumerable<TCapability>` and select by exchange and supported mode.
 
-## Result Handling
+### Catalogs, quantities, and futures prerequisites
 
-| Situation | Pattern |
-|---|---|
-| REST success check | `if (!result.Success) { Console.WriteLine(result.Error); return; }` |
-| Socket subscription success check | `WebSocketResult<UpdateSubscription> sub = await ...; if (!sub.Success) { Console.WriteLine(sub.Error); return; }` |
-| Read REST data | Read `result.Data` only after `result.Success` |
-| Shared helper data | Read `ExchangeCallResult<T>.Data` only after `result.Success` |
-| Retry decision | Retry only when `result.Error?.IsTransient == true` |
-| Cancellation | Pass `ct: cancellationToken` |
+Call `IGetSpotSymbolsRest.GetSpotSymbolsAsync(new GetSymbolsRequest())` or `IGetFuturesSymbolsRest.GetFuturesSymbolsAsync(new GetSymbolsRequest())` successfully before reading `SpotSymbolCatalog` or `FuturesSymbolCatalog`. Requests support base/quote asset type and subtype filters; results include `DisplayName`, constraints, and classifications (`Crypto`, `Fiat`, `TradFi`; applicable `StableCoin`, `Equity`, `Commodity` subtypes). CoinW spot metadata classifies crypto and known stablecoins; futures can classify known commodity/equity underlyings.
 
-## Common Routing Pitfalls
+Shared quantities use `SharedOrderQuantity`. Spot limit orders use base quantity; market orders can use base or quote quantity. Futures opening requests can use base, quote, or contracts, while closing requests use contracts. Read the capability's quantity support for the selected order side/type. Spot shared books use `SharedQuantityType.BaseAsset`; futures REST and socket books use `SharedQuantityType.Contracts`.
 
-| Do not use | Use instead |
-|---|---|
-| `CoinWClient` | `CoinWRestClient` / `CoinWSocketClient` |
-| `ApiCredentials` | `CoinWCredentials` |
-| `SpotApi.ExchangeData.GetTickerAsync("BTC_USDT")` | `GetTickersAsync()` then filter the returned array |
-| `SpotApi.ExchangeData.GetServerTimeAsync()` | CoinW.Net does not expose a server time method |
-| `UsdFuturesApi` / `CoinFuturesApi` | `FuturesApi` |
-| Binance spot symbol `"BTCUSDT"` | CoinW spot symbol `"BTC_USDT"` |
-| Futures symbol `"BTC_USDT"` for USDT perpetuals | CoinW futures symbol `"BTC"` |
-| `.Data` without `.Success` check | Check `.Success` first |
-| Custom `clientOrderId` by default | Let CoinW generate ids unless correlation is required |
+Shared futures placement requires `PositionSide`, and opening a position also requires `Leverage`. Side and position side determine whether the adapter opens or closes exposure. Closing requests require `PositionId` in `ExchangeParameters` (alias `id` accepted by placement); full-position close requires `PositionId`. Do not substitute an order ID for a position ID. Shared limit opening maps to native `FuturesOrderType.Plan`; market opening maps to `Market`.
+
+Shared REST returns `HttpResult<T>` / `HttpResult`, subscriptions return `WebSocketResult<UpdateSubscription>`, and non-I/O symbol/cache helpers can return `ExchangeCallResult<T>`.
+
+## Environments and helpers
+
+`CoinWEnvironment.Live` is the built-in environment. `CreateCustom` takes a name, REST address, and socket address; custom endpoints do not by themselves provide simulated trading.
+
+Checkout-only: [public interfaces](../../../../CoinW.Net/Interfaces/Clients/), [local order books](../../../../CoinW.Net/SymbolOrderBooks/), and [tracker factory](../../../../CoinW.Net/CoinWTrackerFactory.cs). Prefer a maintained local book when the application needs synchronized depth rather than individual incremental messages.

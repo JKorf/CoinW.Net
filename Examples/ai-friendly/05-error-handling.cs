@@ -38,7 +38,8 @@ else
 }
 
 // ---- 2. SIMPLE RETRY WITH BACKOFF ----
-// Retry only on transient errors such as rate limits, network blips, or server overload.
+// For public reads only: retry transient failures with a bounded attempt count.
+// Do not use this helper to retry account-changing submissions.
 // Do not retry validation errors, bad credentials, or insufficient balance.
 
 async Task<HttpResult<T>> WithRetry<T>(

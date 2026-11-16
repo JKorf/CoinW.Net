@@ -1,89 +1,52 @@
-// 04-multi-exchange.cs
-//
-// Demonstrates: writing exchange-agnostic code using CryptoExchange.Net.SharedApis.
-// The same pattern works against CoinW, Binance, OKX, Bybit, Kraken, and other
-// exchanges from the CryptoExchange.Net family.
-//
-// Setup:
-//   dotnet add package CoinW.Net
-//   dotnet add package JK.OKX.Net    // optional, for an OKX implementation
-//   dotnet add package Bybit.Net     // optional, for a Bybit implementation
+// Demonstrates portable REST and socket ticker capabilities through Shared API V2.
+// Setup: dotnet add package CoinW.Net
 
 using CoinW.Net.Clients;
 using CryptoExchange.Net.SharedApis;
 
-// ---- THE PATTERN ----
-// Each exchange client exposes a `.SharedClient` property on supported API surfaces.
-// SharedClient implements common interfaces such as ISpotTickerRestClient and
-// ISpotOrderRestClient so higher-level code can avoid per-exchange branches.
+using var restClient = new CoinWRestClient();
+IGetTickerRest ticker = restClient.SpotApi.SharedApi;
+var symbol = new SharedSymbol(TradingMode.Spot, "BTC", "USDT");
+await PrintTickerAsync(ticker, symbol);
 
-var coinwRest = new CoinWRestClient();
-ISpotTickerRestClient coinwShared = coinwRest.SpotApi.SharedClient;
-
-var sharedInfo = coinwRest.SpotApi.SharedClient.Discover();
-var supportedFeatures = sharedInfo.Features
-    .Where(x => x.Supported)
-    .Select(x => x.EndpointName);
-Console.WriteLine($"{sharedInfo.Exchange} {sharedInfo.TypeName}: {string.Join(", ", supportedFeatures)}");
-
-// To add OKX or Bybit, install the package and use the equivalent SharedClient:
-//   ISpotTickerRestClient okxShared = new OKXRestClient().UnifiedApi.SharedClient;
-//   ISpotTickerRestClient bybitShared = new BybitRestClient().V5Api.SharedClient;
-
-var btcusdt = new SharedSymbol(TradingMode.Spot, "BTC", "USDT");
-
-await PrintTicker(coinwShared, btcusdt);
-
-async Task PrintTicker(ISpotTickerRestClient client, SharedSymbol symbol)
+IGetSpotSymbolsRest symbolsClient = restClient.SpotApi.SharedApi;
+var symbols = await symbolsClient.GetSpotSymbolsAsync(new GetSymbolsRequest());
+if (!symbols.Success)
 {
-    var result = await client.GetSpotTickerAsync(new GetTickerRequest(symbol));
-    if (!result.Success)
-    {
-        Console.WriteLine($"[{client.Exchange}] Failed: {result.Error}");
-        return;
-    }
-
-    Console.WriteLine($"[{client.Exchange}] {result.Data.Symbol}: {result.Data.LastPrice}");
-}
-
-// ---- WHY THIS MATTERS ----
-// You can build multi-exchange scanners, routers, dashboards, and comparison tools
-// without manually formatting CoinW spot symbols like BTC_USDT in the application layer.
-
-// ---- AVAILABLE SHARED INTERFACES ----
-// REST:
-//   ISpotTickerRestClient, ISpotSymbolRestClient, ISpotOrderRestClient
-//   IFuturesOrderRestClient, IFuturesSymbolRestClient, IBalanceRestClient
-//   IPositionRestClient, IFeeRestClient, IOrderBookRestClient
-//   IRecentTradeRestClient, IKlineRestClient, IDepositRestClient
-//   IWithdrawalRestClient, ITransferRestClient, IBookTickerRestClient
-// WebSocket:
-//   ITickerSocketClient, IBookTickerSocketClient, IOrderBookSocketClient
-//   ITradeSocketClient, IKlineSocketClient, IUserTradeSocketClient
-//   IBalanceSocketClient, ISpotOrderSocketClient, IFuturesOrderSocketClient
-
-// ---- WEBSOCKET EXAMPLE: SHARED SUBSCRIPTION ----
-var coinwSocket = new CoinWSocketClient();
-ITickerSocketClient coinwTickerSocket = coinwSocket.SpotApi.SharedClient;
-
-var sub = await coinwTickerSocket.SubscribeToTickerUpdatesAsync(
-    new SubscribeTickerRequest(btcusdt),
-    update => Console.WriteLine($"[{coinwTickerSocket.Exchange}] {update.Data.Symbol}: {update.Data.LastPrice}"));
-
-if (!sub.Success)
-{
-    Console.WriteLine($"Subscribe failed: {sub.Error}");
+    Console.WriteLine(symbols.Error);
     return;
 }
+foreach (var item in symbols.Data.Take(5))
+    Console.WriteLine($"{item.Name}: {item.BaseAsset}/{item.QuoteAsset}");
+var catalog = symbolsClient.SpotSymbolCatalog;
 
-Console.WriteLine("Press Enter to exit");
-Console.ReadLine();
+using var socketClient = new CoinWSocketClient();
+ISubscribeTickerSocket tickerSocket = socketClient.SpotApi.SharedApi;
+var subscription = await tickerSocket.SubscribeToTickerUpdatesAsync(
+    new SubscribeTickerRequest(symbol),
+    update => Console.WriteLine(update.Data.LastPrice));
+if (!subscription.Success)
+{
+    Console.WriteLine(subscription.Error);
+    return;
+}
+try
+{
+    await Task.Delay(TimeSpan.FromSeconds(30));
+}
+finally
+{
+    await socketClient.UnsubscribeAsync(subscription.Data);
+}
 
-await coinwSocket.UnsubscribeAsync(sub.Data);
-
-// Common variations:
-//   Multi-exchange arbitrage: loop over List<ISpotTickerRestClient>, find max bid / min ask
-//   Cross-exchange order book: IOrderBookSocketClient on each exchange, merge into a composite book
-//   Futures routing: use IFuturesOrderRestClient from each exchange's futures SharedClient
-//   Capability checks: call SharedClient.Discover() before routing optional shared features
-//   Symbol formatting: use SharedSymbol instead of hard-coded exchange symbols
+// Another exchange can supply IGetTickerRest without changing this function.
+static async Task PrintTickerAsync(IGetTickerRest client, SharedSymbol symbol)
+{
+    var result = await client.GetTickerAsync(new GetTickerRequest(symbol));
+    if (!result.Success)
+    {
+        Console.WriteLine(result.Error);
+        return;
+    }
+    Console.WriteLine($"{result.Data.Symbol}: {result.Data.LastPrice}");
+}

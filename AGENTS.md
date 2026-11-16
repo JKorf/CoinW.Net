@@ -1,212 +1,51 @@
----
-name: coinw-net
-description: Use CoinW.Net when generating C#/.NET code that interacts with the CoinW cryptocurrency exchange, including Spot REST, Spot WebSocket, Futures REST, Futures WebSocket, account balances, deposits, withdrawals, order placement, positions, order books, tickers, klines, and CryptoExchange.Net SharedApis. Triggers on CoinW integration requests in C#, .NET, dotnet, F#, or VB.NET context.
----
+# Working on CoinW.Net
 
-# CoinW.Net Skill
+For library development, use this file. For code that consumes the library, read the [CoinW.Net skill](.claude/skills/coinw-net/SKILL.md). [llms.txt](llms.txt) indexes the remaining documentation.
 
-## Quick Decision
+## Repository layout
 
-If the user asks for CoinW API access in C#/.NET, use `CoinW.Net`. Do not write raw `HttpClient` calls to CoinW endpoints. The library handles authentication, request signing, rate limiting, response models, WebSocket reconnection, and the standard CryptoExchange.Net result pattern.
+- [Client interfaces](CoinW.Net/Interfaces/Clients/): public endpoint signatures and XML documentation.
+- [Clients](CoinW.Net/Clients/): REST, WebSocket, and Shared API implementations, grouped by API and transport.
+- [Models](CoinW.Net/Objects/Models/), [options](CoinW.Net/Objects/Options/), and [enums](CoinW.Net/Enums/): wire models and configuration.
+- [Unit tests](CoinW.Net.UnitTests/): request/response fixtures, subscription validation, and example compilation.
+- [AI-friendly examples](Examples/ai-friendly/): complete consumer programs.
 
-Use the exchange-level `ICoinWSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
+## Build and validation
 
-## Installation
+Run commands from the repository root. Use the SDK configured in the [build workflow](.github/workflows/dotnet.yml); targets and dependencies are defined in the [library project](CoinW.Net/CoinW.Net.csproj).
 
-```bash
-dotnet add package CoinW.Net
+```sh
+dotnet restore CoinW.Net.sln
+dotnet build CoinW.Net.sln --no-restore
+dotnet test CoinW.Net.UnitTests/CoinW.Net.UnitTests.csproj --no-build --filter "FullyQualifiedName!~IntegrationTests"
 ```
 
-Targets: netstandard2.0, netstandard2.1, net8.0, net9.0, net10.0. Native AOT is supported on compatible .NET targets.
+Debug builds select a subset of frameworks. To check every supported target:
 
-## Core Pattern: REST Client Setup
-
-```csharp
-using CoinW.Net;
-using CoinW.Net.Clients;
-
-var restClient = new CoinWRestClient(options =>
-{
-    options.ApiCredentials = new CoinWCredentials("API_KEY", "API_SECRET");
-});
+```sh
+dotnet build CoinW.Net/CoinW.Net.csproj -p:BuildAllFrameworks=true
 ```
 
-Public market data does not require credentials:
+Run focused tests for the change. For edits to consumer examples:
 
-```csharp
-var publicClient = new CoinWRestClient();
+```sh
+dotnet test CoinW.Net.UnitTests/CoinW.Net.UnitTests.csproj --filter FullyQualifiedName~AiExampleCompileTests
 ```
 
-## Core Pattern: Result Handling
+That test compiles the examples; it does not execute their exchange operations or validate Markdown snippets. The normal test command above excludes integration fixtures. The native REST integration fixture has `Run = false`; Shared REST integration can be enabled with `INTEGRATION=1`. Inspect integration fixtures before running the unfiltered CI test command; they can contact the exchange. Do not enable authenticated exchange calls as part of routine validation.
 
-REST methods return `HttpResult<T>` or `HttpResult`. WebSocket subscriptions return `WebSocketResult<UpdateSubscription>`. Shared non-I/O symbol/cache helpers return `ExchangeCallResult<T>`. Always check `.Success` before reading `.Data`.
+## Implementation conventions
 
-```csharp
-var tickers = await restClient.SpotApi.ExchangeData.GetTickersAsync();
-if (!tickers.Success)
-{
-    Console.WriteLine($"Error: {tickers.Error}");
-    return;
-}
+- Use the matching client interface and a neighboring endpoint implementation as the starting point. Preserve endpoint metadata, serialization, signing, rate limits, and cancellation behavior.
+- Update public interfaces and XML documentation together with implementations. Add meaningful request/response or subscription coverage when behavior changes.
+- Keep Shared API adapters consistent with native endpoint behavior; verify capability support and trading modes against the implemented surface.
+- Preserve serialization compatibility and source-generated JSON metadata when changing models.
+- Keep changes compatible with every target in the library project; gate framework-specific APIs where required.
 
-var btcTicker = tickers.Data.Single(x => x.Symbol == "BTC_USDT");
-Console.WriteLine(btcTicker.LastPrice);
-```
+## AI documentation ownership
 
-## Core Pattern: API Surface
-
-```csharp
-restClient.SpotApi.ExchangeData     // public spot market data
-restClient.SpotApi.Account          // balances, deposits, withdrawals, transfers
-restClient.SpotApi.Trading          // spot orders, open orders, user trades
-restClient.SpotApi.SharedApi     // shared REST interfaces
-
-restClient.FuturesApi.ExchangeData  // futures symbols, tickers, klines, funding, books, trades
-restClient.FuturesApi.Account       // futures balances, fees, margin mode, leverage, limits
-restClient.FuturesApi.Trading       // futures orders, positions, TP/SL, history
-restClient.FuturesApi.SharedApi  // shared REST interfaces
-
-socketClient.SpotApi                // spot ticker, order book, kline, trade, balance, order streams
-socketClient.FuturesApi             // futures market and user streams
-```
-
-## Symbols
-
-CoinW spot symbols use an underscore, for example `BTC_USDT`. CoinW futures symbols commonly use the base asset for USDT perpetuals, for example `BTC` or `ETH`.
-
-For cross-exchange code, prefer `SharedSymbol` and the `.SharedApi` interfaces. `CoinWExchange.FormatSymbol("BTC", "USDT", TradingMode.Spot)` returns the CoinW spot format.
-
-## Placing a Spot Order
-
-```csharp
-using CoinW.Net.Enums;
-
-var order = await restClient.SpotApi.Trading.PlaceOrderAsync(
-    symbol: "BTC_USDT",
-    side: OrderSide.Buy,
-    type: OrderType.Limit,
-    quantity: 0.001m,
-    price: 50000m);
-
-if (!order.Success)
-{
-    Console.WriteLine(order.Error);
-    return;
-}
-
-var orderId = order.Data.OrderId;
-```
-
-`clientOrderId` is optional. Let CoinW generate the order id unless the user explicitly needs their own correlation id.
-
-## Placing a Futures Order
-
-```csharp
-using CoinW.Net.Enums;
-
-var order = await restClient.FuturesApi.Trading.PlaceOrderAsync(
-    symbol: "ETH",
-    side: PositionSide.Long,
-    orderType: FuturesOrderType.Market,
-    quantity: 1m,
-    leverage: 5,
-    quantityUnit: QuantityUnit.Contracts,
-    marginType: MarginType.IsolatedMargin);
-
-if (!order.Success)
-{
-    Console.WriteLine(order.Error);
-    return;
-}
-```
-
-Futures order placement requires `symbol`, `PositionSide`, `FuturesOrderType`, `quantity`, and `leverage`. Use `FuturesOrderType.Plan` with `price` for limit-style planned orders.
-
-## WebSocket Subscriptions
-
-Use `CoinWSocketClient`. Store the returned `UpdateSubscription` and unsubscribe when shutting down.
-
-```csharp
-using CoinW.Net.Clients;
-
-var socketClient = new CoinWSocketClient();
-
-var sub = await socketClient.SpotApi.SubscribeToTickerUpdatesAsync(
-    "BTC_USDT",
-    update => Console.WriteLine(update.Data.LastPrice));
-
-if (!sub.Success)
-{
-    Console.WriteLine(sub.Error);
-    return;
-}
-
-await socketClient.UnsubscribeAsync(sub.Data);
-```
-
-Authenticated spot streams are on `socketClient.SpotApi.SubscribeToBalanceUpdatesAsync(...)` and `SubscribeToOrderUpdatesAsync(...)`. Authenticated futures streams are on `socketClient.FuturesApi.SubscribeToOrderUpdatesAsync(...)`, `SubscribeToPositionUpdatesAsync(...)`, `SubscribeToBalanceUpdatesAsync(...)`, and related methods.
-
-## Multi-Exchange via SharedApis
-
-```csharp
-using CoinW.Net.Clients;
-using CryptoExchange.Net.SharedApis;
-
-IGetTickerRest shared = new CoinWRestClient().SpotApi.SharedApi;
-// Use the exchange-level `ICoinWSharedApiClient` aggregate's `GetCapability(...)` or `GetCapabilities(...)` methods for runtime capability lookup; use an API surface's `.SharedApi` property when the transport and API are known.
-
-var symbol = new SharedSymbol(TradingMode.Spot, "BTC", "USDT");
-
-var ticker = await shared.GetTickerAsync(new GetTickerRequest(symbol));
-if (!ticker.Success)
-{
-    Console.WriteLine(ticker.Error);
-    return;
-}
-```
-
-Shared REST and socket interfaces make CoinW code reusable with other CryptoExchange.Net exchange libraries.
-
-Shared spot and futures symbol clients expose symbol catalogs and apply `GetSymbolsRequest` filters. Their symbol results include `DisplayName`, `BaseAssetType`, `QuoteAssetType`, and applicable asset subtypes for exchange-agnostic asset filtering. 
-
-## Dependency Injection
-
-```csharp
-using CoinW.Net;
-
-services.AddCoinW(options =>
-{
-    options.Rest.ApiCredentials = new CoinWCredentials("API_KEY", "API_SECRET");
-    options.Socket.ApiCredentials = new CoinWCredentials("API_KEY", "API_SECRET");
-});
-```
-
-Inject `ICoinWRestClient` and `ICoinWSocketClient` from `CoinW.Net.Interfaces.Clients`.
-
-## Common Pitfalls: Avoid
-
-- Do not use raw `HttpClient` for CoinW API calls.
-- Do not use a non-existent `CoinWClient`; use `CoinWRestClient` and `CoinWSocketClient`.
-- Do not use Binance symbol formatting for spot. CoinW spot uses `BTC_USDT`, not `BTCUSDT`.
-- Do not invent a USD-M / COIN-M split. CoinW exposes one `FuturesApi`.
-- Do not read `.Data` before checking `.Success`.
-- Do not block async code with `.Result` or `.Wait()`.
-- Do not create clients per request in production; reuse clients or use DI.
-- Do not forget to unsubscribe socket subscriptions.
-- Do not pass custom `clientOrderId` values unless the user needs external correlation.
-
-## Environment
-
-CoinW.Net currently provides `CoinWEnvironment.Live` and custom environment creation:
-
-```csharp
-var live = new CoinWRestClient(options => options.Environment = CoinWEnvironment.Live);
-```
-
-## Reference
-
-- Full client reference: https://cryptoexchange.jkorf.dev/CoinW.Net/
-- Source: https://github.com/JKorf/CoinW.Net
-- NuGet: https://www.nuget.org/packages/CoinW.Net
-- AI examples: `Examples/ai-friendly/`
-- API quick map: `docs/ai-api-map.md`
+- [SKILL.md](.claude/skills/coinw-net/SKILL.md) owns consumer conventions and routes to detailed skill references.
+- [API surfaces](.claude/skills/coinw-net/references/api-surfaces.md) owns endpoint routing; [usage](.claude/skills/coinw-net/references/usage.md) owns snippets.
+- Link to those files instead of repeating API guides here or in tool-specific instructions.
+- Keep skill links relative. References outside the skill are checkout-only; packaged guidance must remain usable without repository sources.
+- The project packs [.claude/skills](.claude/skills/) into `skills/` in NuGet. After changing its layout, inspect package entries and verify referenced resources are included.
