@@ -1,0 +1,18 @@
+{
+  "baseBranch": "main",
+  "sdk": "11.0.100",
+  "packages": [
+    {
+      "key": "coinw",
+      "project": "CoinW.Net/CoinW.Net.csproj",
+      "testProjects": [
+        "CoinW.Net.UnitTests/CoinW.Net.UnitTests.csproj"
+      ],
+      "packageId": "CoinW.Net",
+      "readme": "README.md",
+      "tagPrefix": "CoinW.Net.",
+      "releaseIntegrationTests": false,
+      "publishToGitHubPackages": true
+    }
+  ]
+}
